@@ -1,0 +1,9 @@
+Level Design:
+
+- Field of vision limited (fog of war) on start (think Zelda).
+
+Game Concepts:
+
+- Cohort needs to be rescued.
+- Wake up inside cell, last thing you remember was coding Project_3.
+- Your presentation is tomorrow, but you're stuck in a dungeon cell
