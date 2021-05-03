@@ -1,11 +1,13 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
+// import 'codemirror/mode/jsx/jsx.js'; - mode can be jsx or javascript
+import 'codemirror/mode/javascript/javascript.js';
 import React from 'react';
 import { useState, useEffect } from 'react';
 
 function CodeBox() {
-  const code = 'winning = Fahad + Will;';
+  const code = 'const winning = Fahad + Will;';
   const [editor, setCodeEditor] = useState();
 
   useEffect(() => {
