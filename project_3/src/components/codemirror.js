@@ -7,7 +7,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 function CodeBox() {
-  const code = 'const winning = Fahad + Will;';
+  const code = `function tigerBlood() {alert('Fahad + Will + Charlie Sheen')} tigerBlood();`;
   const [editor, setCodeEditor] = useState();
 
   useEffect(() => {
@@ -28,13 +28,17 @@ function CodeBox() {
 
   function run() {
     console.log(editor.getValue());
+    let script = document.createElement('script');
+    script.textContent = editor.getValue();
+    console.log(script);
+    document.getElementById('scripting').appendChild(script);
   }
 
   return (
     <>
       <div className='codemirror' id='codemirror'></div>
       <button onClick={run}>Run Me</button>
-      <div>Compile here</div>
+      <div id='scripting'></div>
     </>
   );
 }
