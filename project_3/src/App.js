@@ -1,19 +1,19 @@
 import './App.css';
-import CodeMirror from './pages/codemirror';
-import Map from './pages/map';
+import CodeMirror from './components/codemirror';
+import Map from './components/map';
 function App() {
   return (
     <div className='App'>
-      <container>
+      <div className='container'>
         <div className='row border border-primary'>
-          <div id='map' class='col'>
+          <div id='map' className='col'>
             <Map />
           </div>
-          <div class='col'>
+          <div className='col'>
             <CodeMirror />
           </div>
         </div>
-      </container>
+      </div>
     </div>
   );
 }
