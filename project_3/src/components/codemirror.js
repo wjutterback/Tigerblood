@@ -5,12 +5,16 @@ import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/javascript/javascript.js';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import chai from 'chai';
+import 'chai/register-expect';
+import mocha from 'mocha';
 
 function CodeBox() {
-  const code = `function tigerBlood() {alert('Fahad + Will + Charlie Sheen')} tigerBlood();`;
   const [editor, setCodeEditor] = useState();
 
   useEffect(() => {
+    const code = `function tigerBlood() {return 'Fahad + Will + Charlie Sheen'}`;
+
     const instance = CodeMirror(document.getElementById('codemirror'), {
       value: code,
       tabSize: 2,
@@ -27,11 +31,22 @@ function CodeBox() {
   }, []);
 
   function run() {
+    const expect = chai.expect;
     console.log(editor.getValue());
     let script = document.createElement('script');
     script.textContent = editor.getValue();
     console.log(script);
     document.getElementById('scripting').appendChild(script);
+    mocha.setup('bdd');
+
+    describe('tigerBlood', function () {
+      it('should return the string', function () {
+        // eslint-disable-next-line no-undef
+        let result = tigerBlood();
+        expect(result).to.eql('Fahad + Will + Charlie Sheen');
+      });
+    });
+    mocha.run();
   }
 
   return (
@@ -39,6 +54,7 @@ function CodeBox() {
       <div className='codemirror' id='codemirror'></div>
       <button onClick={run}>Run Me</button>
       <div id='scripting'></div>
+      <div id='mocha'></div>
     </>
   );
 }
