@@ -105,6 +105,7 @@ let GameWorld = {
   },
   draw: function () {
     this.map.forEach((element, x) => {
+      console.log(element);
       element.forEach((element, y) => {
         Display.draw(x, y, element, colors[element] || 'red');
       });
