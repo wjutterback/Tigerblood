@@ -19,7 +19,7 @@ let options = {
     tileMap: {
         "@": [66, 3], // Main Character - Mage
         "@": [60, 21], // Main Character - Human
-        "@": [49, 68], // Main Character - Wizard
+        "@": [49, 68], // Main Character - Robot
         "R": [1, 31], // README Stone
         "#": [7, 27], // Wall tile
         "[": [17, 8], // Shadow_west
@@ -29,7 +29,7 @@ let options = {
         "e": [17, 3], // Shadow_northeast
         "L": [1, 53], // Door Locked
         "U": [1, 51], // Door Unlocked
-        "&": [27, 31], // Keypad
+        "K": [27, 31], // Keypad
         "I": [21, 15], // Torch 1
         "i": [21, 17], // Torch 2
         "J": [0, 49], // Flame 1
