@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
+import tileArray from '../assets/array/array';
 
 function Map() {
   useEffect(() => {
@@ -20,186 +21,78 @@ function Map() {
       tileHeight: 32,
       tileSet: tileSet,
       tileMap: {
-        '+': [864, 224],
-        '@': [1696, 32],
-        '.': [1696, 256],
+        '@': [96, 2112], // Main Character - Mage
+        R: [992, 32], // README Stone
+        '#': [864, 224], // Wall tile
+        '[': [256, 544], // Shadow_west
+        ']': [1984, 512], // Shadow_east
+        '~': [32, 544], // Shadow_north
+        q: [160, 544], // Shadow_northwest
+        e: [96, 544], // Shadow_northeast
+        L: [1696, 32], // Door Locked
+        U: [1632, 32], // Door Unlocked
+        '&': [992, 864], // Keypad
+        I: [480, 672], // Torch 1
+        i: [544, 672], // Torch 2
+        J: [1568, 0], // Flame 1
+        j: [1600, 0], // Flame 2
+        O: [576, 2240], // Eye Obelisk 1 2,240
+        o: [736, 2240], // Eye Obelisk 2
+        M: [64, 32], // Golem Statue 1
+        m: [160, 32], // Golem Statue 2
+        N: [0, 192], // Lava
+        n: [0, 224], // Cooled Lava
+        T: [768, 2464], // Boss 1 Upper
+        t: [736, 2464], // Boss 1 Lower
+        Y: [640, 2432], // Boss 2 Upper
+        y: [608, 2432], // Boss 2 Lower
+        P: [384, 2432], // Boss 3 Upper
+        p: [320, 2432], // Boss 3 Lower
+        S: [2016, 832], // Boss 4 Upper
+        s: [1984, 832], // Boss 4 Lower
+        D: [1952, 832], // Boss 5 Upper
+        d: [1920, 832], // Boss 5 Lower
+        Z: [128, 864], // Boss 6 Upper
+        z: [160, 864], // Boss 6 Lower
+        X: [64, 864], // Boss 7 Upper
+        x: [96, 864], // Boss 7 Lower
+        C: [0, 864], // Boss 8 Upper
+        c: [32, 864], // Boss 8 Lower
+        F: [1888, 832], // Final Boss Upper
+        f: [1856, 832], // Final Boss Lower
+        '.': [1984, 128], // Floor (Passable) 94x63
+        K: [992, 864],
       },
-      width: 252,
-      height: 29,
+      width: 151,
+      height: 31,
     };
     let display = new ROT.Display(options);
 
+    let tileArrayPosition = 0;
+
     tileSet.onload = function () {
       let map = [];
-      for (let i = 0; i < options.width; i++) {
-        map[i] = '+';
-        // for (let j = 0; j < options.height; j++) {
-        //   map[i][j] = '+'; // create the walls around the map
-        // }
-      }
-      this.map = map;
-      this.map.forEach((tile, x) => {
-        display.draw(x, 0, tile);
-        display.draw(x, 1, tile);
-        if (x === 7 || x % 7 === 0) {
-          //last room has 2 too many doors
-          display.draw(x, 14, '@');
-        } else {
-          display.draw(x, 14, tile);
-        }
-        display.draw(x, 27, tile);
-        display.draw(x, 28, tile);
-      });
 
-      for (let i = 0; i < 29; i++) {
-        if (i === 20) {
-          display.draw(1, i, '.');
-          display.draw(14, i, '.');
-          display.draw(15, i, '.');
-          display.draw(28, i, '.');
-          display.draw(29, i, '.');
-          display.draw(42, i, '.');
-          display.draw(43, i, '.');
-          display.draw(56, i, '.');
-          display.draw(57, i, '.');
-          display.draw(70, i, '.');
-          display.draw(71, i, '.');
-          display.draw(84, i, '.');
-          display.draw(85, i, '.');
-          display.draw(98, i, '.');
-          display.draw(99, i, '.');
-          display.draw(112, i, '.');
-          display.draw(113, i, '.');
-          display.draw(126, i, '.');
-          display.draw(127, i, '.');
-          display.draw(140, i, '.');
-          display.draw(141, i, '.');
-          display.draw(154, i, '.');
-          display.draw(155, i, '.');
-          display.draw(168, i, '.');
-          display.draw(169, i, '.');
-          display.draw(182, i, '.');
-          display.draw(183, i, '.');
-          display.draw(196, i, '.');
-          display.draw(197, i, '.');
-          display.draw(210, i, '.');
-          display.draw(211, i, '.');
-          display.draw(224, i, '.');
-          display.draw(225, i, '.');
-          display.draw(250, i, '.');
-          display.draw(251, i, '.');
-        } else {
-          display.draw();
-          display.draw(0, i, '+');
-          display.draw(0, 20, '+');
-          display.draw(1, 20, '+');
-          display.draw(1, i, '+');
-          display.draw(14, i, '+');
-          display.draw(15, i, '+');
-          display.draw(28, i, '+');
-          display.draw(29, i, '+');
-          display.draw(42, i, '+');
-          display.draw(43, i, '+');
-          display.draw(56, i, '+');
-          display.draw(57, i, '+');
-          display.draw(70, i, '+');
-          display.draw(71, i, '+');
-          display.draw(84, i, '+');
-          display.draw(85, i, '+');
-          display.draw(98, i, '+');
-          display.draw(99, i, '+');
-          display.draw(112, i, '+');
-          display.draw(113, i, '+');
-          display.draw(126, i, '+');
-          display.draw(127, i, '+');
-          display.draw(140, i, '+');
-          display.draw(141, i, '+');
-          display.draw(154, i, '+');
-          display.draw(155, i, '+');
-          display.draw(168, i, '+');
-          display.draw(169, i, '+');
-          display.draw(182, i, '+');
-          display.draw(183, i, '+');
-          display.draw(196, i, '+');
-          display.draw(197, i, '+');
-          display.draw(210, i, '+');
-          display.draw(211, i, '+');
-          display.draw(224, i, '+');
-          display.draw(225, i, '+');
-          display.draw(250, i, '+');
-          display.draw(251, i, '+');
-          display.draw(250, 20, '+');
-          display.draw(251, 20, '+');
+      for (let i = 0; i < options.height; i++) {
+        map[i] = [];
+        for (let j = 0; j < options.width; j++) {
+          map[i][j] = getTileValue();
+          tileArrayPosition += 1;
         }
       }
-      //works for one room (lots of rooms, need a better loop, or some other way)
-      let room = [];
-      for (let i = 2; i < 14; i++) {
-        room[i] = [];
-        for (let j = 2; j < 14; j++) {
-          room[i][j] = '.';
-        }
+      function getTileValue() {
+        return tileArray[tileArrayPosition];
       }
-      makeRoom(room);
 
-      for (let i = 2; i < 14; i++) {
-        room[i] = [];
-        for (let j = 15; j < 27; j++) {
-          room[i][j] = '.';
-        }
-      }
-      makeRoom(room);
-    };
-
-    function makeRoom(room) {
-      return room.forEach((element, x) => {
-        console.log(element);
-        element.forEach((element, y) => {
+      map.forEach((element, y) => {
+        element.forEach((element, x) => {
           display.draw(x, y, element);
         });
       });
-    }
-    let canvas = document.getElementById('map');
-    canvas.appendChild(display.getContainer());
+      let canvas = document.getElementById('map');
+      canvas.appendChild(display.getContainer());
+    };
   }
   return <></>;
 }
 export default Map;
-
-//Work in Progress (trying to build rooms better)
-// if (
-//   x === 2 ||
-//   x === 16 ||
-//   x === 30 ||
-//   x === 44 ||
-//   x === 58 ||
-//   x === 72 ||
-//   x === 96 ||
-//   x === 110 ||
-//   x === 124 ||
-//   x === 138 ||
-//   x === 152 ||
-//   x === 166 ||
-//   x === 180 ||
-//   x === 194 ||
-//   x === 208 ||
-//   x === 222
-// ) {
-//   let room = [];
-//   console.log('making room');
-//   for (let i = x; i < x + 13; i++) {
-//     room[i] = [];
-//     for (let j = x; j < x + 13; j++) {
-//       room[i][j] = '.';
-//     }
-//   }
-//   makeRoom(room);
-
-//   // for (let i = x; i < x + 13; i++) {
-//   //   room[i] = [];
-//   //   for (let j = x + 13; j < x + 26; j++) {
-//   //     room[i][j] = '.';
-//   //   }
-//   // }
-//   // makeRoom(room);
-// }
