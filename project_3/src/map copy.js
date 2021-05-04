@@ -82,7 +82,7 @@ function Map() {
         }
         let freeCells = []; // this is where we shall store the moveable space
         // we create a cellular map using RotJS
-        let digger = new ROT.Map.Digger(
+        let digger = new ROT.Map.(
           displayOptions.width - 2,
           displayOptions.height - 2
         );
