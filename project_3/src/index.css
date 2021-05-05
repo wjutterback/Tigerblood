@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+canvas {
+	image-rendering: -webkit-optimize-contrast; /* historic fallback */
+	image-rendering: crisp-edges; /* standard property */
+}
