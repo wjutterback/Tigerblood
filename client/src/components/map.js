@@ -42,8 +42,8 @@ function Map() {
         m: [160, 32], // Golem Statue 2
         N: [0, 192], // Lava
         n: [0, 224], // Cooled Lava
-        t: [768, 2464], // Boss 1 Upper
-        T: [736, 2464], // Boss 1 Lower
+        T: [768, 2464], // Boss 1 Upper
+        t: [736, 2464], // Boss 1 Lower
         Y: [640, 2432], // Boss 2 Upper
         y: [608, 2432], // Boss 2 Lower
         P: [384, 2432], // Boss 3 Upper
@@ -52,12 +52,12 @@ function Map() {
         s: [1984, 832], // Boss 4 Lower
         D: [1952, 832], // Boss 5 Upper
         d: [1920, 832], // Boss 5 Lower
-        z: [128, 864], // Boss 6 Upper
-        Z: [160, 864], // Boss 6 Lower
+        Z: [128, 864], // Boss 6 Upper
+        z: [160, 864], // Boss 6 Lower
         X: [64, 864], // Boss 7 Upper
         x: [96, 864], // Boss 7 Lower
-        c: [0, 864], // Boss 8 Upper
-        C: [32, 864], // Boss 8 Lower
+        C: [0, 864], // Boss 8 Upper
+        c: [32, 864], // Boss 8 Lower
         F: [1888, 832], // Final Boss Upper
         f: [1856, 832], // Final Boss Lower
         '.': [1984, 128], // Floor (Passable) 94x63
