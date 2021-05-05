@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const commentsController = require("../../controllers/commentsController");
+const commentsController = require("../../controllers/commentsController.js");
 
 router.route("/")
   .get(commentsController.findAll)

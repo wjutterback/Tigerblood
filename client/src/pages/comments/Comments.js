@@ -52,8 +52,9 @@ export const Comments = () => {
           ))}
           </div>
         </div>
-        <div>
-          <h2>Comments</h2>
+        <br/>
+        <div style={{marginTop: "30px"}}>
+          <h2>Your Comments</h2>
           <CommentForm
             save={handleFormSubmit}
           />
