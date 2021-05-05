@@ -38,26 +38,27 @@ export const Comments = () => {
   return(
     <>
       <section className="container mx-auto">
-        <div>
-          <h2>{savedComments.length || "No "} Comments Found.</h2>
-          <div>
-          {savedComments.length > 0 && savedComments.map((comment)=>(
-            <SavedComments 
-              key={comment._id}
-              author={comment.author}
-              email={comment.email}
-              text={comment.text}
-              date={comment.date}
-            />
-          ))}
-          </div>
+        <div className="row mx-auto" style={{marginBottom: "20px"}}>
+          <h2 className="mx-auto">Your Comments</h2>
         </div>
-        <br/>
-        <div style={{marginTop: "30px"}}>
-          <h2>Your Comments</h2>
+        <div className="row mx-auto" style={{marginBottom: "30px"}}>
           <CommentForm
             save={handleFormSubmit}
           />
+        </div>
+        <div className="row" style={{marginBottom: "20px"}}>
+          <h2 className="mx-auto">{savedComments.length || "No "} Comments Found.</h2>
+        </div>
+        <div className="row" style={{overflowY: "auto", height: "400px"}}>
+        {savedComments.length > 0 && savedComments.map((comment)=>(
+          <SavedComments 
+            key={comment._id}
+            author={comment.author}
+            email={comment.email}
+            text={comment.text}
+            date={comment.date}
+          />
+        ))}
         </div>
       </section>
     </>

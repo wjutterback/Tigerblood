@@ -1,17 +1,17 @@
 export const SavedComments = (props) => {
   return(
-    <li>
-      <div className="card" style={{backgroundColor: "lightblue"}}>
-        <div className="card-title">
-          <p>{props.author} ({props.email}) says: </p>
+    <div className="col-sm-12">
+      <div className="card" style={{backgroundColor: "lightblue", marginBottom:"30px"}}>
+        <div className="card-header">
+          <h3>{props.author} ({props.email}) says: </h3>
         </div>
         <div className="card-body">
-          <p className="card-text">Comment: {props.text}</p>
+          <h4 className="card-text">{props.text}</h4>
         </div>
         <div className="card-footer">
-          <p>Left on: {props.date}</p>
+          <p>submitted on: {props.date}</p>
         </div>
       </div>
-    </li>
+    </div>
   )
 }
