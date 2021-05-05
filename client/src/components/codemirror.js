@@ -2,7 +2,7 @@ import CodeMirror from 'codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 // import 'codemirror/mode/jsx/jsx.js'; - mode can be jsx or javascript
-import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/javascript/javascript';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import chai from 'chai';
@@ -13,7 +13,7 @@ function CodeBox() {
   const [editor, setCodeEditor] = useState();
 
   useEffect(() => {
-    const code = `function tigerBlood() {return 'Fahad + Will + Charlie Sheen'}`;
+    const code = `function tigerBlood() {return 'Will the Conqueror + Fahad the Impressed + Charlie Sheen'}`;
 
     const instance = CodeMirror(document.getElementById('codemirror'), {
       value: code,
