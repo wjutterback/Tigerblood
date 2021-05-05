@@ -69,10 +69,11 @@ function Map() {
     let display = new ROT.Display(options);
 
     let tileArrayPosition = 0;
+    let playerPos = { x: 7, y: 3 };
 
     tileSet.onload = function () {
       let map = [];
-
+      //draw map from array
       for (let i = 0; i < options.height; i++) {
         map[i] = [];
         for (let j = 0; j < options.width; j++) {
@@ -83,12 +84,79 @@ function Map() {
       function getTileValue() {
         return tileArray[tileArrayPosition];
       }
-
       map.forEach((element, y) => {
         element.forEach((element, x) => {
           display.draw(x, y, element);
         });
       });
+
+      async function mapEngine() {
+        // this is responsible of watching the player move and updating the display accordingly.
+        while (true) {
+          await movement();
+          display.clear();
+          map.forEach((element, y) => {
+            element.forEach((element, x) => {
+              display.draw(x, y, element);
+            });
+          });
+          display.draw(playerPos.x, playerPos.y, '@');
+        }
+      }
+      mapEngine();
+
+      async function movement() {
+        let action = false;
+        while (!action) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+          let e = await new Promise((resolve) => {
+            window.addEventListener('keydown', resolve, { once: true });
+          });
+          if (
+            e.keyCode === 38 ||
+            e.keyCode === 39 ||
+            e.keyCode === 40 ||
+            e.keyCode === 37
+          ) {
+            e.preventDefault();
+          }
+          action = handleKey(e);
+        }
+      }
+
+      function passableCheck(x, y) {
+        if (map[x][y] !== '.') {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      function handleKey(e) {
+        console.log('triggered HandleKey');
+        var keyCode = [];
+        //Arrows keys
+        keyCode[38] = 0; // key-up
+        keyCode[39] = 2; // key-right
+        keyCode[40] = 4; // key-down
+        keyCode[37] = 6; // key-left
+        var code = e.keyCode;
+        if (!(code in keyCode)) {
+          return false;
+        }
+        let diff = ROT.DIRS[8][keyCode[code]];
+        if (passableCheck(playerPos.x + diff[0], playerPos.y + diff[1])) {
+          playerPos.x += diff[0];
+          playerPos.y += diff[1];
+          if (map[3][7][1] === '@') {
+            map[3][7].pop();
+          }
+          return true;
+        } else {
+          return false;
+        }
+      }
+
       let canvas = document.getElementById('map');
       canvas.appendChild(display.getContainer());
     };
