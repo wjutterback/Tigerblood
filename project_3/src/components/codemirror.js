@@ -13,7 +13,7 @@ function CodeBox() {
   const [editor, setCodeEditor] = useState();
 
   useEffect(() => {
-    const code = `function tigerBlood() {return 'Fahad + Will + Charlie Sheen'}`;
+    const code = `function tigerBlood() {return 'Will the Conqueror + Fahad the Impressed + Charlie Sheen'}`;
 
     const instance = CodeMirror(document.getElementById('codemirror'), {
       value: code,
