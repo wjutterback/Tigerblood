@@ -2,7 +2,7 @@ import CodeMirror from 'codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 // import 'codemirror/mode/jsx/jsx.js'; - mode can be jsx or javascript
-import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/javascript/javascript';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import chai from 'chai';
