@@ -4,13 +4,23 @@ import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
 import gameFuncs from '../assets/js/flavor';
+import CodeBox from './codemirror';
+import testFuncs from '../assets/js/tests';
 
 function Map() {
   const [message, setMessage] = useState('');
+  const [test, setTest] = useState(false);
+  const [door, setDoor] = useState({});
 
   useEffect(() => {
     createMap();
   }, []);
+
+  const getTestResult = (pass) => {
+    console.log(pass);
+    tileMap[door.x][door.y][1] = 'U';
+    setTest(pass);
+  };
 
   function createMap() {
     let tileSet = document.createElement('img');
@@ -77,6 +87,7 @@ function Map() {
     let deadBodyVar = 0;
     let bloodMessageVar = 0;
     let helpStone = 0;
+
     tileSet.onload = function () {
       //draw map from array
       tileMap.forEach((element, y) => {
@@ -142,6 +153,7 @@ function Map() {
             case 'L':
               value = gameFuncs.door(deadBodyVar);
               setMessage(value);
+              setDoor({ x: x, y: y });
               break;
             case 'J':
               value = gameFuncs.fire();
@@ -209,6 +221,8 @@ function Map() {
   return (
     <>
       <div style={{ fontSize: '30px' }}>{message}</div>
+      <div id='map'></div>
+      <CodeBox getTestResult={getTestResult} />
     </>
   );
 }
