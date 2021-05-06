@@ -28,29 +28,29 @@ const gameFuncs = {
     if (fireCheckCounter === 0){
       return `Despite its appearance, the fire emits no warmth.`;
     } else {
-      return `Still no warmth. At least it provides barely enought light to look around`;
-    }    
+      return `Still no warmth. At least it provides enough light to look around`;
+    }
   },
   hotLava: (hotLavaCheckCounter) => {
     if (hotLavaCheckCounter === 0){
       return `Lava?! Really?! It's not passable. Maybe it needs to be cooled down somehow...`;
     } else {
       return `Yup. Hot lava again. Time to find a way to cool it down.`;
-    }    
+    }
   },
   keypad: (keypadCheckCounter) => {
     if (keypadCheckCounter === 0){
       return `A keyboard? In a dungeon? What purpose could this serve?`;
     } else {
       return `A familiar sight. Time to get started. Now, what was that syntax again...?`;
-    }    
+    }
   },
   golem: (golemCheckCounter) => {
     if (golemCheckCounter === 0){
       return `That's one creepy statue. Its eyes seem to follow you across the room.`;
     } else {
-      return `The statue keeps getting creepier somehow. Its expressions make you very uneasy`;
-    }    
+      return `The statue keeps getting creepier somehow. Its expression makes you very uneasy`;
+    }
   },
   helpStone: (bodyCheckCounter) => {
     if (bodyCheckCounter === 0) {

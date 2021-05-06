@@ -16,10 +16,24 @@ function Map() {
     createMap();
   }, []);
 
+  let lavaCounter = 0;
+
+  function coolLava() {
+    if (lavaCounter === 1) {
+      tileMap[22][15][1] = 'n';
+      tileMap[23][15][1] = 'n';
+    }
+  }
+
   const getTestResult = (pass) => {
     console.log(pass);
-    tileMap[door.x][door.y][1] = 'U';
-    setTest(pass);
+    if (pass === true) {
+      lavaCounter++;
+      tileMap[door.x][door.y][0] = '.';
+      tileMap[door.x][door.y][1] = 'U';
+      setTest(pass);
+      coolLava();
+    }
   };
 
   function createMap() {
@@ -188,7 +202,6 @@ function Map() {
         console.log(x, y);
         console.log(tileMap[x][y].length);
         console.log(tileMap[x][y]);
-        console.log(tileMap);
         if (passable.some((tile) => tileMap[x][y].includes(tile))) {
           return true;
         } else {
