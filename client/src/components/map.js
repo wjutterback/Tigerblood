@@ -87,6 +87,10 @@ function Map() {
     let deadBodyVar = 0;
     let bloodMessageVar = 0;
     let helpStone = 0;
+    let fireVar = 0;
+    let hotLavaVar = 0;
+    let keypadVar = 0;
+    let golemVar = 0;
 
     tileSet.onload = function () {
       //draw map from array
@@ -156,7 +160,23 @@ function Map() {
               setDoor({ x: x, y: y });
               break;
             case 'J':
-              value = gameFuncs.fire();
+              value = gameFuncs.fire(fireVar);
+              fireVar++;
+              setMessage(value);
+              return false;
+            case 'N':
+              value = gameFuncs.hotLava(hotLavaVar);
+              hotLavaVar++;
+              setMessage(value);
+              return false;
+            case 'K':
+              value = gameFuncs.keypad(keypadVar);
+              keypadVar++;
+              setMessage(value);
+              return false;
+            case 'M' || 'm':
+              value = gameFuncs.golem(golemVar);
+              golemVar++;
               setMessage(value);
               return false;
             default:

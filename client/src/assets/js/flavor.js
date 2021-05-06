@@ -1,7 +1,7 @@
 const gameFuncs = {
   deadBody: (bodyCheckCounter) => {
     if (bodyCheckCounter === 0) {
-      return `You find a dessicated corpse, withered and ancient looking, sporting the finest bling you've ever seen. Despite your dire circumstances, you refuse to leave behind such beautiful craftmanship. It looks good on your finger.`;
+      return `You find a desiccated corpse, withered and ancient looking, sporting the finest bling you've ever seen. Despite your dire circumstances, you refuse to leave behind such beautiful craftmanship. It looks good on your finger.`;
     } else
       return 'What a beautiful, incredibly dead, person. Thanks for the ring!';
   },
@@ -24,8 +24,33 @@ const gameFuncs = {
       return `Your ring begins to feel warm, images swarm in your mind, converting the laws of this world into a familiar form - JAVASCRIPT!`;
     }
   },
-  fire: () => {
-    return `Despite its appearance, the fire emits no warmth.`;
+  fire: (fireCheckCounter) => {
+    if (fireCheckCounter === 0){
+      return `Despite its appearance, the fire emits no warmth.`;
+    } else {
+      return `Still no warmth. At least it provides barely enought light to look around`;
+    }    
+  },
+  hotLava: (hotLavaCheckCounter) => {
+    if (hotLavaCheckCounter === 0){
+      return `Lava?! Really?! It's not passable. Maybe it needs to be cooled down somehow...`;
+    } else {
+      return `Yup. Hot lava again. Time to find a way to cool it down.`;
+    }    
+  },
+  keypad: (keypadCheckCounter) => {
+    if (keypadCheckCounter === 0){
+      return `A keyboard? In a dungeon? What purpose could this serve?`;
+    } else {
+      return `A familiar sight. Time to get started. Now, what was that syntax again...?`;
+    }    
+  },
+  golem: (golemCheckCounter) => {
+    if (golemCheckCounter === 0){
+      return `That's one creepy statue. Its eyes seem to follow you across the room.`;
+    } else {
+      return `The statue keeps getting creepier somehow. Its expressions make you very uneasy`;
+    }    
   },
   helpStone: (bodyCheckCounter) => {
     if (bodyCheckCounter === 0) {
