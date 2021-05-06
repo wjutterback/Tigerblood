@@ -240,7 +240,7 @@ function Map() {
   }
   return (
     <>
-      <div style={{ fontSize: '30px' }}>{message}</div>
+      <div style={{ fontSize: '30px', fontFamily: 'cursive' }}>{message}</div>
       <div id='map'></div>
       <CodeBox getTestResult={getTestResult} />
     </>
