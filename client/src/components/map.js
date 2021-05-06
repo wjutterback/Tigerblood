@@ -2,9 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
-import tileArray from '../assets/array/array';
+import tileMap from '../assets/array/array';
+import gameFuncs from '../assets/js/flavor';
 
 function Map() {
+  const [message, setMessage] = useState('');
+
   useEffect(() => {
     createMap();
   }, []);
@@ -61,30 +64,22 @@ function Map() {
         F: [1888, 832], // Final Boss Upper
         f: [1856, 832], // Final Boss Lower
         '.': [1984, 128], // Floor (Passable) 94x63
-        K: [992, 864],
+        K: [992, 864], // Keyboard
+        H: [1824, 1664], // Bloody Help
+        h: [32, 992], // shackled body
       },
       width: 151,
       height: 31,
     };
     let display = new ROT.Display(options);
 
-    let tileArrayPosition = 0;
     let playerPos = { x: 7, y: 3 };
-
+    let deadBodyVar = 0;
+    let bloodMessageVar = 0;
+    let helpStone = 0;
     tileSet.onload = function () {
-      let map = [];
       //draw map from array
-      for (let i = 0; i < options.height; i++) {
-        map[i] = [];
-        for (let j = 0; j < options.width; j++) {
-          map[i][j] = getTileValue();
-          tileArrayPosition += 1;
-        }
-      }
-      function getTileValue() {
-        return tileArray[tileArrayPosition];
-      }
-      map.forEach((element, y) => {
+      tileMap.forEach((element, y) => {
         element.forEach((element, x) => {
           display.draw(x, y, element);
         });
@@ -95,7 +90,7 @@ function Map() {
         while (true) {
           await movement();
           display.clear();
-          map.forEach((element, y) => {
+          tileMap.forEach((element, y) => {
             element.forEach((element, x) => {
               display.draw(x, y, element);
             });
@@ -125,10 +120,57 @@ function Map() {
       }
 
       function passableCheck(y, x) {
-        if (map[x][y] !== '.') {
-          return false;
-        } else {
+        //events in game
+        if (Array.isArray(tileMap[x][y])) {
+          let value;
+          switch (tileMap[x][y][1]) {
+            case 'R':
+              value = gameFuncs.helpStone(deadBodyVar);
+              helpStone = 1;
+              setMessage(value);
+              return false;
+            case 'h':
+              value = gameFuncs.deadBody(deadBodyVar);
+              deadBodyVar = 1;
+              setMessage(value);
+              return false;
+            case 'H':
+              value = gameFuncs.helpMessage(bloodMessageVar);
+              bloodMessageVar++;
+              setMessage(value);
+              return false;
+            case 'L':
+              value = gameFuncs.door(deadBodyVar);
+              setMessage(value);
+              break;
+            case 'J':
+              value = gameFuncs.fire();
+              setMessage(value);
+              return false;
+            default:
+          }
+        }
+        //movement logic
+        const passable = ['.', 'n', 'U'];
+        passable.some((tile) => tileMap[x][y].includes(tile));
+        console.log(x, y);
+        console.log(tileMap[x][y].length);
+        console.log(tileMap[x][y]);
+        console.log(tileMap);
+        if (passable.some((tile) => tileMap[x][y].includes(tile))) {
           return true;
+        } else {
+          return false;
+        }
+      }
+
+      function cryptoCheck() {
+        let number = Math.floor(Math.random() * 100);
+        console.log(number);
+        if (number === 77) {
+          setMessage(
+            `You found a bitcoin! Your excitement immediately turns to rage as you imagine Tish celebrating. Did she program a positive feedback loop for finding bitcoin? You are desperate for another jolt.`
+          );
         }
       }
 
@@ -146,10 +188,13 @@ function Map() {
         }
         let diff = ROT.DIRS[8][keyCode[code]];
         if (passableCheck(playerPos.x + diff[0], playerPos.y + diff[1])) {
+          if (helpStone === 1 && deadBodyVar === 1) {
+            cryptoCheck();
+          }
           playerPos.x += diff[0];
           playerPos.y += diff[1];
-          if (map[3][7][1] === '@') {
-            map[3][7].pop();
+          if (tileMap[3][7][1] === '@') {
+            tileMap[3][7].pop();
           }
           return true;
         } else {
@@ -161,6 +206,10 @@ function Map() {
       canvas.appendChild(display.getContainer());
     };
   }
-  return <></>;
+  return (
+    <>
+      <div style={{ fontSize: '30px' }}>{message}</div>
+    </>
+  );
 }
 export default Map;

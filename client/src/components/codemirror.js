@@ -43,7 +43,9 @@ function CodeBox() {
       it('should return the string', function () {
         // eslint-disable-next-line no-undef
         let result = tigerBlood();
-        expect(result).to.eql('Fahad + Will + Charlie Sheen');
+        expect(result).to.eql(
+          'Will the Conqueror + Fahad the Impressed + Charlie Sheen'
+        );
       });
     });
     mocha.run();
