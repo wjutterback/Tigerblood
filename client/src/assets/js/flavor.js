@@ -8,10 +8,10 @@ const gameFuncs = {
   helpMessage: (messageCheckCounter) => {
     if (messageCheckCounter === 0) {
       const a = `I don't know who you are. Please believe. There is no way I can convince you that this is not one of her tricks. But I don't care.`;
-      const b = `I spent the last of my power to give you help, and my blood in the hopes you escape this place. The ring will allow you to view the elemental composition of this world, changing it to your will, but it will test the limits of your Joyous Spirit. Fizz Pop. - B.E.`;
+      const b = `I spent the last of my power to give you help, and my blood in the hopes you escape this place. The ring will allow you to view the elemental composition of this world, changing it to your will, but it will test the limits of your Joyous Spirit. Fizz Buzz. - B.E.`;
       return `${a} ${b}`;
     } else if (messageCheckCounter === 1) {
-      return `Fizz Pop? Joyous Spirit? They must have been delirious from loss of blood.`;
+      return `Fizz Buzz? Joyous Spirit? They must have been delirious from loss of blood.`;
     } else if (messageCheckCounter > 1) {
       return `Very macabre. You shove the thought of their desperation out of your mind.`;
     }
