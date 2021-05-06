@@ -124,7 +124,7 @@ function Map() {
         }
       }
 
-      function passableCheck(x, y) {
+      function passableCheck(y, x) {
         if (map[x][y] !== '.') {
           return false;
         } else {
