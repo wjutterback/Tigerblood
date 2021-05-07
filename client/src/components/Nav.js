@@ -6,7 +6,7 @@ export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return(
-    <nav className="navbar navbar-expand-lg navbar-light">
+    <nav className="navbar navbar-expand-lg navbar-light" style={{ marginBottom: "50px "}}>
     <Link className="navbar-brand" to="/">
       <h1>Project_Tigerblood</h1>
     </Link>
