@@ -5,7 +5,6 @@ import tiles from "../assets/tiles.png";
 import tileMap from "../assets/array/array";
 import gameFuncs from "../assets/js/flavor";
 import CodeBox from "./codemirror";
-import testFuncs from "../assets/js/tests";
 
 function Map() {
   const [message, setMessage] = useState("You wake up with a jolt, breathing heavily. What is this place? Why is it so dark? What's going on? Your eyes start to adjust to the dark. You look around confused, as unfamiliar shapes start to appear. You muster up the courage to start moving around. The stone up front might have some clues...");
@@ -234,7 +233,7 @@ function Map() {
         }
         let diff = ROT.DIRS[8][keyCode[code]];
         if (passableCheck(playerPos.x + diff[0], playerPos.y + diff[1])) {
-          setMessage("... time to explore ...") 
+          setMessage("... time to explore ...")
           if (helpStone === 1 && deadBodyVar === 1) {
             cryptoCheck();
           }
@@ -269,7 +268,7 @@ function Map() {
           </div>
           <div className="row" style={{height: "500px", paddingTop: "30px"}}>
             <div className="col-sm-12">
-              <CodeBox getTestResult={getTestResult} /> 
+              <CodeBox getTestResult={getTestResult} />
             </div>
           </div>
         </div>
