@@ -6,9 +6,7 @@ export const PageContainer = () => {
     <>
       <section className="container-fluid" id="pageContainer">
         <Nav />
-        <div className="container-fluid">
-          <Outlet />
-        </div>
+        <Outlet />
       </section>
     </>
   )

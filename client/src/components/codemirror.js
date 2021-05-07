@@ -54,12 +54,12 @@ function CodeBox({ getTestResult }) {
   }
 
   return (
-    <>
+    <section>
       <div className='codemirror' id='codemirror'></div>
       <button onClick={run}>Run Me</button>
       <div id='scripting'></div>
       <div style={{ visibility: 'hidden' }} id='mocha'></div>
-    </>
+    </section>
   );
 }
 export default CodeBox;
