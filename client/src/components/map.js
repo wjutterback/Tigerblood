@@ -142,6 +142,19 @@ function Map() {
         });
       }
 
+      let interval = setInterval(console.log('one'), 1000)
+
+      function animateMap() {
+        tileMap.forEach((element, y) => {
+          element.forEach((element, x) => {
+            switch(element) {
+              case "J": display.draw(x, y, "j"); console.log(element);break;
+              case "j": display.draw(x, y, "J"); console.log(element);break;
+            }
+          });
+        });
+      }
+
       function drawPlayer() {
         display.draw(playerPos.x, playerPos.y, ['.', '@']);
       }
@@ -307,7 +320,7 @@ function Map() {
         <div className='col'>
           <div
             id='map'
-            style={{ height: '1070px', width: '1060px', overflow: 'auto' }}
+            style={{ height: '1070px', width: '1060px', overflow: 'auto', backgroundColor: 'black' }}
           >
             {/* MAP goes here */}
           </div>
