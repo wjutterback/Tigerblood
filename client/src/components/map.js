@@ -12,6 +12,7 @@ function Map() {
   );
   const [test, setTest] = useState(false);
   const [door, setDoor] = useState({});
+  // const [animate, setAnimate] = useState ({});
 
   useEffect(() => {
     createMap();
@@ -36,6 +37,14 @@ function Map() {
       coolLava();
     }
   };
+
+  // useEffect(()=>{
+  //   setInterval(()=>{
+
+  //   }, 1000)
+  // },[])
+
+  const animateable = ["I", "i", "J", "j", "M", "m", "O", "o"]
 
   function createMap() {
     let tileSet = document.createElement('img');
@@ -129,6 +138,19 @@ function Map() {
         tileMap.forEach((element, y) => {
           element.forEach((element, x) => {
             display.draw(x, y, element);
+          });
+        });
+      }
+
+      let interval = setInterval(console.log('one'), 1000)
+
+      function animateMap() {
+        tileMap.forEach((element, y) => {
+          element.forEach((element, x) => {
+            switch(element) {
+              case "J": display.draw(x, y, "j"); console.log(element);break;
+              case "j": display.draw(x, y, "J"); console.log(element);break;
+            }
           });
         });
       }
@@ -298,7 +320,7 @@ function Map() {
         <div className='col'>
           <div
             id='map'
-            style={{ height: '1070px', width: '1060px', overflow: 'auto' }}
+            style={{ height: '1070px', width: '1060px', overflow: 'auto', backgroundColor: 'black' }}
           >
             {/* MAP goes here */}
           </div>
