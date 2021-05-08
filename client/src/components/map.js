@@ -12,7 +12,7 @@ function Map() {
   );
   const [test, setTest] = useState(false);
   const [door, setDoor] = useState({});
-  // const [animate, setAnimate] = useState ({});
+  const [animate, setAnimate] = useState ('');
 
   useEffect(() => {
     createMap();
@@ -38,11 +38,11 @@ function Map() {
     }
   };
 
-  // useEffect(()=>{
-  //   setInterval(()=>{
-
-  //   }, 1000)
-  // },[])
+  useEffect(()=>{
+    setInterval(()=>{
+      console.log('10 sec check')
+    }, 10000)
+  },[])
 
   const animateable = ["I", "i", "J", "j", "M", "m", "O", "o"]
 
@@ -142,9 +142,8 @@ function Map() {
         });
       }
 
-      let interval = setInterval(console.log('one'), 1000)
-
       function animateMap() {
+        setInterval(
         tileMap.forEach((element, y) => {
           element.forEach((element, x) => {
             switch(element) {
@@ -152,8 +151,10 @@ function Map() {
               case "j": display.draw(x, y, "J"); console.log(element);break;
             }
           });
-        });
+        }), 1000)
       }
+
+      animateMap();
 
       function drawPlayer() {
         display.draw(playerPos.x, playerPos.y, ['.', '@']);
@@ -320,13 +321,13 @@ function Map() {
         <div className='col'>
           <div
             id='map'
-            style={{ height: '1070px', width: '1060px', overflow: 'auto', backgroundColor: 'black' }}
+            style={{ height: '1070px', width: '1060px', overflow: 'auto', backgroundColor: 'black', border: "2px solid grey" }}
           >
             {/* MAP goes here */}
           </div>
         </div>
         <div className='col'>
-          <div className='row' style={{ height: '600px', padding: '15px' }}>
+          <div className='row' style={{ height: '600px' }}>
             <div
               className='col-sm-12'
               style={{

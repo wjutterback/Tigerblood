@@ -6,7 +6,7 @@ export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return(
-    <nav className="navbar navbar-expand-lg navbar-light" style={{ marginBottom: "50px "}}>
+    <nav className="navbar navbar-expand-lg navbar-dark" style={{ marginBottom: "50px "}}>
     <Link className="navbar-brand" to="/">
       <h1>Project_Tigerblood</h1>
     </Link>
@@ -33,7 +33,7 @@ export const Nav = () => {
       aria-controls="navToggler" 
       aria-expanded="false" 
       aria-label="Toggle navigation"
-      style={{marginLeft: "auto"}}
+      style={{marginLeft: "auto", color: "white"}}
       onClick={() => setIsOpen(!isOpen)}
     >
       <span className="navbar-toggler-icon"></span>

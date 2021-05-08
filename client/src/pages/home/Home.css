@@ -1,0 +1,107 @@
+#homeContainer {
+  padding-top: 30px;
+}
+
+#homeJumbotron {
+  background: none;
+  color: white;
+  text-align: center;
+}
+
+#homeGreeting {
+  font-family: "Finger Paint", "Roboto Mono";
+  font-size: 1.5rem;
+  padding: 40px;
+  display: inline-block;
+  animation: fadeIn linear 4s;
+  -webkit-animation: fadeIn linear 4s;
+  -moz-animation: fadeIn linear 4s;
+  -o-animation: fadeIn linear 4s;
+  -ms-animation: fadeIn linear 4s;
+}
+
+#homeLogo {
+  height: 40%;
+  width: 40%;
+  margin: 40px;
+  object-fit: cover;
+  display: inline-block;
+  animation: fadeIn linear 2s;
+  -webkit-animation: fadeIn linear 2s;
+  -moz-animation: fadeIn linear 2s;
+  -o-animation: fadeIn linear 2s;
+  -ms-animation: fadeIn linear 2s;
+}
+.start-btn {
+  font-family: "Finger Paint", "Roboto Mono";
+  text-align: center;
+  width: 150px;
+  display: inline-block;
+  margin: 5px;
+  font-weight: bold;
+  padding: 10px 0 10px 10px;
+  background-color: lightgray;
+  text-shadow: -1px -1px black, 1px 1px white;
+  color: gray;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 0.2em gray;
+  cursor: pointer;
+  animation: fadeIn linear 10s;
+  -webkit-animation: fadeIn linear 10s;
+  -moz-animation: fadeIn linear 10s;
+  -o-animation: fadeIn linear 10s;
+  -ms-animation: fadeIn linear 10s;
+}
+.start-btn:active {
+  box-shadow: none;
+  position: relative;
+  top: 0.2em;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

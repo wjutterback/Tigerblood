@@ -5,7 +5,7 @@ export const PageContainer = () => {
   return (
     <>
       <section className="container-fluid" id="pageContainer">
-        <Nav />
+        {/* <Nav /> */}
         <Outlet />
       </section>
     </>

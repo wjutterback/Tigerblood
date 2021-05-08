@@ -1,7 +1,7 @@
 export const SavedComments = (props) => {
   return(
     <div className="col-sm-12">
-      <div className="card" style={{backgroundColor: "lightblue", marginBottom:"30px"}}>
+      <div className="card" style={{backgroundColor: "grey", marginBottom:"30px"}}>
         <div className="card-header">
           <h3>{props.author} ({props.email}) says: </h3>
         </div>
