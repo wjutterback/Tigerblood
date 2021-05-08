@@ -321,13 +321,13 @@ function Map() {
         <div className='col'>
           <div
             id='map'
-            style={{ height: '1070px', width: '1060px', overflow: 'auto', backgroundColor: 'black' }}
+            style={{ height: '1070px', width: '1060px', overflow: 'auto', backgroundColor: 'black', border: "2px solid grey" }}
           >
             {/* MAP goes here */}
           </div>
         </div>
         <div className='col'>
-          <div className='row' style={{ height: '600px', padding: '15px' }}>
+          <div className='row' style={{ height: '600px' }}>
             <div
               className='col-sm-12'
               style={{
