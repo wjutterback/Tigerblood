@@ -6,11 +6,13 @@ import tileMap from "../assets/array/array";
 import gameFuncs from "../assets/js/flavor";
 import CodeBox from "./codemirror";
 import testFuncs from "../assets/js/tests";
+import { use } from "chai";
 
 function Map() {
   const [message, setMessage] = useState("You wake up with a jolt, breathing heavily. What is this place? Why is it so dark? What's going on? Your eyes start to adjust to the dark. You look around confused, as unfamiliar shapes start to appear. You muster up the courage to start moving around. The stone up front might have some clues...");
   const [test, setTest] = useState(false);
   const [door, setDoor] = useState({});
+  // const [animate, setAnimate] = useState ({});
 
   useEffect(() => {
     createMap();
@@ -35,6 +37,14 @@ function Map() {
       coolLava();
     }
   };
+
+  // useEffect(()=>{
+  //   setInterval(()=>{
+
+  //   }, 1000)
+  // },[])
+
+  const animateable = ["I", "i", "J", "j", "M", "m", "O", "o"]
 
   function createMap() {
     let tileSet = document.createElement("img");
