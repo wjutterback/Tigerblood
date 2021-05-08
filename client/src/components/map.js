@@ -118,11 +118,10 @@ function Map() {
     let golemVar = 0;
 
     tileSet.onload = function () {
-
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
+        const blockLight = ['#', 'L', '&', 'M', 'm', 'K'];
         if (Array.isArray(tileMap[x][y]) === true) {
-          const blockLight = ['#', 'L', '&', 'M', 'm', 'K'];
           if (blockLight.some((tile) => tileMap[x][y].includes(tile))) {
             return false;
           }
@@ -132,16 +131,39 @@ function Map() {
         return true;
       }
 
-      var fov = new ROT.FOV.PreciseShadowcasting(lightPasses);
+      let fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 8 });
+
+      //draw map
+      function drawMap() {
+        tileMap.forEach((element, y) => {
+          element.forEach((element, x) => {
+            display.draw(x, y, element);
+          });
+        });
+      }
+
+      function drawPlayer() {
+        display.draw(playerPos.x, playerPos.y, ['.', '@']);
+      }
 
       function drawLight() {
         fov.compute(
           playerPos.x,
           playerPos.y,
-          2,
+          1,
           function (x, y, r, visibility) {
-            let ch = r ? tileMap[y][x] : '@';
-            display.draw(x, y, ch, '#fff', '#660');
+            if (!r) {
+              if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
+                return display.draw(playerPos.x, playerPos.y, ['U', '@']);
+              } else if (
+                Array.isArray(tileMap[y][x]) &&
+                tileMap[y][x][1] === 'n'
+              ) {
+                return display.draw(playerPos.x, playerPos.y, ['n', '@']);
+              }
+              return drawPlayer();
+            }
+            display.draw(x, y, tileMap[y][x]);
           }
         );
       }
