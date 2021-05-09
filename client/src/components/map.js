@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
@@ -115,7 +116,7 @@ function Map() {
         H: [1824, 1664], // Bloody Help
         h: [32, 992], // shackled body
         W: [576, 0], // darkness
-        k: [ 640, 928], // Dog
+        k: [640, 928], // Dog
         G: [1280, 2688], // Cat 1
         g: [1344, 2688], // Cat 2
         B: [224, 0], // Closed Treasure Chest
@@ -171,7 +172,7 @@ function Map() {
         display.draw(playerPos.x, playerPos.y, ['.', '0']);
         setTimeout(()=>{
           drawPlayer();
-        }, 200)       
+        }, 300)       
       }
 
       function drawPlayer() {
@@ -261,7 +262,7 @@ function Map() {
               ringVar = 1;
               playerLevel = 2;
               levelUp();
-              return true;
+              return false;
             case 'H':
               value = gameFuncs.helpMessage(bloodMessageVar);
               bloodMessageVar++;
@@ -383,6 +384,11 @@ function Map() {
   }
   return (
     <>
+    <div className="row">
+    <Link to="/" style={{margin: "25px auto 100px auto"}}>
+    <img src="/preview/tigerbloodlogo.png" alt="logo"/>
+    </Link>
+    </div>
       <div className='row'>
         <div className='col'>
           <div
@@ -399,10 +405,10 @@ function Map() {
           </div>
         </div>
         <div className='col'>
-          <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "15px" }}>
+          <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "50px" }}>
             <h3 className="mr-auto"><b>Player Level:</b> {playerLevel}</h3>
             <h3 className="mr-auto"><b>Rooms Cleared:</b>  {roomsCleared}</h3>
-            <h3 className="mr-auto">{bitCoinsFound? <b>You Found {bitCoinsFound} BitCoin!</b> : "Nothing to see here ... yet"}</h3>
+            <h3 className="mr-auto">{bitCoinsFound? <b>You Found {bitCoinsFound} BitCoin!</b> : "No secrets here ..."}</h3>
           </div>
           <div className='row' style={{ height: '600px' }}>
             <div
@@ -411,7 +417,7 @@ function Map() {
                 fontSize: '30px',
                 fontFamily: 'cursive',
                 color: 'orange',
-                border: '2px dashed brown',
+                border: '2px dashed crimson',
                 background: 'black',
                 padding: '50px',
               }}
