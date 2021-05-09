@@ -26,6 +26,7 @@ function Map() {
   let playerLevel = 1;
   let roomsCleared = 0;
   let bitCoinsFound = 0;
+  let itemsUnlocked = []
 
   function coolLava() {
     if (lavaCounter === 1) {
@@ -260,8 +261,13 @@ function Map() {
               setVisibility('visible');
               lightRadius++;
               ringVar = 1;
+              itemsUnlocked.push({
+                name: 'Ring of Sight',
+                power: "increased field of view"
+              })
               playerLevel = 2;
               levelUp();
+              console.log(itemsUnlocked)
               return false;
             case 'H':
               value = gameFuncs.helpMessage(bloodMessageVar);
@@ -409,6 +415,14 @@ function Map() {
             <h3 className="mr-auto"><b>Player Level:</b> {playerLevel}</h3>
             <h3 className="mr-auto"><b>Rooms Cleared:</b>  {roomsCleared}</h3>
             <h3 className="mr-auto">{bitCoinsFound? <b>You Found {bitCoinsFound} BitCoin!</b> : "No secrets here ..."}</h3>
+          </div>
+          <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "50px" }}>
+            <h3 className="mr-auto"><b>Items Unlocked:</b></h3>
+            <ul>
+              {itemsUnlocked.length && itemsUnlocked.map((item)=>{
+                <li>{item.name}: {item.power}</li>
+              })}
+            </ul>
           </div>
           <div className='row' style={{ height: '600px' }}>
             <div
