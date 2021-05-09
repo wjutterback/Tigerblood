@@ -23,6 +23,7 @@ function Map() {
 
   let lavaCounter = 0;
   let playerLevel = 1;
+  let bitCoinsFound = 0;
 
   function coolLava() {
     if (lavaCounter === 1) {
@@ -116,6 +117,8 @@ function Map() {
         k: [ 640, 928], // Dog
         G: [1280, 2688], // Cat 1
         g: [1344, 2688], // Cat 2
+        'B': [224, 0], // Closed Chest
+        'b': [256, 0], // Open Chest
       },
       width: 151,
       height: 31,
@@ -131,6 +134,11 @@ function Map() {
     let keypadVar = 0;
     let golemVar = 0;
     let ringVar = 0;
+    let bossOneVar = 0;
+    let bossTwoVar = 0;
+    let bossThreeVar = 0;
+    let bossFourVar = 0;
+    let bossFinalVar = 0;
 
     tileSet.onload = function () {
       let lightRadius = 1;
@@ -157,28 +165,6 @@ function Map() {
           });
         });
       }
-
-      // function animateMap() {
-      //   setInterval(
-      //     tileMap.forEach((element, y) => {
-      //       element.forEach((element, x) => {
-      //         switch (element) {
-      //           case 'J':
-      //             display.draw(x, y, 'j');
-      //             console.log(element);
-      //             break;
-      //           case 'j':
-      //             display.draw(x, y, 'J');
-      //             console.log(element);
-      //             break;
-      //         }
-      //       });
-      //     }),
-      //     1000
-      //   );
-      // }
-
-      // animateMap();
 
       function levelUp(){
         display.draw(playerPos.x, playerPos.y, ['.', '0']);
@@ -305,9 +291,34 @@ function Map() {
               keypadVar++;
               setMessage(value);
               return false;
-            case 'M' || 'm':
+            case 'M' || 'm': 
               value = gameFuncs.golem(golemVar);
               golemVar++;
+              setMessage(value);
+              return false;
+            case 'T' || 't': // First Boss
+              value = gameFuncs.bossOne(bossOneVar);
+              bossOneVar++;
+              setMessage(value);
+              return false;
+            case 'Y' || 'y': // Second Boss
+              value = gameFuncs.bossTwo(bossTwoVar);
+              bossTwoVar++;
+              setMessage(value);
+              return false;
+            case 'P' || 'p': // Third Boss
+              value = gameFuncs.bossThree(bossThreeVar);
+              bossThreeVar++;
+              setMessage(value);
+              return false;
+            case 'S' || 's': // Fourth Boss
+              value = gameFuncs.bossFour(bossFourVar);
+              bossFourVar++;
+              setMessage(value);
+              return false;
+            case 'F' || 'f': // Final Boss
+              value = gameFuncs.bossFinal(bossFinalVar);
+              bossFinalVar++;
               setMessage(value);
               return false;
             default:
@@ -332,6 +343,7 @@ function Map() {
           setMessage(
             `You found a bitcoin! Your excitement immediately turns to rage as you imagine Tish celebrating. Did she program a positive feedback loop for finding bitcoin? You are desperate for another jolt.`
           );
+          bitCoinsFound++;
         }
       }
 
@@ -398,6 +410,10 @@ function Map() {
                 padding: '50px',
               }}
             >
+            <h3 style={{float: "right"}}>Player Level: {playerLevel}</h3>
+            <br/>
+            <h3 style={{float: "right",  marginBottom: "20px"}}>Bitcoins Found: {bitCoinsFound}</h3>
+            <br/>
               {message}
             </div>
           </div>
