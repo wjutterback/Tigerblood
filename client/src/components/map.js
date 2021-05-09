@@ -13,7 +13,9 @@ function Map() {
   );
   const [test, setTest] = useState(false);
   const [door, setDoor] = useState({});
-  const [animate, setAnimate] = useState ('');
+  const [animate, setAnimate] = useState('');
+  const [visibility, setVisibility] = useState('hidden');
+  const [code, setCode] = useState('');
 
   useEffect(() => {
     createMap();
@@ -33,9 +35,10 @@ function Map() {
     console.log(pass);
     if (pass === true) {
       lavaCounter++;
-      tileMap[door.x][door.y][0] = '.';
-      tileMap[door.x][door.y][1] = 'U';
+      tileMap[door.x][door.y] = ['.', 'U'];
+      //display.draw needed to draw the open door on pass
       setTest(pass);
+      setCode('');
       coolLava();
     }
   };
@@ -46,7 +49,7 @@ function Map() {
     }, 30000)
   },[])
 
-  const animateable = ["I", "i", "J", "j", "M", "m", "O", "o"]
+  const animateable = ['I', 'i', 'J', 'j', 'M', 'm', 'O', 'o'];
 
   function createMap() {
     let tileSet = document.createElement('img');
@@ -66,6 +69,7 @@ function Map() {
         '4': [960, 832], // Player - Level 4 (mage)
         '5': [96, 2112], // Player - Level 5 (elemental)
         '0': [320, 1088], // Level Up Animation
+        r: [128, 1376],
         R: [992, 32], // README Stone
         '#': [864, 224], // Wall tile
         '[': [256, 544], // Shadow_west
@@ -126,8 +130,10 @@ function Map() {
     let hotLavaVar = 0;
     let keypadVar = 0;
     let golemVar = 0;
+    let ringVar = 0;
 
     tileSet.onload = function () {
+      let lightRadius = 1;
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
         const blockLight = ['#', 'L', '&', 'M', 'm', 'K'];
@@ -152,19 +158,27 @@ function Map() {
         });
       }
 
-      function animateMap() {
-        setInterval(
-        tileMap.forEach((element, y) => {
-          element.forEach((element, x) => {
-            switch(element) {
-              case "J": display.draw(x, y, "j"); console.log(element);break;
-              case "j": display.draw(x, y, "J"); console.log(element);break;
-            }
-          });
-        }), 1000)
-      }
+      // function animateMap() {
+      //   setInterval(
+      //     tileMap.forEach((element, y) => {
+      //       element.forEach((element, x) => {
+      //         switch (element) {
+      //           case 'J':
+      //             display.draw(x, y, 'j');
+      //             console.log(element);
+      //             break;
+      //           case 'j':
+      //             display.draw(x, y, 'J');
+      //             console.log(element);
+      //             break;
+      //         }
+      //       });
+      //     }),
+      //     1000
+      //   );
+      // }
 
-      animateMap();
+      // animateMap();
 
       function levelUp(){
         display.draw(playerPos.x, playerPos.y, ['.', '0']);
@@ -185,25 +199,20 @@ function Map() {
       }
 
       function drawLight() {
-        fov.compute(
-          playerPos.x,
-          playerPos.y,
-          1,
-          function (x, y, r, visibility) {
-            if (!r) {
-              if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
-                return display.draw(playerPos.x, playerPos.y, ['U', '@']);
-              } else if (
-                Array.isArray(tileMap[y][x]) &&
-                tileMap[y][x][1] === 'n'
-              ) {
-                return display.draw(playerPos.x, playerPos.y, ['n', '@']);
-              }
-              return drawPlayer();
+        fov.compute(playerPos.x, playerPos.y, lightRadius, function (x, y, r) {
+          if (!r) {
+            if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
+              return display.draw(playerPos.x, playerPos.y, ['U', '@']);
+            } else if (
+              Array.isArray(tileMap[y][x]) &&
+              tileMap[y][x][1] === 'n'
+            ) {
+              return display.draw(playerPos.x, playerPos.y, ['n', '@']);
             }
-            display.draw(x, y, tileMap[y][x]);
+            return drawPlayer();
           }
-        );
+          display.draw(x, y, tileMap[y][x]);
+        });
       }
       drawLight();
 
@@ -247,22 +256,43 @@ function Map() {
               setMessage(value);
               return false;
             case 'h':
-              value = gameFuncs.deadBody(deadBodyVar);
+              value = gameFuncs.deadBody(deadBodyVar, bloodMessageVar);
               deadBodyVar = 1;
               playerLevel = 2;
               levelUp();
               // drawPlayer();
               setMessage(value);
+              if (
+                value ===
+                `The initials B.E. sound familiar, but the thought escapes you as the body discorporates into thin air - leaving behind the ring promised to you.`
+              ) {
+                deadBodyVar = 1;
+                tileMap[2][13][1] = 'r';
+                display.draw(13, 2, ['.', 'r']);
+              }
               return false;
+            case 'r':
+              value = gameFuncs.ring();
+              setMessage(value);
+              tileMap[2][13].pop();
+              setVisibility('visible');
+              lightRadius++;
+              ringVar = 1;
+              return true;
             case 'H':
               value = gameFuncs.helpMessage(bloodMessageVar);
               bloodMessageVar++;
               setMessage(value);
               return false;
             case 'L':
-              value = gameFuncs.door(deadBodyVar);
+              value = gameFuncs.door(ringVar, { x: x, y: y });
+              if (ringVar === 1) {
+                setCode(value.code);
+                setMessage(value.text);
+                setDoor({ x: x, y: y });
+                break;
+              }
               setMessage(value);
-              setDoor({ x: x, y: y });
               break;
             case 'J' || 'j':
               value = gameFuncs.fire(fireVar);
@@ -323,7 +353,7 @@ function Map() {
         }
         let diff = ROT.DIRS[8][keyCode[code]];
         if (passableCheck(playerPos.x + diff[0], playerPos.y + diff[1])) {
-          setMessage('... time to explore ...');
+          // setMessage('... time to explore ...'); this set message overwrites any message created if the checkPassable returns true (meaning you can walk/move onto tile to access image in it)
           if (helpStone === 1 && deadBodyVar === 1) {
             cryptoCheck();
           }
@@ -348,7 +378,13 @@ function Map() {
         <div className='col'>
           <div
             id='map'
-            style={{ height: '1070px', width: '1060px', overflow: 'auto', backgroundColor: 'black', border: "2px solid grey" }}
+            style={{
+              height: '1070px',
+              width: '1060px',
+              overflow: 'auto',
+              backgroundColor: 'black',
+              border: '2px solid grey',
+            }}
           >
             {/* MAP goes here */}
           </div>
@@ -370,8 +406,8 @@ function Map() {
             </div>
           </div>
           <div className='row' style={{ height: '500px', paddingTop: '30px' }}>
-            <div className='col-sm-12'>
-              <CodeBox getTestResult={getTestResult} />
+            <div className='col-sm-12' style={{ visibility: visibility }}>
+              <CodeBox code={code} getTestResult={getTestResult} />
             </div>
           </div>
         </div>
