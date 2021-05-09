@@ -2,8 +2,8 @@ const gameFuncs = {
   deadBody: (bodyCheckCounter, messageCheckCounter) => {
     if (bodyCheckCounter === 0 && messageCheckCounter === 0) {
       return `You find a desiccated corpse, withered and ancient looking, sporting the finest bling you've ever seen. You gaze longingly at such beautiful craftmanship, but you're not a thief.`;
-    } else if (bodyCheckCounter === 0 && messageCheckCounter > 0) {
-      return `The initials B.E. sound familiar, but the thought escapes you as the body discorporates into thin air - leaving behind the ring promised to you.`;
+    } else if (bodyCheckCounter > 0 && messageCheckCounter > 0) {
+      return `The initials B.E. sound familiar, but the thought escapes you as the body disincorporates into thin air - leaving behind the ring promised to you.`;
     }
   },
   helpMessage: (messageCheckCounter) => {
