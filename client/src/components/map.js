@@ -23,6 +23,7 @@ function Map() {
 
   let lavaCounter = 0;
   let playerLevel = 1;
+  let roomsCleared = 0;
   let bitCoinsFound = 0;
 
   function coolLava() {
@@ -117,8 +118,8 @@ function Map() {
         k: [ 640, 928], // Dog
         G: [1280, 2688], // Cat 1
         g: [1344, 2688], // Cat 2
-        'B': [224, 0], // Closed Chest
-        'b': [256, 0], // Open Chest
+        B: [224, 0], // Closed Treasure Chest
+        b: [256, 0], // Open Treasure Chest
       },
       width: 151,
       height: 31,
@@ -340,10 +341,10 @@ function Map() {
         let number = Math.floor(Math.random() * 100);
         console.log(number);
         if (number === 77) {
+          bitCoinsFound++;
           setMessage(
             `You found a bitcoin! Your excitement immediately turns to rage as you imagine Tish celebrating. Did she program a positive feedback loop for finding bitcoin? You are desperate for another jolt.`
-          );
-          bitCoinsFound++;
+          );         
         }
       }
 
@@ -389,7 +390,7 @@ function Map() {
             style={{
               height: '1070px',
               width: '1060px',
-              overflow: 'auto',
+              overflow: 'hidden',
               backgroundColor: 'black',
               border: '2px solid grey',
             }}
@@ -398,6 +399,11 @@ function Map() {
           </div>
         </div>
         <div className='col'>
+          <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "15px" }}>
+            <h3 className="mr-auto"><b>Player Level:</b> {playerLevel}</h3>
+            <h3 className="mr-auto"><b>Rooms Cleared:</b>  {roomsCleared}</h3>
+            <h3 className="mr-auto">{bitCoinsFound? <b>You Found {bitCoinsFound} BitCoin!</b> : "Nothing to see here ... yet"}</h3>
+          </div>
           <div className='row' style={{ height: '600px' }}>
             <div
               className='col-sm-12'
@@ -410,10 +416,6 @@ function Map() {
                 padding: '50px',
               }}
             >
-            <h3 style={{float: "right"}}>Player Level: {playerLevel}</h3>
-            <br/>
-            <h3 style={{float: "right",  marginBottom: "20px"}}>Bitcoins Found: {bitCoinsFound}</h3>
-            <br/>
               {message}
             </div>
           </div>
