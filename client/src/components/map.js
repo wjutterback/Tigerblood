@@ -69,7 +69,7 @@ function Map() {
         '4': [960, 832], // Player - Level 4 (mage)
         '5': [96, 2112], // Player - Level 5 (elemental)
         '0': [320, 1088], // Level Up Animation
-        r: [128, 1376],
+        r: [128, 1376], // Ring
         R: [992, 32], // README Stone
         '#': [864, 224], // Wall tile
         '[': [256, 544], // Shadow_west
@@ -258,14 +258,8 @@ function Map() {
             case 'h':
               value = gameFuncs.deadBody(deadBodyVar, bloodMessageVar);
               deadBodyVar = 1;
-              playerLevel = 2;
-              levelUp();
-              // drawPlayer();
               setMessage(value);
-              if (
-                value ===
-                `The initials B.E. sound familiar, but the thought escapes you as the body discorporates into thin air - leaving behind the ring promised to you.`
-              ) {
+              if (deadBodyVar > 0 && bloodMessageVar > 0) {
                 deadBodyVar = 1;
                 tileMap[2][13][1] = 'r';
                 display.draw(13, 2, ['.', 'r']);
@@ -278,6 +272,8 @@ function Map() {
               setVisibility('visible');
               lightRadius++;
               ringVar = 1;
+              playerLevel = 2;
+              levelUp();
               return true;
             case 'H':
               value = gameFuncs.helpMessage(bloodMessageVar);
