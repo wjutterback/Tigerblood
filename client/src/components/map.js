@@ -402,7 +402,7 @@ function Map() {
           <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "15px" }}>
             <h3 className="mr-auto"><b>Player Level:</b> {playerLevel}</h3>
             <h3 className="mr-auto"><b>Rooms Cleared:</b>  {roomsCleared}</h3>
-            <h3 className="mr-auto">{bitCoinsFound? <b>You Found {bitCoinsFound} BitCoin!</b> : "Nothing to see here ... yet"}</h3>
+            <h3 className="mr-auto">{bitCoinsFound? <b>You Found {bitCoinsFound} BitCoin!</b> : "No secrets here ..."}</h3>
           </div>
           <div className='row' style={{ height: '600px' }}>
             <div
