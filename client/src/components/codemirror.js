@@ -10,13 +10,13 @@ import 'chai/register-expect';
 import mocha from 'mocha';
 import testFuncs from '../assets/js/tests';
 
-function CodeBox({ getTestResult }) {
+function CodeBox({ getTestResult, code }) {
   const [editor, setCodeEditor] = useState();
-  const code = `function tigerBlood() {return 'Will the Conqueror + Fahad the Impressed + Charlie Sheen'}`;
+  const codeValue = code ? code : '';
 
   useEffect(() => {
     const instance = CodeMirror(document.getElementById('codemirror'), {
-      value: code,
+      value: codeValue,
       tabSize: 2,
       autoCloseBrackets: true,
       matchBrackets: true,
@@ -30,19 +30,45 @@ function CodeBox({ getTestResult }) {
     setCodeEditor(instance);
   }, []);
 
+  if (editor) {
+    editor.getDoc().setValue(code);
+
+    // Option 1: Read Only Lines - user can't add lines but works pretty well, line 1 is always capable of being removed
+    let readOnlyLines = [1, 2, 3, 4, 5, 6, 7, 8, 10];
+    editor.on('beforeChange', function (cm, change) {
+      if (~readOnlyLines.indexOf(change.from.line)) {
+        change.cancel();
+      }
+    });
+    //Option 2: buggy, but user has more freedom
+    // editor.markText(
+    //   { line: 1, ch: '/' },
+    //   { line: 6, ch: '{' },
+    //   { readOnly: true }
+    // );
+    // editor.markText(
+    //   { line: 8, ch: '}' },
+    //   { line: 11, ch: ')' },
+    //   {
+    //     readOnly: true,
+    //     css: 'color: #fe2',
+    //   }
+    // );
+  }
+
   function run() {
     const expect = chai.expect;
     let script = document.createElement('script');
     script.textContent = editor.getValue();
+    // script.setAttribute('type', 'module');
     document.getElementById('scripting').appendChild(script);
     mocha.setup({
       cleanReferencesAfterRun: false,
       ui: 'bdd',
     });
-    function testCheck() {
-      testFuncs.door1();
-    }
-    testCheck();
+
+    testFuncs.doorTest();
+
     mocha.run();
     let testResult = document.getElementsByClassName('passes');
     setTimeout(() => {
