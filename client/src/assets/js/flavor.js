@@ -75,5 +75,70 @@ function door1(tileMap) {
   ring: () => {
     return `The ring is warm to the touch. As you slip it onto your finger, a shock of pain sweeps through your body, your vision immediately increases the distance you can see.`;
   },
+  bossOne: (bossOneCheckCounter) => {
+    if (bossOneCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossOneCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossOneCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossOneCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossOneCheckCounter > 3){
+      return `...boss dialogue last...`;
+    }
+    },
+  bossTwo: (bossTwoCheckCounter) => {
+    if (bossTwoCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossTwoCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossTwoCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossTwoCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossTwoCheckCounter > 3){
+      return `...boss dialogue last...`;
+    }
+    },
+  bossThree: (bossThreeCheckCounter) => {
+    if (bossThreeCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossThreeCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossThreeCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossThreeCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossThreeCheckCounter > 3){
+      return `...boss dialogue last...`;
+    }
+    },
+  bossFour: (bossFourCheckCounter) => {
+    if (bossFourCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossFourCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossFourCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossFourCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossFourCheckCounter > 3){
+      return `...boss dialogue last...`;
+    }
+    },
+  bossFinal: (bossFinalCheckCounter) => {
+    if (bossFinalCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossFinalCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossFinalCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossFinalCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossFinalCheckCounter > 3){
+      return `...boss dialogue last...`;
+    }
+    },
 };
 export default gameFuncs;
