@@ -5,6 +5,7 @@ import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
 import gameFuncs from '../assets/js/flavor';
 import CodeBox from './codemirror';
+import { use } from 'chai';
 
 function Map() {
   const [message, setMessage] = useState(
@@ -19,6 +20,7 @@ function Map() {
   }, []);
 
   let lavaCounter = 0;
+  let playerLevel = 1;
 
   function coolLava() {
     if (lavaCounter === 1) {
@@ -40,8 +42,8 @@ function Map() {
 
   useEffect(()=>{
     setInterval(()=>{
-      console.log('10 sec check')
-    }, 10000)
+      console.log('30 sec check')
+    }, 30000)
   },[])
 
   const animateable = ["I", "i", "J", "j", "M", "m", "O", "o"]
@@ -58,7 +60,12 @@ function Map() {
       tileHeight: 32,
       tileSet: tileSet,
       tileMap: {
-        '@': [96, 2112], // Main Character - Mage
+        '@': [800, 1920], // Player - Level 1 (noob)
+        '2': [672, 1920], // Player - Level 2 (rookie)
+        '3': [1216, 1920], // Player - Level 3 (knight)
+        '4': [960, 832], // Player - Level 4 (mage)
+        '5': [96, 2112], // Player - Level 5 (elemental)
+        '0': [320, 1088], // Level Up Animation
         R: [992, 32], // README Stone
         '#': [864, 224], // Wall tile
         '[': [256, 544], // Shadow_west
@@ -102,6 +109,9 @@ function Map() {
         H: [1824, 1664], // Bloody Help
         h: [32, 992], // shackled body
         W: [576, 0], // darkness
+        k: [ 640, 928], // Dog
+        G: [1280, 2688], // Cat 1
+        g: [1344, 2688], // Cat 2
       },
       width: 151,
       height: 31,
@@ -156,8 +166,22 @@ function Map() {
 
       animateMap();
 
+      function levelUp(){
+        display.draw(playerPos.x, playerPos.y, ['.', '0']);
+        setTimeout(()=>{
+          drawPlayer();
+        }, 200)       
+      }
+
       function drawPlayer() {
-        display.draw(playerPos.x, playerPos.y, ['.', '@']);
+        console.log('drawPlayer called. Your playerLevel is ' + playerLevel)
+        switch(playerLevel){
+          case 1: display.draw(playerPos.x, playerPos.y, ['.', '@']); break;
+          case 2: display.draw(playerPos.x, playerPos.y, ['.', '2']); break;
+          case 3: display.draw(playerPos.x, playerPos.y, ['.', '3']); break;
+          case 4: display.draw(playerPos.x, playerPos.y, ['.', '4']); break;
+          case 5: display.draw(playerPos.x, playerPos.y, ['.', '5']); break;
+        }
       }
 
       function drawLight() {
@@ -225,6 +249,9 @@ function Map() {
             case 'h':
               value = gameFuncs.deadBody(deadBodyVar);
               deadBodyVar = 1;
+              playerLevel = 2;
+              levelUp();
+              // drawPlayer();
               setMessage(value);
               return false;
             case 'H':
@@ -237,7 +264,7 @@ function Map() {
               setMessage(value);
               setDoor({ x: x, y: y });
               break;
-            case 'J':
+            case 'J' || 'j':
               value = gameFuncs.fire(fireVar);
               fireVar++;
               setMessage(value);
