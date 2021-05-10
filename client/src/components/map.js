@@ -18,8 +18,82 @@ function Map() {
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
 
+  let tileSet = document.createElement('img');
+  tileSet.src = tiles;
+  document.body.appendChild(tileSet);
+
+  let options = {
+    layout: 'tile',
+    bg: 'transparent',
+    tileWidth: 32,
+    tileHeight: 32,
+    tileSet: tileSet,
+    tileMap: {
+      1: [800, 1920], // Player - Level 1 (noob)
+      2: [672, 1920], // Player - Level 2 (rookie)
+      3: [1216, 1920], // Player - Level 3 (knight)
+      4: [960, 832], // Player - Level 4 (mage)
+      5: [96, 2112], // Player - Level 5 (elemental)
+      0: [320, 1088], // Level Up Animation
+      r: [128, 1376], // Ring
+      R: [992, 32], // README Stone
+      '#': [864, 224], // Wall tile
+      '[': [256, 544], // Shadow_west
+      ']': [1984, 512], // Shadow_east
+      '~': [32, 544], // Shadow_north
+      q: [160, 544], // Shadow_northwest
+      e: [96, 544], // Shadow_northeast
+      L: [1696, 32], // Door Locked
+      U: [1632, 32], // Door Unlocked
+      '&': [992, 864], // Keypad
+      I: [480, 672], // Torch 1
+      i: [544, 672], // Torch 2
+      J: [1568, 0], // Flame 1
+      j: [1600, 0], // Flame 2
+      O: [512, 2272], // Eye Obelisk 1
+      o: [672, 2272], // Eye Obelisk 2
+      M: [64, 32], // Golem Statue 1
+      m: [160, 32], // Golem Statue 2
+      N: [0, 192], // Lava
+      n: [0, 224], // Cooled Lava
+      t: [768, 2464], // Boss 1 Upper
+      T: [736, 2464], // Boss 1 Lower
+      Y: [640, 2432], // Boss 2 Upper
+      y: [608, 2432], // Boss 2 Lower
+      P: [384, 2432], // Boss 3 Upper
+      p: [320, 2432], // Boss 3 Lower
+      S: [2016, 832], // Boss 4 Upper
+      s: [1984, 832], // Boss 4 Lower
+      D: [1952, 832], // Boss 5 Upper
+      d: [1920, 832], // Boss 5 Lower
+      z: [128, 864], // Boss 6 Upper
+      Z: [160, 864], // Boss 6 Lower
+      X: [64, 864], // Boss 7 Upper
+      x: [96, 864], // Boss 7 Lower
+      c: [0, 864], // Boss 8 Upper
+      C: [32, 864], // Boss 8 Lower
+      F: [1888, 832], // Final Boss Upper
+      f: [1856, 832], // Final Boss Lower
+      '.': [1984, 128], // Floor (Passable) 94x63
+      K: [992, 864], // Keyboard
+      H: [1824, 1664], // Bloody Help
+      h: [32, 992], // shackled body
+      W: [576, 0], // darkness
+      k: [640, 928], // Dog
+      G: [1280, 2688], // Cat 1
+      g: [1344, 2688], // Cat 2
+      B: [224, 0], // Closed Treasure Chest
+      b: [256, 0], // Open Treasure Chest
+    },
+    width: 151,
+    height: 31,
+  };
+  let display = new ROT.Display(options);
+
   useEffect(() => {
-    createMap();
+    createMap(display, tileSet);
+    let canvas = document.getElementById('map');
+    canvas.appendChild(display.getContainer());
   }, []);
 
   let lavaCounter = 0;
@@ -40,9 +114,11 @@ function Map() {
     if (pass === true) {
       lavaCounter++;
       tileMap[door.x][door.y] = ['.', 'U'];
-      //display.draw needed to draw the open door on pass
-      setTest(pass);
-      setCode('');
+      //display draw doesn't work in here, not quite sure why that is
+      setCode('Success!');
+      setTimeout(() => {
+        setCode('');
+      }, 2000);
       coolLava();
     }
   };
@@ -55,79 +131,7 @@ function Map() {
 
   const animateable = ['I', 'i', 'J', 'j', 'M', 'm', 'O', 'o'];
 
-  function createMap() {
-    let tileSet = document.createElement('img');
-    tileSet.src = tiles;
-    document.body.appendChild(tileSet);
-
-    let options = {
-      layout: 'tile',
-      bg: 'transparent',
-      tileWidth: 32,
-      tileHeight: 32,
-      tileSet: tileSet,
-      tileMap: {
-        1: [800, 1920], // Player - Level 1 (noob)
-        2: [672, 1920], // Player - Level 2 (rookie)
-        3: [1216, 1920], // Player - Level 3 (knight)
-        4: [960, 832], // Player - Level 4 (mage)
-        5: [96, 2112], // Player - Level 5 (elemental)
-        0: [320, 1088], // Level Up Animation
-        r: [128, 1376], // Ring
-        R: [992, 32], // README Stone
-        '#': [864, 224], // Wall tile
-        '[': [256, 544], // Shadow_west
-        ']': [1984, 512], // Shadow_east
-        '~': [32, 544], // Shadow_north
-        q: [160, 544], // Shadow_northwest
-        e: [96, 544], // Shadow_northeast
-        L: [1696, 32], // Door Locked
-        U: [1632, 32], // Door Unlocked
-        '&': [992, 864], // Keypad
-        I: [480, 672], // Torch 1
-        i: [544, 672], // Torch 2
-        J: [1568, 0], // Flame 1
-        j: [1600, 0], // Flame 2
-        O: [512, 2272], // Eye Obelisk 1
-        o: [672, 2272], // Eye Obelisk 2
-        M: [64, 32], // Golem Statue 1
-        m: [160, 32], // Golem Statue 2
-        N: [0, 192], // Lava
-        n: [0, 224], // Cooled Lava
-        t: [768, 2464], // Boss 1 Upper
-        T: [736, 2464], // Boss 1 Lower
-        Y: [640, 2432], // Boss 2 Upper
-        y: [608, 2432], // Boss 2 Lower
-        P: [384, 2432], // Boss 3 Upper
-        p: [320, 2432], // Boss 3 Lower
-        S: [2016, 832], // Boss 4 Upper
-        s: [1984, 832], // Boss 4 Lower
-        D: [1952, 832], // Boss 5 Upper
-        d: [1920, 832], // Boss 5 Lower
-        z: [128, 864], // Boss 6 Upper
-        Z: [160, 864], // Boss 6 Lower
-        X: [64, 864], // Boss 7 Upper
-        x: [96, 864], // Boss 7 Lower
-        c: [0, 864], // Boss 8 Upper
-        C: [32, 864], // Boss 8 Lower
-        F: [1888, 832], // Final Boss Upper
-        f: [1856, 832], // Final Boss Lower
-        '.': [1984, 128], // Floor (Passable) 94x63
-        K: [992, 864], // Keyboard
-        H: [1824, 1664], // Bloody Help
-        h: [32, 992], // shackled body
-        W: [576, 0], // darkness
-        k: [640, 928], // Dog
-        G: [1280, 2688], // Cat 1
-        g: [1344, 2688], // Cat 2
-        B: [224, 0], // Closed Treasure Chest
-        b: [256, 0], // Open Treasure Chest
-      },
-      width: 151,
-      height: 31,
-    };
-    let display = new ROT.Display(options);
-
+  function createMap(display, tileSet) {
     let playerPos = { x: 7, y: 4 };
     let deadBodyVar = 0;
     let bloodMessageVar = 0;
@@ -429,9 +433,6 @@ function Map() {
           return false;
         }
       }
-
-      let canvas = document.getElementById('map');
-      canvas.appendChild(display.getContainer());
     };
   }
   return (
@@ -497,9 +498,11 @@ function Map() {
             <ul>
               {itemsUnlocked.length &&
                 itemsUnlocked.map((item) => {
-                  <li>
-                    {item.name}: {item.power}
-                  </li>;
+                  return (
+                    <li>
+                      {item.name}: {item.power}
+                    </li>
+                  );
                 })}
             </ul>
           </div>
