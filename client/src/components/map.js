@@ -423,7 +423,7 @@ function Map() {
     <>
       <div className='row'>
         <Link to='/' style={{ margin: '25px auto 100px auto' }}>
-          <img src='/preview/tigerbloodlogo.png' alt='logo' />
+          <img src='/preview/tigerbloodlogo.png' alt='logo' id='logo'/>
         </Link>
       </div>
       <div className='row'>
@@ -431,7 +431,7 @@ function Map() {
             <div
               className='col-sm-12'
               style={{
-                fontSize: '2.5rem',
+                fontSize: '2rem',
                 fontFamily: 'fantasy',
                 color: 'orange',
                 border: '2px dashed crimson',
@@ -454,19 +454,19 @@ function Map() {
                 padding: '50px',
               }}
             >
-              <h1 className='mr-auto'>
+              <h2 className='mr-auto'>
                 <b>Player Level:</b> {level}
-              </h1>
-              <h1 className='mr-auto'>
+              </h2>
+              <h2 className='mr-auto'>
                 <b>Rooms Cleared:</b> {clearedRooms}
-              </h1>
-              <h1 className='mr-auto'>
+              </h2>
+              <h2 className='mr-auto'>
                 {bitcoins ? (
                   <b>You Found {bitcoins} BitCoin!</b>
                 ) : (
                   'No secrets here ...'
                 )}
-              </h1>
+              </h2>
             </div>
             <div 
               className="col"
@@ -478,12 +478,12 @@ function Map() {
                 padding: '50px',
               }}             
             >
-              <h1>
+              <h2>
                 <b>Items Unlocked: {inventory.length}</b>
-              </h1>
+              </h2>
               <ol>
                 {inventory.map((item, i) =>
-                  <li key={i} style={{fontSize: "2rem"}}><b>{item.name}</b>: {item.power}</li>
+                  <li key={i} style={{fontSize: "1.5rem"}}><b>{item.name}</b>: {item.power}</li>
                 )}
               </ol>
             </div>

@@ -1,3 +1,7 @@
+#logo {
+  height: 250px;
+}
+
 .laptop {
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
@@ -5,8 +9,8 @@
   transform: scale(1) translate(-50%); /* Can be scaled to 1.5 to make Computer screen bigger but cursor inside screen goes haywire */
   left: 50%;
   position: absolute;
-  width: 1000px;
-  height: 600px;
+  width: 800px;
+  height: 500px;
   border-radius: 10px;
   border-style: solid;
   border-color: black;
