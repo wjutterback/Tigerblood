@@ -7,6 +7,7 @@ import tileMap from '../assets/array/array';
 import gameFuncs from '../assets/js/flavor';
 import CodeBox from './codemirror';
 import { use } from 'chai';
+import "./map.css";
 
 function Map() {
   const [message, setMessage] = useState(
@@ -17,6 +18,10 @@ function Map() {
   const [animate, setAnimate] = useState('');
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
+  const [inventory, setInventory] = useState([])
+  const [level, setLevel] = useState(1);
+  const [clearedRooms, setClearedRooms] = useState(0);
+  const [bitcoins, setBitcoins] = useState(0);
 
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
@@ -100,7 +105,6 @@ function Map() {
   let playerLevel = 1;
   let roomsCleared = 0;
   let bitCoinsFound = 0;
-  let itemsUnlocked = [];
 
   function coolLava() {
     if (lavaCounter === 1) {
@@ -119,6 +123,10 @@ function Map() {
       setTimeout(() => {
         setCode('');
       }, 2000);
+      //display.draw needed to draw the open door on pass
+      setTest(pass);
+      roomsCleared = 1;
+      setClearedRooms(roomsCleared);
       coolLava();
     }
   };
@@ -181,6 +189,7 @@ function Map() {
       }
 
       function drawPlayer() {
+        console.log(playerLevel)
         console.log('drawPlayer called. Your playerLevel is ' + playerLevel);
         switch (playerLevel) {
           case 1:
@@ -188,15 +197,19 @@ function Map() {
             break;
           case 2:
             display.draw(playerPos.x, playerPos.y, ['.', '2']);
+            setLevel(playerLevel);
             break;
           case 3:
             display.draw(playerPos.x, playerPos.y, ['.', '3']);
+            setLevel(playerLevel);
             break;
           case 4:
             display.draw(playerPos.x, playerPos.y, ['.', '4']);
+            setLevel(playerLevel);
             break;
           case 5:
             display.draw(playerPos.x, playerPos.y, ['.', '5']);
+            setLevel(playerLevel);
             break;
           default:
         }
@@ -276,13 +289,13 @@ function Map() {
               setVisibility('visible');
               lightRadius++;
               ringVar = 1;
-              itemsUnlocked.push({
+              let ringItem = {
                 name: 'Ring of Sight',
-                power: 'increased field of view',
-              });
+                power: 'Increased field of view',
+              }
               playerLevel = 2;
               levelUp();
-              console.log(itemsUnlocked);
+              setInventory(inventory => [...inventory, ringItem]);
               display.draw(13, 2, '.');
               return false;
             case 'H':
@@ -301,10 +314,6 @@ function Map() {
               setMessage(value);
               break;
             case 'J':
-              value = gameFuncs.fire(fireVar);
-              fireVar++;
-              setMessage(value);
-              return false;
             case 'j':
               value = gameFuncs.fire(fireVar);
               fireVar++;
@@ -321,61 +330,37 @@ function Map() {
               setMessage(value);
               return false;
             case 'M':
-              value = gameFuncs.golem(golemVar);
-              golemVar++;
-              setMessage(value);
-              return false;
             case 'm':
               value = gameFuncs.golem(golemVar);
               golemVar++;
               setMessage(value);
               return false;
-            case 'T': // First Boss
-              value = gameFuncs.bossOne(bossOneVar);
-              bossOneVar++;
-              setMessage(value);
-              return false;
+            case 'T':
             case 't': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
               bossOneVar++;
               setMessage(value);
               return false;
+            case 'Y':
             case 'Y': // Second Boss
               value = gameFuncs.bossTwo(bossTwoVar);
               bossTwoVar++;
               setMessage(value);
               return false;
-            case 'y': // Second Boss
-              value = gameFuncs.bossTwo(bossTwoVar);
-              bossTwoVar++;
-              setMessage(value);
-              return false;
             case 'P': // Third Boss
-              value = gameFuncs.bossThree(bossThreeVar);
-              bossThreeVar++;
-              setMessage(value);
-              return false;
             case 'p': // Third Boss
               value = gameFuncs.bossThree(bossThreeVar);
               bossThreeVar++;
               setMessage(value);
               return false;
-            case 'S': // Fourth Boss
-              value = gameFuncs.bossFour(bossFourVar);
-              bossFourVar++;
-              setMessage(value);
-              return false;
+            case 'S':
             case 's': // Fourth Boss
               value = gameFuncs.bossFour(bossFourVar);
               bossFourVar++;
               setMessage(value);
               return false;
+            case 'F':
             case 'F': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar);
-              bossFinalVar++;
-              setMessage(value);
-              return false;
-            case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar);
               bossFinalVar++;
               setMessage(value);
@@ -400,6 +385,7 @@ function Map() {
         console.log(number);
         if (number === 77) {
           bitCoinsFound++;
+          setBitcoins(bitCoinsFound)
           setMessage(
             `You found a bitcoin! Your excitement immediately turns to rage as you imagine Tish celebrating. Did she program a positive feedback loop for finding bitcoin? You are desperate for another jolt.`
           );
@@ -439,79 +425,16 @@ function Map() {
     <>
       <div className='row'>
         <Link to='/' style={{ margin: '25px auto 100px auto' }}>
-          <img src='/preview/tigerbloodlogo.png' alt='logo' />
+          <img src='/preview/tigerbloodlogo.png' alt='logo' id='logo'/>
         </Link>
       </div>
       <div className='row'>
-        <div className='col'>
-          <div
-            id='map'
-            style={{
-              height: '1070px',
-              width: '1060px',
-              overflow: 'hidden',
-              backgroundColor: 'black',
-              border: '2px solid grey',
-            }}
-          >
-            {/* MAP goes here */}
-          </div>
-        </div>
-        <div className='col'>
-          <div
-            className='row'
-            style={{
-              fontFamily: 'fantasy',
-              marginBottom: '50px',
-              backgroundColor: 'Black',
-              border: '2px dashed crimson',
-              padding: '50px',
-            }}
-          >
-            <h3 className='mr-auto'>
-              <b>Player Level:</b> {playerLevel}
-            </h3>
-            <h3 className='mr-auto'>
-              <b>Rooms Cleared:</b> {roomsCleared}
-            </h3>
-            <h3 className='mr-auto'>
-              {bitCoinsFound ? (
-                <b>You Found {bitCoinsFound} BitCoin!</b>
-              ) : (
-                'No secrets here ...'
-              )}
-            </h3>
-          </div>
-          <div
-            className='row'
-            style={{
-              fontFamily: 'fantasy',
-              marginBottom: '50px',
-              backgroundColor: 'Black',
-              border: '2px dashed crimson',
-              padding: '50px',
-            }}
-          >
-            <h3 className='mr-auto'>
-              <b>Items Unlocked:</b>
-            </h3>
-            <ul>
-              {itemsUnlocked.length &&
-                itemsUnlocked.map((item) => {
-                  return (
-                    <li>
-                      {item.name}: {item.power}
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
-          <div className='row' style={{ height: '600px' }}>
+        <div className="col">
             <div
               className='col-sm-12'
               style={{
-                fontSize: '30px',
-                fontFamily: 'cursive',
+                fontSize: '2rem',
+                fontFamily: 'fantasy',
                 color: 'orange',
                 border: '2px dashed crimson',
                 background: 'black',
@@ -521,9 +444,76 @@ function Map() {
               {message}
             </div>
           </div>
-          <div className='row' style={{ height: '500px', paddingTop: '30px' }}>
-            <div className='col-sm-12' style={{ visibility: visibility }}>
+        <div className="col">
+          <div className="row">
+            <div
+              className="col"
+              style={{
+                fontFamily: 'fantasy',
+                marginBottom: '50px',
+                backgroundColor: 'Black',
+                border: '2px dashed crimson',
+                padding: '50px',
+              }}
+            >
+              <h2 className='mr-auto'>
+                <b>Player Level:</b> {level}
+              </h2>
+              <h2 className='mr-auto'>
+                <b>Rooms Cleared:</b> {clearedRooms}
+              </h2>
+              <h2 className='mr-auto'>
+                {bitcoins ? (
+                  <b>You Found {bitcoins} BitCoin!</b>
+                ) : (
+                  'No secrets here ...'
+                )}
+              </h2>
+            </div>
+            <div
+              className="col"
+              style={{
+                fontFamily: 'fantasy',
+                marginBottom: '50px',
+                backgroundColor: 'Black',
+                border: '2px dashed crimson',
+                padding: '50px',
+              }}
+            >
+              <h2>
+                <b>Items Unlocked: {inventory.length}</b>
+              </h2>
+              <ol>
+                {inventory.map((item, i) =>
+                  <li key={i} style={{fontSize: "1.5rem"}}><b>{item.name}</b>: {item.power}</li>
+                )}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className='col-md-6 col-sm-12'>
+          <div
+            id='map'
+            style={{
+              height: '1070px', // This matches container height to map height
+              textAlign: "center",
+              overflow: 'hidden',
+              backgroundColor: 'black',
+              border: '2px solid grey',
+            }}
+          >
+            {/* MAP goes here */}
+          </div>
+        </div>
+        <div className='col-md-6 col-sm-12' style={{ visibility: visibility }}>
+          <div className="laptop">
+            <div className="content">
+              <p id="webcam">o</p>
+              <p id="buttons">&#10006;</p>
               <CodeBox code={code} getTestResult={getTestResult} />
+              <p id="brand">i&#127820;</p>
             </div>
           </div>
         </div>
