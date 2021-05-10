@@ -7,6 +7,7 @@ import tileMap from '../assets/array/array';
 import gameFuncs from '../assets/js/flavor';
 import CodeBox from './codemirror';
 import { use } from 'chai';
+import "./map.css";
 
 function Map() {
   const [message, setMessage] = useState(
@@ -30,7 +31,6 @@ function Map() {
   let playerLevel = 1;
   let roomsCleared = 0;
   let bitCoinsFound = 0;
-  let itemsUnlocked = [];
 
   function coolLava() {
     if (lavaCounter === 1) {
@@ -286,14 +286,11 @@ function Map() {
               ringVar = 1;
               let ringItem = {
                 name: 'Ring of Sight',
-                power: 'increased field of view',
+                power: 'Increased field of view',
               }
-              // itemsUnlocked.push(ringItem);
               playerLevel = 2;
               levelUp();
-              // console.log(itemsUnlocked);
               setInventory(inventory => [...inventory, ringItem]);
-              console.log(inventory);
               display.draw(13, 2, '.');
               return false;
             case 'H':
@@ -430,71 +427,7 @@ function Map() {
         </Link>
       </div>
       <div className='row'>
-        <div className='col'>
-          <div
-            id='map'
-            style={{
-              height: '1070px',
-              width: '1060px',
-              overflow: 'hidden',
-              backgroundColor: 'black',
-              border: '2px solid grey',
-            }}
-          >
-            {/* MAP goes here */}
-          </div>
-        </div>
-        <div className='col'>
-          <div
-            className='row'
-            style={{
-              fontFamily: 'fantasy',
-              marginBottom: '50px',
-              backgroundColor: 'Black',
-              border: '2px dashed crimson',
-              padding: '50px',
-            }}
-          >
-            <h3 className='mr-auto'>
-              <b>Player Level:</b> {level}
-            </h3>
-            <h3 className='mr-auto'>
-              <b>Rooms Cleared:</b> {clearedRooms}
-            </h3>
-            <h3 className='mr-auto'>
-              {bitcoins ? (
-                <b>You Found {bitcoins} BitCoin!</b>
-              ) : (
-                'No secrets here ...'
-              )}
-            </h3>
-          </div>
-          <div
-            className='row'
-            style={{
-              fontFamily: 'fantasy',
-              marginBottom: '50px',
-              backgroundColor: 'Black',
-              border: '2px dashed crimson',
-              padding: '50px',
-            }}
-          >
-            <div className="col">
-              <div className="row" style={{paddingBottom: "40px"}}>
-                <h3>
-                  <b>Items Unlocked: {inventory.length}</b>
-                </h3>
-              </div>
-              <div className="row">
-                <ol>
-                  {inventory.map((item, i) =>
-                    <li key={i} style={{fontSize: "1.5rem"}}><b>{item.name}</b>: {item.power}</li>
-                  )}
-                </ol>
-              </div>  
-            </div>
-          </div>
-          <div className='row' style={{ height: '300px' }}>
+        <div className="col">
             <div
               className='col-sm-12'
               style={{
@@ -509,9 +442,77 @@ function Map() {
               {message}
             </div>
           </div>
-          <div className='row' style={{ height: '500px', paddingTop: '30px' }}>
-            <div className='col-sm-12' style={{ visibility: visibility }}>
+        <div className="col">
+          <div className="row">
+            <div
+              className="col"
+              style={{
+                fontFamily: 'fantasy',
+                marginBottom: '50px',
+                backgroundColor: 'Black',
+                border: '2px dashed crimson',
+                padding: '50px',
+              }}
+            >
+              <h3 className='mr-auto'>
+                <b>Player Level:</b> {level}
+              </h3>
+              <h3 className='mr-auto'>
+                <b>Rooms Cleared:</b> {clearedRooms}
+              </h3>
+              <h3 className='mr-auto'>
+                {bitcoins ? (
+                  <b>You Found {bitcoins} BitCoin!</b>
+                ) : (
+                  'No secrets here ...'
+                )}
+              </h3>
+            </div>
+            <div 
+              className="col"
+              style={{
+                fontFamily: 'fantasy',
+                marginBottom: '50px',
+                backgroundColor: 'Black',
+                border: '2px dashed crimson',
+                padding: '50px',
+              }}             
+            >
+              <h3>
+                <b>Items Unlocked: {inventory.length}</b>
+              </h3>
+              <ol>
+                {inventory.map((item, i) =>
+                  <li key={i} style={{fontSize: "1.5rem"}}><b>{item.name}</b>: {item.power}</li>
+                )}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className='col-md-6 col-sm-12'>
+          <div
+            id='map'
+            style={{
+              height: '1070px', // This matches container height to map height
+              // width: '50%',
+              textAlign: "center",
+              overflow: 'hidden',
+              backgroundColor: 'black',
+              border: '2px solid grey',
+            }}
+          >
+            {/* MAP goes here */}
+          </div>
+        </div>
+        <div className='col-md-6 col-sm-12' style={{ visibility: visibility }}>
+          <div className="laptop">
+            <div className="content">
+              <p id="webcam">o</p>
+              <p id="buttons">&#10006;</p>
               <CodeBox code={code} getTestResult={getTestResult} />
+              <p id="brand">i&#127820;</p>
             </div>
           </div>
         </div>
