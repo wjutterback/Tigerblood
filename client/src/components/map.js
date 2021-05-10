@@ -297,10 +297,6 @@ function Map() {
               setMessage(value);
               break;
             case 'J':
-              value = gameFuncs.fire(fireVar);
-              fireVar++;
-              setMessage(value);
-              return false;
             case 'j':
               value = gameFuncs.fire(fireVar);
               fireVar++;
@@ -317,61 +313,37 @@ function Map() {
               setMessage(value);
               return false;
             case 'M':
+            case 'm': 
               value = gameFuncs.golem(golemVar);
               golemVar++;
               setMessage(value);
               return false;
-            case 'm':
-              value = gameFuncs.golem(golemVar);
-              golemVar++;
-              setMessage(value);
-              return false;
-            case 'T': // First Boss
-              value = gameFuncs.bossOne(bossOneVar);
-              bossOneVar++;
-              setMessage(value);
-              return false;
+            case 'T':
             case 't': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
               bossOneVar++;
               setMessage(value);
               return false;
+            case 'Y':
             case 'Y': // Second Boss
               value = gameFuncs.bossTwo(bossTwoVar);
               bossTwoVar++;
               setMessage(value);
               return false;
-            case 'y': // Second Boss
-              value = gameFuncs.bossTwo(bossTwoVar);
-              bossTwoVar++;
-              setMessage(value);
-              return false;
             case 'P': // Third Boss
-              value = gameFuncs.bossThree(bossThreeVar);
-              bossThreeVar++;
-              setMessage(value);
-              return false;
             case 'p': // Third Boss
               value = gameFuncs.bossThree(bossThreeVar);
               bossThreeVar++;
               setMessage(value);
               return false;
-            case 'S': // Fourth Boss
-              value = gameFuncs.bossFour(bossFourVar);
-              bossFourVar++;
-              setMessage(value);
-              return false;
+            case 'S':
             case 's': // Fourth Boss
               value = gameFuncs.bossFour(bossFourVar);
               bossFourVar++;
               setMessage(value);
               return false;
+            case 'F':
             case 'F': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar);
-              bossFinalVar++;
-              setMessage(value);
-              return false;
-            case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar);
               bossFinalVar++;
               setMessage(value);
@@ -495,12 +467,9 @@ function Map() {
               <b>Items Unlocked:</b>
             </h3>
             <ul>
-              {itemsUnlocked.length &&
-                itemsUnlocked.map((item) => {
-                  <li>
-                    {item.name}: {item.power}
-                  </li>;
-                })}
+              {!itemsUnlocked.length? <li>No items unlocked</li> : itemsUnlocked.map((item)=>{
+                <li>{item.name}: {item.power}</li>
+              })}
             </ul>
           </div>
           <div className='row' style={{ height: '600px' }}>
