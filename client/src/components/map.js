@@ -431,8 +431,8 @@ function Map() {
             <div
               className='col-sm-12'
               style={{
-                fontSize: '30px',
-                fontFamily: 'cursive',
+                fontSize: '2.5rem',
+                fontFamily: 'fantasy',
                 color: 'orange',
                 border: '2px dashed crimson',
                 background: 'black',
@@ -454,19 +454,19 @@ function Map() {
                 padding: '50px',
               }}
             >
-              <h3 className='mr-auto'>
+              <h1 className='mr-auto'>
                 <b>Player Level:</b> {level}
-              </h3>
-              <h3 className='mr-auto'>
+              </h1>
+              <h1 className='mr-auto'>
                 <b>Rooms Cleared:</b> {clearedRooms}
-              </h3>
-              <h3 className='mr-auto'>
+              </h1>
+              <h1 className='mr-auto'>
                 {bitcoins ? (
                   <b>You Found {bitcoins} BitCoin!</b>
                 ) : (
                   'No secrets here ...'
                 )}
-              </h3>
+              </h1>
             </div>
             <div 
               className="col"
@@ -478,12 +478,12 @@ function Map() {
                 padding: '50px',
               }}             
             >
-              <h3>
+              <h1>
                 <b>Items Unlocked: {inventory.length}</b>
-              </h3>
+              </h1>
               <ol>
                 {inventory.map((item, i) =>
-                  <li key={i} style={{fontSize: "1.5rem"}}><b>{item.name}</b>: {item.power}</li>
+                  <li key={i} style={{fontSize: "2rem"}}><b>{item.name}</b>: {item.power}</li>
                 )}
               </ol>
             </div>
@@ -496,7 +496,6 @@ function Map() {
             id='map'
             style={{
               height: '1070px', // This matches container height to map height
-              // width: '50%',
               textAlign: "center",
               overflow: 'hidden',
               backgroundColor: 'black',
