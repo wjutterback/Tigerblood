@@ -1,4 +1,5 @@
 import CodeMirror from 'codemirror';
+import { Link } from "react-router-dom";
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 // import 'codemirror/mode/jsx/jsx.js'; - mode can be jsx or javascript
@@ -84,7 +85,7 @@ function CodeBox({ getTestResult, code }) {
       <div className='codemirror' id='codemirror'></div>
       <button onClick={run}>Run Me</button>
       <div id='scripting'></div>
-      <div style={{ visibility: 'hidden' }} id='mocha'></div>
+      <div style={{ visibility: 'hidden'}} id='mocha'></div>
     </section>
   );
 }
