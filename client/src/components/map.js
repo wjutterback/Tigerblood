@@ -26,7 +26,7 @@ function Map() {
   let playerLevel = 1;
   let roomsCleared = 0;
   let bitCoinsFound = 0;
-  let itemsUnlocked = []
+  let itemsUnlocked = [];
 
   function coolLava() {
     if (lavaCounter === 1) {
@@ -47,11 +47,11 @@ function Map() {
     }
   };
 
-  useEffect(()=>{
-    setInterval(()=>{
-      console.log('30 sec check')
-    }, 30000)
-  },[])
+  useEffect(() => {
+    setInterval(() => {
+      console.log('30 sec check');
+    }, 30000);
+  }, []);
 
   const animateable = ['I', 'i', 'J', 'j', 'M', 'm', 'O', 'o'];
 
@@ -68,11 +68,11 @@ function Map() {
       tileSet: tileSet,
       tileMap: {
         '@': [800, 1920], // Player - Level 1 (noob)
-        '2': [672, 1920], // Player - Level 2 (rookie)
-        '3': [1216, 1920], // Player - Level 3 (knight)
-        '4': [960, 832], // Player - Level 4 (mage)
-        '5': [96, 2112], // Player - Level 5 (elemental)
-        '0': [320, 1088], // Level Up Animation
+        2: [672, 1920], // Player - Level 2 (rookie)
+        3: [1216, 1920], // Player - Level 3 (knight)
+        4: [960, 832], // Player - Level 4 (mage)
+        5: [96, 2112], // Player - Level 5 (elemental)
+        0: [320, 1088], // Level Up Animation
         r: [128, 1376], // Ring
         R: [992, 32], // README Stone
         '#': [864, 224], // Wall tile
@@ -169,21 +169,31 @@ function Map() {
         });
       }
 
-      function levelUp(){
+      function levelUp() {
         display.draw(playerPos.x, playerPos.y, ['.', '0']);
-        setTimeout(()=>{
+        setTimeout(() => {
           drawPlayer();
-        }, 300)       
+        }, 300);
       }
 
       function drawPlayer() {
-        console.log('drawPlayer called. Your playerLevel is ' + playerLevel)
-        switch(playerLevel){
-          case 1: display.draw(playerPos.x, playerPos.y, ['.', '@']); break;
-          case 2: display.draw(playerPos.x, playerPos.y, ['.', '2']); break;
-          case 3: display.draw(playerPos.x, playerPos.y, ['.', '3']); break;
-          case 4: display.draw(playerPos.x, playerPos.y, ['.', '4']); break;
-          case 5: display.draw(playerPos.x, playerPos.y, ['.', '5']); break;
+        console.log('drawPlayer called. Your playerLevel is ' + playerLevel);
+        switch (playerLevel) {
+          case 1:
+            display.draw(playerPos.x, playerPos.y, ['.', '@']);
+            break;
+          case 2:
+            display.draw(playerPos.x, playerPos.y, ['.', '2']);
+            break;
+          case 3:
+            display.draw(playerPos.x, playerPos.y, ['.', '3']);
+            break;
+          case 4:
+            display.draw(playerPos.x, playerPos.y, ['.', '4']);
+            break;
+          case 5:
+            display.draw(playerPos.x, playerPos.y, ['.', '5']);
+            break;
         }
       }
 
@@ -263,11 +273,12 @@ function Map() {
               ringVar = 1;
               itemsUnlocked.push({
                 name: 'Ring of Sight',
-                power: "increased field of view"
-              })
+                power: 'increased field of view',
+              });
               playerLevel = 2;
               levelUp();
-              console.log(itemsUnlocked)
+              console.log(itemsUnlocked);
+              display.draw(13, 2, '.');
               return false;
             case 'H':
               value = gameFuncs.helpMessage(bloodMessageVar);
@@ -299,7 +310,7 @@ function Map() {
               keypadVar++;
               setMessage(value);
               return false;
-            case 'M' || 'm': 
+            case 'M' || 'm':
               value = gameFuncs.golem(golemVar);
               golemVar++;
               setMessage(value);
@@ -351,7 +362,7 @@ function Map() {
           bitCoinsFound++;
           setMessage(
             `You found a bitcoin! Your excitement immediately turns to rage as you imagine Tish celebrating. Did she program a positive feedback loop for finding bitcoin? You are desperate for another jolt.`
-          );         
+          );
         }
       }
 
@@ -390,11 +401,11 @@ function Map() {
   }
   return (
     <>
-    <div className="row">
-    <Link to="/" style={{margin: "25px auto 100px auto"}}>
-    <img src="/preview/tigerbloodlogo.png" alt="logo"/>
-    </Link>
-    </div>
+      <div className='row'>
+        <Link to='/' style={{ margin: '25px auto 100px auto' }}>
+          <img src='/preview/tigerbloodlogo.png' alt='logo' />
+        </Link>
+      </div>
       <div className='row'>
         <div className='col'>
           <div
@@ -411,17 +422,50 @@ function Map() {
           </div>
         </div>
         <div className='col'>
-          <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "50px" }}>
-            <h3 className="mr-auto"><b>Player Level:</b> {playerLevel}</h3>
-            <h3 className="mr-auto"><b>Rooms Cleared:</b>  {roomsCleared}</h3>
-            <h3 className="mr-auto">{bitCoinsFound? <b>You Found {bitCoinsFound} BitCoin!</b> : "No secrets here ..."}</h3>
+          <div
+            className='row'
+            style={{
+              fontFamily: 'fantasy',
+              marginBottom: '50px',
+              backgroundColor: 'Black',
+              border: '2px dashed crimson',
+              padding: '50px',
+            }}
+          >
+            <h3 className='mr-auto'>
+              <b>Player Level:</b> {playerLevel}
+            </h3>
+            <h3 className='mr-auto'>
+              <b>Rooms Cleared:</b> {roomsCleared}
+            </h3>
+            <h3 className='mr-auto'>
+              {bitCoinsFound ? (
+                <b>You Found {bitCoinsFound} BitCoin!</b>
+              ) : (
+                'No secrets here ...'
+              )}
+            </h3>
           </div>
-          <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "50px" }}>
-            <h3 className="mr-auto"><b>Items Unlocked:</b></h3>
+          <div
+            className='row'
+            style={{
+              fontFamily: 'fantasy',
+              marginBottom: '50px',
+              backgroundColor: 'Black',
+              border: '2px dashed crimson',
+              padding: '50px',
+            }}
+          >
+            <h3 className='mr-auto'>
+              <b>Items Unlocked:</b>
+            </h3>
             <ul>
-              {itemsUnlocked.length && itemsUnlocked.map((item)=>{
-                <li>{item.name}: {item.power}</li>
-              })}
+              {itemsUnlocked.length &&
+                itemsUnlocked.map((item) => {
+                  <li>
+                    {item.name}: {item.power}
+                  </li>;
+                })}
             </ul>
           </div>
           <div className='row' style={{ height: '600px' }}>
