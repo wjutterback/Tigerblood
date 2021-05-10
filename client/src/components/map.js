@@ -284,7 +284,8 @@ function Map() {
               }
               setMessage(value);
               break;
-            case 'J' || 'j':
+            case 'J':
+            case 'j':
               value = gameFuncs.fire(fireVar);
               fireVar++;
               setMessage(value);
@@ -299,32 +300,38 @@ function Map() {
               keypadVar++;
               setMessage(value);
               return false;
-            case 'M' || 'm': 
+            case 'M':
+            case 'm': 
               value = gameFuncs.golem(golemVar);
               golemVar++;
               setMessage(value);
               return false;
-            case 'T' || 't': // First Boss
+            case 'T':
+            case 't': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
               bossOneVar++;
               setMessage(value);
               return false;
-            case 'Y' || 'y': // Second Boss
+            case 'Y':
+            case 'y': // Second Boss
               value = gameFuncs.bossTwo(bossTwoVar);
               bossTwoVar++;
               setMessage(value);
               return false;
-            case 'P' || 'p': // Third Boss
+            case 'P':
+            case 'p': // Third Boss
               value = gameFuncs.bossThree(bossThreeVar);
               bossThreeVar++;
               setMessage(value);
               return false;
-            case 'S' || 's': // Fourth Boss
+            case 'S':
+            case 's': // Fourth Boss
               value = gameFuncs.bossFour(bossFourVar);
               bossFourVar++;
               setMessage(value);
               return false;
-            case 'F' || 'f': // Final Boss
+            case 'F':
+            case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar);
               bossFinalVar++;
               setMessage(value);
@@ -419,7 +426,7 @@ function Map() {
           <div className="row" style={{fontFamily: "fantasy", marginBottom: "50px", backgroundColor: "Black", border: "2px dashed crimson", padding: "50px" }}>
             <h3 className="mr-auto"><b>Items Unlocked:</b></h3>
             <ul>
-              {itemsUnlocked.length && itemsUnlocked.map((item)=>{
+              {!itemsUnlocked.length? <li>No items unlocked</li> : itemsUnlocked.map((item)=>{
                 <li>{item.name}: {item.power}</li>
               })}
             </ul>
