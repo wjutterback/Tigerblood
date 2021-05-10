@@ -17,6 +17,10 @@ function Map() {
   const [animate, setAnimate] = useState('');
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
+  const [inventory, setInventory] = useState([])
+  const [level, setLevel] = useState(1);
+  const [clearedRooms, setClearedRooms] = useState(0);
+  const [bitcoins, setBitcoins] = useState(0);
 
   useEffect(() => {
     createMap();
@@ -43,6 +47,8 @@ function Map() {
       //display.draw needed to draw the open door on pass
       setTest(pass);
       setCode('');
+      roomsCleared = 1;
+      setClearedRooms(roomsCleared);
       coolLava();
     }
   };
@@ -73,7 +79,7 @@ function Map() {
         4: [960, 832], // Player - Level 4 (mage)
         5: [96, 2112], // Player - Level 5 (elemental)
         0: [320, 1088], // Level Up Animation
-        r: [128, 1376], // Ring
+        r: [416, 1376], // Ring
         R: [992, 32], // README Stone
         '#': [864, 224], // Wall tile
         '[': [256, 544], // Shadow_west
@@ -122,6 +128,7 @@ function Map() {
         g: [1344, 2688], // Cat 2
         B: [224, 0], // Closed Treasure Chest
         b: [256, 0], // Open Treasure Chest
+        A: [96, 416], // Pentagram
       },
       width: 151,
       height: 31,
@@ -177,6 +184,7 @@ function Map() {
       }
 
       function drawPlayer() {
+        console.log(playerLevel)
         console.log('drawPlayer called. Your playerLevel is ' + playerLevel);
         switch (playerLevel) {
           case 1:
@@ -184,15 +192,19 @@ function Map() {
             break;
           case 2:
             display.draw(playerPos.x, playerPos.y, ['.', '2']);
+            setLevel(playerLevel);
             break;
           case 3:
             display.draw(playerPos.x, playerPos.y, ['.', '3']);
+            setLevel(playerLevel);
             break;
           case 4:
             display.draw(playerPos.x, playerPos.y, ['.', '4']);
+            setLevel(playerLevel);
             break;
           case 5:
             display.draw(playerPos.x, playerPos.y, ['.', '5']);
+            setLevel(playerLevel);
             break;
           default:
         }
@@ -272,13 +284,16 @@ function Map() {
               setVisibility('visible');
               lightRadius++;
               ringVar = 1;
-              itemsUnlocked.push({
+              let ringItem = {
                 name: 'Ring of Sight',
                 power: 'increased field of view',
-              });
+              }
+              // itemsUnlocked.push(ringItem);
               playerLevel = 2;
               levelUp();
-              console.log(itemsUnlocked);
+              // console.log(itemsUnlocked);
+              setInventory(inventory => [...inventory, ringItem]);
+              console.log(inventory);
               display.draw(13, 2, '.');
               return false;
             case 'H':
@@ -368,6 +383,7 @@ function Map() {
         console.log(number);
         if (number === 77) {
           bitCoinsFound++;
+          setBitcoins(bitCoinsFound)
           setMessage(
             `You found a bitcoin! Your excitement immediately turns to rage as you imagine Tish celebrating. Did she program a positive feedback loop for finding bitcoin? You are desperate for another jolt.`
           );
@@ -440,14 +456,14 @@ function Map() {
             }}
           >
             <h3 className='mr-auto'>
-              <b>Player Level:</b> {playerLevel}
+              <b>Player Level:</b> {level}
             </h3>
             <h3 className='mr-auto'>
-              <b>Rooms Cleared:</b> {roomsCleared}
+              <b>Rooms Cleared:</b> {clearedRooms}
             </h3>
             <h3 className='mr-auto'>
-              {bitCoinsFound ? (
-                <b>You Found {bitCoinsFound} BitCoin!</b>
+              {bitcoins ? (
+                <b>You Found {bitcoins} BitCoin!</b>
               ) : (
                 'No secrets here ...'
               )}
@@ -463,16 +479,22 @@ function Map() {
               padding: '50px',
             }}
           >
-            <h3 className='mr-auto'>
-              <b>Items Unlocked:</b>
-            </h3>
-            <ul>
-              {!itemsUnlocked.length? <li>No items unlocked</li> : itemsUnlocked.map((item)=>{
-                <li>{item.name}: {item.power}</li>
-              })}
-            </ul>
+            <div className="col">
+              <div className="row" style={{paddingBottom: "40px"}}>
+                <h3>
+                  <b>Items Unlocked: {inventory.length}</b>
+                </h3>
+              </div>
+              <div className="row">
+                <ol>
+                  {inventory.map((item, i) =>
+                    <li key={i} style={{fontSize: "1.5rem"}}><b>{item.name}</b>: {item.power}</li>
+                  )}
+                </ol>
+              </div>  
+            </div>
           </div>
-          <div className='row' style={{ height: '600px' }}>
+          <div className='row' style={{ height: '300px' }}>
             <div
               className='col-sm-12'
               style={{
