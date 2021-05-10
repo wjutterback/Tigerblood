@@ -67,7 +67,7 @@ function Map() {
       tileHeight: 32,
       tileSet: tileSet,
       tileMap: {
-        '@': [800, 1920], // Player - Level 1 (noob)
+        1: [800, 1920], // Player - Level 1 (noob)
         2: [672, 1920], // Player - Level 2 (rookie)
         3: [1216, 1920], // Player - Level 3 (knight)
         4: [960, 832], // Player - Level 4 (mage)
@@ -180,7 +180,7 @@ function Map() {
         console.log('drawPlayer called. Your playerLevel is ' + playerLevel);
         switch (playerLevel) {
           case 1:
-            display.draw(playerPos.x, playerPos.y, ['.', '@']);
+            display.draw(playerPos.x, playerPos.y, ['.', '1']);
             break;
           case 2:
             display.draw(playerPos.x, playerPos.y, ['.', '2']);
@@ -194,6 +194,7 @@ function Map() {
           case 5:
             display.draw(playerPos.x, playerPos.y, ['.', '5']);
             break;
+          default:
         }
       }
 
@@ -201,12 +202,12 @@ function Map() {
         fov.compute(playerPos.x, playerPos.y, lightRadius, function (x, y, r) {
           if (!r) {
             if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
-              return display.draw(playerPos.x, playerPos.y, ['U', '@']);
+              return display.draw(playerPos.x, playerPos.y, ['U', playerLevel]);
             } else if (
               Array.isArray(tileMap[y][x]) &&
               tileMap[y][x][1] === 'n'
             ) {
-              return display.draw(playerPos.x, playerPos.y, ['n', '@']);
+              return display.draw(playerPos.x, playerPos.y, ['n', playerLevel]);
             }
             return drawPlayer();
           }
@@ -295,7 +296,12 @@ function Map() {
               }
               setMessage(value);
               break;
-            case 'J' || 'j':
+            case 'J':
+              value = gameFuncs.fire(fireVar);
+              fireVar++;
+              setMessage(value);
+              return false;
+            case 'j':
               value = gameFuncs.fire(fireVar);
               fireVar++;
               setMessage(value);
@@ -310,32 +316,62 @@ function Map() {
               keypadVar++;
               setMessage(value);
               return false;
-            case 'M' || 'm':
+            case 'M':
               value = gameFuncs.golem(golemVar);
               golemVar++;
               setMessage(value);
               return false;
-            case 'T' || 't': // First Boss
+            case 'm':
+              value = gameFuncs.golem(golemVar);
+              golemVar++;
+              setMessage(value);
+              return false;
+            case 'T': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
               bossOneVar++;
               setMessage(value);
               return false;
-            case 'Y' || 'y': // Second Boss
+            case 't': // First Boss
+              value = gameFuncs.bossOne(bossOneVar);
+              bossOneVar++;
+              setMessage(value);
+              return false;
+            case 'Y': // Second Boss
               value = gameFuncs.bossTwo(bossTwoVar);
               bossTwoVar++;
               setMessage(value);
               return false;
-            case 'P' || 'p': // Third Boss
+            case 'y': // Second Boss
+              value = gameFuncs.bossTwo(bossTwoVar);
+              bossTwoVar++;
+              setMessage(value);
+              return false;
+            case 'P': // Third Boss
               value = gameFuncs.bossThree(bossThreeVar);
               bossThreeVar++;
               setMessage(value);
               return false;
-            case 'S' || 's': // Fourth Boss
+            case 'p': // Third Boss
+              value = gameFuncs.bossThree(bossThreeVar);
+              bossThreeVar++;
+              setMessage(value);
+              return false;
+            case 'S': // Fourth Boss
               value = gameFuncs.bossFour(bossFourVar);
               bossFourVar++;
               setMessage(value);
               return false;
-            case 'F' || 'f': // Final Boss
+            case 's': // Fourth Boss
+              value = gameFuncs.bossFour(bossFourVar);
+              bossFourVar++;
+              setMessage(value);
+              return false;
+            case 'F': // Final Boss
+              value = gameFuncs.bossFinal(bossFinalVar);
+              bossFinalVar++;
+              setMessage(value);
+              return false;
+            case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar);
               bossFinalVar++;
               setMessage(value);
@@ -367,7 +403,6 @@ function Map() {
       }
 
       function handleKey(e) {
-        console.log('triggered HandleKey');
         var keyCode = [];
         //Arrows keys
         keyCode[38] = 0; // key-up
@@ -386,7 +421,7 @@ function Map() {
           }
           playerPos.x += diff[0];
           playerPos.y += diff[1];
-          if (tileMap[4][7][1] === '@') {
+          if (tileMap[4][7][1] === 1) {
             tileMap[4][7].pop();
           }
           return true;
