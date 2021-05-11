@@ -134,7 +134,7 @@ function Map() {
       height: 31,
     };
     let display = new ROT.Display(options);
-
+    let halooooooooooo = 1;
     let playerPos = { x: 7, y: 4 };
     let deadBodyVar = 0;
     let bloodMessageVar = 0;
