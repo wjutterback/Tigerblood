@@ -511,7 +511,7 @@ function Map() {
               <p id="webcam">o</p>
               <p id="buttons">&#10006;</p>
               <CodeBox code={code} getTestResult={getTestResult} />
-              <p id="brand">i&#127820;</p>
+              <p id="brand">&#127820;</p>
             </div>
           </div>
         </div>

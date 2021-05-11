@@ -81,7 +81,7 @@ function CodeBox({ getTestResult, code }) {
   }
 
   return (
-    <section>
+    <section style={{ fontSize: "1rem"}}>
       <div className='codemirror' id='codemirror'></div>
       <button onClick={run}>Run Me</button>
       <div id='scripting'></div>
