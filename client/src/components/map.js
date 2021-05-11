@@ -25,11 +25,10 @@ function Map() {
 
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
-  document.body.appendChild(tileSet);
+  // document.body.appendChild(tileSet);
 
   let options = {
     layout: 'tile',
-    bg: 'transparent',
     tileWidth: 32,
     tileHeight: 32,
     tileSet: tileSet,
@@ -93,12 +92,32 @@ function Map() {
     width: 151,
     height: 33,
   };
+  let characterOptions = {
+    layout: 'tile',
+    bg: 'transparent',
+    tileWidth: 32,
+    tileHeight: 32,
+    tileSet: tileSet,
+    tileMap: {
+      1: [800, 1920], // Player - Level 1 (noob)
+      2: [672, 1920], // Player - Level 2 (rookie)
+      3: [1216, 1920], // Player - Level 3 (knight)
+      4: [960, 832], // Player - Level 4 (mage)
+      5: [96, 2112], // Player - Level 5 (elemental)
+      0: [320, 1088], // Level Up Animation
+    },
+    width: 151,
+    height: 33,
+  };
   let display = new ROT.Display(options);
+  let characterDisplay = new ROT.Display(characterOptions);
 
   useEffect(() => {
     createMap(display, tileSet);
-    let canvas = document.getElementById('map');
-    canvas.appendChild(display.getContainer());
+    let dungeon = document.getElementById('map');
+    dungeon.appendChild(display.getContainer());
+    let character = document.getElementById('character');
+    character.appendChild(characterDisplay.getContainer());
   }, []);
 
   let lavaCounter = 0;
@@ -156,6 +175,7 @@ function Map() {
     let bossFinalVar = 0;
 
     tileSet.onload = function () {
+      characterDisplay.draw(playerPos.y, playerPos.x, 5);
       let lightRadius = 1;
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
@@ -411,9 +431,6 @@ function Map() {
           }
           playerPos.x += diff[0];
           playerPos.y += diff[1];
-          if (tileMap[4][7][1] === 1) {
-            tileMap[4][7].pop();
-          }
           return true;
         } else {
           return false;
@@ -495,10 +512,22 @@ function Map() {
         </div>
       </div>
       <div className='row'>
-        <div className='col-md-6 col-sm-12'>
+        <div
+          className='col'
+          id='drawingBoard'
+          style={{
+            position: 'relative',
+            height: '544px',
+            overflow: 'hidden',
+          }}
+        >
           <div
             id='map'
             style={{
+              background: 'transparent',
+              position: 'absolute',
+              left: '0px',
+              top: '0px',
               height: '1070px', // This matches container height to map height
               textAlign: 'center',
               overflow: 'hidden',
@@ -506,17 +535,25 @@ function Map() {
               border: '2px solid grey',
             }}
           >
+            <div
+              style={{
+                background: 'transparent',
+                position: 'absolute',
+                left: '0px',
+                top: '0px',
+              }}
+              id='character'
+            ></div>
             {/* MAP goes here */}
           </div>
         </div>
-        <div className='col-md-6 col-sm-12' style={{ visibility: visibility }}>
+        <div className='col' style={{ visibility: visibility }}>
           <div className='laptop'>
             <div className='content'>
               <p id='webcam'>o</p>
               <p id='buttons'>&#10006;</p>
               <CodeBox code={code} getTestResult={getTestResult} />
-              <p id="brand">&#127820;</p>
-
+              <p id='brand'>&#127820;</p>
             </div>
           </div>
         </div>
