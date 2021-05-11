@@ -7,7 +7,7 @@ import tileMap from '../assets/array/array';
 import gameFuncs from '../assets/js/flavor';
 import CodeBox from './codemirror';
 import { use } from 'chai';
-import "./map.css";
+import './map.css';
 
 function Map() {
   const [message, setMessage] = useState(
@@ -18,7 +18,7 @@ function Map() {
   const [animate, setAnimate] = useState('');
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
-  const [inventory, setInventory] = useState([])
+  const [inventory, setInventory] = useState([]);
   const [level, setLevel] = useState(1);
   const [clearedRooms, setClearedRooms] = useState(0);
   const [bitcoins, setBitcoins] = useState(0);
@@ -91,7 +91,7 @@ function Map() {
       b: [256, 0], // Open Treasure Chest
     },
     width: 151,
-    height: 31,
+    height: 33,
   };
   let display = new ROT.Display(options);
 
@@ -189,7 +189,7 @@ function Map() {
       }
 
       function drawPlayer() {
-        console.log(playerLevel)
+        console.log(playerLevel);
         console.log('drawPlayer called. Your playerLevel is ' + playerLevel);
         switch (playerLevel) {
           case 1:
@@ -292,10 +292,10 @@ function Map() {
               let ringItem = {
                 name: 'Ring of Sight',
                 power: 'Increased field of view',
-              }
+              };
               playerLevel = 2;
               levelUp();
-              setInventory(inventory => [...inventory, ringItem]);
+              setInventory((inventory) => [...inventory, ringItem]);
               display.draw(13, 2, '.');
               return false;
             case 'H':
@@ -385,7 +385,7 @@ function Map() {
         console.log(number);
         if (number === 77) {
           bitCoinsFound++;
-          setBitcoins(bitCoinsFound)
+          setBitcoins(bitCoinsFound);
           setMessage(
             `You found a bitcoin! Your excitement immediately turns to rage as you imagine Tish celebrating. Did she program a positive feedback loop for finding bitcoin? You are desperate for another jolt.`
           );
@@ -425,29 +425,29 @@ function Map() {
     <>
       <div className='row'>
         <Link to='/' style={{ margin: '25px auto 100px auto' }}>
-          <img src='/preview/tigerbloodlogo.png' alt='logo' id='logo'/>
+          <img src='/preview/tigerbloodlogo.png' alt='logo' id='logo' />
         </Link>
       </div>
       <div className='row'>
-        <div className="col">
-            <div
-              className='col-sm-12'
-              style={{
-                fontSize: '2rem',
-                fontFamily: 'fantasy',
-                color: 'orange',
-                border: '2px dashed crimson',
-                background: 'black',
-                padding: '50px',
-              }}
-            >
-              {message}
-            </div>
+        <div className='col'>
+          <div
+            className='col-sm-12'
+            style={{
+              fontSize: '2rem',
+              fontFamily: 'fantasy',
+              color: 'orange',
+              border: '2px dashed crimson',
+              background: 'black',
+              padding: '50px',
+            }}
+          >
+            {message}
           </div>
-        <div className="col">
-          <div className="row">
+        </div>
+        <div className='col'>
+          <div className='row'>
             <div
-              className="col"
+              className='col'
               style={{
                 fontFamily: 'fantasy',
                 marginBottom: '50px',
@@ -471,7 +471,7 @@ function Map() {
               </h2>
             </div>
             <div
-              className="col"
+              className='col'
               style={{
                 fontFamily: 'fantasy',
                 marginBottom: '50px',
@@ -484,21 +484,23 @@ function Map() {
                 <b>Items Unlocked: {inventory.length}</b>
               </h2>
               <ol>
-                {inventory.map((item, i) =>
-                  <li key={i} style={{fontSize: "1.5rem"}}><b>{item.name}</b>: {item.power}</li>
-                )}
+                {inventory.map((item, i) => (
+                  <li key={i} style={{ fontSize: '1.5rem' }}>
+                    <b>{item.name}</b>: {item.power}
+                  </li>
+                ))}
               </ol>
             </div>
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className='row'>
         <div className='col-md-6 col-sm-12'>
           <div
             id='map'
             style={{
               height: '1070px', // This matches container height to map height
-              textAlign: "center",
+              textAlign: 'center',
               overflow: 'hidden',
               backgroundColor: 'black',
               border: '2px solid grey',
@@ -508,12 +510,12 @@ function Map() {
           </div>
         </div>
         <div className='col-md-6 col-sm-12' style={{ visibility: visibility }}>
-          <div className="laptop">
-            <div className="content">
-              <p id="webcam">o</p>
-              <p id="buttons">&#10006;</p>
+          <div className='laptop'>
+            <div className='content'>
+              <p id='webcam'>o</p>
+              <p id='buttons'>&#10006;</p>
               <CodeBox code={code} getTestResult={getTestResult} />
-              <p id="brand">i&#127820;</p>
+              <p id='brand'>i&#127820;</p>
             </div>
           </div>
         </div>
