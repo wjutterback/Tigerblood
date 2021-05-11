@@ -25,7 +25,7 @@ function Map() {
   const [bitcoins, setBitcoins] = useState(0);
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
-  document.body.appendChild(tileSet);
+  // document.body.appendChild(tileSet);
 
   let options = {
     layout: 'tile',
@@ -78,7 +78,9 @@ function Map() {
       C: [32, 864], // Boss 8 Lower
       F: [1888, 832], // Final Boss Upper
       f: [1856, 832], // Final Boss Lower
-      '.': [1984, 128], // Floor (Passable) 94x63
+      // '.': [1984, 128], // Floor (Passable) 94x63
+      // '.': [0, 224],
+      '.': [1856, 192],
       K: [992, 864], // Keyboard
       H: [1824, 1664], // Bloody Help
       h: [32, 992], // shackled body
@@ -204,6 +206,16 @@ function Map() {
           }
         });
       }
+
+      function revealWholeMap() {
+        tileMap.forEach((element, y) => {
+          element.forEach((element, x) => {
+            display.draw(x, y, element);
+          });
+        });
+      }
+
+
       function levelUp() {
         display.draw(playerPos.x, playerPos.y, ['.', '0']);
         setTimeout(() => {
@@ -261,7 +273,9 @@ function Map() {
         while (true) {
           await movement();
           display.clear();
+          revealWholeMap();
           drawLight();
+
         }
       }
       mapEngine();
@@ -591,7 +605,7 @@ function Map() {
               position: 'relative',
               height: '544px',
               width: '512px',
-              overflow: 'hidden',
+              overflow: 'scroll',
               border: '1px solid orange',
               // margin: 'auto',
               transform: 'scale(2) translate(25%, 25%)',
