@@ -79,7 +79,7 @@ function door1(tileMap) {
   },
   bossOne: (bossOneCheckCounter) => {
     if (bossOneCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
+      return `Who disturbs my slumber? Oh, it's another human!`;
     } else if (bossOneCheckCounter === 1) {
       return `...boss dialogue 2/4...`;
     } else if (bossOneCheckCounter === 2) {
@@ -129,6 +129,58 @@ function door1(tileMap) {
       return `...boss dialogue last...`;
     }
     },
+    bossFive: (bossFiveCheckCounter) => {
+      if (bossFiveCheckCounter === 0) {
+        return `Who disturbs my slumber? Oh, it's another human!`;
+      } else if (bossFiveCheckCounter === 1) {
+        return `...boss dialogue 2/4...`;
+      } else if (bossFiveCheckCounter === 2) {
+        return `...boss dialogue 3/4...`;
+      } else if (bossFiveCheckCounter === 3) {
+        return `...boss dialogue 4/4...`;
+      } else if (bossFiveCheckCounter > 3){
+        return `...boss dialogue last...`;
+      }
+      },
+    bossSix: (bossSixCheckCounter) => {
+      if (bossSixCheckCounter === 0) {
+        return `...boss dialogue 1/4...`;
+      } else if (bossSixCheckCounter === 1) {
+        return `...boss dialogue 2/4...`;
+      } else if (bossSixCheckCounter === 2) {
+        return `...boss dialogue 3/4...`;
+      } else if (bossSixCheckCounter === 3) {
+        return `...boss dialogue 4/4...`;
+      } else if (bossSixCheckCounter > 3){
+        return `...boss dialogue last...`;
+      }
+      },
+    bossSeven: (bossSevenCheckCounter) => {
+      if (bossSevenCheckCounter === 0) {
+        return `...boss dialogue 1/4...`;
+      } else if (bossSevenCheckCounter === 1) {
+        return `...boss dialogue 2/4...`;
+      } else if (bossSevenCheckCounter === 2) {
+        return `...boss dialogue 3/4...`;
+      } else if (bossSevenCheckCounter === 3) {
+        return `...boss dialogue 4/4...`;
+      } else if (bossSevenCheckCounter > 3){
+        return `...boss dialogue last...`;
+      }
+      },
+    bossEight: (bossEightCheckCounter) => {
+      if (bossEightCheckCounter === 0) {
+        return `...boss dialogue 1/4...`;
+      } else if (bossEightCheckCounter === 1) {
+        return `...boss dialogue 2/4...`;
+      } else if (bossEightCheckCounter === 2) {
+        return `...boss dialogue 3/4...`;
+      } else if (bossEightCheckCounter === 3) {
+        return `...boss dialogue 4/4...`;
+      } else if (bossEightCheckCounter > 3){
+        return `...boss dialogue last...`;
+      }
+      },
   bossFinal: (bossFinalCheckCounter) => {
     if (bossFinalCheckCounter === 0) {
       return `...boss dialogue 1/4...`;

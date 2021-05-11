@@ -513,11 +513,12 @@ function Map() {
       </div>
       <div className='row'>
         <div
-          className='col'
+          className=''
           id='drawingBoard'
           style={{
             position: 'relative',
             height: '544px',
+            width: '512px',
             overflow: 'hidden',
           }}
         >
@@ -530,22 +531,24 @@ function Map() {
               top: '0px',
               height: '1070px', // This matches container height to map height
               textAlign: 'center',
-              overflow: 'hidden',
+              overflow: 'auto',
               backgroundColor: 'black',
               border: '2px solid grey',
             }}
           >
-            <div
-              style={{
-                background: 'transparent',
-                position: 'absolute',
-                left: '0px',
-                top: '0px',
-              }}
-              id='character'
-            ></div>
-            {/* MAP goes here */}
           </div>
+          <div
+            style={{
+              background: 'transparent',
+              position: 'absolute',
+              left: '0px',
+              top: '0px',
+            }}
+            id='character'
+          >
+          </div>
+            {/* MAP goes here */}
+          {/* </div> */}
         </div>
         <div className='col' style={{ visibility: visibility }}>
           <div className='laptop'>
