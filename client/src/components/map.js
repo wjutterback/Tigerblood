@@ -92,32 +92,13 @@ function Map() {
     width: 151,
     height: 33,
   };
-  let characterOptions = {
-    layout: 'tile',
-    bg: 'transparent',
-    tileWidth: 32,
-    tileHeight: 32,
-    tileSet: tileSet,
-    tileMap: {
-      1: [800, 1920], // Player - Level 1 (noob)
-      2: [672, 1920], // Player - Level 2 (rookie)
-      3: [1216, 1920], // Player - Level 3 (knight)
-      4: [960, 832], // Player - Level 4 (mage)
-      5: [96, 2112], // Player - Level 5 (elemental)
-      0: [320, 1088], // Level Up Animation
-    },
-    width: 151,
-    height: 33,
-  };
+
   let display = new ROT.Display(options);
-  let characterDisplay = new ROT.Display(characterOptions);
 
   useEffect(() => {
     createMap(display, tileSet);
     let dungeon = document.getElementById('map');
     dungeon.appendChild(display.getContainer());
-    let character = document.getElementById('character');
-    character.appendChild(characterDisplay.getContainer());
   }, []);
 
   let lavaCounter = 0;
@@ -175,7 +156,6 @@ function Map() {
     let bossFinalVar = 0;
 
     tileSet.onload = function () {
-      characterDisplay.draw(playerPos.y, playerPos.x, 5);
       let lightRadius = 1;
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
@@ -192,15 +172,36 @@ function Map() {
 
       let fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 8 });
 
+      //Commented out code successfully adds background color information into tileMap through the lightingCallback, does not draw properly though
+      // function reflectivity(x, y) {
+      //   return 0.3;
+      // }
+      // var lighting = new ROT.Lighting(reflectivity, { range: 12, passes: 1 });
+      // lighting.setFOV(fov);
+      // lighting.setLight(5, 3, [240, 240, 240]);
+      // console.log(lighting);
+
+      // function lightingCallback(y, x, color) {
+      //   if (Array.isArray(tileMap[x][y][0]) === true) {
+      //     tileMap[x][y] = [[tileMap[x][y][0], [tileMap[x][y][1]], color];
+      //   }
+      //   // tileMap[x][y] = [tileMap[x][y], color];
+      //   console.log(tileMap[x][y]);
+      // }
+      // lighting.compute(lightingCallback);
+
       //draw map
       function drawMap() {
         tileMap.forEach((element, y) => {
-          element.forEach((element, x) => {
-            display.draw(x, y, element);
-          });
+          if (playerPos.y - 8 <= y && y <= playerPos.y + 8) {
+            element.forEach((element, x) => {
+              if (playerPos.x - 7 <= x && x <= playerPos.x + 8) {
+                display.draw(x, y, element);
+              }
+            });
+          }
         });
       }
-
       function levelUp() {
         display.draw(playerPos.x, playerPos.y, ['.', '0']);
         setTimeout(() => {
@@ -412,6 +413,26 @@ function Map() {
         }
       }
 
+      function transitionCheck() {
+        if (playerPos.y === 16 && playerPos.x === 7) {
+          document.getElementById('map').setAttribute('class', 'down1');
+        } else if (playerPos.y === 17 && playerPos.x === 22) {
+          document.getElementById('map').setAttribute('class', 'down2');
+        } else if (playerPos.y === 15 && playerPos.x === 7) {
+          document.getElementById('map').setAttribute('class', 'up1');
+        } else if (playerPos.y === 15 && playerPos.x === 22) {
+          document.getElementById('map').setAttribute('class', 'up2');
+        } else if (playerPos.y === 23 && playerPos.x === 15) {
+          document.getElementById('map').setAttribute('class', 'east1');
+        } else if (playerPos.y === 24 && playerPos.x === 15) {
+          document.getElementById('map').setAttribute('class', 'east1');
+        } else if (playerPos.y === 23 && playerPos.x === 14) {
+          document.getElementById('map').setAttribute('class', 'west1');
+        } else if (playerPos.y === 24 && playerPos.x === 14) {
+          document.getElementById('map').setAttribute('class', 'west1');
+        }
+      }
+
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -431,6 +452,7 @@ function Map() {
           }
           playerPos.x += diff[0];
           playerPos.y += diff[1];
+          transitionCheck();
           return true;
         } else {
           return false;
@@ -545,7 +567,7 @@ function Map() {
         </div>
       </div>
       <div className='row'>
-        <div className="col">
+        <div className='col'>
           <div
             className=''
             id='drawingBoard'
@@ -556,7 +578,7 @@ function Map() {
               overflow: 'hidden',
               border: '1px solid orange',
               // margin: 'auto',
-              transform: 'scale(2) translate(25%, 25%)'
+              transform: 'scale(2) translate(25%, 25%)',
             }}
           >
             <div
@@ -572,8 +594,7 @@ function Map() {
                 backgroundColor: 'black',
                 border: '2px solid grey',
               }}
-            >
-            </div>
+            ></div>
             <div
               style={{
                 background: 'transparent',
@@ -582,9 +603,8 @@ function Map() {
                 top: '0px',
               }}
               id='character'
-            >
-            </div>
-              {/* MAP goes here */}
+            ></div>
+            {/* MAP goes here */}
             {/* </div> */}
           </div>
         </div>

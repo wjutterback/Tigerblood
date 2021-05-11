@@ -113,7 +113,7 @@
   background-color: black;
 }
 
-/* The keyboard of the laptop */
+/* Matrix Monitor Stand */
 .laptop2:after {
   content: "";
   display: block;
@@ -126,20 +126,58 @@
   background: black;
   border-radius: 10px;
 }
+.down1 {
+  transform: translate(0%, -48%);
+}
 
-/* The top of the keyboard */
-/* .laptop2:before {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 200px;
-  height: 100px;
-  bottom: -180px;
-  left: 50%;
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%);
-  background: black;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  z-index: 1;
-} */
+.down2 {
+  transform: translate(-10%, -48%);
+}
+
+.up1 {
+  transform: translate(0%, 0%);
+}
+
+.up2 {
+  transform: translate(-10%, 0%);
+}
+
+.west1 {
+  transform: translate(0%, -48%);
+}
+
+.east1 {
+  transform: translate(-10%, -48%);
+}
+
+.east2 {
+  transform: translate(-20%, -48%);
+}
+
+.east3 {
+  transform: translate(-30%, -48%);
+}
+
+.east4 {
+  transform: translate(-40%, -48%);
+}
+
+.east5 {
+  transform: translate(-50%, -48%);
+}
+
+.east6 {
+  transform: translate(-60%, -48%);
+}
+
+.east7 {
+  transform: translate(-70%, -48%);
+}
+
+.east8 {
+  transform: translate(-80%, -48%);
+}
+
+.east9 {
+  transform: translate(-90%, -48%);
+}
