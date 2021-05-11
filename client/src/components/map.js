@@ -460,8 +460,9 @@ function Map() {
       }
     };
   }
+
+  // This section makes the Matrix Letters fall. Inspired and modified from https://codepen.io/yaclive/pen/EayLYO
   window.onload = function(){
-    let matrixCanvasContainer = document.getElementById("matrixCanvasContainer");
     let matrixCanvas = document.getElementById("matrixCanvas"), // this needs to be a comma and not a semicolon in order for 'ctx' to work
     ctx = matrixCanvas.getContext('2d');
 
@@ -471,16 +472,15 @@ function Map() {
         columns = matrixCanvas.width / fontSize;
 
     let drops = [];
-    for (var i = 0; i < columns; i++) {
+    for (let i = 0; i < columns; i++) {
       drops[i] = 1;
     }
 
-    // Setting up the draw function
     function drawMatrix() {
       ctx.fillStyle = 'rgba(0, 0, 0, .1)';
       ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-      for (var i = 0; i < drops.length; i++) {
-        var text = letters[Math.floor(Math.random() * letters.length)];
+      for (let i = 0; i < drops.length; i++) {
+        let text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillStyle = '#0f0';
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         drops[i]++;
@@ -490,9 +490,9 @@ function Map() {
       }
     }
 
-    // Loop the animation
     setInterval(drawMatrix, 50);
   }
+  // End of Matrix Letters code
   return (
     <>
       <div className='row'>
@@ -605,7 +605,6 @@ function Map() {
               id='character'
             ></div>
             {/* MAP goes here */}
-            {/* </div> */}
           </div>
         </div>
         <div className='col' style={{ visibility: visibility }}>
@@ -617,10 +616,10 @@ function Map() {
               Terminal Available!
             </button>
           </div>
-          <div class="modal fade" id="screenModal" tabindex="-1" role="dialog" aria-labelledby="screenModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
+          <div className="modal fade" id="screenModal" tabindex="-1" role="dialog" aria-labelledby="screenModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-body">
                   <div className='laptop'>
                     <div className='content'>
                       <p id='webcam'>o</p>
@@ -630,8 +629,8 @@ function Map() {
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>

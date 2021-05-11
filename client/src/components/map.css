@@ -97,6 +97,7 @@
   margin: auto;
 }
 
+/* Matrix Monitor */
 .laptop2 {
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
@@ -126,6 +127,7 @@
   background: black;
   border-radius: 10px;
 }
+
 .down1 {
   transform: translate(0%, -48%);
 }
