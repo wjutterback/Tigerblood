@@ -1,7 +1,8 @@
 import CodeMirror from 'codemirror';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
+import 'codemirror/addon/display/autorefresh';
 // import 'codemirror/mode/jsx/jsx.js'; - mode can be jsx or javascript
 import 'codemirror/mode/javascript/javascript';
 import React from 'react';
@@ -27,6 +28,7 @@ function CodeBox({ getTestResult, code }) {
       mode: 'javascript',
       keyMap: 'sublime',
       theme: 'monokai',
+      autoRefresh: true,
     });
     setCodeEditor(instance);
   }, []);
@@ -81,11 +83,11 @@ function CodeBox({ getTestResult, code }) {
   }
 
   return (
-    <section style={{ fontSize: "1rem"}}>
+    <section style={{ fontSize: '1rem' }}>
       <div className='codemirror' id='codemirror'></div>
       <button onClick={run}>Run Me</button>
       <div id='scripting'></div>
-      <div style={{ visibility: 'hidden'}} id='mocha'></div>
+      <div style={{ visibility: 'hidden' }} id='mocha'></div>
     </section>
   );
 }
