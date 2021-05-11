@@ -512,43 +512,48 @@ function Map() {
         </div>
       </div>
       <div className='row'>
-        <div
-          className=''
-          id='drawingBoard'
-          style={{
-            position: 'relative',
-            height: '544px',
-            width: '512px',
-            overflow: 'hidden',
-          }}
-        >
+        <div className="col">
           <div
-            id='map'
+            className=''
+            id='drawingBoard'
             style={{
-              background: 'transparent',
-              position: 'absolute',
-              left: '0px',
-              top: '0px',
-              height: '1070px', // This matches container height to map height
-              textAlign: 'center',
-              overflow: 'auto',
-              backgroundColor: 'black',
-              border: '2px solid grey',
+              position: 'relative',
+              height: '544px',
+              width: '512px',
+              overflow: 'hidden',
+              border: '1px solid orange',
+              // margin: 'auto',
+              transform: 'scale(2) translate(25%, 25%)'
             }}
           >
+            <div
+              id='map'
+              style={{
+                background: 'transparent',
+                position: 'absolute',
+                left: '0px',
+                top: '0px',
+                height: '1070px', // This matches container height to map height
+                textAlign: 'center',
+                overflow: 'auto',
+                backgroundColor: 'black',
+                border: '2px solid grey',
+              }}
+            >
+            </div>
+            <div
+              style={{
+                background: 'transparent',
+                position: 'absolute',
+                left: '0px',
+                top: '0px',
+              }}
+              id='character'
+            >
+            </div>
+              {/* MAP goes here */}
+            {/* </div> */}
           </div>
-          <div
-            style={{
-              background: 'transparent',
-              position: 'absolute',
-              left: '0px',
-              top: '0px',
-            }}
-            id='character'
-          >
-          </div>
-            {/* MAP goes here */}
-          {/* </div> */}
         </div>
         <div className='col' style={{ visibility: visibility }}>
           <div className='laptop'>
