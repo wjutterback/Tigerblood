@@ -72,6 +72,58 @@
   background-color: silver;
 }
 
-.down {
-  transform: translate(0%, -45%);
+.down1 {
+  transform: translate(0%, -48%);
+}
+
+.down2 {
+  transform: translate(-10%, -48%);
+}
+
+.up1 {
+  transform: translate(0%, 0%);
+}
+
+.up2 {
+  transform: translate(-10%, 0%);
+}
+
+.west1 {
+  transform: translate(0%, -48%);
+}
+
+.east1 {
+  transform: translate(-10%, -48%);
+}
+
+.east2 {
+  transform: translate(-20%, -48%);
+}
+
+.east3 {
+  transform: translate(-30%, -48%);
+}
+
+.east4 {
+  transform: translate(-40%, -48%);
+}
+
+.east5 {
+  transform: translate(-50%, -48%);
+}
+
+.east6 {
+  transform: translate(-60%, -48%);
+}
+
+.east7 {
+  transform: translate(-70%, -48%);
+}
+
+.east8 {
+  transform: translate(-80%, -48%);
+}
+
+.east9 {
+  transform: translate(-90%, -48%);
 }
