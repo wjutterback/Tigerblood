@@ -342,7 +342,7 @@ function Map() {
               setMessage(value);
               return false;
             case 'Y':
-            case 'Y': // Second Boss
+            case 'y': // Second Boss
               value = gameFuncs.bossTwo(bossTwoVar);
               bossTwoVar++;
               setMessage(value);
@@ -360,7 +360,7 @@ function Map() {
               setMessage(value);
               return false;
             case 'F':
-            case 'F': // Final Boss
+            case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar);
               bossFinalVar++;
               setMessage(value);
