@@ -25,6 +25,7 @@ const gameFuncs = {
     }
     if (ringVar === 1) {
       return {
+        lines: [1, 2, 3, 4, 5, 6, 7, 8, 10],
         text: `Your ring begins to feel warm, images swarm in your mind, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
         code: `
 /*
@@ -79,17 +80,29 @@ function door1(tileMap) {
   },
   bossOne: (bossOneCheckCounter) => {
     if (bossOneCheckCounter === 0) {
-      return `Who disturbs my slumber? Oh, it's another human!`;
+      return `Who disturbs my slumber? Oh, it's another human! I once was a human, like yourself, but I asked Tish one too many questions and she rewarded me by making me her CPU heat sink.`;
     } else if (bossOneCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `What question did I ask, you ask? "Is jQuery the best option for selecting DOM elements?" - I expected her answer, as usual, to be, "It depends." but instead a dark and stormy cloud washed over her face as she slammed her fist into the keyboard. Electricity crackled from her fist on impact, executing a program that turned me into this hideous beast you see before you now.`;
     } else if (bossOneCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `All I do now is absorb heat day in and day out, or should I say computer cycle in and computer cycle out; my room is hotter than Midland!`;
     } else if (bossOneCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
-    } else if (bossOneCheckCounter > 3){
+      return {
+        lines: [1, 2, 3, 4, 5, 6, 8],
+        text: `I grow weary on reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your ring sends a jolt of electricity through your body and you once again see the world in code`,
+        code: `
+        /*
+        My notes: Yet another day, teaching bright-eyed and bushy-tailed students how to select DOM elements using jQuery!
+        It's such a joy to see the fire of creativity in them! A question from one of my students today inspired me to write code to
+        optimize the thermal regulation of my CPU! I love programming, and I love teaching!
+        */
+       function heatRegulation() {
+         return 'something'
+       }`,
+      };
+    } else if (bossOneCheckCounter > 3) {
       return `...boss dialogue last...`;
     }
-    },
+  },
   bossTwo: (bossTwoCheckCounter) => {
     if (bossTwoCheckCounter === 0) {
       return `...boss dialogue 1/4...`;
@@ -99,10 +112,10 @@ function door1(tileMap) {
       return `...boss dialogue 3/4...`;
     } else if (bossTwoCheckCounter === 3) {
       return `...boss dialogue 4/4...`;
-    } else if (bossTwoCheckCounter > 3){
+    } else if (bossTwoCheckCounter > 3) {
       return `...boss dialogue last...`;
     }
-    },
+  },
   bossThree: (bossThreeCheckCounter) => {
     if (bossThreeCheckCounter === 0) {
       return `...boss dialogue 1/4...`;
@@ -112,10 +125,10 @@ function door1(tileMap) {
       return `...boss dialogue 3/4...`;
     } else if (bossThreeCheckCounter === 3) {
       return `...boss dialogue 4/4...`;
-    } else if (bossThreeCheckCounter > 3){
+    } else if (bossThreeCheckCounter > 3) {
       return `...boss dialogue last...`;
     }
-    },
+  },
   bossFour: (bossFourCheckCounter) => {
     if (bossFourCheckCounter === 0) {
       return `...boss dialogue 1/4...`;
@@ -125,62 +138,62 @@ function door1(tileMap) {
       return `...boss dialogue 3/4...`;
     } else if (bossFourCheckCounter === 3) {
       return `...boss dialogue 4/4...`;
-    } else if (bossFourCheckCounter > 3){
+    } else if (bossFourCheckCounter > 3) {
       return `...boss dialogue last...`;
     }
-    },
-    bossFive: (bossFiveCheckCounter) => {
-      if (bossFiveCheckCounter === 0) {
-        return `Who disturbs my slumber? Oh, it's another human!`;
-      } else if (bossFiveCheckCounter === 1) {
-        return `...boss dialogue 2/4...`;
-      } else if (bossFiveCheckCounter === 2) {
-        return `...boss dialogue 3/4...`;
-      } else if (bossFiveCheckCounter === 3) {
-        return `...boss dialogue 4/4...`;
-      } else if (bossFiveCheckCounter > 3){
-        return `...boss dialogue last...`;
-      }
-      },
-    bossSix: (bossSixCheckCounter) => {
-      if (bossSixCheckCounter === 0) {
-        return `...boss dialogue 1/4...`;
-      } else if (bossSixCheckCounter === 1) {
-        return `...boss dialogue 2/4...`;
-      } else if (bossSixCheckCounter === 2) {
-        return `...boss dialogue 3/4...`;
-      } else if (bossSixCheckCounter === 3) {
-        return `...boss dialogue 4/4...`;
-      } else if (bossSixCheckCounter > 3){
-        return `...boss dialogue last...`;
-      }
-      },
-    bossSeven: (bossSevenCheckCounter) => {
-      if (bossSevenCheckCounter === 0) {
-        return `...boss dialogue 1/4...`;
-      } else if (bossSevenCheckCounter === 1) {
-        return `...boss dialogue 2/4...`;
-      } else if (bossSevenCheckCounter === 2) {
-        return `...boss dialogue 3/4...`;
-      } else if (bossSevenCheckCounter === 3) {
-        return `...boss dialogue 4/4...`;
-      } else if (bossSevenCheckCounter > 3){
-        return `...boss dialogue last...`;
-      }
-      },
-    bossEight: (bossEightCheckCounter) => {
-      if (bossEightCheckCounter === 0) {
-        return `...boss dialogue 1/4...`;
-      } else if (bossEightCheckCounter === 1) {
-        return `...boss dialogue 2/4...`;
-      } else if (bossEightCheckCounter === 2) {
-        return `...boss dialogue 3/4...`;
-      } else if (bossEightCheckCounter === 3) {
-        return `...boss dialogue 4/4...`;
-      } else if (bossEightCheckCounter > 3){
-        return `...boss dialogue last...`;
-      }
-      },
+  },
+  bossFive: (bossFiveCheckCounter) => {
+    if (bossFiveCheckCounter === 0) {
+      return `Who disturbs my slumber? Oh, it's another human!`;
+    } else if (bossFiveCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossFiveCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossFiveCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossFiveCheckCounter > 3) {
+      return `...boss dialogue last...`;
+    }
+  },
+  bossSix: (bossSixCheckCounter) => {
+    if (bossSixCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossSixCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossSixCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossSixCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossSixCheckCounter > 3) {
+      return `...boss dialogue last...`;
+    }
+  },
+  bossSeven: (bossSevenCheckCounter) => {
+    if (bossSevenCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossSevenCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossSevenCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossSevenCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossSevenCheckCounter > 3) {
+      return `...boss dialogue last...`;
+    }
+  },
+  bossEight: (bossEightCheckCounter) => {
+    if (bossEightCheckCounter === 0) {
+      return `...boss dialogue 1/4...`;
+    } else if (bossEightCheckCounter === 1) {
+      return `...boss dialogue 2/4...`;
+    } else if (bossEightCheckCounter === 2) {
+      return `...boss dialogue 3/4...`;
+    } else if (bossEightCheckCounter === 3) {
+      return `...boss dialogue 4/4...`;
+    } else if (bossEightCheckCounter > 3) {
+      return `...boss dialogue last...`;
+    }
+  },
   bossFinal: (bossFinalCheckCounter) => {
     if (bossFinalCheckCounter === 0) {
       return `...boss dialogue 1/4...`;
@@ -190,9 +203,9 @@ function door1(tileMap) {
       return `...boss dialogue 3/4...`;
     } else if (bossFinalCheckCounter === 3) {
       return `...boss dialogue 4/4...`;
-    } else if (bossFinalCheckCounter > 3){
+    } else if (bossFinalCheckCounter > 3) {
       return `...boss dialogue last...`;
     }
-    },
+  },
 };
 export default gameFuncs;
