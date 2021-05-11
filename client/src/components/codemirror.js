@@ -12,9 +12,10 @@ import 'chai/register-expect';
 import mocha from 'mocha';
 import testFuncs from '../assets/js/tests';
 
-function CodeBox({ getTestResult, code }) {
+function CodeBox({ getTestResult, code, lines }) {
   const [editor, setCodeEditor] = useState();
   const codeValue = code ? code : '';
+  let readOnlyLines = lines;
 
   useEffect(() => {
     const instance = CodeMirror(document.getElementById('codemirror'), {
@@ -37,8 +38,8 @@ function CodeBox({ getTestResult, code }) {
     editor.getDoc().setValue(code);
 
     // Option 1: Read Only Lines - user can't add lines but works pretty well, line 1 is always capable of being removed
-    let readOnlyLines = [1, 2, 3, 4, 5, 6, 7, 8, 10];
     editor.on('beforeChange', function (cm, change) {
+      console.log(readOnlyLines);
       if (~readOnlyLines.indexOf(change.from.line)) {
         change.cancel();
       }

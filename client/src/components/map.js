@@ -18,14 +18,14 @@ function Map() {
   const [animate, setAnimate] = useState('');
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
+  const [lines, setLines] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [level, setLevel] = useState(1);
   const [clearedRooms, setClearedRooms] = useState(0);
   const [bitcoins, setBitcoins] = useState(0);
-
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
-  // document.body.appendChild(tileSet);
+  document.body.appendChild(tileSet);
 
   let options = {
     layout: 'tile',
@@ -101,6 +101,10 @@ function Map() {
     dungeon.appendChild(display.getContainer());
   }, []);
 
+  useEffect(() => {
+    console.log('useeffect lines', lines);
+  }, [lines]);
+
   let lavaCounter = 0;
   let playerLevel = 1;
   let roomsCleared = 0;
@@ -108,8 +112,6 @@ function Map() {
 
   function coolLava() {
     if (lavaCounter === 1) {
-      tileMap[23][15][1] = 'n';
-      tileMap[24][15][1] = 'n';
     }
   }
 
@@ -127,7 +129,7 @@ function Map() {
       setTest(pass);
       roomsCleared = 1;
       setClearedRooms(roomsCleared);
-      coolLava();
+      // coolLava(); - cool lava after beating second boss
     }
   };
 
@@ -329,6 +331,7 @@ function Map() {
               if (ringVar === 1) {
                 setCode(value.code);
                 setMessage(value.text);
+                setLines(value.lines);
                 setDoor({ x: x, y: y });
                 break;
               }
@@ -359,8 +362,20 @@ function Map() {
             case 'T':
             case 't': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
+              if (
+                bossOneVar === 0 ||
+                bossOneVar === 1 ||
+                bossOneVar === 2 ||
+                bossOneVar > 3
+              ) {
+                setMessage(value);
+                bossOneVar++;
+                return false;
+              }
+              setCode(value.code);
+              setLines(value.lines);
+              setMessage(value.text);
               bossOneVar++;
-              setMessage(value);
               return false;
             case 'Y':
             case 'y': // Second Boss
@@ -460,16 +475,17 @@ function Map() {
       }
     };
   }
-
-  // This section makes the Matrix Letters fall. Inspired and modified from https://codepen.io/yaclive/pen/EayLYO
-  window.onload = function(){
-    let matrixCanvas = document.getElementById("matrixCanvas"), // this needs to be a comma and not a semicolon in order for 'ctx' to work
-    ctx = matrixCanvas.getContext('2d');
+  window.onload = function () {
+    let matrixCanvasContainer = document.getElementById(
+      'matrixCanvasContainer'
+    );
+    let matrixCanvas = document.getElementById('matrixCanvas'), // this needs to be a comma and not a semicolon in order for 'ctx' to work
+      ctx = matrixCanvas.getContext('2d');
 
     let letters = 'TIGERBLOD';
     letters = letters.split('');
     let fontSize = 15,
-        columns = matrixCanvas.width / fontSize;
+      columns = matrixCanvas.width / fontSize;
 
     let drops = [];
     for (let i = 0; i < columns; i++) {
@@ -484,7 +500,7 @@ function Map() {
         ctx.fillStyle = '#0f0';
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         drops[i]++;
-        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > .95) {
+        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.95) {
           drops[i] = 0;
         }
       }
@@ -609,28 +625,51 @@ function Map() {
         </div>
         <div className='col' style={{ visibility: visibility }}>
           <div className='laptop2'>
-            <section id="matrixCanvasContainer">
-              <canvas id="matrixCanvas"></canvas>
+            <section id='matrixCanvasContainer'>
+              <canvas id='matrixCanvas'></canvas>
             </section>
-            <button type="button" class="btn btn-success btn-block" id="screenModalLauncher" data-toggle="modal" data-target="#screenModal">
+            <button
+              type='button'
+              className='btn btn-success btn-block'
+              id='screenModalLauncher'
+              data-toggle='modal'
+              data-target='#screenModal'
+            >
               Terminal Available!
             </button>
           </div>
-          <div className="modal fade" id="screenModal" tabindex="-1" role="dialog" aria-labelledby="screenModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered" role="document">
-              <div className="modal-content">
-                <div className="modal-body">
+          <div
+            className='modal fade'
+            id='screenModal'
+            tabIndex='-1'
+            role='dialog'
+            aria-labelledby='screenModalLabel'
+            aria-hidden='true'
+          >
+            <div className='modal-dialog modal-dialog-centered' role='document'>
+              <div className='modal-content'>
+                <div className='modal-body'>
                   <div className='laptop'>
                     <div className='content'>
                       <p id='webcam'>o</p>
                       <p id='buttons'>&#10006;</p>
-                      <CodeBox code={code} getTestResult={getTestResult} />
+                      <CodeBox
+                        lines={lines}
+                        code={code}
+                        getTestResult={getTestResult}
+                      />
                       <p id='brand'>&#127820;</p>
                     </div>
                   </div>
                 </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div className='modal-footer'>
+                  <button
+                    type='button'
+                    className='btn btn-secondary'
+                    data-dismiss='modal'
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
