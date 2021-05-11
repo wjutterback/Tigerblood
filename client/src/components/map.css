@@ -20,7 +20,7 @@
 
 /* The keyboard of the laptop */
 .laptop:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 220px;
@@ -34,7 +34,7 @@
 
 /* The top of the keyboard */
 .laptop:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 200px;
@@ -116,7 +116,7 @@
 
 /* Matrix Monitor Stand */
 .laptop2:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 220px;
@@ -128,6 +128,12 @@
   border-radius: 10px;
 }
 
+<<<<<<< HEAD
+=======
+#map {
+  transition: transform, 2s;
+}
+>>>>>>> 68c50f3688976e57786c98cd1dd41f128ed83950
 .down1 {
   transform: translate(0%, -48%);
 }
