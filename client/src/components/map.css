@@ -20,7 +20,7 @@
 
 /* The keyboard of the laptop */
 .laptop:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 220px;
@@ -34,7 +34,7 @@
 
 /* The top of the keyboard */
 .laptop:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 200px;
@@ -70,4 +70,8 @@
   width: 100%;
   color: red;
   background-color: silver;
+}
+
+.down {
+  transform: translate(0%, -45%);
 }
