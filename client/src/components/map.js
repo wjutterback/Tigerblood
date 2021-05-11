@@ -438,6 +438,39 @@ function Map() {
       }
     };
   }
+  window.onload = function(){
+    let matrixCanvasContainer = document.getElementById("matrixCanvasContainer");
+    let matrixCanvas = document.getElementById("matrixCanvas"), // this needs to be a comma and not a semicolon in order for 'ctx' to work
+    ctx = matrixCanvas.getContext('2d');
+
+    let letters = 'TIGERBLOD';
+    letters = letters.split('');
+    let fontSize = 15,
+        columns = matrixCanvas.width / fontSize;
+
+    let drops = [];
+    for (var i = 0; i < columns; i++) {
+      drops[i] = 1;
+    }
+
+    // Setting up the draw function
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      for (var i = 0; i < drops.length; i++) {
+        var text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillStyle = '#0f0';
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        drops[i]++;
+        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > .95) {
+          drops[i] = 0;
+        }
+      }
+    }
+
+    // Loop the animation
+    setInterval(drawMatrix, 50);
+  }
   return (
     <>
       <div className='row'>
@@ -556,12 +589,31 @@ function Map() {
           </div>
         </div>
         <div className='col' style={{ visibility: visibility }}>
-          <div className='laptop'>
-            <div className='content'>
-              <p id='webcam'>o</p>
-              <p id='buttons'>&#10006;</p>
-              <CodeBox code={code} getTestResult={getTestResult} />
-              <p id='brand'>&#127820;</p>
+          <div className='laptop2'>
+            <section id="matrixCanvasContainer">
+              <canvas id="matrixCanvas"></canvas>
+            </section>
+            <button type="button" class="btn btn-success btn-block" id="screenModalLauncher" data-toggle="modal" data-target="#screenModal">
+              Terminal Available!
+            </button>
+          </div>
+          <div class="modal fade" id="screenModal" tabindex="-1" role="dialog" aria-labelledby="screenModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div className='laptop'>
+                    <div className='content'>
+                      <p id='webcam'>o</p>
+                      <p id='buttons'>&#10006;</p>
+                      <CodeBox code={code} getTestResult={getTestResult} />
+                      <p id='brand'>&#127820;</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

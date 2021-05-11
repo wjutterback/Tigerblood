@@ -71,3 +71,75 @@
   color: red;
   background-color: silver;
 }
+
+.modal-body {
+  padding: 0;
+}
+
+#screenModalLauncher {
+  margin: auto;
+  top: 50;
+  right: 50%;
+}
+
+#matrixCanvasContainer {
+  background: black;
+  height: 400px;
+  width: 750px;
+  margin: auto;
+}
+
+#matrixCanvas {
+  display: block;
+  height: 400px;
+  width: 750px;
+  z-index: 100;
+  margin: auto;
+}
+
+.laptop2 {
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scale(1) translate(-50%); /* Can be scaled to 1.5 to make Computer screen bigger but cursor inside screen goes haywire */
+  transform: scale(1) translate(-50%); /* Can be scaled to 1.5 to make Computer screen bigger but cursor inside screen goes haywire */
+  left: 50%;
+  position: absolute;
+  width: 800px;
+  height: 500px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: black;
+  border-width: 24px 24px 80px;
+  background-color: black;
+}
+
+/* The keyboard of the laptop */
+.laptop2:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 220px;
+  height: 150px;
+  left: 50%;
+  bottom: -210px;
+  margin: 20px 0 0 -110px;
+  background: black;
+  border-radius: 10px;
+}
+
+/* The top of the keyboard */
+/* .laptop2:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  bottom: -180px;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  background: black;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  z-index: 1;
+} */
