@@ -501,7 +501,7 @@ function Map() {
             style={{
               height: '1070px', // This matches container height to map height
               textAlign: 'center',
-              overflow: 'hidden',
+              overflow: 'auto',
               backgroundColor: 'black',
               border: '2px solid grey',
             }}
