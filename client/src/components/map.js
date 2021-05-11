@@ -413,6 +413,26 @@ function Map() {
         }
       }
 
+      function transitionCheck() {
+        if (playerPos.y === 16 && playerPos.x === 7) {
+          document.getElementById('map').setAttribute('class', 'down1');
+        } else if (playerPos.y === 17 && playerPos.x === 22) {
+          document.getElementById('map').setAttribute('class', 'down2');
+        } else if (playerPos.y === 15 && playerPos.x === 7) {
+          document.getElementById('map').setAttribute('class', 'up1');
+        } else if (playerPos.y === 15 && playerPos.x === 22) {
+          document.getElementById('map').setAttribute('class', 'up2');
+        } else if (playerPos.y === 23 && playerPos.x === 15) {
+          document.getElementById('map').setAttribute('class', 'east1');
+        } else if (playerPos.y === 24 && playerPos.x === 15) {
+          document.getElementById('map').setAttribute('class', 'east1');
+        } else if (playerPos.y === 23 && playerPos.x === 14) {
+          document.getElementById('map').setAttribute('class', 'west1');
+        } else if (playerPos.y === 24 && playerPos.x === 14) {
+          document.getElementById('map').setAttribute('class', 'west1');
+        }
+      }
+
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -432,9 +452,7 @@ function Map() {
           }
           playerPos.x += diff[0];
           playerPos.y += diff[1];
-          if (playerPos.y === 16 && playerPos.x === 7) {
-            document.getElementById('map').setAttribute('class', 'down');
-          }
+          transitionCheck();
           return true;
         } else {
           return false;
@@ -516,7 +534,7 @@ function Map() {
         </div>
       </div>
       <div className='row'>
-        <div className="col">
+        <div className='col'>
           <div
             className=''
             id='drawingBoard'
@@ -527,7 +545,7 @@ function Map() {
               overflow: 'hidden',
               border: '1px solid orange',
               // margin: 'auto',
-              transform: 'scale(2) translate(25%, 25%)'
+              transform: 'scale(2) translate(25%, 25%)',
             }}
           >
             <div
@@ -543,8 +561,7 @@ function Map() {
                 backgroundColor: 'black',
                 border: '2px solid grey',
               }}
-            >
-            </div>
+            ></div>
             <div
               style={{
                 background: 'transparent',
@@ -553,9 +570,8 @@ function Map() {
                 top: '0px',
               }}
               id='character'
-            >
-            </div>
-              {/* MAP goes here */}
+            ></div>
+            {/* MAP goes here */}
             {/* </div> */}
           </div>
         </div>
