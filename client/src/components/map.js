@@ -83,6 +83,7 @@ function Map() {
       H: [1824, 1664], // Bloody Help
       h: [32, 992], // shackled body
       W: [576, 0], // darkness
+      w: [672, 672], // Acid
       k: [640, 928], // Dog
       G: [1280, 2688], // Cat 1
       g: [1344, 2688], // Cat 2
