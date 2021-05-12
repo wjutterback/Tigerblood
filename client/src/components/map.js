@@ -59,7 +59,7 @@ function Map() {
       M: [64, 32], // Golem Statue Solid
       m: [256, 32], // Golem Statue Destroyed
       N: [0, 192], // Lava
-      n: [1804, 96], // Cooled Lava
+      n: [1088, 704], // Water
       t: [768, 2464], // Boss 1 Upper
       T: [736, 2464], // Boss 1 Lower
       Y: [640, 2432], // Boss 2 Upper
@@ -78,9 +78,7 @@ function Map() {
       C: [32, 864], // Boss 8 Lower
       F: [1888, 832], // Final Boss Upper
       f: [1856, 832], // Final Boss Lower
-      // '.': [1984, 128], // Floor (Passable) 94x63
-      // '.': [0, 224],
-      '.': [1856, 192],
+      '.': [1856, 192], // Floor (Passable)
       K: [992, 864], // Keyboard
       H: [1824, 1664], // Bloody Help
       h: [32, 992], // shackled body
@@ -90,6 +88,7 @@ function Map() {
       g: [1344, 2688], // Cat 2
       B: [224, 0], // Closed Treasure Chest
       b: [256, 0], // Open Treasure Chest
+      "*": [96, 416], // Pentagram
     },
     width: 92,
     height: 33,
