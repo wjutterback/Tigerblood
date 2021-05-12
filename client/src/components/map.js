@@ -56,10 +56,10 @@ function Map() {
       j: [1600, 0], // Flame 2
       O: [512, 2272], // Eye Obelisk 1
       o: [672, 2272], // Eye Obelisk 2
-      M: [64, 32], // Golem Statue 1
-      m: [160, 32], // Golem Statue 2
+      M: [64, 32], // Golem Statue Solid
+      m: [256, 32], // Golem Statue Destroyed
       N: [0, 192], // Lava
-      n: [0, 224], // Cooled Lava
+      n: [1804, 96], // Cooled Lava
       t: [768, 2464], // Boss 1 Upper
       T: [736, 2464], // Boss 1 Lower
       Y: [640, 2432], // Boss 2 Upper
@@ -91,7 +91,7 @@ function Map() {
       B: [224, 0], // Closed Treasure Chest
       b: [256, 0], // Open Treasure Chest
     },
-    width: 151,
+    width: 92,
     height: 33,
   };
 
@@ -111,11 +111,6 @@ function Map() {
   let playerLevel = 1;
   let roomsCleared = 0;
   let bitCoinsFound = 0;
-
-  function coolLava() {
-    if (lavaCounter === 1) {
-    }
-  }
 
   const getTestResult = (pass) => {
     console.log(pass);
@@ -222,6 +217,13 @@ function Map() {
           drawPlayer();
         }, 300);
       }
+
+      function removeGolem() {
+        display.draw(playerPos.x + 32, playerPos.y, ['.', 'm']);
+        setTimeout(() => {
+          display.draw(playerPos.x + 32, playerPos.y, '.')
+        }, 500);
+    }
 
       function drawPlayer() {
         console.log(playerLevel);
@@ -368,10 +370,10 @@ function Map() {
               setMessage(value);
               return false;
             case 'M':
-            case 'm':
-              value = gameFuncs.golem(golemVar);
+              value = gameFuncs.golem(golemVar, ringVar);
               golemVar++;
               setMessage(value);
+              removeGolem();
               return false;
             case 'T':
             case 't': // First Boss
