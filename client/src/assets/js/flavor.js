@@ -196,18 +196,22 @@ function door1(tileMap) {
       return `...boss dialogue last...`;
     }
   },
-  bossFinal: (bossFinalCheckCounter) => {
-    if (bossFinalCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
-    } else if (bossFinalCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
-    } else if (bossFinalCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
-    } else if (bossFinalCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
-    } else if (bossFinalCheckCounter > 3) {
-      return `...boss dialogue last...`;
-    }
-  },
+  // bossFinal: (bossFinalCheckCounter) => {
+  //   if (bossFinalCheckCounter === 0 && catsCheckCounter === 0 && dogsCheckCounter) {
+  //     return `"How did you get out so quickly? Oh, never mind. I can't talk right now. My fur babies are on the loose!"`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 0) {
+  //     return `"When I figure out who left the door open ..."`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 0) {
+  //     return `"You found one of my cats! Hurry, the other must be close."`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 0) {
+  //     return `"You found both my cats! Nice work! Now please help me find my dog too."`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 1) {
+  //     return `"You found my pupster! Please help me look around for my cats too!"`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 1) {
+  //     return `"Good work! Just one cat left. I'm sure I heard a noise over there!"`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 1) {
+  //     return `"You did it! Thank you very much. Your diploma is ready! Congratulation! Now go out there and be somebody!!`;
+  //   }
+  // },
 };
 export default gameFuncs;
