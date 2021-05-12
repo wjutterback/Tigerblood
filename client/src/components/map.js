@@ -56,7 +56,10 @@ function Map() {
       j: [1600, 0], // Flame 2
       O: [512, 2272], // Eye Obelisk 1
       o: [672, 2272], // Eye Obelisk 2
-      M: [64, 32], // Golem Statue Solid
+      A: [32, 32], // Golem Level 1 Statue Solid
+      a: [64, 32], // Golem Level 2 Statue Solid
+      V: [96, 32], // Golem Level 3 Statue Solid
+      v: [128, 32], // Golem Level 4 Statue Solid
       m: [256, 32], // Golem Statue Destroyed
       N: [0, 192], // Lava
       n: [1088, 704], // Water
@@ -91,6 +94,19 @@ function Map() {
       B: [224, 0], // Closed Treasure Chest
       b: [256, 0], // Open Treasure Chest
       "*": [96, 416], // Pentagram
+      "=": [1184, 288], // Grass
+      "^": [1696,288], // Grass North
+      "_": [1504,288], // Grass South
+      "+": [1760,288], // Grass East
+      "-": [672,288], // Grass West
+      "%": [1312, 288], // Sand
+      u: [480, 416], // Tree
+      "@": [1984, 0], // Escape Portal
+      "$": [1504, 1376], // Diploma
+      "<": [], // Grass NW
+      ">": [], // Grass NE
+      "(": [], // Grass SW
+      ")": [], // Grass SE
     },
     width: 92,
     height: 33,
