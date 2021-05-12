@@ -170,6 +170,9 @@ function Map() {
     let bossThreeVar = 0;
     let bossFourVar = 0;
     let bossFinalVar = 0;
+    let catsVar = 0;
+    let dogsVar = 0;
+    let diplomaVar = 0;
 
     tileSet.onload = function () {
       let lightRadius = 1;
@@ -431,7 +434,7 @@ function Map() {
             case 'F':
             case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar);
-              bossFinalVar++;
+              bossFinalVar = 1;
               setMessage(value);
               return false;
             default:
