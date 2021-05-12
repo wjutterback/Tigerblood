@@ -84,6 +84,7 @@ function Map() {
       h: [32, 992], // shackled body
       W: [576, 0], // darkness
       w: [672, 672], // Acid
+      Q: [2016, 160], // Fire
       k: [640, 928], // Dog
       G: [1280, 2688], // Cat 1
       g: [1344, 2688], // Cat 2
