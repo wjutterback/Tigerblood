@@ -62,11 +62,13 @@ function door1(tileMap) {
       return `A familiar sight. Time to get started. Now, what was that syntax again...?`;
     }
   },
-  golem: (golemCheckCounter) => {
-    if (golemCheckCounter === 0) {
-      return `That's one creepy statue. Its eyes seem to follow you across the room.`;
-    } else {
-      return `The statue keeps getting creepier somehow. Its expression makes you very uneasy`;
+  golem: (golemCheckCounter, ringCheckCounter) => {
+    if (golemCheckCounter === 0 && ringCheckCounter === 0) {
+      return `That's one creepy statue. Its eyes seem to follow you across the room. It blocks your way to the next area.`;
+    } else if (golemCheckCounter >0 && ringCheckCounter === 0){
+      return `The statue keeps getting creepier somehow. Its expression makes you very uneasy. There must be a way to remove it.`;
+    } else if (golemCheckCounter >0 && ringCheckCounter === 1){
+      return `The ring on your finger pulsates. The golem explodes, leaving behind nothing and clearing the way.`;
     }
   },
   helpStone: (bodyCheckCounter) => {
