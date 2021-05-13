@@ -170,6 +170,10 @@ function Map() {
     let bossTwoVar = 0;
     let bossThreeVar = 0;
     let bossFourVar = 0;
+    let bossFiveVar = 0;
+    let bossSixVar = 0;
+    let bossSevenVar = 0;
+    let bossEightVar = 0;
     let bossFinalVar = 0;
     let catsVar = 0;
     let dogsVar = 0;
@@ -490,6 +494,30 @@ function Map() {
             case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar);
               bossFinalVar = 1;
+              setMessage(value);
+              return false;
+            case 'D':
+            case 'd':
+              value = gameFuncs.bossSix(bossSixVar);
+              bossSixVar++;
+              setMessage(value);
+              return false;
+            case 'Z':
+            case 'z':
+              value = gameFuncs.bossFive(bossFiveVar);
+              bossFiveVar++;
+              setMessage(value);
+              return false;
+            case 'X':
+            case 'x':
+              value = gameFuncs.bossSeven(bossSevenVar);
+              bossSevenVar++;
+              setMessage(value);
+              return false;
+            case 'C':
+            case 'c':
+              value = gameFuncs.bossEight(bossEightVar);
+              bossEightVar++;
               setMessage(value);
               return false;
             case 'u':

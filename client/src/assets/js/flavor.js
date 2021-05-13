@@ -65,9 +65,9 @@ function door1(tileMap) {
   golem: (golemCheckCounter, ringCheckCounter) => {
     if (golemCheckCounter === 0 && ringCheckCounter === 0) {
       return `That's one creepy statue. Its eyes seem to follow you across the room. It blocks your way to the next area.`;
-    } else if (golemCheckCounter >0 && ringCheckCounter === 0){
+    } else if (golemCheckCounter > 0 && ringCheckCounter === 0) {
       return `The statue keeps getting creepier somehow. Its expression makes you very uneasy. There must be a way to remove it.`;
-    } else if (golemCheckCounter >0 && ringCheckCounter === 1){
+    } else if (golemCheckCounter > 0 && ringCheckCounter === 1) {
       return `The ring on your finger pulsates. The golem explodes, leaving behind nothing and clearing the way.`;
     }
   },
@@ -109,13 +109,13 @@ function door1(tileMap) {
     if (bossTwoCheckCounter === 0) {
       return `You warily approach one of the three figures huddled around the pentagram... The creature hisses, then grins evilly at you. The sound echoes in the dimly lit room.`;
     } else if (bossTwoCheckCounter === 1) {
-      return `Get back to the work at hand! We need Joy!`;
+      return `Get back to the work at hand. Everyone focus on the project. We need Joy!`;
     } else if (bossTwoCheckCounter === 2) {
       return `Every one says my name wrong. But I don't care. What's my name? Hah, hah, hah... Like I'd tell you. *smiles*`;
     } else if (bossTwoCheckCounter === 3) {
       return `I wrote this code to bring our Joy back, it broke, but I fixed it.. Almost. It's missing something...`;
     } else if (bossTwoCheckCounter > 3) {
-      return `Get back to work!`;
+      return `Focus, keep coding!`;
     }
   },
   bossThree: (bossThreeCheckCounter) => {
