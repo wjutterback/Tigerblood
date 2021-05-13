@@ -280,12 +280,6 @@ function Map() {
               return display.draw(playerPos.x, playerPos.y, ['=', playerLevel]);
             }
             return drawPlayer();
-          } else if (playerPos.y === 23 && playerPos.x === 75) {
-            playerPos = {
-              y: 30,
-              x: 84,
-            };
-            drawLight();
           }
           display.draw(x, y, tileMap[y][x]);
         });
@@ -297,7 +291,13 @@ function Map() {
         while (true) {
           await movement();
           display.clear();
-          revealWholeMap();
+          // revealWholeMap();
+          if (playerPos.y === 23 && playerPos.x === 75) {
+            playerPos = {
+              y: 30,
+              x: 84,
+            };
+          }
           drawLight();
         }
       }
