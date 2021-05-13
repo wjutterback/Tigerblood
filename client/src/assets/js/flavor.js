@@ -107,59 +107,59 @@ function door1(tileMap) {
   },
   bossTwo: (bossTwoCheckCounter) => {
     if (bossTwoCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
+      return `You warily approach one of the three figures huddled around the pentagram... The creature hisses, then grins evilly at you. The sound echoes in the dimly lit room.`;
     } else if (bossTwoCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `Get back to the work at hand! We need Joy!`;
     } else if (bossTwoCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `Every one says my name wrong. But I don't care. What's my name? Hah, hah, hah... Like I'd tell you. *smiles*`;
     } else if (bossTwoCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
+      return `I wrote this code to bring our Joy back, it broke, but I fixed it.. Almost. It's missing something...`;
     } else if (bossTwoCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `Get back to work!`;
     }
   },
   bossThree: (bossThreeCheckCounter) => {
     if (bossThreeCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
+      return `You throw caution to the wind as you approach one of the three figures huddled around the pentagram... The creature spits at you. Disgusting.`;
     } else if (bossThreeCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `They call me... the Menace.. Or was it Sinned? I know. It's Cazasa. Cazasa the Great, nice to meet you. *attempts to spit on you again*`;
     } else if (bossThreeCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `These other two sad creatures have lost themselves. Not me though! I know who I am! I forget what we're doing though...`;
     } else if (bossThreeCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
+      return `The other two creatures howl loudly at Cazasa the Great.`;
     } else if (bossThreeCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `Go away, they reminded me we're trying to bring Joy back into our lives. We just keep missing this one thing... Wait, what are we doing again?`;
     }
   },
   bossFour: (bossFourCheckCounter) => {
     if (bossFourCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
+      return `You're pretty sure of yourself as you approach one of the three figures huddled around the pentagram... The creature cackles to itself. You barely hear it muttering between laughs.`;
     } else if (bossFourCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `I'm losing myself... I remember... we were working on a procrastination app... or was it a face analyzer app... We're lost without Joy.`;
     } else if (bossFourCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `Students? Did you say students? Are you... She-Who-Knows? No, you look too lost.`;
     } else if (bossFourCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
+      return `Quiet, we're almost finished bringing Joy back into our lives.`;
     } else if (bossFourCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `The being goes back to muttering quietly under its breath.`;
     }
   },
   bossFive: (bossFiveCheckCounter) => {
     if (bossFiveCheckCounter === 0) {
-      return `Who disturbs my slumber? Oh, it's another human!`;
+      return `One of the two figures before you looks wizened and powerful; he's obviously a powerful summoner. You cannot understand what he's saying... it sounds like Valheim.`;
     } else if (bossFiveCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `The summoner notices you and speaks clearly, "You saw the creatures from the previous room? Hah, are they still trying to bring Joy to the hellish dimension? A fool's errand."`;
     } else if (bossFiveCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `There is but one escape here, and I know I alone know the way..."`;
     } else if (bossFiveCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
+      return `Desperate to know how to escape, you ask, but the summoner only laughs and turns his back to you. He materializes a terminal out of thin air. He is completely ignoring you now.`;
     } else if (bossFiveCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `... Must ... get ... the ... gold.`;
     }
   },
   bossSix: (bossSixCheckCounter) => {
     if (bossSixCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
+      return `One of the two figures before you looks like a mighty warrior. - Tony`;
     } else if (bossSixCheckCounter === 1) {
       return `...boss dialogue 2/4...`;
     } else if (bossSixCheckCounter === 2) {
@@ -172,7 +172,7 @@ function door1(tileMap) {
   },
   bossSeven: (bossSevenCheckCounter) => {
     if (bossSevenCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
+      return `Iyana`;
     } else if (bossSevenCheckCounter === 1) {
       return `...boss dialogue 2/4...`;
     } else if (bossSevenCheckCounter === 2) {
@@ -185,7 +185,7 @@ function door1(tileMap) {
   },
   bossEight: (bossEightCheckCounter) => {
     if (bossEightCheckCounter === 0) {
-      return `...boss dialogue 1/4...`;
+      return `Senyo`;
     } else if (bossEightCheckCounter === 1) {
       return `...boss dialogue 2/4...`;
     } else if (bossEightCheckCounter === 2) {
