@@ -20,7 +20,7 @@
 
 /* The keyboard of the laptop */
 .laptop:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 220px;
@@ -34,7 +34,7 @@
 
 /* The top of the keyboard */
 .laptop:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 200px;
@@ -116,7 +116,7 @@
 
 /* Matrix Monitor Stand */
 .laptop2:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 220px;
@@ -131,58 +131,85 @@
 #map {
   transition: transform, 2s;
 }
+
+.start {
+  transform: translate(0%, -0.9%);
+}
+
 .down1 {
   transform: translate(0%, -48%);
 }
 
 .down2 {
-  transform: translate(-10%, -48%);
+  transform: translate(-16.4%, -48%);
+}
+.down3 {
+  transform: translate(-32.8%, -48%);
+}
+.down4 {
+  transform: translate(-49%, -48%);
+}
+.down5 {
+  transform: translate(-65.25%, -48%);
 }
 
 .up1 {
-  transform: translate(0%, 0%);
+  transform: translate(0%, -0.9%);
 }
 
 .up2 {
-  transform: translate(-10%, 0%);
+  transform: translate(-16.4%, -0.9%);
+}
+.up3 {
+  transform: translate(-32.8%, -0.9%);
+}
+.up4 {
+  transform: translate(-49%, -0.9%);
+}
+.up5 {
+  transform: translate(-65.25%, -0.9%);
 }
 
 .west1 {
   transform: translate(0%, -48%);
 }
 
+.west2 {
+  transform: translate(-16.4%, -48%);
+}
+
+.west3 {
+  transform: translate(-32.8%, -48%);
+}
+
+.west4 {
+  transform: translate(-49%, -48%);
+}
+
+.west5 {
+  transform: translate(-65.25%, -48%);
+}
+
 .east1 {
-  transform: translate(-10%, -48%);
+  transform: translate(-16.4%, -48%);
 }
 
 .east2 {
-  transform: translate(-20%, -48%);
+  transform: translate(-32.8%, -48%);
 }
 
 .east3 {
-  transform: translate(-30%, -48%);
+  transform: translate(-49%, -48%);
 }
 
 .east4 {
-  transform: translate(-40%, -48%);
+  transform: translate(-65.25%, -48%);
 }
 
 .east5 {
-  transform: translate(-50%, -48%);
+  transform: translate(-82.69%, -44%);
 }
 
-.east6 {
-  transform: translate(-60%, -48%);
-}
-
-.east7 {
-  transform: translate(-70%, -48%);
-}
-
-.east8 {
-  transform: translate(-80%, -48%);
-}
-
-.east9 {
-  transform: translate(-90%, -48%);
+.bossUpper {
+  transform: translate(-82.69%, -3.3%);
 }

@@ -93,20 +93,20 @@ function Map() {
       g: [1344, 2688], // Cat 2
       B: [224, 0], // Closed Treasure Chest
       b: [256, 0], // Open Treasure Chest
-      "*": [96, 416], // Pentagram
-      "=": [1184, 288], // Grass
-      "^": [1696,288], // Grass North
-      "_": [1504,288], // Grass South
-      "+": [1760,288], // Grass East
-      "-": [672,288], // Grass West
-      "%": [1312, 288], // Sand
+      '*': [96, 416], // Pentagram
+      '=': [1184, 288], // Grass
+      '^': [1696, 288], // Grass North
+      _: [1504, 288], // Grass South
+      '+': [1760, 288], // Grass East
+      '-': [672, 288], // Grass West
+      '%': [1312, 288], // Sand
       u: [480, 416], // Tree
-      "@": [1984, 0], // Escape Portal
-      "$": [1504, 1376], // Diploma
-      "<": [], // Grass NW
-      ">": [], // Grass NE
-      "(": [], // Grass SW
-      ")": [], // Grass SE
+      '@': [1984, 0], // Escape Portal
+      $: [1504, 1376], // Diploma
+      '<': [], // Grass NW
+      '>': [], // Grass NE
+      '(': [], // Grass SW
+      ')': [], // Grass SE
     },
     width: 92,
     height: 33,
@@ -230,7 +230,6 @@ function Map() {
         });
       }
 
-
       function levelUp() {
         display.draw(playerPos.x, playerPos.y, ['.', '0']);
         setTimeout(() => {
@@ -241,9 +240,9 @@ function Map() {
       function removeGolem() {
         display.draw(playerPos.x + 32, playerPos.y, ['.', 'm']);
         setTimeout(() => {
-          display.draw(playerPos.x + 32, playerPos.y, '.')
+          display.draw(playerPos.x + 32, playerPos.y, '.');
         }, 500);
-    }
+      }
 
       function drawPlayer() {
         console.log(playerLevel);
@@ -277,13 +276,16 @@ function Map() {
           if (!r) {
             if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
               return display.draw(playerPos.x, playerPos.y, ['U', playerLevel]);
-            } else if (
-              Array.isArray(tileMap[y][x]) &&
-              tileMap[y][x][1] === 'n'
-            ) {
-              return display.draw(playerPos.x, playerPos.y, ['n', playerLevel]);
+            } else if (tileMap[y][x] === '=') {
+              return display.draw(playerPos.x, playerPos.y, ['=', playerLevel]);
             }
             return drawPlayer();
+          } else if (playerPos.y === 23 && playerPos.x === 75) {
+            playerPos = {
+              y: 30,
+              x: 84,
+            };
+            drawLight();
           }
           display.draw(x, y, tileMap[y][x]);
         });
@@ -297,7 +299,6 @@ function Map() {
           display.clear();
           revealWholeMap();
           drawLight();
-
         }
       }
       mapEngine();
@@ -437,11 +438,19 @@ function Map() {
               bossFinalVar = 1;
               setMessage(value);
               return false;
+            case 'u':
+              return false;
+            case 'G':
+              return false;
+            case 'g':
+              return false;
+            case 'k':
+              return false;
             default:
           }
         }
         //movement logic
-        const passable = ['.', 'n', 'U'];
+        const passable = ['.', 'n', 'U', '=', '-'];
         console.log(x, y);
         console.log(tileMap[x][y].length);
         console.log(tileMap[x][y]);
@@ -469,18 +478,48 @@ function Map() {
           document.getElementById('map').setAttribute('class', 'down1');
         } else if (playerPos.y === 17 && playerPos.x === 22) {
           document.getElementById('map').setAttribute('class', 'down2');
+        } else if (playerPos.y === 17 && playerPos.x === 37) {
+          document.getElementById('map').setAttribute('class', 'down3');
+        } else if (playerPos.y === 17 && playerPos.x === 52) {
+          document.getElementById('map').setAttribute('class', 'down4');
+        } else if (playerPos.y === 17 && playerPos.x === 67) {
+          document.getElementById('map').setAttribute('class', 'down5');
         } else if (playerPos.y === 15 && playerPos.x === 7) {
           document.getElementById('map').setAttribute('class', 'up1');
         } else if (playerPos.y === 15 && playerPos.x === 22) {
           document.getElementById('map').setAttribute('class', 'up2');
+        } else if (playerPos.y === 15 && playerPos.x === 37) {
+          document.getElementById('map').setAttribute('class', 'up3');
+        } else if (playerPos.y === 15 && playerPos.x === 52) {
+          document.getElementById('map').setAttribute('class', 'up4');
+        } else if (playerPos.y === 15 && playerPos.x === 67) {
+          document.getElementById('map').setAttribute('class', 'up5');
         } else if (playerPos.y === 23 && playerPos.x === 15) {
           document.getElementById('map').setAttribute('class', 'east1');
-        } else if (playerPos.y === 24 && playerPos.x === 15) {
-          document.getElementById('map').setAttribute('class', 'east1');
+        } else if (playerPos.y === 23 && playerPos.x === 30) {
+          document.getElementById('map').setAttribute('class', 'east2');
+        } else if (playerPos.y === 23 && playerPos.x === 45) {
+          document.getElementById('map').setAttribute('class', 'east3');
+        } else if (playerPos.y === 23 && playerPos.x === 60) {
+          document.getElementById('map').setAttribute('class', 'east4');
+        } else if (playerPos.y === 23 && playerPos.x === 75) {
+          document.getElementById('map').setAttribute('class', 'east5');
         } else if (playerPos.y === 23 && playerPos.x === 14) {
           document.getElementById('map').setAttribute('class', 'west1');
-        } else if (playerPos.y === 24 && playerPos.x === 14) {
+        } else if (playerPos.y === 23 && playerPos.x === 14) {
           document.getElementById('map').setAttribute('class', 'west1');
+        } else if (playerPos.y === 23 && playerPos.x === 29) {
+          document.getElementById('map').setAttribute('class', 'west2');
+        } else if (playerPos.y === 23 && playerPos.x === 44) {
+          document.getElementById('map').setAttribute('class', 'west3');
+        } else if (playerPos.y === 23 && playerPos.x === 59) {
+          document.getElementById('map').setAttribute('class', 'west4');
+        } else if (playerPos.y === 23 && playerPos.x === 74) {
+          document.getElementById('map').setAttribute('class', 'west5');
+        } else if (playerPos.y === 16 && playerPos.x > 75) {
+          document.getElementById('map').setAttribute('class', 'east5');
+        } else if (playerPos.y === 15 && playerPos.x > 75) {
+          document.getElementById('map').setAttribute('class', 'bossUpper');
         }
       }
 
@@ -543,7 +582,7 @@ function Map() {
     }
 
     setInterval(drawMatrix, 50);
-  }
+  };
   // End of Matrix Letters code
   return (
     <>
@@ -627,7 +666,7 @@ function Map() {
               position: 'relative',
               height: '544px',
               width: '512px',
-              overflow: 'scroll',
+              overflow: 'hidden',
               border: '1px solid orange',
               // margin: 'auto',
               transform: 'scale(2) translate(25%, 25%)',
@@ -646,6 +685,7 @@ function Map() {
                 backgroundColor: 'black',
                 border: '2px solid grey',
               }}
+              className='start'
             ></div>
             <div
               style={{
