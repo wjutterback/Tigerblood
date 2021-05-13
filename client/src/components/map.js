@@ -279,7 +279,10 @@ function Map() {
               return display.draw(playerPos.x, playerPos.y, ['U', playerLevel]);
             } else if (tileMap[y][x] === '=') {
               return display.draw(playerPos.x, playerPos.y, ['=', playerLevel]);
+            } else if (tileMap[y][x] === '_') {
+              return display.draw(playerPos.x, playerPos.y, ['_', playerLevel]);
             }
+
             return drawPlayer();
           }
           display.draw(x, y, tileMap[y][x]);
