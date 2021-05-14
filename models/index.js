@@ -1,3 +1,3 @@
 module.exports = {
-  Comment: require("./comment")
+  HighScore: require("./highScore")
 };

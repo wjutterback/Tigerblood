@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { PageContainer } from "./pages/pageContainer/PageContainer";
-import { Comments } from "./pages/comments/Comments"
+import { HighScores } from "./pages/highScores/HighScore"
 import { PreGame } from "./pages/game/PreGame";
 import { Game } from "./pages/game/Game";
+import { RecordScore } from "./pages/highScores/RecordScore"
 import { Home } from "./pages/home/Home";
 import { NotFound } from "./pages/NotFound";
 import "./App.css";
@@ -16,7 +17,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/pregame" element={<PreGame />}/>
               <Route path="/game" element={<Game />} />
-              <Route path="/comments" element={<Comments />} />
+              <Route path="/recordscore" element={<RecordScore />}/>
+              <Route path="/highscores" element={<HighScores />} />
               <Route path="*" element={<NotFound />} />
           </Route>
       </Routes>

@@ -6,30 +6,33 @@ mongoose.connect(
   "mongodb://localhost/tigerblood_db"
 );
 
-const commentSeed = [
+const highScoreSeed = [
   {
-    email: "csheen@email.com",
-    author: "Charlie Sheen",
-    text: "Wow! What a game! You guys are WINNING!",
+    player: "Charlie Sheen",
+    score: 9000,
+    steps: 2000,
+    bitcoin: 3,
     date: new Date(Date.now())
   },
   {
-    email: "wsnipes@email.com",
-    author: "Wesley Snipes",
-    text: "Great job guys! You made it! If you ever need financial advice, hit me up!",
+    player: "Wesley Snipes",
+    score: 20120,
+    steps: 500,
+    bitcoin: 10,
     date: new Date(Date.now())
   },
   {
-    email: "tcruise@email.com",
-    author: "Tom Cruise",
-    text: "Impressive! You can make it even better by adding volcanoes and spaceships. Maybe the sequel?",
+    player: "Ryan Reynolds",
+    score: 6969,
+    steps: 1000,
+    bitcoin: 0,
     date: new Date(Date.now())
   }
 ];
 
-db.Comment
+db.HighScore
   .remove({})
-  .then(() => db.Comment.collection.insertMany(commentSeed))
+  .then(() => db.HighScore.collection.insertMany(highScoreSeed))
   .then(data => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
