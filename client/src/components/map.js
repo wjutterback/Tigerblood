@@ -10,7 +10,7 @@ import './map.css';
 
 function Map() {
   const [message, setMessage] = useState(
-    "You wake up with a jolt, breathing heavily. What is this place? Why is it so dark? What's going on? Your eyes start to adjust to the dark. You look around confused, as unfamiliar shapes start to appear. You muster up the courage to start moving around. The stone up front might have some clues..."
+    ""
   );
   const [test, setTest] = useState(false);
   const [door, setDoor] = useState({});
@@ -22,6 +22,7 @@ function Map() {
   const [level, setLevel] = useState(1);
   const [clearedRooms, setClearedRooms] = useState(0);
   const [bitcoins, setBitcoins] = useState(0);
+  const [stepsTaken, setStepsTaken] = useState(0);
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
   // document.body.appendChild(tileSet);
@@ -157,6 +158,7 @@ function Map() {
 
   function createMap(display, tileSet) {
     let playerPos = { x: 7, y: 4 };
+    let steps = 0;
     let deadBodyVar = 0;
     let bloodMessageVar = 0;
     let helpStone = 0;
@@ -324,6 +326,8 @@ function Map() {
             e.keyCode === 37
           ) {
             e.preventDefault();
+            steps++;
+            setStepsTaken(steps)
           }
           action = handleKey(e);
         }
@@ -666,6 +670,9 @@ function Map() {
               <b>Rooms Cleared:</b> {clearedRooms}
             </h2>
             <h2 className='mr-auto'>
+              <b>Steps Taken:</b> {stepsTaken}
+            </h2>
+            <h2 className='mr-auto'>
               {bitcoins ? (
                 <b>You Found {bitcoins} BitCoin!</b>
               ) : (
@@ -673,24 +680,15 @@ function Map() {
               )}
             </h2>
         </div>
-        <div
-          className='row'
-          style={{
-            fontSize: '2rem',
-            fontFamily: 'fantasy',
-            color: 'orange',
-            background: 'black',
-            padding: '50px',
-          }}
-        >
-          <h1 id="message">{message}</h1>
+        <div className='row'>
+          <p id="message">{message}</p>
         </div>
         <div
           className='row'
           style={{
             fontFamily: 'fantasy',
             backgroundColor: 'Black',
-            padding: '50px',
+            padding: '3rem',
           }}
         >
           <h2>
