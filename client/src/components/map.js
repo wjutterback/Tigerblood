@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
@@ -604,7 +603,7 @@ function Map() {
       ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
       for (let i = 0; i < drops.length; i++) {
         let text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillStyle = '#0f0';
+        ctx.fillStyle = '#ff0000';
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         drops[i]++;
         if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.95) {
@@ -617,80 +616,9 @@ function Map() {
   };
   // End of Matrix Letters code
   return (
-    <>
-      <div className='row'>
-        <Link to='/' style={{ margin: '25px auto 100px auto' }}>
-          <img src='/preview/tigerbloodlogo.png' alt='logo' id='logo' />
-        </Link>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <div
-            className='col-sm-12'
-            style={{
-              fontSize: '2rem',
-              fontFamily: 'fantasy',
-              color: 'orange',
-              border: '2px dashed crimson',
-              background: 'black',
-              padding: '50px',
-            }}
-          >
-            {message}
-          </div>
-        </div>
-        <div className='col'>
-          <div className='row'>
-            <div
-              className='col'
-              style={{
-                fontFamily: 'fantasy',
-                marginBottom: '50px',
-                backgroundColor: 'Black',
-                border: '2px dashed crimson',
-                padding: '50px',
-              }}
-            >
-              <h2 className='mr-auto'>
-                <b>Player Level:</b> {level}
-              </h2>
-              <h2 className='mr-auto'>
-                <b>Rooms Cleared:</b> {clearedRooms}
-              </h2>
-              <h2 className='mr-auto'>
-                {bitcoins ? (
-                  <b>You Found {bitcoins} BitCoin!</b>
-                ) : (
-                  'No secrets here ...'
-                )}
-              </h2>
-            </div>
-            <div
-              className='col'
-              style={{
-                fontFamily: 'fantasy',
-                marginBottom: '50px',
-                backgroundColor: 'Black',
-                border: '2px dashed crimson',
-                padding: '50px',
-              }}
-            >
-              <h2>
-                <b>Items Unlocked: {inventory.length}</b>
-              </h2>
-              <ol>
-                {inventory.map((item, i) => (
-                  <li key={i} style={{ fontSize: '1.5rem' }}>
-                    <b>{item.name}</b>: {item.power}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
+    <div className="row">
+      <div className="col-sm-6">
+        <div className="row">
           <div
             className=''
             id='drawingBoard'
@@ -699,9 +627,8 @@ function Map() {
               height: '544px',
               width: '512px',
               overflow: 'hidden',
-              border: '1px solid orange',
-              // margin: 'auto',
-              transform: 'scale(2) translate(25%, 25%)',
+              margin: 'auto',
+              transform: 'scale(2) translate(0%, 25%)',
             }}
           >
             <div
@@ -715,76 +642,121 @@ function Map() {
                 textAlign: 'center',
                 overflow: 'auto',
                 backgroundColor: 'black',
-                border: '2px solid grey',
               }}
               className='start'
-            ></div>
-            <div
-              style={{
-                background: 'transparent',
-                position: 'absolute',
-                left: '0px',
-                top: '0px',
-              }}
-              id='character'
-            ></div>
-            {/* MAP goes here */}
+            >
+              {/* MAP goes here */}
+            </div>
           </div>
         </div>
-        <div className='col' style={{ visibility: visibility }}>
+      </div>
+      <div className="col-sm-6">
+        <div
+            className='row'
+            style={{
+              fontFamily: 'fantasy',
+              backgroundColor: 'Black',
+              padding: '50px',
+            }}
+          >
+            <h2 className='mr-auto'>
+              <b>Player Level:</b> {level}
+            </h2>
+            <h2 className='mr-auto'>
+              <b>Rooms Cleared:</b> {clearedRooms}
+            </h2>
+            <h2 className='mr-auto'>
+              {bitcoins ? (
+                <b>You Found {bitcoins} BitCoin!</b>
+              ) : (
+                'No secrets here ...'
+              )}
+            </h2>
+        </div>
+        <div
+          className='row'
+          style={{
+            fontSize: '2rem',
+            fontFamily: 'fantasy',
+            color: 'orange',
+            background: 'black',
+            padding: '50px',
+          }}
+        >
+          <h1 id="message">{message}</h1>
+        </div>
+        <div
+          className='row'
+          style={{
+            fontFamily: 'fantasy',
+            backgroundColor: 'Black',
+            padding: '50px',
+          }}
+        >
+          <h2>
+            <b>Items Unlocked: {inventory.length}</b>
+          </h2>
+          <ol>
+            {inventory.map((item, i) => (
+              <li key={i} style={{ fontSize: '1.5rem' }}>
+                <b>{item.name}</b>: {item.power}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className='row' style={{ visibility: visibility }}>
           <div className='laptop2'>
             <section id='matrixCanvasContainer'>
               <canvas id='matrixCanvas'></canvas>
             </section>
             <button
               type='button'
-              className='btn btn-success btn-block'
+              className='btn btn-danger btn-block'
               id='screenModalLauncher'
               data-toggle='modal'
               data-target='#screenModal'
             >
-              Terminal Available!
+              Open Terminal
             </button>
           </div>
-          <div
-            className='modal fade'
-            id='screenModal'
-            tabIndex='-1'
-            role='dialog'
-            aria-labelledby='screenModalLabel'
-            aria-hidden='true'
-          >
-            <div className='modal-dialog modal-dialog-centered' role='document'>
-              <div className='modal-content'>
-                <div className='modal-body'>
-                  <div className='laptop'>
-                    <div className='content'>
-                      <p id='webcam'>o</p>
-                      <p id='buttons'>&#10006;</p>
-                      <CodeBox
-                        lines={lines}
-                        code={code}
-                        getTestResult={getTestResult}
-                      />
-                      <p id='brand'>&#127820;</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='modal-footer'>
-                  <button
-                    type='button'
-                    className='btn btn-secondary'
-                    data-dismiss='modal'
-                  >
-                    Close
-                  </button>
+        </div>
+      </div>
+      <div
+        className='modal fade'
+        id='screenModal'
+        tabIndex='-1'
+        role='dialog'
+        aria-labelledby='screenModalLabel'
+        aria-hidden='true'
+      >
+        <div className='modal-dialog modal-dialog-centered' role='document'>
+          <div className='modal-content'>
+            <div className='modal-body'>
+              <div className='laptop'>
+                <div className='content'>
+                  <p id='webcam'>o</p>
+                  <p id='buttons'>&#10006;</p>
+                  <CodeBox
+                    lines={lines}
+                    code={code}
+                    getTestResult={getTestResult}
+                  />
                 </div>
               </div>
+            </div>
+            <div className='modal-footer'>
+              <button
+                type='button'
+                className='btn btn-secondary'
+                data-dismiss='modal'
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 export default Map;
