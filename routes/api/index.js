@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const commentRoutes = require("./comments.js");
+const highScoresRoutes = require("./highScores.js");
 
-router.use("/comments", commentRoutes);
+router.use("/highscores", highScoresRoutes);
 
 module.exports = router;

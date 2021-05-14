@@ -1,21 +1,21 @@
 import axios from "axios";
 
 const API = {
-  // Gets all Comments
-  getComments: function() {
-    return axios.get("/api/comments");
+  // Gets all HighScores
+  getHighScores: function() {
+    return axios.get("/api/HighScores");
   },
-  // Gets the Comment with the given id
-  getComment: function(id) {
-    return axios.get("/api/comments/" + id);
+  // Gets the HighScore with the given id
+  getHighScore: function(id) {
+    return axios.get("/api/HighScores/" + id);
   },
-  // Deletes the Comment with the given id
-  deleteComment: function(id) {
-    return axios.delete("/api/comments/" + id);
+  // Deletes the HighScore with the given id
+  deleteHighScore: function(id) {
+    return axios.delete("/api/HighScores/" + id);
   },
-  // Saves a Comment to the database
-  saveComment: function(commentData) {
-    return axios.post("/api/comments", commentData);
+  // Saves a HighScore to the database
+  saveHighScore: function(HighScoreData) {
+    return axios.post("/api/HighScores", HighScoreData);
   }
 };
 
