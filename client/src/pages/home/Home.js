@@ -11,7 +11,7 @@ export const Home = () => {
           <br />
           <h1 id="homeGreeting">The brainchild of Will the Wizard and Fahad the (very) Impressed</h1>
           <br />
-          <Link to="/game" className="start-btn btn-lg">START</Link>
+          <Link to="/pregame" className="start-btn btn-lg">START</Link>
           <Link to="/comments" className="start-btn btn-lg">COMMENTS</Link>
         </div>
       </div>

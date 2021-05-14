@@ -1,9 +1,11 @@
 import Map from '../../components/map';
+import { GameHeader } from "../../components/GameHeader";
 
 export const Game = () => {
   return (
-    <section className='container-fluid'>
-          <Map />
-    </section>
+    <>
+      <GameHeader />
+      <Map />
+    </>
   );
 };
