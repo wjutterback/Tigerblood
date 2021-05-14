@@ -16,8 +16,13 @@
   animation: fadeIn linear 4s;
   -webkit-animation: fadeIn linear 4s;
   -moz-animation: fadeIn linear 4s;
-  -o-animation: fadeIn linear 4s;
-  -ms-animation: fadeIn linear 4s;
+  -o-animation: fadeIn linear 3s;
+  -ms-animation: fadeIn linear 3s;
+  -webkit-animation-delay: 2s;
+  animation-delay: 2s;
+  opacity: 0;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 
 #homeLogo {
@@ -49,11 +54,16 @@
   border-radius: 7px;
   box-shadow: 0 0.2em gray;
   cursor: pointer;
-  animation: fadeIn linear 10s;
-  -webkit-animation: fadeIn linear 10s;
-  -moz-animation: fadeIn linear 10s;
-  -o-animation: fadeIn linear 10s;
-  -ms-animation: fadeIn linear 10s;
+  animation: fadeIn linear 3s;
+  -webkit-animation: fadeIn linear 3s;
+  -moz-animation: fadeIn linear 3s;
+  -o-animation: fadeIn linear 3s;
+  -ms-animation: fadeIn linear 3s;
+  opacity: 0;
+  -webkit-animation-delay: 4s;
+  animation-delay: 4s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 .start-btn:active {
   box-shadow: none;
