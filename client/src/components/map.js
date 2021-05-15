@@ -4,18 +4,24 @@ import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
 import gameFuncs from '../assets/js/flavor';
-import CodeBox from './codemirror';
-import API from "../utils/API";
-import { use } from 'chai';
+import API from '../utils/API';
+import CodeMirror from '@uiw/react-codemirror';
+import 'codemirror/addon/display/autorefresh';
+// import 'codemirror/addon/comment/comment';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/keymap/sublime';
+import 'codemirror/theme/monokai.css';
+// import 'codemirror/mode/jsx/jsx.js';
+import 'codemirror/mode/javascript/javascript';
+import chai from 'chai';
+import 'chai/register-expect';
+import mocha from 'mocha';
+import testFuncs from '../assets/js/tests';
 import './map.css';
 
 function Map() {
-  const [message, setMessage] = useState(
-    ""
-  );
-  const [test, setTest] = useState(false);
+  const [message, setMessage] = useState('');
   const [door, setDoor] = useState({});
-  const [animate, setAnimate] = useState('');
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
   const [lines, setLines] = useState([]);
@@ -26,6 +32,7 @@ function Map() {
   const [stepsTaken, setStepsTaken] = useState(0);
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState('');
+
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
   // document.body.appendChild(tileSet);
@@ -126,18 +133,20 @@ function Map() {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect lines', lines);
-  }, [lines]);
+    let editor = document.querySelector('.CodeMirror').CodeMirror;
+    editor.on('beforeChange', function (cm, change) {
+      if (~lines.indexOf(change.from.line)) {
+        change.cancel();
+      }
+    })
+  }, [lines])
 
-  let lavaCounter = 0;
   let playerLevel = 1;
   let roomsCleared = 0;
   let bitCoinsFound = 0;
 
   const getTestResult = (pass) => {
-    console.log(pass);
     if (pass === true) {
-      lavaCounter++;
       tileMap[door.x][door.y] = ['.', 'U'];
       //display draw doesn't work in here, not quite sure why that is
       setCode('Success!');
@@ -145,10 +154,8 @@ function Map() {
         setCode('');
       }, 2000);
       //display.draw needed to draw the open door on pass
-      setTest(pass);
-      roomsCleared = 1;
+      roomsCleared++;
       setClearedRooms(roomsCleared);
-      // coolLava(); - cool lava after beating second boss
     }
   };
 
@@ -159,7 +166,7 @@ function Map() {
   }, []);
 
   /* Start of Score Submission to DB (Not Working on first submit)*/
-  function handleScoreSave(event){
+  function handleScoreSave(event) {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
@@ -174,12 +181,36 @@ function Map() {
       bitcoins: bitcoins || 0,
       score: score,
     })
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err.response));
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.response));
   }
   /* End of Score Submission to DB */
 
   const animateable = ['I', 'i', 'J', 'j', 'M', 'm', 'O', 'o'];
+
+  function run() {
+    const expect = chai.expect;
+    let editor = document.querySelector('.CodeMirror').CodeMirror;
+    let scriptTest = document.createElement('script');
+    scriptTest.textContent = editor.getValue();
+    // script.setAttribute('type', 'module');
+    document.getElementById('scripting').appendChild(scriptTest);
+    mocha.setup({
+      cleanReferencesAfterRun: false,
+      ui: 'bdd',
+    });
+
+    testFuncs.doorTest();
+
+    mocha.run();
+    let testResult = document.getElementsByClassName('passes');
+    setTimeout(() => {
+      if (testResult[0].lastChild.textContent === '1') {
+        getTestResult(true);
+      }
+      console.log(testResult[0].lastChild.textContent);
+    }, 500);
+  }
 
   function createMap(display, tileSet) {
     let playerPos = { x: 7, y: 4 };
@@ -339,7 +370,8 @@ function Map() {
       mapEngine();
 
       function updateScore() {
-        score = Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
+        score =
+          Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
       }
 
       async function movement() {
@@ -459,9 +491,9 @@ function Map() {
             case 'L':
               value = gameFuncs.door(ringVar, { x: x, y: y });
               if (ringVar === 1) {
+                setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
-                setLines(value.lines);
                 setDoor({ x: x, y: y });
                 break;
               }
@@ -502,8 +534,8 @@ function Map() {
                 bossOneVar++;
                 return false;
               }
-              setCode(value.code);
               setLines(value.lines);
+              setCode(value.code);
               setMessage(value.text);
               bossOneVar++;
               return false;
@@ -652,9 +684,9 @@ function Map() {
   };
   // End of Matrix Letters code
   return (
-    <div className="row">
-      <div className="col-sm-6">
-        <div className="row">
+    <div className='row'>
+      <div className='col-sm-6'>
+        <div className='row'>
           <div
             className=''
             id='drawingBoard'
@@ -686,34 +718,34 @@ function Map() {
           </div>
         </div>
       </div>
-      <div className="col-sm-6">
+      <div className='col-sm-6'>
         <div
-            className='row'
-            style={{
-              fontFamily: 'fantasy',
-              backgroundColor: 'Black',
-              padding: '50px',
-            }}
-          >
-            <h2 className='mr-auto'>
-              <b>Player Level:</b> {level}
-            </h2>
-            <h2 className='mr-auto'>
-              <b>Rooms Cleared:</b> {clearedRooms}
-            </h2>
-            <h2 className='mr-auto'>
-              <b>Steps Taken:</b> {stepsTaken}
-            </h2>
-            <h2 className='mr-auto'>
-              {bitcoins ? (
-                <b>You Found {bitcoins} BitCoin!</b>
-              ) : (
-                'No secrets here ...'
-              )}
-            </h2>
+          className='row'
+          style={{
+            fontFamily: 'fantasy',
+            backgroundColor: 'Black',
+            padding: '50px',
+          }}
+        >
+          <h2 className='mr-auto'>
+            <b>Player Level:</b> {level}
+          </h2>
+          <h2 className='mr-auto'>
+            <b>Rooms Cleared:</b> {clearedRooms}
+          </h2>
+          <h2 className='mr-auto'>
+            <b>Steps Taken:</b> {stepsTaken}
+          </h2>
+          <h2 className='mr-auto'>
+            {bitcoins ? (
+              <b>You Found {bitcoins} BitCoin!</b>
+            ) : (
+              'No secrets here ...'
+            )}
+          </h2>
         </div>
         <div className='row'>
-          <p id="message">{message}</p>
+          <p id='message'>{message}</p>
         </div>
         <div
           className='row'
@@ -768,6 +800,8 @@ function Map() {
         aria-labelledby='screenModalLabel'
         aria-hidden='true'
       >
+        <div id='scripting'></div>
+        <div style={{ visibility: 'hidden' }} id='mocha'></div>
         <div className='modal-dialog modal-dialog-centered' role='document'>
           <div className='modal-content'>
             <div className='modal-body'>
@@ -775,11 +809,22 @@ function Map() {
                 <div className='content'>
                   <p id='webcam'>o</p>
                   <p id='buttons'>&#10006;</p>
-                  <CodeBox
-                    lines={lines}
-                    code={code}
-                    getTestResult={getTestResult}
+                  <CodeMirror
+                    value={code}
+                    options={{
+                      tabSize: 2,
+                      autoCloseBrackets: true,
+                      matchBrackets: true,
+                      showCursorWhenSelecting: true,
+                      lineNumbers: true,
+                      fullScreen: true,
+                      mode: 'javascript',
+                      keyMap: 'sublime',
+                      theme: 'monokai',
+                      autoRefresh: true,
+                    }}
                   />
+                  <button onClick={run}>Run Me</button>
                 </div>
               </div>
             </div>
@@ -804,8 +849,8 @@ function Map() {
         aria-hidden='true'
       >
         <div className='modal-dialog modal-dialog-centered' role='document'>
-          <div className='modal-content' id="gameOverModalContent">
-            <div className='modal-body' id="gameOverModalBody">
+          <div className='modal-content' id='gameOverModalContent'>
+            <div className='modal-body' id='gameOverModalBody'>
               <h1>Congratulations!</h1>
               <h2>You managed to escape the dungeon and gained a diploma on the way!</h2>
               <h3>Your performance has been scored. Submit your name and immortalize your performance in the hall of sh.., i mean fame. </h3>
@@ -814,23 +859,48 @@ function Map() {
                   <label htmlFor="name">Player Name</label>
                   <input type="text" className="form-control" id="name" placeholder="Name" required/>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="steps">Steps Taken</label>
-                  <input type="text" className="form-control-plaintext" readOnly id="steps" aria-describedby="stepsHelp" value={stepsTaken} style={{color: "white"}}/>
+                <div className='form-group'>
+                  <label htmlFor='steps'>Steps Taken</label>
+                  <input
+                    type='text'
+                    className='form-control-plaintext'
+                    readOnly
+                    id='steps'
+                    aria-describedby='stepsHelp'
+                    value={stepsTaken}
+                    style={{ color: 'white' }}
+                  />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="bitcoin">BitCoins Collected</label>
-                  <input type="text" className="form-control-plaintext" readOnly id="bitcoin" aria-describedby="bitcoinHelp" value={bitcoins} style={{color: "white"}}/>
+                <div className='form-group'>
+                  <label htmlFor='bitcoin'>BitCoins Collected</label>
+                  <input
+                    type='text'
+                    className='form-control-plaintext'
+                    readOnly
+                    id='bitcoin'
+                    aria-describedby='bitcoinHelp'
+                    value={bitcoins}
+                    style={{ color: 'white' }}
+                  />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="score">Score</label>
-                  <input type="text" className="form-control-plaintext"  readOnly id="score" aria-describedby="scoreHelp" value={score} style={{color: "white"}}/>
+                <div className='form-group'>
+                  <label htmlFor='score'>Score</label>
+                  <input
+                    type='text'
+                    className='form-control-plaintext'
+                    readOnly
+                    id='score'
+                    aria-describedby='scoreHelp'
+                    value={score}
+                    style={{ color: 'white' }}
+                  />
                 </div>
-                <button type="submit" className="btn btn-danger">Save Score</button>
+                <button type='submit' className='btn btn-danger'>
+                  Save Score
+                </button>
               </form>
             </div>
-            <div className='modal-footer' id="gameOverModalFooter">
-            </div>
+            <div className='modal-footer' id='gameOverModalFooter'></div>
           </div>
         </div>
       </div>
