@@ -1,3 +1,5 @@
+/* Typewriter Effects inspired and modified from Geoff Graham at https://css-tricks.com/snippets/css/typewriter-effect/ */
+
 .introText p {
   border-right: 0.15em solid;
   font-family: fantasy;
