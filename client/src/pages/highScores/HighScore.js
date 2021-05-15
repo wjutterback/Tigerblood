@@ -4,17 +4,19 @@ import { GameHeader } from "../../components/GameHeader";
 import { SavedHighScores } from "../../components/SavedHighScores";
 
 export const HighScores = () => {
-  const [savedHighScores, setSavedHighScores] = useState([])
+  const [savedHighScores, setSavedHighScores] = useState([]);
+  const [sortedHighScores, setSortedHighScores] = useState([]);
 
-  function getSavedHighScores (){
-    API.getHighScores().then((response) => {
+  async function getSavedHighScores (){
+    await API.getHighScores().then((response) => {
       console.log(response)
       setSavedHighScores(response.data)
+      console.log(savedHighScores)
     })
   }
 
   useEffect(() => {
-    getSavedHighScores()
+    getSavedHighScores();
   },[])
 
   return(

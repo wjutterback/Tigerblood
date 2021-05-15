@@ -154,7 +154,7 @@ function Map() {
 
   useEffect(() => {
     setInterval(() => {
-      console.log('30 sec check');
+      console.log('30 sec check. Could be useful for animations. Otherwise delete.');
     }, 30000);
   }, []);
 
@@ -163,14 +163,13 @@ function Map() {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
-    console.log(pName)
-    saveScore();
+    saveScore(pName);
   }
 
-  /* Pulls data from State variables */
-  async function saveScore(){
-    await API.saveHighScore({
-      player: playerName,
+  /* Pulls data from State variables except Name */
+  function saveScore(pName){
+    API.saveHighScore({
+      player: pName,
       steps: stepsTaken,
       bitcoins: bitcoins || 0,
       score: score,
@@ -813,7 +812,7 @@ function Map() {
               <form className="w-100"  onSubmit={handleScoreSave}>
                 <div className="form-group">
                   <label htmlFor="name">Player Name</label>
-                  <input type="text" className="form-control" id="name" placeholder="Name"/>
+                  <input type="text" className="form-control" id="name" placeholder="Name" required/>
                 </div>
                 <div className="form-group">
                   <label htmlFor="steps">Steps Taken</label>
