@@ -38,11 +38,12 @@ export const PreGame = () => {
               The stone up front might have some clues...
             </p>
             <p style={{color: "red", fontFamily: "monospace"}}>
-              KNOCK KNOCK!
+              KNOCK KNOCK...
             </p>
           </div>
-          <div className="row">
-            <Link to="/game" className="btn-lg mx-auto btn-danger" id="gameStartButton">ENTER</Link>
+          <div className="row" style={{marginTop: "10rem"}}>
+            <Link to="/game" className="btn-lg mx-auto btn-danger" id="gameStartButton">WAKE UP</Link>
+            <Link to="/" className="btn mx-auto" id="bluePillButton">KEEP SLEEPING</Link>
           </div>
     </section>
   )
