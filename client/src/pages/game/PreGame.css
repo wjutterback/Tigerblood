@@ -9,7 +9,7 @@
   margin-bottom: 2rem;
 }
 .introText p:nth-child(1) {
-  width: 16em;
+  width: 12em;
   -webkit-animation: type 3s steps(80, end);
   animation: type 3s steps(80, end);
   -webkit-animation-delay: 0s;
@@ -19,7 +19,7 @@
 }
 
 .introText p:nth-child(2) {
-  width: 19em;
+  width: 24em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -96,7 +96,7 @@
 }
 
 .introText p:nth-child(9) {
-  width: 23em;
+  width: 28em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -107,7 +107,7 @@
 }
 
 .introText p:nth-child(10) {
-  width: 20em;
+  width: 23em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -118,7 +118,7 @@
 }
 
 .introText p:nth-child(11) {
-  width: 7em;
+  width: 8.5em;
   opacity: 0;
   margin-top: 30px;
   -webkit-animation: type3 1s steps(80, end),
@@ -132,20 +132,19 @@
 
 #gameStartButton {
   font-family: "Finger Paint", "Roboto Mono";
-  text-align: center;
-  width: 150px;
+  background-color: rgb(247, 28, 57);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  height: 3rem;
+  width: 14rem;
   display: inline-block;
   margin: 50px 5px 100px 5px;
   font-weight: bold;
-  padding: 10px 0 10px 10px;
-  background-color: lightgray;
-  text-shadow: -1px -1px black, 1px 1px white;
-  color: gray;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -o-border-radius: 7px;
-  border-radius: 7px;
-  box-shadow: 0 0.2em gray;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 25px;
   cursor: pointer;
   animation: fadeIn linear 3s;
   -webkit-animation: fadeIn linear 3s;
@@ -159,6 +158,40 @@
   animation-fill-mode: forwards;
 }
 #gameStartButton:active {
+  box-shadow: none;
+  position: relative;
+  top: 0.2em;
+}
+
+#bluePillButton {
+  font-family: "Finger Paint", "Roboto Mono";
+  background-color: rgb(21, 34, 213);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  height: 3rem;
+  width: 14rem;
+  display: inline-block;
+  margin: 50px 5px 100px 5px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 25px;
+  cursor: pointer;
+  animation: fadeIn linear 3s;
+  -webkit-animation: fadeIn linear 3s;
+  -moz-animation: fadeIn linear 3s;
+  -o-animation: fadeIn linear 3s;
+  -ms-animation: fadeIn linear 3s;
+  opacity: 0;
+  -webkit-animation-delay: 56s;
+  animation-delay: 56s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+#bluePillButton:active {
   box-shadow: none;
   position: relative;
   top: 0.2em;

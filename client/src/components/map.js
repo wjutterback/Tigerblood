@@ -62,8 +62,9 @@ function Map() {
       '&': [992, 864], // Keypad
       I: [480, 672], // Torch 1
       i: [544, 672], // Torch 2
-      J: [1568, 0], // Flame 1
-      j: [1600, 0], // Flame 2
+      J: [832,384], // & Statue
+      E: [864,384], // @ Statue
+      j: [96, 0], // Water Fountain
       O: [512, 2272], // Eye Obelisk 1
       o: [672, 2272], // Eye Obelisk 2
       A: [32, 32], // Golem Level 1 Statue Solid
@@ -117,7 +118,7 @@ function Map() {
       '>': [], // Grass NE
       '(': [], // Grass SW
       ')': [], // Grass SE
-      '?': [288, 64], // see through tile
+      '?': [800, 224], // see through tile
     },
     width: 92,
     height: 33,
@@ -158,19 +159,24 @@ function Map() {
     }
   };
 
+  useEffect(() => {
+    setInterval(() => {
+      console.log('30 sec check. Could be useful for animations. Otherwise delete.');
+    }, 30000);
+  }, []);
+
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
-    console.log(pName);
-    saveScore();
+    saveScore(pName);
   }
 
-  /* Pulls data from State variables */
-  async function saveScore() {
-    await API.saveHighScore({
-      player: playerName,
+  /* Pulls data from State variables except Name */
+  function saveScore(pName){
+    API.saveHighScore({
+      player: pName,
       steps: stepsTaken,
       bitcoins: bitcoins || 0,
       score: score,
@@ -846,23 +852,12 @@ function Map() {
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
               <h1>Congratulations!</h1>
-              <h2>
-                You managed to escape the dungeon and gained a diploma on the
-                way!
-              </h2>
-              <h3>
-                Your performance has been scored. Submit your name and
-                immortalize your performance in the hall of sh.., i mean fame.{' '}
-              </h3>
-              <form className='w-100' onSubmit={handleScoreSave}>
-                <div className='form-group'>
-                  <label htmlFor='name'>Player Name</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='name'
-                    placeholder='Name'
-                  />
+              <h2>You managed to escape the dungeon and gained a diploma on the way!</h2>
+              <h3>Your performance has been scored. Submit your name and immortalize your performance in the hall of sh.., i mean fame. </h3>
+              <form className="w-100"  onSubmit={handleScoreSave}>
+                <div className="form-group">
+                  <label htmlFor="name">Player Name</label>
+                  <input type="text" className="form-control" id="name" placeholder="Name" required/>
                 </div>
                 <div className='form-group'>
                   <label htmlFor='steps'>Steps Taken</label>

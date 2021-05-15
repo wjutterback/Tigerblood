@@ -8,10 +8,10 @@ export const PreGame = () => {
           <GameHeader />
           <div className="introText">
             <p style={{color: "red", fontFamily: "monospace"}}>
-              Wake up, fellow student...
+              Wake up, neophyte...
             </p>
             <p>
-              You wake up with a jolt, breathing heavily.
+              You open your eyes. There's a voice inside your head.
             </p>
             <p>
               "What?" You try to focus. Darkness surrounds you.
@@ -20,7 +20,7 @@ export const PreGame = () => {
               TigerBlood has you...
             </p>
             <p>
-              "What the heck?!" You look around confused.
+              "What the heck?!" You think aloud, confused.
             </p>
             <p>
               You eyes slowly adjust, as unfamiliar shapes start to form.
@@ -32,17 +32,18 @@ export const PreGame = () => {
               "Follow the red clues?", you wonder to yourself.
             </p>
             <p>
-              You muster up the courage to start moving around.
+              Your thoughts wander towards escaping whatever is going on.
             </p>
             <p>
-              The stone up front might have some clues...
+              The monument up ahead seems to have writing on it...
             </p>
             <p style={{color: "red", fontFamily: "monospace"}}>
-              KNOCK KNOCK!
+              KNOCK KNOCK...
             </p>
           </div>
-          <div className="row">
-            <Link to="/game" className="btn-lg mx-auto btn-danger" id="gameStartButton">ENTER</Link>
+          <div className="row" style={{marginTop: "10rem"}}>
+            <Link to="/game" className="btn-lg mx-auto btn-danger" id="gameStartButton">WAKE UP</Link>
+            <Link to="/" className="btn mx-auto" id="bluePillButton">KEEP SLEEPING</Link>
           </div>
     </section>
   )
