@@ -5,6 +5,7 @@ import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
 import gameFuncs from '../assets/js/flavor';
 import CodeBox from './codemirror';
+import API from "../utils/API";
 import { use } from 'chai';
 import './map.css';
 
@@ -23,6 +24,8 @@ function Map() {
   const [clearedRooms, setClearedRooms] = useState(0);
   const [bitcoins, setBitcoins] = useState(0);
   const [stepsTaken, setStepsTaken] = useState(0);
+  const [score, setScore] = useState(0);
+  const [playerName, setPlayerName] = useState('');
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
   // document.body.appendChild(tileSet);
@@ -122,7 +125,7 @@ function Map() {
   }, []);
 
   useEffect(() => {
-    console.log('useeffect lines', lines);
+    console.log('useEffect lines', lines);
   }, [lines]);
 
   let lavaCounter = 0;
@@ -154,6 +157,28 @@ function Map() {
     }, 30000);
   }, []);
 
+  /* Start of Score Submission to DB (Not Working on first submit)*/
+  function handleScoreSave(event){
+    event.preventDefault();
+    const pName = event.target.name.value;
+    setPlayerName(pName);
+    console.log(pName)
+    saveScore();
+  }
+
+  /* Pulls data from State variables */
+  async function saveScore(){
+    await API.saveHighScore({
+      player: playerName,
+      steps: stepsTaken,
+      bitcoins: bitcoins || 0,
+      score: score,
+    })
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err.response));
+  }
+  /* End of Score Submission to DB */
+
   const animateable = ['I', 'i', 'J', 'j', 'M', 'm', 'O', 'o'];
 
   function createMap(display, tileSet) {
@@ -176,6 +201,7 @@ function Map() {
     let bossSevenVar = 0;
     let bossEightVar = 0;
     let bossFinalVar = 0;
+    let score = 0;
     let catsVar = 0;
     let dogsVar = 0;
     let diplomaVar = 0;
@@ -312,6 +338,10 @@ function Map() {
       }
       mapEngine();
 
+      function updateScore() {
+        score = Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
+      }
+
       async function movement() {
         let action = false;
         while (!action) {
@@ -327,7 +357,9 @@ function Map() {
           ) {
             e.preventDefault();
             steps++;
-            setStepsTaken(steps)
+            setStepsTaken(steps);
+            updateScore();
+            setScore(score);
           }
           action = handleKey(e);
         }
@@ -691,6 +723,15 @@ function Map() {
             padding: '3rem',
           }}
         >
+          <button
+            type='button'
+            className='btn btn-success'
+            id='gameOverModalLauncher'
+            data-toggle='modal'
+            data-target='#gameOverModal'
+          >
+            Game Over!
+          </button>
           <h2>
             <b>Items Unlocked: {inventory.length}</b>
           </h2>
@@ -750,6 +791,45 @@ function Map() {
               >
                 Close
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className='modal fade'
+        id='gameOverModal'
+        tabIndex='-1'
+        role='dialog'
+        aria-labelledby='gameOverModalLabel'
+        aria-hidden='true'
+      >
+        <div className='modal-dialog modal-dialog-centered' role='document'>
+          <div className='modal-content' id="gameOverModalContent">
+            <div className='modal-body' id="gameOverModalBody">
+              <h1>Congratulations!</h1>
+              <h2>You managed to escape the dungeon and gained a diploma on the way!</h2>
+              <h3>Your performance has been scored. Submit your name and immortalize your performance in the hall of sh.., i mean fame. </h3>
+              <form className="w-100"  onSubmit={handleScoreSave}>
+                <div className="form-group">
+                  <label htmlFor="name">Player Name</label>
+                  <input type="text" className="form-control" id="name" placeholder="Name"/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="steps">Steps Taken</label>
+                  <input type="text" className="form-control-plaintext" readOnly id="steps" aria-describedby="stepsHelp" value={stepsTaken} style={{color: "white"}}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="bitcoin">BitCoins Collected</label>
+                  <input type="text" className="form-control-plaintext" readOnly id="bitcoin" aria-describedby="bitcoinHelp" value={bitcoins} style={{color: "white"}}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="score">Score</label>
+                  <input type="text" className="form-control-plaintext"  readOnly id="score" aria-describedby="scoreHelp" value={score} style={{color: "white"}}/>
+                </div>
+                <button type="submit" className="btn btn-danger">Save Score</button>
+              </form>
+            </div>
+            <div className='modal-footer' id="gameOverModalFooter">
             </div>
           </div>
         </div>

@@ -238,3 +238,16 @@
     border-color: orange;
   }
 }
+
+#gameOverModalContent {
+  background-color: black;
+}
+
+#gameOverContentBody {
+}
+
+#gameOverModalFooter {
+}
+
+#gameOverModalLauncher {
+}
