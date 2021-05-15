@@ -121,9 +121,9 @@
   width: 7em;
   opacity: 0;
   margin-top: 30px;
-  -webkit-animation: type3 3s steps(80, end),
+  -webkit-animation: type3 1s steps(80, end),
     blink 0.5s step-end infinite alternate;
-  animation: type3 3s steps(80, end), blink 0.5s step-end infinite alternate;
+  animation: type3 1s steps(80, end), blink 0.5s step-end infinite alternate;
   -webkit-animation-delay: 52s;
   animation-delay: 52s;
   -webkit-animation-fill-mode: forwards;
