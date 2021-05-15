@@ -10,8 +10,10 @@
 
 #homeGreeting {
   font-family: "Finger Paint", "Roboto Mono";
-  font-size: 1.5rem;
+  font-size: 2rem;
   padding: 40px;
+  display: block;
+  margin-top: 150px;
   display: inline-block;
   animation: fadeIn linear 4s;
   -webkit-animation: fadeIn linear 4s;
@@ -20,6 +22,24 @@
   -ms-animation: fadeIn linear 3s;
   -webkit-animation-delay: 2s;
   animation-delay: 2s;
+  opacity: 0;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+#homeSubText {
+  font-family: "Finger Paint", "Roboto Mono";
+  font-size: 1.5rem;
+  padding: 40px;
+  margin-top: 150px;
+  display: inline-block;
+  animation: fadeIn linear 4s;
+  -webkit-animation: fadeIn linear 4s;
+  -moz-animation: fadeIn linear 4s;
+  -o-animation: fadeIn linear 3s;
+  -ms-animation: fadeIn linear 3s;
+  -webkit-animation-delay: 5s;
+  animation-delay: 5s;
   opacity: 0;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
@@ -37,12 +57,14 @@
   -o-animation: fadeIn linear 2s;
   -ms-animation: fadeIn linear 2s;
 }
+
 .start-btn {
   font-family: "Finger Paint", "Roboto Mono";
   text-align: center;
   width: 150px;
+  bottom: 50%;
   display: inline-block;
-  margin: 5px;
+  margin: 200px 5px 50px 5px;
   font-weight: bold;
   padding: 10px 0 10px 10px;
   background-color: lightgray;
@@ -65,6 +87,7 @@
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
+
 .start-btn:active {
   box-shadow: none;
   position: relative;
