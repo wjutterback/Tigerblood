@@ -36,7 +36,7 @@ I created a simple lock by setting tileMap[${door.x}][${door.y}] = 'L'; For 'Loc
 Note: 'U' for Unlocked Door.
 */
 function door1(tileMap) {
-  return tileMap[${door.x}][${door.y}] = 'L'
+  return tileMap[${door.x}][${door.y}] = 'L';
 }`,
       };
     }
@@ -109,11 +109,11 @@ function door1(tileMap) {
     if (bossTwoCheckCounter === 0) {
       return `You warily approach one of the three figures huddled around the pentagram... The creature hisses, then grins evilly at you. The sound echoes in the dimly lit room.`;
     } else if (bossTwoCheckCounter === 1) {
-      return `Get back to the work at hand. Everyone focus on the project. We need Joy!`;
+      return `Get back to the work at hand. Cazasa, stay focused, you're responsible for writing all our functions. We're close to bringing Joy back into our lives!`;
     } else if (bossTwoCheckCounter === 2) {
       return `Every one says my name wrong. But I don't care. What's my name? Hah, hah, hah... Like I'd tell you. *smiles*`;
     } else if (bossTwoCheckCounter === 3) {
-      return `I wrote this code to bring our Joy back, it broke, but I fixed it.. Almost. It's missing something...`;
+      return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, did you finish the back-end?`;
     } else if (bossTwoCheckCounter > 3) {
       return `Focus, keep coding!`;
     }
@@ -139,7 +139,7 @@ function door1(tileMap) {
     } else if (bossFourCheckCounter === 2) {
       return `Students? Did you say students? Are you... She-Who-Knows? No, you look too lost.`;
     } else if (bossFourCheckCounter === 3) {
-      return `Quiet, we're almost finished bringing Joy back into our lives.`;
+      return `Quiet, we're almost finished bringing Joy back into our lives. I need to finish the back-end.`;
     } else if (bossFourCheckCounter > 3) {
       return `The being goes back to muttering quietly under its breath.`;
     }
@@ -196,22 +196,22 @@ function door1(tileMap) {
       return `...boss dialogue last...`;
     }
   },
-  bossFinal: (bossFinalCheckCounter, catsCheckCounter,dogsCheckCounter) => {
-    if (bossFinalCheckCounter === 0 && catsCheckCounter === 0 && dogsCheckCounter) {
-      return `"How did you get out so quickly? Oh, never mind. I can't talk right now. My fur babies are on the loose!"`;
-    } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 0) {
-      return `"When I figure out who left the door open ..."`;
-    } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 0) {
-      return `"You found one of my cats! Hurry, the other must be close."`;
-    } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 0) {
-      return `"You found both my cats! Nice work! Now please help me find my dog too."`;
-    } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 1) {
-      return `"You found my pupster! Please help me look around for my cats too!"`;
-    } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 1) {
-      return `"Good work! Just one cat left. I'm sure I heard a noise over there!"`;
-    } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 1) {
-      return `"You did it! Thank you very much. Your diploma is ready! Congratulation! Now go out there and be somebody!!`;
-    }
-  },
+  // bossFinal: (bossFinalCheckCounter) => {
+  //   if (bossFinalCheckCounter === 0 && catsCheckCounter === 0 && dogsCheckCounter) {
+  //     return `"How did you get out so quickly? Oh, never mind. I can't talk right now. My fur babies are on the loose!"`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 0) {
+  //     return `"When I figure out who left the door open ..."`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 0) {
+  //     return `"You found one of my cats! Hurry, the other must be close."`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 0) {
+  //     return `"You found both my cats! Nice work! Now please help me find my dog too."`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 1) {
+  //     return `"You found my pupster! Please help me look around for my cats too!"`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 1) {
+  //     return `"Good work! Just one cat left. I'm sure I heard a noise over there!"`;
+  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 1) {
+  //     return `"You did it! Thank you very much. Your diploma is ready! Congratulation! Now go out there and be somebody!!`;
+  //   }
+  // },
 };
 export default gameFuncs;
