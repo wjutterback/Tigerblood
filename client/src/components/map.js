@@ -55,8 +55,9 @@ function Map() {
       '&': [992, 864], // Keypad
       I: [480, 672], // Torch 1
       i: [544, 672], // Torch 2
-      J: [1568, 0], // Flame 1
-      j: [1600, 0], // Flame 2
+      J: [832,384], // & Statue
+      E: [864,384], // @ Statue
+      j: [96, 0], // Water Fountain
       O: [512, 2272], // Eye Obelisk 1
       o: [672, 2272], // Eye Obelisk 2
       A: [32, 32], // Golem Level 1 Statue Solid
@@ -110,7 +111,7 @@ function Map() {
       '>': [], // Grass NE
       '(': [], // Grass SW
       ')': [], // Grass SE
-      '?': [288, 64], // see through tile
+      '?': [800, 224], // see through tile
     },
     width: 92,
     height: 33,
