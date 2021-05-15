@@ -1,7 +1,7 @@
 export const SavedHighScores = (props) => {
   return(
 
-      <div className="card" style={{backgroundColor: "Orange"}}>
+      <div className="card" style={{backgroundColor: "darkred"}}>
         <div className="card-header">
           <h3>{props.player} </h3>
         </div>

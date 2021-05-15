@@ -12,21 +12,21 @@ const highScoreSeed = [
     score: 9000,
     steps: 2000,
     bitcoin: 3,
-    date: new Date(Date.now())
+    date: new Date().toLocaleDateString(),
   },
   {
     player: "Wesley Snipes",
     score: 20120,
     steps: 500,
     bitcoin: 10,
-    date: new Date(Date.now())
+    date: new Date().toLocaleDateString(),
   },
   {
     player: "Ryan Reynolds",
     score: 6969,
     steps: 1000,
     bitcoin: 0,
-    date: new Date(Date.now())
+    date: new Date().toLocaleDateString(),
   }
 ];
 
