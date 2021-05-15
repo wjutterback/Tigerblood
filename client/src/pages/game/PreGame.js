@@ -7,17 +7,29 @@ export const PreGame = () => {
     <section className="container">
           <GameHeader />
           <div className="introText">
+            <p style={{color: "red", fontFamily: "monospace"}}>
+              Wake up, fellow student...
+            </p>
             <p>
               You wake up with a jolt, breathing heavily.
             </p>
             <p>
-              What is this place? Why is it so dark? What's going on?
+              "What?" You try to focus. Darkness surrounds you.
+            </p>
+            <p style={{color: "red", fontFamily: "monospace"}}>
+              TigerBlood has you...
             </p>
             <p>
-              Your eyes start to adjust to the dark.
+              "What the heck?!" You look around confused.
             </p>
             <p>
-              You look around confused, as unfamiliar shapes start to appear.
+              You eyes slowly adjust, as unfamiliar shapes start to form.
+            </p>
+            <p style={{color: "red", fontFamily: "monospace"}}>
+              Follow the red clues...
+            </p>
+            <p>
+              "Follow the red clues?", you wonder to yourself.
             </p>
             <p>
               You muster up the courage to start moving around.
@@ -25,9 +37,12 @@ export const PreGame = () => {
             <p>
               The stone up front might have some clues...
             </p>
+            <p style={{color: "red", fontFamily: "monospace"}}>
+              KNOCK KNOCK!
+            </p>
           </div>
           <div className="row">
-            <Link to="/game" className="btn-lg mx-auto" id="gameStartButton">START</Link>
+            <Link to="/game" className="btn-lg mx-auto btn-danger" id="gameStartButton">ENTER</Link>
           </div>
     </section>
   )
