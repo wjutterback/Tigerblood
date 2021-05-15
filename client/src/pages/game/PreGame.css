@@ -9,7 +9,7 @@
   margin-bottom: 2rem;
 }
 .introText p:nth-child(1) {
-  width: 16em;
+  width: 12em;
   -webkit-animation: type 3s steps(80, end);
   animation: type 3s steps(80, end);
   -webkit-animation-delay: 0s;
@@ -19,7 +19,7 @@
 }
 
 .introText p:nth-child(2) {
-  width: 19em;
+  width: 24em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -96,7 +96,7 @@
 }
 
 .introText p:nth-child(9) {
-  width: 23em;
+  width: 28em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -107,7 +107,7 @@
 }
 
 .introText p:nth-child(10) {
-  width: 20em;
+  width: 23em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -145,7 +145,6 @@
   text-decoration: none;
   display: inline-block;
   border-radius: 25px;
-  box-shadow: 0 0.2em rgb(167, 2, 2);
   cursor: pointer;
   animation: fadeIn linear 3s;
   -webkit-animation: fadeIn linear 3s;
@@ -153,8 +152,8 @@
   -o-animation: fadeIn linear 3s;
   -ms-animation: fadeIn linear 3s;
   opacity: 0;
-  /* -webkit-animation-delay: 56s;
-  animation-delay: 56s; */
+  -webkit-animation-delay: 56s;
+  animation-delay: 56s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
@@ -179,7 +178,6 @@
   text-decoration: none;
   display: inline-block;
   border-radius: 25px;
-  box-shadow: 0 0.2em blue;
   cursor: pointer;
   animation: fadeIn linear 3s;
   -webkit-animation: fadeIn linear 3s;
@@ -187,8 +185,8 @@
   -o-animation: fadeIn linear 3s;
   -ms-animation: fadeIn linear 3s;
   opacity: 0;
-  /* -webkit-animation-delay: 56s;
-  animation-delay: 56s; */
+  -webkit-animation-delay: 56s;
+  animation-delay: 56s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
