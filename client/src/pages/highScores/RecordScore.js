@@ -1,45 +1,93 @@
-import { useState, useEffect } from "react";
-import API from "../../utils/API"
-import { HighScoreForm } from "../../components/HighScoreForm"
+import API from "../../utils/API";
 
-export const RecordScore = () => {
-  const [newHighScore, setNewHighScore] = useState()
-  const [date, setDate] = useState();
-  const currentDate = new Date().toLocaleString();
+export const RecordScore = (props) => {
+  let name;
+  let score;
+  let bitcoin;
+  let steps;
+  let date; 
 
-  setDate(currentDate);
-
-  function handleFormSubmit (event){
+  /* Start of Score Submission to DB (Not Working on first submit)*/
+  function handleScoreSave(event) {
     event.preventDefault();
-    saveHighScore(event.target);
+    console.log(event.target);
+    name = event.target.name.value;
+    score = event.target.score.value;
+    bitcoin = event.target.bitcoin.value;
+    steps = event.target.bitcoin.value;
+    date = new Date().toLocaleDateString();
+
+    saveScore();
   }
 
-  function saveHighScore ({ target }){
-    setNewHighScore({
-      player: target.dataset.player,
-      score: target.dataset.score,
-      steps: target.dataset.steps,
-      bitcoin: target.dataset.bitcoin,
-      date: target.dataset.date,
+  /* Pulls data from State variables except Name and Date */
+  function saveScore(){
+    API.saveHighScore({
+      player: name,
+      steps: steps,
+      bitcoins: bitcoin || 0,
+      score: score,
+      date: date,
     })
-    API.saveHighScore(newHighScore)
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err));
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.response));
   }
+  /* End of Score Submission to DB */
 
   return(
     <section className="container mx-auto">
+      <h1>Congratulations!</h1>
+      <h2>You managed to escape the dungeon and gained a diploma on the way!</h2>
+      <h3>Your performance has been scored. Submit your name and immortalize your performance in the hall of sh.., i mean fame. </h3>
       <div className="row mx-auto" style={{marginBottom: "20px"}}>
         <h2 className="mx-auto">Record Your Score</h2>
       </div>
       <div className="row mx-auto" style={{marginBottom: "30px"}}>
-        <HighScoreForm 
-          // score={}
-          // steps={}
-          // bitcoin={}
-          date= {date}
-          save={handleFormSubmit}
-        />
+        <form className="w-100"  onSubmit={handleScoreSave}>
+          <div className="form-group">
+            <label htmlFor="name">Player Name</label>
+            <input type="text" className="form-control" id="name" placeholder="Name" required/>
+          </div>
+          <div className='form-group'>
+            <label htmlFor='steps'>Steps Taken</label>
+            <input
+              type='text'
+              className='form-control-plaintext'
+              readOnly
+              id='steps'
+              aria-describedby='stepsHelp'
+              value={props.steps}
+              style={{ color: 'white' }}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='bitcoin'>BitCoins Collected</label>
+            <input
+              type='text'
+              className='form-control-plaintext'
+              readOnly
+              id='bitcoin'
+              aria-describedby='bitcoinHelp'
+              value={props.bitcoin}
+              style={{ color: 'white' }}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='score'>Score</label>
+            <input
+              type='text'
+              className='form-control-plaintext'
+              readOnly
+              id='score'
+              aria-describedby='scoreHelp'
+              value={props.score}
+              style={{ color: 'white' }}
+            />
+          </div>
+          <button type='submit' className='btn btn-danger'>
+            Save Score
+          </button>
+        </form>
       </div>
     </section>
   )

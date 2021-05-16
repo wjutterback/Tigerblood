@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
@@ -180,13 +181,14 @@ function Map() {
     saveScore(pName);
   }
 
-  /* Pulls data from State variables except Name */
+  /* Pulls data from State variables except Name and Date */
   function saveScore(pName){
     API.saveHighScore({
       player: pName,
       steps: stepsTaken,
       bitcoins: bitcoins || 0,
       score: score,
+      date: new Date().toLocaleDateString(),
     })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.response));
@@ -783,25 +785,25 @@ function Map() {
           style={{
             fontFamily: 'fantasy',
             backgroundColor: 'Black',
-            padding: '50px',
+            padding: '30px',
           }}
         >
-          <h2 className='mr-auto'>
+          <h3 className='mr-auto'>
             <b>Player Level:</b> {level}
-          </h2>
-          <h2 className='mr-auto'>
-            <b>Rooms Cleared:</b> {clearedRooms}
-          </h2>
-          <h2 className='mr-auto'>
+          </h3>
+          <h3 className='mr-auto'>
+            <b>Rooms Cleared:</b> {clearedRooms}/4
+          </h3>
+          <h3 className='mr-auto'>
             <b>Steps Taken:</b> {stepsTaken}
-          </h2>
-          <h2 className='mr-auto'>
+          </h3>
+          <h3 className='mr-auto'>
             {bitcoins ? (
               <b>You Found {bitcoins} BitCoin!</b>
             ) : (
               'No secrets here ...'
             )}
-          </h2>
+          </h3>
         </div>
         <div className='row'>
           <p id='message'>{message}</p>
@@ -823,9 +825,9 @@ function Map() {
           >
             Game Over!
           </button>
-          <h2>
+          <h3>
             <b>Items Unlocked: {inventory.length}</b>
-          </h2>
+          </h3>
           <ol>
             {inventory.map((item, i) => (
               <li key={i} style={{ fontSize: '1.5rem' }}>
@@ -907,59 +909,70 @@ function Map() {
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >
-        <div className='modal-dialog modal-dialog-centered' role='document'>
+        <div className='modal-dialog modal-lg modal-dialog-centered' role='document'>
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
-              <h1>Congratulations!</h1>
-              <h2>You managed to escape the dungeon and gained a diploma on the way!</h2>
-              <h3>Your performance has been scored. Submit your name and immortalize your performance in the hall of sh.., i mean fame. </h3>
-              <form className="w-100"  onSubmit={handleScoreSave}>
-                <div className="form-group">
-                  <label htmlFor="name">Player Name</label>
-                  <input type="text" className="form-control" id="name" placeholder="Name" required/>
+              <div className="container-fluid">
+                <div className="row" style={{ margin: '25px auto 50px auto' }}>
+                  <img className="mx-auto" src='/preview/tigerbloodlogo.png' alt='logo' id='logo' style={{ height: "200px" }}/>
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='steps'>Steps Taken</label>
-                  <input
-                    type='text'
-                    className='form-control-plaintext'
-                    readOnly
-                    id='steps'
-                    aria-describedby='stepsHelp'
-                    value={stepsTaken}
-                    style={{ color: 'white' }}
-                  />
+                <div className="row" style={{margin: "50px", fontFamily: "fantasy"}}>
+                  <p className="mx-auto" style={{fontSize: "3rem", marginBottom: "50px"}}>Congratulations!</p>
+                  <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>You managed to escape the dungeon and gained Full Stack Web Development certification on the way!</p>
+                  <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Your performance has been scored. Submit your name and immortalize your performance in the Hall of Fame. </p>             
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='bitcoin'>BitCoins Collected</label>
-                  <input
-                    type='text'
-                    className='form-control-plaintext'
-                    readOnly
-                    id='bitcoin'
-                    aria-describedby='bitcoinHelp'
-                    value={bitcoins}
-                    style={{ color: 'white' }}
-                  />
+                <div className="row" style={{margin: "20px 50px 100px 50px", fontFamily: "fantasy"}}>
+                  <form className="w-100"  onSubmit={handleScoreSave}>
+                    <div className="form-group">
+                      <label htmlFor="name">Player Name</label>
+                      <input type="text" className="form-control" id="name" placeholder="Name" required/>
+                    </div>
+                    <div className='form-group'>
+                      <label htmlFor='steps'>Steps Taken</label>
+                      <input
+                        type='text'
+                        className='form-control-plaintext'
+                        readOnly
+                        id='steps'
+                        aria-describedby='stepsHelp'
+                        value={stepsTaken}
+                        style={{ color: 'white' }}
+                      />
+                    </div>
+                    <div className='form-group'>
+                      <label htmlFor='bitcoin'>BitCoins Collected</label>
+                      <input
+                        type='text'
+                        className='form-control-plaintext'
+                        readOnly
+                        id='bitcoin'
+                        aria-describedby='bitcoinHelp'
+                        value={bitcoins}
+                        style={{ color: 'white' }}
+                      />
+                    </div>
+                    <div className='form-group'>
+                      <label htmlFor='score'>Score</label>
+                      <input
+                        type='text'
+                        className='form-control-plaintext'
+                        readOnly
+                        id='score'
+                        aria-describedby='scoreHelp'
+                        value={score}
+                        style={{ color: 'white' }}
+                      />
+                    </div>
+                    <button type='submit' className='btn btn-danger btn-block'>
+                      Save Score
+                    </button>
+                  </form>
                 </div>
-                <div className='form-group'>
-                  <label htmlFor='score'>Score</label>
-                  <input
-                    type='text'
-                    className='form-control-plaintext'
-                    readOnly
-                    id='score'
-                    aria-describedby='scoreHelp'
-                    value={score}
-                    style={{ color: 'white' }}
-                  />
+                <div className='row' id='gameOverModalFooter'  style={{margin: "50px", fontFamily: "fantasy"}}>
+                  <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Thanks for playing! Best of luck to the Full Stack Cohort of May 2021!</p>
                 </div>
-                <button type='submit' className='btn btn-danger'>
-                  Save Score
-                </button>
-              </form>
+              </div>
             </div>
-            <div className='modal-footer' id='gameOverModalFooter'></div>
           </div>
         </div>
       </div>

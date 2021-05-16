@@ -6,7 +6,7 @@ const highScoreSchema = new Schema({
   steps: { type: Number },
   bitcoins: {type: Number },
   score: {type: Number },
-  date: { type: Date, default: new Date() }
+  date: { type: String } // Keeping the type as Date kept changing the format back to UTC
 });
 
 const HighScore = mongoose.model("HighScore", highScoreSchema);
