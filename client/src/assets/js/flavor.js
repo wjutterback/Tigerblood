@@ -1,17 +1,17 @@
 const gameFuncs = {
   deadBody: (bodyCheckCounter, messageCheckCounter) => {
     if (bodyCheckCounter === 0 && messageCheckCounter === 0) {
-      return `You find a desiccated corpse, withered and ancient looking, sporting the finest bling you've ever seen. You gaze longingly at such beautiful craftmanship, but you're not a thief.`;
+      return `You find a desiccated corpse, withered and ancient looking, with a strange keyboard clutched in its withered hands. How strange!`;
     } else if (bodyCheckCounter > 0 && messageCheckCounter === 0) {
       return `You notice some writing on the floor next to the body ... written with blood. You take a deep breath and move closer to read it.`;
     } else if (bodyCheckCounter > 0 && messageCheckCounter > 0) {
-      return `The initials B.E. sound familiar, but the thought escapes you as the body dissipates into thin air - leaving behind the ring promised to you.`;
+      return `The initials B.E. sound familiar, but the thought escapes you as the body dissipates into thin air - leaving behind the keyboard promised to you.`;
     }
   },
   helpMessage: (messageCheckCounter) => {
     if (messageCheckCounter === 0) {
       const a = `I don't know who you are. Please believe. There is no way I can convince you that this is not one of her tricks. But I don't care.`;
-      const b = `I spent the last of my power to give you help, and my blood in the hopes you escape this place. The ring will allow you to view the elemental composition of this world, changing it to your will, but it will test the limits of your Joyous Spirit. Fizz Buzz. - B.E.`;
+      const b = `I spent the last of my power to give you help, and my blood in the hopes you escape this place. This keyboard will allow you to connect to the elemental composition of this world, changing it to your will, but it will test the limits of your Joyous Spirit. Fizz Buzz. - B.E.`;
       return `${a} ${b}`;
     } else if (messageCheckCounter === 1) {
       return `Fizz Buzz? Joyous Spirit? They must have been delirious from loss of blood.`;
@@ -19,14 +19,14 @@ const gameFuncs = {
       return `Very macabre. You shove the thought of their desperation out of your mind.`;
     }
   },
-  door: (ringVar, door) => {
-    if (ringVar === 0) {
+  door: (keyboardVar, door) => {
+    if (keyboardVar === 0) {
       return `It's a simple but sturdy door. There's no way you're going to force your way through.`;
     }
-    if (ringVar === 1) {
+    if (keyboardVar === 1) {
       return {
         lines: [1, 2, 3, 4, 5, 6, 7, 8, 10],
-        text: `Your ring begins to feel warm, images swarm in your mind, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
+        text: `Your keyboard beeps and its blinking light becomes solid. It's connected to the door somehow. Images flash before your eyes, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
         code: `
 /*
 My notes: Experimented with making a door today!
@@ -41,34 +41,63 @@ function door1(tileMap) {
       };
     }
   },
-  fire: (fireCheckCounter) => {
-    if (fireCheckCounter === 0) {
-      return `Despite its appearance, the fire emits no warmth.`;
+  andStatue: (andStatueCheckCounter) => {
+    if (andStatueCheckCounter=== 0) {
+      return `The monument reads: "Versatile but tricky, this character must be used wisely when programming conditionals."`;
     } else {
-      return `Still no warmth. At least it provides enough light to look around`;
+      return `"Interesting taste in decor. Were they out of the regular creepy dungeon statues?", you mumble hoping no one heard you.`;
     }
   },
-  hotLava: (hotLavaCheckCounter) => {
-    if (hotLavaCheckCounter === 0) {
-      return `Lava?! Really?! It's not passable. Maybe it needs to be cooled down somehow...`;
+  atStatue: (atStatueCheckCounter) => {
+    if (atStatueCheckCounter === 0) {
+      return `The monument reads: "While not versatile, this character is indispensible to online communication."`;
     } else {
-      return `Yup. Hot lava again. Time to find a way to cool it down.`;
+      return `"Whoever owns this place should really switch their interior decorator.", you smile nervously as you look around for any eavesdroppers.`;
     }
   },
-  keypad: (keypadCheckCounter) => {
-    if (keypadCheckCounter === 0) {
-      return `A keyboard? In a dungeon? What purpose could this serve?`;
-    } else {
-      return `A familiar sight. Time to get started. Now, what was that syntax again...?`;
-    }
-  },
-  golem: (golemCheckCounter, ringCheckCounter) => {
-    if (golemCheckCounter === 0 && ringCheckCounter === 0) {
+  golem1: (golem1CheckCounter, keyboardCheckCounter) => {
+    if (golem1CheckCounter === 0 && keyboardCheckCounter === 0) {
       return `That's one creepy statue. Its eyes seem to follow you across the room. It blocks your way to the next area.`;
-    } else if (golemCheckCounter > 0 && ringCheckCounter === 0) {
+    } else if (golem1CheckCounter > 0 && keyboardCheckCounter === 0) {
       return `The statue keeps getting creepier somehow. Its expression makes you very uneasy. There must be a way to remove it.`;
-    } else if (golemCheckCounter > 0 && ringCheckCounter === 1) {
-      return `The ring on your finger pulsates. The golem explodes, leaving behind nothing and clearing the way.`;
+    } else if (golem1CheckCounter > 0 && keyboardCheckCounter === 1) {
+      return `The golem explodes, leaving behind nothing and clearing the way.`;
+    }
+  },
+  golem2: (golem2CheckCounter, ringCheckCounter) => {
+    if (golem2CheckCounter === 0 && ringCheckCounter === 0) {
+      return `Another creepy statue. It blocks your way to the next area yet again.`;
+    } else if (golem2CheckCounter > 0 && ringCheckCounter === 0) {
+      return `There must be another item that can remove this golem.`;
+    } else if (golem2CheckCounter > 0 && ringCheckCounter === 1) {
+      return `The golem explodes, leaving behind nothing and clearing the way.`;
+    }
+  },
+  golem3: (golem3CheckCounter, ringCheckCounter) => {
+    if (golem3CheckCounter === 0 && ringCheckCounter === 0) {
+      return `"Yet another golem? Always in the way. Where did the designer get all these?"`;
+    } else if (golem3CheckCounter > 0 && ringCheckCounter === 0) {
+      return `You know the drill by now. Find the item that destroys this one.`;
+    } else if (golem3CheckCounter > 0 && ringCheckCounter === 1) {
+      return `The golem explodes, leaving behind nothing and clearing the way.`;
+    }
+  },
+  golem4: (golem4CheckCounter, ringCheckCounter) => {
+    if (golem4CheckCounter === 0 && ringCheckCounter === 0) {
+      return `"Come ON! This better be the last one."`;
+    } else if (golem4CheckCounter > 0 && ringCheckCounter === 0) {
+      return `"Yeah yeah, I know. Find the item, ditch the golem."`;
+    } else if (golem4CheckCounter > 0 && ringCheckCounter === 1) {
+      return `The golem explodes, leaving behind nothing and clearing the way.`;
+    }
+  },
+  portal: (portalCheckCounter, ringCheckCounter) => {
+    if (portalCheckCounter === 0 && ringCheckCounter === 0) {
+      return `You see a portal. "This must be it! An Exit!" But an invisible wall blocks you from entering. You realize what you have to do.`;
+    } else if (portalCheckCounter > 0 && ringCheckCounter === 0) {
+      return `"At least it's not a golem this time.", you mutter to yourself as you look around for the final item.`;
+    } else if (portalCheckCounter > 0 && ringCheckCounter === 1) {
+      return `No more invisible wall. The portal glows as you enter.`;
     }
   },
   helpStone: (bodyCheckCounter) => {
@@ -76,6 +105,9 @@ function door1(tileMap) {
       return `Your memories start coming back. The last thing you remember is you were coding Project 3... Tish invited you to a Zoom call, you accepted... and now you're in a dungeon. What is going on?`;
     } else
       return `As you touch the strange stone, the ring fills you with warmth. You understand everything now. Tish has trapped your whole class inside a bitcoin app! It makes sense why she kept bragging the GPU shortage didn't affect her! You are the code and every movement performs some pointless hash in search of cryptocurrency.`;
+  },
+  keyboard: () => {
+    return `A janky looking wireless keyboard. You turn it on, and a light starts blinking. It must be searching for a connection.`;
   },
   ring: () => {
     return `The ring is warm to the touch. As you slip it onto your finger, a shock of pain sweeps through your body, your vision immediately increases the distance you can see.`;
@@ -196,22 +228,45 @@ function door1(tileMap) {
       return `...boss dialogue last...`;
     }
   },
-  // bossFinal: (bossFinalCheckCounter) => {
-  //   if (bossFinalCheckCounter === 0 && catsCheckCounter === 0 && dogsCheckCounter) {
-  //     return `"How did you get out so quickly? Oh, never mind. I can't talk right now. My fur babies are on the loose!"`;
-  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 0) {
-  //     return `"When I figure out who left the door open ..."`;
-  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 0) {
-  //     return `"You found one of my cats! Hurry, the other must be close."`;
-  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 0) {
-  //     return `"You found both my cats! Nice work! Now please help me find my dog too."`;
-  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 0 && dogsCheckCounter === 1) {
-  //     return `"You found my pupster! Please help me look around for my cats too!"`;
-  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 1 && dogsCheckCounter === 1) {
-  //     return `"Good work! Just one cat left. I'm sure I heard a noise over there!"`;
-  //   } else if (bossFinalCheckCounter === 1 && catsCheckCounter === 2 && dogsCheckCounter === 1) {
-  //     return `"You did it! Thank you very much. Your diploma is ready! Congratulation! Now go out there and be somebody!!`;
-  //   }
-  // },
+  bossFinal: (bossFinalCheckCounter, cat1CheckCounter, cat2CheckCounter, dogCheckCounter) => {
+    if (bossFinalCheckCounter === 0 && cat1CheckCounter === 0 && cat2CheckCounter === 0 && dogCheckCounter === 0) {
+      return `You reach an enchantress shouting what sounds like an ancient spell. "FREYA! PTAHMOSE! LEXIE", she shouts. You try to get her attention.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 0 && dogCheckCounter === 0) {
+      return `"Don't talk to me right now. My fur babies are loose!", she yells at you. You realize that spell was actually her pets' names. Begrudgingly, you decide to look for them.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 0 && dogCheckCounter === 0) {
+      return `"You found Freya! Where did you go, you naughty girl?!", the enchantress exclaims as you hand over the cat. "Please help me find Ptahmose and Lexie too", the enchantress pleads. You have no choice.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 1 && dogCheckCounter === 0) {
+      return `"That's Ptahmose! Well done! Was he digging up dead animals again?", the enchantress says, looking overjoyed. You realize that finding her cats as well would gain you her favor, so you decide to continue your search.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 0 && dogCheckCounter === 1) {
+      return `"Lexie!", the enchantress says happily as you hand over the dog. "Thank you! Did you see my cats anywhere? Please help me find them too.". The dog looks at you, its expressive eyes begging you not to comply. "Sorry Lexie, I need to get out of here.", as you turn around and start searching.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 1 && dogCheckCounter === 0) {
+      return `"Amazing. You must be really good with cats, to have found both. Freya and Ptahmose thank you!", claims the enchantress. The cats' faces definitely disagree. You silently empathize with the dog, before starting to look for him.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 0 && dogCheckCounter === 1) {
+      return `"Great job! Please help me find that pompous Ptahmose while I keep Freya from tormenting Lexie.", says the enchantress. You feel sorry for the dog, but decide that no amount of pupster smiles is worth staying stuck in this nightmare.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 1 && dogCheckCounter === 1) {
+      return `"Well done! Only Freya is left now. Please find her while I keep Ptahmose from harassing Lexie." The dog looks at you, its eyes pleading you to let that cat stay lost forever. "I'm sorry Lexie. Not my fight. I hope you'll forgive me.", you mumble as you start the search for the final feline.`;
+    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 1 && dogCheckCounter === 1) {
+      return `"You did it! You found them all! I can't thank you enough. I hope this diploma makes up for all the torture you've been through! Now wake up and be somebody!!", the enchantress says as she vanishes with her pets. "It's finally over!", you sigh as you grab the diploma.`;
+    }
+  },
+  cat1: () => {
+    return `Judging by her goddess-like confidence, you guess this must be Freya. She gives you a sarcastic look as you pick her up, as if expecting you to thank her to letting you touch her.`;
+  },
+  cat2: () => {
+    return `"You must be Ptahmose!", you exclaim. The cat looks at you like you're a lowly commoner in the presence of a Vizier. It allows you to pick it up, expecting major worship and groveling.`;
+  },
+  dog: () => {
+    return `The poor dog looks harassed and tired. "Poor Lexie! Were those two felines picking on you?", you ask as you pick her up. Her short legs dangle in the air, as she gives you the cutest smile as if to say, "Thank you hooman, for saving me from those two hell demons!". `;
+  },
+  diploma: () => {
+    return `You feel chills down your spine as you grab the diploma, as if you had been immersed in an icy cold bath. But all of a sudden, the feeling's gone. You jump up, finally awake in your own room in front of your computer. It's over...`;
+  },
+  fountain: (fountainCheckCounter) => {
+    if (fountainCheckCounter=== 0) {
+      return `A water fountain. A welcome sight after what you've been through. Go ahead, take a drink."`;
+    } else {
+      return `"This water has a mild but strange taste.", you think as you take another drink. "I'm sure it's fine.", you think ... and hope. `;
+    }
+  },
 };
 export default gameFuncs;

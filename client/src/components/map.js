@@ -26,7 +26,7 @@ function Map() {
   const [code, setCode] = useState('');
   const [lines, setLines] = useState([]);
   const [inventory, setInventory] = useState([]);
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState('');
   const [clearedRooms, setClearedRooms] = useState(0);
   const [bitcoins, setBitcoins] = useState(0);
   const [stepsTaken, setStepsTaken] = useState(0);
@@ -36,6 +36,13 @@ function Map() {
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
   // document.body.appendChild(tileSet);
+
+  let playerLevels = ["Coding Commoner", "JavaScript Juvenile", "Node Novice", "Database Dominator", "Mern Monster"];
+  let lvl = 0;
+
+  useEffect(()=>{
+    setLevel(playerLevels[lvl]);
+  },[lvl]);
 
   let options = {
     layout: 'tile',
@@ -118,7 +125,7 @@ function Map() {
       '>': [], // Grass NE
       '(': [], // Grass SW
       ')': [], // Grass SE
-      '?': [800, 224], // see through tile
+      '?': [800, 224], // see through tile, Looks very similar to real wall
     },
     width: 92,
     height: 33,
@@ -141,7 +148,7 @@ function Map() {
     });
   }, [lines]);
 
-  let playerLevel = 1;
+
   let roomsCleared = 0;
   let bitCoinsFound = 0;
 
@@ -219,10 +226,14 @@ function Map() {
     let deadBodyVar = 0;
     let bloodMessageVar = 0;
     let helpStone = 0;
-    let fireVar = 0;
-    let hotLavaVar = 0;
-    let keypadVar = 0;
-    let golemVar = 0;
+    let keyboardVar = 0;
+    let andStatueVar = 0; // the '&' Statue
+    let atStatueVar = 0; // the '@' Statue
+    let golem1Var = 0;
+    let golem2Var = 0;
+    let golem3Var = 0;
+    let golem4Var = 0;
+    let portalVar = 0;
     let ringVar = 0;
     let bossOneVar = 0;
     let bossTwoVar = 0;
@@ -234,8 +245,10 @@ function Map() {
     let bossEightVar = 0;
     let bossFinalVar = 0;
     let score = 0;
-    let catsVar = 0;
-    let dogsVar = 0;
+    let cat1Var = 0;
+    let cat2Var = 0;
+    let dogVar = 0;
+    let fountainVar = 0;
     let diplomaVar = 0;
 
     tileSet.onload = function () {
@@ -309,27 +322,27 @@ function Map() {
       }
 
       function drawPlayer() {
-        console.log(playerLevel);
-        console.log('drawPlayer called. Your playerLevel is ' + playerLevel);
-        switch (playerLevel) {
-          case 1:
+        console.log(lvl);
+        console.log('drawPlayer called. Your playerLevel is ' + lvl);
+        switch (lvl) {
+          case 0:
             display.draw(playerPos.x, playerPos.y, ['.', '1']);
             break;
-          case 2:
+          case 1:
             display.draw(playerPos.x, playerPos.y, ['.', '2']);
-            setLevel(playerLevel);
+            setLevel(playerLevels[lvl]);
+            break;
+          case 2:
+            display.draw(playerPos.x, playerPos.y, ['.', '3']);
+            setLevel(playerLevels[lvl]);
             break;
           case 3:
-            display.draw(playerPos.x, playerPos.y, ['.', '3']);
-            setLevel(playerLevel);
+            display.draw(playerPos.x, playerPos.y, ['.', '4']);
+            setLevel(playerLevels[lvl]);
             break;
           case 4:
-            display.draw(playerPos.x, playerPos.y, ['.', '4']);
-            setLevel(playerLevel);
-            break;
-          case 5:
             display.draw(playerPos.x, playerPos.y, ['.', '5']);
-            setLevel(playerLevel);
+            setLevel(playerLevels[lvl]);
             break;
           default:
         }
@@ -339,11 +352,11 @@ function Map() {
         fov.compute(playerPos.x, playerPos.y, lightRadius, function (x, y, r) {
           if (!r) {
             if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
-              return display.draw(playerPos.x, playerPos.y, ['U', playerLevel]);
+              return display.draw(playerPos.x, playerPos.y, ['U', lvl]);
             } else if (tileMap[y][x] === '=') {
-              return display.draw(playerPos.x, playerPos.y, ['=', playerLevel]);
+              return display.draw(playerPos.x, playerPos.y, ['=', lvl]);
             } else if (tileMap[y][x] === '_') {
-              return display.draw(playerPos.x, playerPos.y, ['_', playerLevel]);
+              return display.draw(playerPos.x, playerPos.y, ['_', lvl]);
             }
 
             return drawPlayer();
@@ -463,8 +476,8 @@ function Map() {
               setMessage(value);
               if (deadBodyVar > 0 && bloodMessageVar > 0) {
                 deadBodyVar = 1;
-                tileMap[2][13][1] = 'r';
-                display.draw(13, 2, ['.', 'r']);
+                tileMap[2][13][1] = 'K';
+                display.draw(13, 2, ['.', 'K']);
               }
               return false;
             case 'r':
@@ -478,7 +491,7 @@ function Map() {
                 name: 'Ring of Sight',
                 power: 'Increased field of view',
               };
-              playerLevel = 2;
+              lvl = 2;
               levelUp();
               setInventory((inventory) => [...inventory, ringItem]);
               display.draw(13, 2, '.');
@@ -489,8 +502,8 @@ function Map() {
               setMessage(value);
               return false;
             case 'L':
-              value = gameFuncs.door(ringVar, { x: x, y: y });
-              if (ringVar === 1) {
+              value = gameFuncs.door(keyboardVar, { x: x, y: y });
+              if (keyboardVar === 1) {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
@@ -500,26 +513,58 @@ function Map() {
               setMessage(value);
               break;
             case 'J':
-            case 'j':
-              value = gameFuncs.fire(fireVar);
-              fireVar++;
+              value = gameFuncs.andStatue(andStatueVar);
+              andStatueVar++;
               setMessage(value);
               return false;
-            case 'N':
-              value = gameFuncs.hotLava(hotLavaVar);
-              hotLavaVar++;
+            case 'E':
+              value = gameFuncs.atStatue(atStatueVar);
+              atStatueVar++;
               setMessage(value);
               return false;
             case 'K':
-              value = gameFuncs.keypad(keypadVar);
-              keypadVar++;
+              value = gameFuncs.keyboard();
               setMessage(value);
+              tileMap[2][13].pop();
+              setVisibility('visible');
+              keyboardVar = 1;
+              let keyboardItem = {
+                name: 'keyboard of Power',
+                power: 'opens doors by manipulating doors',
+              };
+              lvl = 1;
+              levelUp();
+              setInventory((inventory) => [...inventory, keyboardItem]);
+              display.draw(13, 2, '.');
               return false;
-            case 'M':
-              value = gameFuncs.golem(golemVar, ringVar);
-              golemVar++;
+            case 'A':
+              value = gameFuncs.golem1(golem1Var, keyboardVar);
+              golem1Var++;
               setMessage(value);
               removeGolem();
+              return false;
+            case 'a':
+              value = gameFuncs.golem2(golem2Var, ringVar);
+              golem2Var++;
+              setMessage(value);
+              removeGolem();
+              return false;
+            case 'V':
+              value = gameFuncs.golem3(golem3Var, ringVar);
+              golem3Var++;
+              setMessage(value);
+              removeGolem();
+              return false;
+            case 'v':
+              value = gameFuncs.golem4(golem4Var, ringVar);
+              golem4Var++;
+              setMessage(value);
+              removeGolem();
+              return false;
+            case '@':
+              value = gameFuncs.portal(portalVar);
+              portalVar++;
+              setMessage(value);
               return false;
             case 'T':
             case 't': // First Boss
@@ -589,11 +634,25 @@ function Map() {
               return false;
             case 'u':
               return false;
+            case 'j':
+              value = gameFuncs.fountain(fountainVar);
+              fountainVar++;
+              setMessage(value);
+              return false;
             case 'G':
+              value = gameFuncs.cat1();
+              cat1Var++;
+              setMessage(value);
               return false;
             case 'g':
+              value = gameFuncs.cat2();
+              cat2Var++;
+              setMessage(value);
               return false;
             case 'k':
+              value = gameFuncs.dog();
+              dogVar++;
+              setMessage(value);
               return false;
             default:
           }
