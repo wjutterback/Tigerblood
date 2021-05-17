@@ -24,25 +24,88 @@ const gameFuncs = {
       return `It's a simple but sturdy door. There's no way you're going to force your way through.`;
     }
     if (keyboardVar === 1) {
-      return {
-        lines: [1, 2, 3, 4, 5, 6, 7, 8, 10],
-        text: `Your keyboard beeps and its blinking light becomes solid. It's connected to the door somehow. Images flash before your eyes, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
-        code: `
-/*
-My notes: Experimented with making a door today!
-It was the first door I've ever made, but I'm pretty proud of it.
-There's still so much more to be done.
-I created a simple lock by setting tileMap[${door.x}][${door.y}] = 'L'; For 'Locked Door'!
-Note: 'U' for Unlocked Door.
-*/
-function door1(tileMap) {
-  return tileMap[${door.x}][${door.y}] = 'L';
-}`,
-      };
+      if (door.x === 16 && door.y === 7) {
+        return {
+          text: `Your keyboard beeps and its blinking light becomes solid. It's connected to the door somehow. Images flash before your eyes, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
+          code: `
+  /*
+  My notes: Experimented with making a door today!
+  It was the first door I've ever made, but I'm pretty proud of it.
+  There's still so much more to be done.
+  I created a simple lock by setting door[${door.x}][${door.y}] = 'L'; For 'Locked Door'!
+  Reminder: 'U' for Unlocked Door.
+  */
+  function door1(door) {
+    return door[${door.x}][${door.y}] = 'L';
+  }`,
+        };
+      } else if (door.x === 16 && door.y === 22) {
+        return {
+          text: `A surge of energy from your keyboard reveals the true nature of the door before you.`,
+          code: `
+          /*
+          My Notes: Trying a new type of lock for my doors; this one will
+          implement MANY locks.The sector behind the door needs extra security,
+          because it will implement my new thermal management code.
+          I'll be able to overclock my computer even further now!
+
+          Reminder: "locks" array has many indexes. For simplification, each
+          index in the array has only one lock. Remember first door.
+          Also - I cleared this function after locking, so remember to
+          loop through your memories.
+          */
+         function thermalDoor(locks){
+           return
+         }`,
+        };
+      } else if (door.x === 16 && door.y === 37) {
+        return {
+          text: `Your keyboard summons a terminal and with your new ring you see the pixels even clearer! What is this? 1080p?`,
+          code: `
+          /*
+          Door Notes: Is there a way to program happiness into an application?
+          Just one of my many philosophical musings! Work is really getting
+          under my skin... If I have to change my indentSize again...
+          Why can't I just program comfortably - the way I actually
+          enjoy? Oh well, I still have my wonderful class to
+          brighten my day. Maybe I'll give them a >pop< quiz.
+
+          Reminder: The locks array is very long and filled with fake locks,
+          but the last entry contains the true lock... I made it very special
+          it's no longer just a simple 'L'. A lot of time and energy went
+          into crafting it just the way I like it. I just need to
+          remember not to remove it...
+          */
+
+          function happyDoor(locks){
+            return
+          }`,
+        };
+      } else if (door.x === 16 && door.y === 52){
+        return {
+          text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
+          code: `
+          /*
+          Door Notes: Work has me using alternating tab indents every other line and
+            they won't let me use Prettier anymore. How can they ask this
+          of me, and more importantly, why? This stress is bleeding into
+            my otherwise happy classrooms. I hear the whisperings of my
+          students. I see the furtive glances. They don't think I do,
+            but I see all - I KNOW all. The only time I feel happy is
+          when I'm working on this app. I find myself thinking of it
+            frequently - almost obsessively. I fEeL mY sAnItY
+          sLiPpInG aWaY fRoM mE... eVeRy DaY.
+          */
+
+         function laughterKills()) {
+
+         } `
+        }
+      }
     }
   },
   andStatue: (andStatueCheckCounter) => {
-    if (andStatueCheckCounter=== 0) {
+    if (andStatueCheckCounter === 0) {
       return `The monument reads: "Versatile but tricky, this character must be used wisely when programming conditionals."`;
     } else {
       return `"Interesting taste in decor. Were they out of the regular creepy dungeon statues?", you mumble hoping no one heard you.`;
@@ -118,19 +181,20 @@ function door1(tileMap) {
     } else if (bossOneCheckCounter === 1) {
       return `What question did I ask, you ask? "Is jQuery the best option for selecting DOM elements?" - I expected her answer, as usual, to be, "It depends." but instead a dark and stormy cloud washed over her face as she slammed her fist into the keyboard. Electricity crackled from her fist on impact, executing a program that turned me into this hideous beast you see before you now.`;
     } else if (bossOneCheckCounter === 2) {
-      return `All I do now is absorb heat day in and day out, or should I say computer cycle in and computer cycle out; my room is hotter than Midland!`;
+      return `All I do now is absorb heat day in and day out, or should I say computer cycle in and computer cycle out; my room is hotter than Midland! She completely replaced her old heatRegulation function with me!`;
     } else if (bossOneCheckCounter === 3) {
       return {
-        lines: [1, 2, 3, 4, 5, 6, 8],
-        text: `I grow weary on reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your ring sends a jolt of electricity through your body and you once again see the world in code`,
+        text: `I grow weary on reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your keyboard sends a jolt of electricity through your body and you once again see the world in code`,
         code: `
+        !!! Your mind sharpens in the presence of danger! Before you appears Tish's old heatRegulation function, now corrupted and defunct(literally) - quickly repair it to disperse the heat from the dragon !!!
         /*
-        My notes: Yet another day, teaching bright-eyed and bushy-tailed students how to select DOM elements using jQuery!
-        It's such a joy to see the fire of creativity in them! A question from one of my students today inspired me to write code to
-        optimize the thermal regulation of my CPU! I love programming, and I love teaching!
+        My notes: I learned all about #$@LK#$J 2nd Law of Thermodynamics to #$KLJ@#LK$J thermal regulation function for my CPU.
+        Honestly, I think I've improved on the #$@%ZLKU*F state of the field - Newton was almost there. Almost.
+        It was very simple... all I did was subtract...#$)#()Z()F)g)
         */
-       function heatRegulation() {
-         return 'something'
+       function heatRegulation(heat) {
+
+         return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
        }`,
       };
     } else if (bossOneCheckCounter > 3) {
@@ -228,24 +292,74 @@ function door1(tileMap) {
       return `...boss dialogue last...`;
     }
   },
-  bossFinal: (bossFinalCheckCounter, cat1CheckCounter, cat2CheckCounter, dogCheckCounter) => {
-    if (bossFinalCheckCounter === 0 && cat1CheckCounter === 0 && cat2CheckCounter === 0 && dogCheckCounter === 0) {
+  bossFinal: (
+    bossFinalCheckCounter,
+    cat1CheckCounter,
+    cat2CheckCounter,
+    dogCheckCounter
+  ) => {
+    if (
+      bossFinalCheckCounter === 0 &&
+      cat1CheckCounter === 0 &&
+      cat2CheckCounter === 0 &&
+      dogCheckCounter === 0
+    ) {
       return `You reach an enchantress shouting what sounds like an ancient spell. "FREYA! PTAHMOSE! LEXIE", she shouts. You try to get her attention.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 0 && dogCheckCounter === 0) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 0 &&
+      cat2CheckCounter === 0 &&
+      dogCheckCounter === 0
+    ) {
       return `"Don't talk to me right now. My fur babies are loose!", she yells at you. You realize that spell was actually her pets' names. Begrudgingly, you decide to look for them.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 0 && dogCheckCounter === 0) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 1 &&
+      cat2CheckCounter === 0 &&
+      dogCheckCounter === 0
+    ) {
       return `"You found Freya! Where did you go, you naughty girl?!", the enchantress exclaims as you hand over the cat. "Please help me find Ptahmose and Lexie too", the enchantress pleads. You have no choice.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 1 && dogCheckCounter === 0) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 0 &&
+      cat2CheckCounter === 1 &&
+      dogCheckCounter === 0
+    ) {
       return `"That's Ptahmose! Well done! Was he digging up dead animals again?", the enchantress says, looking overjoyed. You realize that finding her cats as well would gain you her favor, so you decide to continue your search.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 0 && dogCheckCounter === 1) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 0 &&
+      cat2CheckCounter === 0 &&
+      dogCheckCounter === 1
+    ) {
       return `"Lexie!", the enchantress says happily as you hand over the dog. "Thank you! Did you see my cats anywhere? Please help me find them too.". The dog looks at you, its expressive eyes begging you not to comply. "Sorry Lexie, I need to get out of here.", as you turn around and start searching.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 1 && dogCheckCounter === 0) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 1 &&
+      cat2CheckCounter === 1 &&
+      dogCheckCounter === 0
+    ) {
       return `"Amazing. You must be really good with cats, to have found both. Freya and Ptahmose thank you!", claims the enchantress. The cats' faces definitely disagree. You silently empathize with the dog, before starting to look for him.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 0 && dogCheckCounter === 1) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 1 &&
+      cat2CheckCounter === 0 &&
+      dogCheckCounter === 1
+    ) {
       return `"Great job! Please help me find that pompous Ptahmose while I keep Freya from tormenting Lexie.", says the enchantress. You feel sorry for the dog, but decide that no amount of pupster smiles is worth staying stuck in this nightmare.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 0 && cat2CheckCounter === 1 && dogCheckCounter === 1) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 0 &&
+      cat2CheckCounter === 1 &&
+      dogCheckCounter === 1
+    ) {
       return `"Well done! Only Freya is left now. Please find her while I keep Ptahmose from harassing Lexie." The dog looks at you, its eyes pleading you to let that cat stay lost forever. "I'm sorry Lexie. Not my fight. I hope you'll forgive me.", you mumble as you start the search for the final feline.`;
-    } else if (bossFinalCheckCounter === 1 && cat1CheckCounter === 1 && cat2CheckCounter === 1 && dogCheckCounter === 1) {
+    } else if (
+      bossFinalCheckCounter === 1 &&
+      cat1CheckCounter === 1 &&
+      cat2CheckCounter === 1 &&
+      dogCheckCounter === 1
+    ) {
       return `"You did it! You found them all! I can't thank you enough. I hope this diploma makes up for all the torture you've been through! Now wake up and be somebody!!", the enchantress says as she vanishes with her pets. "It's finally over!", you sigh as you grab the diploma.`;
     }
   },
@@ -262,7 +376,7 @@ function door1(tileMap) {
     return `You feel chills down your spine as you grab the diploma, as if you had been immersed in an icy cold bath. But all of a sudden, the feeling's gone. You jump up, finally awake in your own room in front of your computer. It's over...`;
   },
   fountain: (fountainCheckCounter) => {
-    if (fountainCheckCounter=== 0) {
+    if (fountainCheckCounter === 0) {
       return `A water fountain. A welcome sight after what you've been through. Go ahead, take a drink."`;
     } else {
       return `"This water has a mild but strange taste.", you think as you take another drink. "I'm sure it's fine.", you think ... and hope. `;

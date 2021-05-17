@@ -7,7 +7,7 @@ import gameFuncs from '../assets/js/flavor';
 import API from '../utils/API';
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/addon/display/autorefresh';
-// import 'codemirror/addon/comment/comment';
+import 'codemirror/addon/comment/comment';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
@@ -24,7 +24,6 @@ function Map() {
   const [door, setDoor] = useState({});
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
-  const [lines, setLines] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [level, setLevel] = useState('');
   const [clearedRooms, setClearedRooms] = useState(0);
@@ -37,12 +36,18 @@ function Map() {
   tileSet.src = tiles;
   // document.body.appendChild(tileSet);
 
-  let playerLevels = ["Coding Commoner", "JavaScript Juvenile", "Node Novice", "Database Dominator", "Mern Monster"];
+  let playerLevels = [
+    'Coding Commoner',
+    'JavaScript Juvenile',
+    'Node Novice',
+    'Database Dominator',
+    'Mern Monster',
+  ];
   let lvl = 0;
 
-  useEffect(()=>{
+  useEffect(() => {
     setLevel(playerLevels[lvl]);
-  },[lvl]);
+  }, [lvl]);
 
   let options = {
     layout: 'tile',
@@ -69,8 +74,8 @@ function Map() {
       '&': [992, 864], // Keypad
       I: [480, 672], // Torch 1
       i: [544, 672], // Torch 2
-      J: [832,384], // & Statue
-      E: [864,384], // @ Statue
+      J: [832, 384], // & Statue
+      E: [864, 384], // @ Statue
       j: [96, 0], // Water Fountain
       O: [512, 2272], // Eye Obelisk 1
       o: [672, 2272], // Eye Obelisk 2
@@ -141,13 +146,31 @@ function Map() {
 
   useEffect(() => {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
-    editor.on('beforeChange', function (cm, change) {
-      if (~lines.indexOf(change.from.line)) {
-        change.cancel();
-      }
-    })
-  }, [lines])
-
+    //TODO: Finish Marking Text for currently Implemented doors - implement boss useEffect
+    if (door.x === 16 && door.y === 7) {
+      editor.markText(
+        { line: 1, ch: 0 },
+        { line: 9, ch: 0 },
+        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+      );
+      editor.markText(
+        { line: 10, ch: 0 },
+        { line: 12, ch: 0 },
+        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+      );
+    } else if (door.x === 16 && door.y === 22) {
+      editor.markText(
+        { line: 1, ch: 0 },
+        { line: 13, ch: 0 },
+        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+      );
+      editor.markText(
+        { line: 14, ch: 0 },
+        { line: 15, ch: 0 },
+        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+      );
+    }
+  }, [door]);
 
   let roomsCleared = 0;
   let bitCoinsFound = 0;
@@ -166,11 +189,13 @@ function Map() {
     }
   };
 
-  useEffect(() => {
-    setInterval(() => {
-      console.log('30 sec check. Could be useful for animations. Otherwise delete.');
-    }, 30000);
-  }, []);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     console.log(
+  //       '30 sec check. Could be useful for animations. Otherwise delete.'
+  //     );
+  //   }, 30000);
+  // }, []);
 
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
@@ -181,7 +206,7 @@ function Map() {
   }
 
   /* Pulls data from State variables except Name */
-  function saveScore(pName){
+  function saveScore(pName) {
     API.saveHighScore({
       player: pName,
       steps: stepsTaken,
@@ -199,23 +224,41 @@ function Map() {
     const expect = chai.expect;
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     let scriptTest = document.createElement('script');
+    scriptTest.setAttribute('id', 'codeMirrorScript');
     scriptTest.textContent = editor.getValue();
-    // script.setAttribute('type', 'module');
     document.getElementById('scripting').appendChild(scriptTest);
+    let mochaTest = document.createElement('div');
+    mochaTest.setAttribute('id', 'mocha');
+    mochaTest.setAttribute('style', 'visibility: hidden');
+    document.getElementById('scripting').appendChild(mochaTest);
     mocha.setup({
       cleanReferencesAfterRun: false,
       ui: 'bdd',
     });
 
-    testFuncs.doorTest();
+    if (roomsCleared === 0) {
+      testFuncs.doorTest();
+    } else if (roomsCleared === 1) {
+      testFuncs.thermalDoor();
+    } else if (roomsCleared === 2) {
+      testFuncs.dragonBoss();
+    } else if (roomsCleared === 3) {
+      testFuncs.happyDoor();
+    }
 
     mocha.run();
     let testResult = document.getElementsByClassName('passes');
     setTimeout(() => {
       if (testResult[0].lastChild.textContent === '1') {
         getTestResult(true);
+        document.getElementById('codeMirrorScript').remove();
+      } else if (testResult[0].lastChild.textContent === '2') {
+        getTestResult(true);
+        document.getElementById('codeMirrorScript').remove();
+      } else if (testResult[0].lastChild.textContent === '3') {
+        getTestResult(true);
+        document.getElementById('codeMirrorScript').remove();
       }
-      console.log(testResult[0].lastChild.textContent);
     }, 500);
   }
 
@@ -285,19 +328,6 @@ function Map() {
       // }
       // lighting.compute(lightingCallback);
 
-      //draw map
-      function drawMap() {
-        tileMap.forEach((element, y) => {
-          if (playerPos.y - 8 <= y && y <= playerPos.y + 8) {
-            element.forEach((element, x) => {
-              if (playerPos.x - 7 <= x && x <= playerPos.x + 8) {
-                display.draw(x, y, element);
-              }
-            });
-          }
-        });
-      }
-
       function revealWholeMap() {
         tileMap.forEach((element, y) => {
           element.forEach((element, x) => {
@@ -349,6 +379,7 @@ function Map() {
 
       function drawLight() {
         fov.compute(playerPos.x, playerPos.y, lightRadius, function (x, y, r) {
+          //fov.compute will not calculate starting position
           if (!r) {
             if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
               return display.draw(playerPos.x, playerPos.y, ['U', lvl]);
@@ -370,7 +401,6 @@ function Map() {
         while (true) {
           await movement();
           display.clear();
-          revealWholeMap();
           if (playerPos.y === 23 && playerPos.x === 75) {
             playerPos = {
               y: 30,
@@ -504,7 +534,6 @@ function Map() {
             case 'L':
               value = gameFuncs.door(keyboardVar, { x: x, y: y });
               if (keyboardVar === 1) {
-                setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
                 setDoor({ x: x, y: y });
@@ -529,8 +558,8 @@ function Map() {
               setVisibility('visible');
               keyboardVar = 1;
               let keyboardItem = {
-                name: 'keyboard of Power',
-                power: 'opens doors by manipulating doors',
+                name: 'Keyboard of Power',
+                power: 'Allows manipulating the environment',
               };
               lvl = 1;
               levelUp();
@@ -579,7 +608,6 @@ function Map() {
                 bossOneVar++;
                 return false;
               }
-              setLines(value.lines);
               setCode(value.code);
               setMessage(value.text);
               bossOneVar++;
@@ -860,7 +888,6 @@ function Map() {
         aria-hidden='true'
       >
         <div id='scripting'></div>
-        <div style={{ visibility: 'hidden' }} id='mocha'></div>
         <div className='modal-dialog modal-dialog-centered' role='document'>
           <div className='modal-content'>
             <div className='modal-body'>
@@ -881,6 +908,7 @@ function Map() {
                       keyMap: 'sublime',
                       theme: 'monokai',
                       autoRefresh: true,
+                      lineWrapping: true,
                     }}
                   />
                   <button onClick={run}>Run Me</button>
@@ -911,12 +939,24 @@ function Map() {
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
               <h1>Congratulations!</h1>
-              <h2>You managed to escape the dungeon and gained a diploma on the way!</h2>
-              <h3>Your performance has been scored. Submit your name and immortalize your performance in the hall of sh.., i mean fame. </h3>
-              <form className="w-100"  onSubmit={handleScoreSave}>
-                <div className="form-group">
-                  <label htmlFor="name">Player Name</label>
-                  <input type="text" className="form-control" id="name" placeholder="Name" required/>
+              <h2>
+                You managed to escape the dungeon and gained a diploma on the
+                way!
+              </h2>
+              <h3>
+                Your performance has been scored. Submit your name and
+                immortalize your performance in the hall of sh.., i mean fame.{' '}
+              </h3>
+              <form className='w-100' onSubmit={handleScoreSave}>
+                <div className='form-group'>
+                  <label htmlFor='name'>Player Name</label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='name'
+                    placeholder='Name'
+                    required
+                  />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='steps'>Steps Taken</label>
