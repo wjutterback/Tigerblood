@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
@@ -33,6 +33,7 @@ function Map() {
   const [stepsTaken, setStepsTaken] = useState(0);
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState('');
+  const [gameOverState, setGameOverState] = useState({});
 
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
@@ -121,7 +122,7 @@ function Map() {
       '%': [1312, 288], // Sand
       u: [480, 416], // Tree
       '@': [1984, 0], // Escape Portal
-      $: [1504, 1376], // Diploma
+      $: [1504, 1376], // Certificate
       '<': [], // Grass NW
       '>': [], // Grass NE
       '(': [], // Grass SW
@@ -173,12 +174,16 @@ function Map() {
     }, 30000);
   }, []);
 
+
+  let navigate = useNavigate();
+
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
+    navigate("/gameover", { state: gameOverState });
   }
 
   /* Pulls data from State variables except Name and Date */
@@ -195,7 +200,20 @@ function Map() {
   }
   /* End of Score Submission to DB */
 
-  const animateable = ['I', 'i', 'J', 'j', 'M', 'm', 'O', 'o'];
+  function gameOver (){
+    setTimeout(() => {
+
+    }, 3000)
+  }
+
+  useEffect(()=>{
+    setGameOverState({
+      score: score,
+      bitcoin: bitcoins || 0,
+      steps: stepsTaken,
+    })
+    console.log(gameOverState)
+  },[stepsTaken])
 
   function run() {
     const expect = chai.expect;
@@ -249,8 +267,10 @@ function Map() {
     let cat1Var = 0;
     let cat2Var = 0;
     let dogVar = 0;
+    let treeVar = 0;
     let fountainVar = 0;
-    let diplomaVar = 0;
+    let certificateVar = 0;
+    let gameOverVar = 0;
 
     tileSet.onload = function () {
       let lightRadius = 1;
@@ -604,22 +624,16 @@ function Map() {
               bossFourVar++;
               setMessage(value);
               return false;
-            case 'F':
-            case 'f': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar);
-              bossFinalVar = 1;
-              setMessage(value);
-              return false;
+            case 'Z':
+              case 'z':
+                value = gameFuncs.bossFive(bossFiveVar);
+                bossFiveVar++;
+                setMessage(value);
+                return false;
             case 'D':
             case 'd':
               value = gameFuncs.bossSix(bossSixVar);
               bossSixVar++;
-              setMessage(value);
-              return false;
-            case 'Z':
-            case 'z':
-              value = gameFuncs.bossFive(bossFiveVar);
-              bossFiveVar++;
               setMessage(value);
               return false;
             case 'X':
@@ -634,7 +648,16 @@ function Map() {
               bossEightVar++;
               setMessage(value);
               return false;
+            case 'F':
+            case 'f': // Final Boss
+              value = gameFuncs.bossFinal(bossFinalVar);
+              bossFinalVar++;
+              setMessage(value);
+              return false;
             case 'u':
+              value = gameFuncs.tree(treeVar);
+              treeVar++;
+              setMessage(value);
               return false;
             case 'j':
               value = gameFuncs.fountain(fountainVar);
@@ -655,6 +678,20 @@ function Map() {
               value = gameFuncs.dog();
               dogVar++;
               setMessage(value);
+              return false;
+            case '$':
+              value = gameFuncs.certificate();
+              setMessage(value);
+              tileMap[2][13].pop();
+              setVisibility('visible');
+              certificateVar = 1;
+              let certificateItem = {
+                name: 'Certificate of Full Stack',
+                power: 'Makes dreams come true',
+              };
+              setInventory((inventory) => [...inventory, certificateItem]);
+              display.draw(13, 2, '=');
+              gameOver();
               return false;
             default:
           }
@@ -825,6 +862,12 @@ function Map() {
           >
             Game Over!
           </button>
+          <Link
+            className="btn btn-primary"
+            to={{
+              pathname: "/gameover", 
+              state: gameOverState,
+            }}>Go to game over</Link>
           <h3>
             <b>Items Unlocked: {inventory.length}</b>
           </h3>
@@ -925,7 +968,7 @@ function Map() {
                   <form className="w-100"  onSubmit={handleScoreSave}>
                     <div className="form-group">
                       <label htmlFor="name">Player Name</label>
-                      <input type="text" className="form-control" id="name" placeholder="Name" required/>
+                      <input type="text" className="form-control" id="name" placeholder="...limit 20 characters" maxlength="20" required/>
                     </div>
                     <div className='form-group'>
                       <label htmlFor='steps'>Steps Taken</label>
