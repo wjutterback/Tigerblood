@@ -197,9 +197,23 @@ function Map() {
   useEffect(() => {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     editor.markText(
+      { line: 0, ch: 0 },
+      { line: 1, ch: 0 },
+      {
+        readOnly: true,
+        inclusiveLeft: false,
+        clearWhenEmpty: true,
+        css: 'visibility: hidden',
+      }
+    );
+    editor.markText(
       { line: parseInt(lines[0]), ch: 0 },
       { line: parseInt(lines[1]), ch: 0 },
-      { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+      {
+        readOnly: true,
+        inclusiveLeft: false,
+        clearWhenEmpty: true,
+      }
     );
     editor.markText(
       { line: parseInt(lines[2]), ch: 0 },
@@ -215,7 +229,7 @@ function Map() {
     if (pass === true) {
       tileMap[door.x][door.y] = ['.', 'U'];
       //display draw doesn't work in here, not quite sure why that is
-      setCode('Success!');
+      setCode('/* Success! */');
       setTimeout(() => {
         setCode('');
       }, 2000);
@@ -271,15 +285,15 @@ function Map() {
       cleanReferencesAfterRun: false,
       ui: 'bdd',
     });
-      if (roomsCleared === 0) {
-        testFuncs.doorTest();
-      } else if (roomsCleared === 1) {
-        testFuncs.thermalDoor();
-      } else if (roomsCleared === 2) {
-        testFuncs.dragonBoss();
-      } else if (roomsCleared === 3) {
-        testFuncs.happyDoor();
-      }
+    if (roomsCleared === 0) {
+      testFuncs.doorTest();
+    } else if (roomsCleared === 1) {
+      testFuncs.thermalDoor();
+    } else if (roomsCleared === 2) {
+      testFuncs.dragonBoss();
+    } else if (roomsCleared === 3) {
+      testFuncs.happyDoor();
+    }
 
     mocha.run();
     let testResult = document.getElementsByClassName('passes');
@@ -287,12 +301,15 @@ function Map() {
       if (testResult[0].lastChild.textContent === '1') {
         getTestResult(true);
         document.getElementById('codeMirrorScript').remove();
+        document.getElementById('mocha').remove();
       } else if (testResult[0].lastChild.textContent === '2') {
         getTestResult(true);
         document.getElementById('codeMirrorScript').remove();
+        document.getElementById('mocha').remove();
       } else if (testResult[0].lastChild.textContent === '3') {
         getTestResult(true);
         document.getElementById('codeMirrorScript').remove();
+        document.getElementById('mocha').remove();
       }
     }, 500);
   }

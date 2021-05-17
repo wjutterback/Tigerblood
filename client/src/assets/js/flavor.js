@@ -28,7 +28,7 @@ const gameFuncs = {
         return {
           lines: [1, 9, 10, 12],
           text: `Your keyboard beeps and its blinking light becomes solid. It's connected to the door somehow. Images flash before your eyes, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
-          code: `
+          code: ` /*jshint esversion: 6, asi: true*/
   /*
   My notes: Experimented with making a door today!
   It was the first door I've ever made, but I'm pretty proud of it.
@@ -38,7 +38,7 @@ const gameFuncs = {
   */
   function door1(door) {
     door[${door.x}][${door.y}] = 'L';
-    return door;
+    return door[${door.x}][${door.y}];
   }
 `,
         };
@@ -46,7 +46,7 @@ const gameFuncs = {
         return {
           lines: [1, 13, 14, 15],
           text: `A surge of energy from your keyboard reveals the true nature of the door before you.`,
-          code: `
+          code: ` /*jshint esversion: 6, asi: true*/
           /*
           My Notes: Trying a new type of lock for my doors; this one will
           implement MANY locks.The sector behind the door needs extra security,
@@ -64,8 +64,9 @@ const gameFuncs = {
         };
       } else if (door.x === 16 && door.y === 37) {
         return {
+          lines: [1, 16, 17, 18],
           text: `Your keyboard summons a terminal and with your new ring you see the pixels even clearer! What is this? 1080p?`,
-          code: `
+          code: ` /*jshint esversion: 6, asi: true*/
           /*
           Door Notes: Is there a way to program happiness into an application?
           Just one of my many philosophical musings! Work is really getting
@@ -88,7 +89,7 @@ const gameFuncs = {
       } else if (door.x === 16 && door.y === 52) {
         return {
           text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
-          code: `
+          code: ` /*jshint esversion: 6, asi: true*/
           /*
           Door Notes: Work has me using alternating tab indents every other line and
             they won't let me use Prettier anymore. How can they ask this
@@ -188,16 +189,16 @@ const gameFuncs = {
       return `All I do now is absorb heat day in and day out, or should I say computer cycle in and computer cycle out; my room is hotter than Midland! She completely replaced her old heatRegulation function with me!`;
     } else if (bossOneCheckCounter === 3) {
       return {
-        text: `I grow weary on reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your keyboard sends a jolt of electricity through your body and you once again see the world in code`,
-        code: `
-        !!! Your mind sharpens in the presence of danger! Before you appears Tish's old heatRegulation function, now corrupted and defunct(literally) - quickly repair it to disperse the heat from the dragon !!!
+        lines: [1, 7, 8, 9],
+        text: `I grow weary on reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your keyboard sends a jolt of electricity through your body; you quickly open up the terminal.`,
+        code: `/*jshint esversion: 6, asi: true*/
         /*
+        !!! Your mind sharpens in the presence of danger! Before you appears Tish's old heatRegulation function, now corrupted and defunct(literally) - quickly repair it to disperse the heat from the dragon !!!
         My notes: I learned all about #$@LK#$J 2nd Law of Thermodynamics to #$KLJ@#LK$J thermal regulation function for my CPU.
         Honestly, I think I've improved on the #$@%ZLKU*F state of the field - Newton was almost there. Almost.
         It was very simple... all I did was subtract...#$)#()Z()F)g)
         */
        function heatRegulation(heat) {
-
          return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
        }`,
       };
