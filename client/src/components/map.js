@@ -350,6 +350,7 @@ function Map() {
 
       function drawLight() {
         fov.compute(playerPos.x, playerPos.y, lightRadius, function (x, y, r) {
+          //fov.compute will not calculate starting position
           if (!r) {
             if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
               return display.draw(playerPos.x, playerPos.y, ['U', lvl]);
