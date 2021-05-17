@@ -26,8 +26,8 @@ const testFuncs = {
           15,
           [0, 1, 2, 3, 4, 5, 6, 'L'],
         ];
-        let result = door1(door);
-        expect(result).to.eql('U');
+        door1(door);
+        expect(door[16][7]).to.eql('U');
       });
     });
   },
