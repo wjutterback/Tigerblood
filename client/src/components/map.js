@@ -19,6 +19,48 @@ import mocha from 'mocha';
 import testFuncs from '../assets/js/tests';
 import './map.css';
 
+//enable to allow linter to work in CodeMirror
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/lint/javascript-lint';
+import 'codemirror/addon/lint/lint.css';
+import { JSHINT } from 'jshint';
+window.JSHINT = JSHINT;
+
+var widgets = [];
+function updateHints() {
+  let editor = document.querySelector('.CodeMirror').CodeMirror;
+  editor.operation(function () {
+    for (var i = 0; i < widgets.length; ++i)
+      editor.removeLineWidget(widgets[i]);
+    widgets.length = 0;
+
+    JSHINT(editor.getValue());
+    for (var i = 0; i < JSHINT.errors.length; ++i) {
+      var err = JSHINT.errors[i];
+      if (!err) continue;
+      var msg = document.createElement('div');
+      var icon = msg.appendChild(document.createElement('span'));
+      icon.innerHTML = '>> Linter: ';
+      icon.className = 'lint-error-icon';
+      msg.appendChild(document.createTextNode(err.reason));
+      msg.className = 'lint-error';
+      widgets.push(
+        editor.addLineWidget(err.line - 1, msg, {
+          coverGutter: false,
+          noHScroll: true,
+        })
+      );
+    }
+  });
+  var info = editor.getScrollInfo();
+  var after = editor.charCoords(
+    { line: editor.getCursor().line + 1, ch: 0 },
+    'local'
+  ).top;
+  if (info.top + info.clientHeight < after)
+    editor.scrollTo(null, after - info.clientHeight + 3);
+}
+
 function Map() {
   const [message, setMessage] = useState('');
   const [door, setDoor] = useState({});
@@ -31,6 +73,7 @@ function Map() {
   const [stepsTaken, setStepsTaken] = useState(0);
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState('');
+  const [lines, setLines] = useState([1, 2, 3, 4]);
 
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
@@ -146,31 +189,24 @@ function Map() {
 
   useEffect(() => {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
-    //TODO: Finish Marking Text for currently Implemented doors - implement boss useEffect
-    if (door.x === 16 && door.y === 7) {
-      editor.markText(
-        { line: 1, ch: 0 },
-        { line: 9, ch: 0 },
-        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
-      );
-      editor.markText(
-        { line: 10, ch: 0 },
-        { line: 12, ch: 0 },
-        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
-      );
-    } else if (door.x === 16 && door.y === 22) {
-      editor.markText(
-        { line: 1, ch: 0 },
-        { line: 13, ch: 0 },
-        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
-      );
-      editor.markText(
-        { line: 14, ch: 0 },
-        { line: 15, ch: 0 },
-        { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
-      );
-    }
-  }, [door]);
+    editor.on('change', function () {
+      updateHints();
+    });
+  });
+
+  useEffect(() => {
+    let editor = document.querySelector('.CodeMirror').CodeMirror;
+    editor.markText(
+      { line: parseInt(lines[0]), ch: 0 },
+      { line: parseInt(lines[1]), ch: 0 },
+      { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+    );
+    editor.markText(
+      { line: parseInt(lines[2]), ch: 0 },
+      { line: parseInt(lines[3]), ch: 0 },
+      { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+    );
+  }, [lines, door]);
 
   let roomsCleared = 0;
   let bitCoinsFound = 0;
@@ -235,16 +271,15 @@ function Map() {
       cleanReferencesAfterRun: false,
       ui: 'bdd',
     });
-
-    if (roomsCleared === 0) {
-      testFuncs.doorTest();
-    } else if (roomsCleared === 1) {
-      testFuncs.thermalDoor();
-    } else if (roomsCleared === 2) {
-      testFuncs.dragonBoss();
-    } else if (roomsCleared === 3) {
-      testFuncs.happyDoor();
-    }
+      if (roomsCleared === 0) {
+        testFuncs.doorTest();
+      } else if (roomsCleared === 1) {
+        testFuncs.thermalDoor();
+      } else if (roomsCleared === 2) {
+        testFuncs.dragonBoss();
+      } else if (roomsCleared === 3) {
+        testFuncs.happyDoor();
+      }
 
     mocha.run();
     let testResult = document.getElementsByClassName('passes');
@@ -355,22 +390,22 @@ function Map() {
         console.log('drawPlayer called. Your playerLevel is ' + lvl);
         switch (lvl) {
           case 0:
-            display.draw(playerPos.x, playerPos.y, ['.', '1']);
+            display.draw(playerPos.x, playerPos.y, ['.', 1]);
             break;
           case 1:
-            display.draw(playerPos.x, playerPos.y, ['.', '2']);
+            display.draw(playerPos.x, playerPos.y, ['.', 2]);
             setLevel(playerLevels[lvl]);
             break;
           case 2:
-            display.draw(playerPos.x, playerPos.y, ['.', '3']);
+            display.draw(playerPos.x, playerPos.y, ['.', 3]);
             setLevel(playerLevels[lvl]);
             break;
           case 3:
-            display.draw(playerPos.x, playerPos.y, ['.', '4']);
+            display.draw(playerPos.x, playerPos.y, ['.', 4]);
             setLevel(playerLevels[lvl]);
             break;
           case 4:
-            display.draw(playerPos.x, playerPos.y, ['.', '5']);
+            display.draw(playerPos.x, playerPos.y, ['.', 5]);
             setLevel(playerLevels[lvl]);
             break;
           default:
@@ -382,13 +417,12 @@ function Map() {
           //fov.compute will not calculate starting position
           if (!r) {
             if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
-              return display.draw(playerPos.x, playerPos.y, ['U', lvl]);
+              return display.draw(playerPos.x, playerPos.y, ['U', lvl + 1]);
             } else if (tileMap[y][x] === '=') {
-              return display.draw(playerPos.x, playerPos.y, ['=', lvl]);
+              return display.draw(playerPos.x, playerPos.y, ['=', lvl + 1]);
             } else if (tileMap[y][x] === '_') {
-              return display.draw(playerPos.x, playerPos.y, ['_', lvl]);
+              return display.draw(playerPos.x, playerPos.y, ['_', lvl + 1]);
             }
-
             return drawPlayer();
           }
           display.draw(x, y, tileMap[y][x]);
@@ -534,6 +568,7 @@ function Map() {
             case 'L':
               value = gameFuncs.door(keyboardVar, { x: x, y: y });
               if (keyboardVar === 1) {
+                setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
                 setDoor({ x: x, y: y });
@@ -909,6 +944,8 @@ function Map() {
                       theme: 'monokai',
                       autoRefresh: true,
                       lineWrapping: true,
+                      gutters: ['CodeMirror-lint-markers'],
+                      lint: true,
                     }}
                   />
                   <button onClick={run}>Run Me</button>

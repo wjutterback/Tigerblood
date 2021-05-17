@@ -26,6 +26,7 @@ const gameFuncs = {
     if (keyboardVar === 1) {
       if (door.x === 16 && door.y === 7) {
         return {
+          lines: [1, 9, 10, 12],
           text: `Your keyboard beeps and its blinking light becomes solid. It's connected to the door somehow. Images flash before your eyes, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
           code: `
   /*
@@ -36,11 +37,14 @@ const gameFuncs = {
   Reminder: 'U' for Unlocked Door.
   */
   function door1(door) {
-    return door[${door.x}][${door.y}] = 'L';
-  }`,
+    door[${door.x}][${door.y}] = 'L';
+    return door;
+  }
+`,
         };
       } else if (door.x === 16 && door.y === 22) {
         return {
+          lines: [1, 13, 14, 15],
           text: `A surge of energy from your keyboard reveals the true nature of the door before you.`,
           code: `
           /*
@@ -81,7 +85,7 @@ const gameFuncs = {
             return
           }`,
         };
-      } else if (door.x === 16 && door.y === 52){
+      } else if (door.x === 16 && door.y === 52) {
         return {
           text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
           code: `
@@ -99,8 +103,8 @@ const gameFuncs = {
 
          function laughterKills()) {
 
-         } `
-        }
+         } `,
+        };
       }
     }
   },
