@@ -8,7 +8,7 @@ import gameFuncs from '../assets/js/flavor';
 import API from '../utils/API';
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/addon/display/autorefresh';
-// import 'codemirror/addon/comment/comment';
+import 'codemirror/addon/comment/comment';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
@@ -20,12 +20,53 @@ import mocha from 'mocha';
 import testFuncs from '../assets/js/tests';
 import './map.css';
 
+//enable to allow linter to work in CodeMirror
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/lint/javascript-lint';
+import 'codemirror/addon/lint/lint.css';
+import { JSHINT } from 'jshint';
+window.JSHINT = JSHINT;
+
+var widgets = [];
+function updateHints() {
+  let editor = document.querySelector('.CodeMirror').CodeMirror;
+  editor.operation(function () {
+    for (var i = 0; i < widgets.length; ++i)
+      editor.removeLineWidget(widgets[i]);
+    widgets.length = 0;
+
+    JSHINT(editor.getValue());
+    for (var i = 0; i < JSHINT.errors.length; ++i) {
+      var err = JSHINT.errors[i];
+      if (!err) continue;
+      var msg = document.createElement('div');
+      var icon = msg.appendChild(document.createElement('span'));
+      icon.innerHTML = '>> Linter: ';
+      icon.className = 'lint-error-icon';
+      msg.appendChild(document.createTextNode(err.reason));
+      msg.className = 'lint-error';
+      widgets.push(
+        editor.addLineWidget(err.line - 1, msg, {
+          coverGutter: false,
+          noHScroll: true,
+        })
+      );
+    }
+  });
+  var info = editor.getScrollInfo();
+  var after = editor.charCoords(
+    { line: editor.getCursor().line + 1, ch: 0 },
+    'local'
+  ).top;
+  if (info.top + info.clientHeight < after)
+    editor.scrollTo(null, after - info.clientHeight + 3);
+}
+
 function Map() {
   const [message, setMessage] = useState('');
   const [door, setDoor] = useState({});
   const [visibility, setVisibility] = useState('hidden');
   const [code, setCode] = useState('');
-  const [lines, setLines] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [level, setLevel] = useState('');
   const [clearedRooms, setClearedRooms] = useState(0);
@@ -33,18 +74,20 @@ function Map() {
   const [stepsTaken, setStepsTaken] = useState(0);
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState('');
-  const [gameOverState, setGameOverState] = useState({});
-
-  let tileSet = document.createElement('img');
   tileSet.src = tiles;
-  // document.body.appendChild(tileSet);
 
-  let playerLevels = ["Coding Commoner", "JavaScript Juvenile", "Node Novice", "Database Dominator", "Mern Monster"];
+  let playerLevels = [
+    'Coding Commoner',
+    'JavaScript Juvenile',
+    'Node Novice',
+    'Database Dominator',
+    'Mern Monster',
+  ];
   let lvl = 0;
 
-  useEffect(()=>{
+  useEffect(() => {
     setLevel(playerLevels[lvl]);
-  },[lvl]);
+  }, [lvl]);
 
   let options = {
     layout: 'tile',
@@ -71,8 +114,8 @@ function Map() {
       '&': [992, 864], // Keypad
       I: [480, 672], // Torch 1
       i: [544, 672], // Torch 2
-      J: [832,384], // & Statue
-      E: [864,384], // @ Statue
+      J: [832, 384], // & Statue
+      E: [864, 384], // @ Statue
       j: [96, 0], // Water Fountain
       O: [512, 2272], // Eye Obelisk 1
       o: [672, 2272], // Eye Obelisk 2
@@ -143,13 +186,38 @@ function Map() {
 
   useEffect(() => {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
-    editor.on('beforeChange', function (cm, change) {
-      if (~lines.indexOf(change.from.line)) {
-        change.cancel();
-      }
-    })
-  }, [lines])
+    editor.on('change', function () {
+      updateHints();
+    });
+  });
 
+  useEffect(() => {
+    let editor = document.querySelector('.CodeMirror').CodeMirror;
+    editor.markText(
+      { line: 0, ch: 0 },
+      { line: 1, ch: 0 },
+      {
+        readOnly: true,
+        inclusiveLeft: false,
+        clearWhenEmpty: true,
+        css: 'visibility: hidden',
+      }
+    );
+    editor.markText(
+      { line: parseInt(lines[0]), ch: 0 },
+      { line: parseInt(lines[1]), ch: 0 },
+      {
+        readOnly: true,
+        inclusiveLeft: false,
+        clearWhenEmpty: true,
+      }
+    );
+    editor.markText(
+      { line: parseInt(lines[2]), ch: 0 },
+      { line: parseInt(lines[3]), ch: 0 },
+      { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
+    );
+  }, [lines, door]);
 
   let roomsCleared = 0;
   let bitCoinsFound = 0;
@@ -158,7 +226,7 @@ function Map() {
     if (pass === true) {
       tileMap[door.x][door.y] = ['.', 'U'];
       //display draw doesn't work in here, not quite sure why that is
-      setCode('Success!');
+      setCode('/* Success! */');
       setTimeout(() => {
         setCode('');
       }, 2000);
@@ -168,11 +236,13 @@ function Map() {
     }
   };
 
-  useEffect(() => {
-    setInterval(() => {
-      console.log('30 sec check. Could be useful for animations. Otherwise delete.');
-    }, 30000);
-  }, []);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     console.log(
+  //       '30 sec check. Could be useful for animations. Otherwise delete.'
+  //     );
+  //   }, 30000);
+  // }, []);
 
 
   let navigate = useNavigate();
@@ -186,8 +256,8 @@ function Map() {
     navigate("/gameover", { state: gameOverState });
   }
 
-  /* Pulls data from State variables except Name and Date */
-  function saveScore(pName){
+  /* Pulls data from State variables except Name */
+  function saveScore(pName) {
     API.saveHighScore({
       player: pName,
       steps: stepsTaken,
@@ -219,23 +289,43 @@ function Map() {
     const expect = chai.expect;
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     let scriptTest = document.createElement('script');
+    scriptTest.setAttribute('id', 'codeMirrorScript');
     scriptTest.textContent = editor.getValue();
-    // script.setAttribute('type', 'module');
     document.getElementById('scripting').appendChild(scriptTest);
+    let mochaTest = document.createElement('div');
+    mochaTest.setAttribute('id', 'mocha');
+    mochaTest.setAttribute('style', 'visibility: hidden');
+    document.getElementById('scripting').appendChild(mochaTest);
     mocha.setup({
       cleanReferencesAfterRun: false,
       ui: 'bdd',
     });
-
-    testFuncs.doorTest();
+    if (roomsCleared === 0) {
+      testFuncs.doorTest();
+    } else if (roomsCleared === 1) {
+      testFuncs.thermalDoor();
+    } else if (roomsCleared === 2) {
+      testFuncs.dragonBoss();
+    } else if (roomsCleared === 3) {
+      testFuncs.happyDoor();
+    }
 
     mocha.run();
     let testResult = document.getElementsByClassName('passes');
     setTimeout(() => {
       if (testResult[0].lastChild.textContent === '1') {
         getTestResult(true);
+        document.getElementById('codeMirrorScript').remove();
+        document.getElementById('mocha').remove();
+      } else if (testResult[0].lastChild.textContent === '2') {
+        getTestResult(true);
+        document.getElementById('codeMirrorScript').remove();
+        document.getElementById('mocha').remove();
+      } else if (testResult[0].lastChild.textContent === '3') {
+        getTestResult(true);
+        document.getElementById('codeMirrorScript').remove();
+        document.getElementById('mocha').remove();
       }
-      console.log(testResult[0].lastChild.textContent);
     }, 500);
   }
 
@@ -307,19 +397,6 @@ function Map() {
       // }
       // lighting.compute(lightingCallback);
 
-      //draw map
-      function drawMap() {
-        tileMap.forEach((element, y) => {
-          if (playerPos.y - 8 <= y && y <= playerPos.y + 8) {
-            element.forEach((element, x) => {
-              if (playerPos.x - 7 <= x && x <= playerPos.x + 8) {
-                display.draw(x, y, element);
-              }
-            });
-          }
-        });
-      }
-
       function revealWholeMap() {
         tileMap.forEach((element, y) => {
           element.forEach((element, x) => {
@@ -347,22 +424,22 @@ function Map() {
         console.log('drawPlayer called. Your playerLevel is ' + lvl);
         switch (lvl) {
           case 0:
-            display.draw(playerPos.x, playerPos.y, ['.', '1']);
+            display.draw(playerPos.x, playerPos.y, ['.', 1]);
             break;
           case 1:
-            display.draw(playerPos.x, playerPos.y, ['.', '2']);
+            display.draw(playerPos.x, playerPos.y, ['.', 2]);
             setLevel(playerLevels[lvl]);
             break;
           case 2:
-            display.draw(playerPos.x, playerPos.y, ['.', '3']);
+            display.draw(playerPos.x, playerPos.y, ['.', 3]);
             setLevel(playerLevels[lvl]);
             break;
           case 3:
-            display.draw(playerPos.x, playerPos.y, ['.', '4']);
+            display.draw(playerPos.x, playerPos.y, ['.', 4]);
             setLevel(playerLevels[lvl]);
             break;
           case 4:
-            display.draw(playerPos.x, playerPos.y, ['.', '5']);
+            display.draw(playerPos.x, playerPos.y, ['.', 5]);
             setLevel(playerLevels[lvl]);
             break;
           default:
@@ -371,15 +448,15 @@ function Map() {
 
       function drawLight() {
         fov.compute(playerPos.x, playerPos.y, lightRadius, function (x, y, r) {
+          //fov.compute will not calculate starting position
           if (!r) {
             if (Array.isArray(tileMap[y][x]) && tileMap[y][x][1] === 'U') {
-              return display.draw(playerPos.x, playerPos.y, ['U', lvl]);
+              return display.draw(playerPos.x, playerPos.y, ['U', lvl + 1]);
             } else if (tileMap[y][x] === '=') {
-              return display.draw(playerPos.x, playerPos.y, ['=', lvl]);
+              return display.draw(playerPos.x, playerPos.y, ['=', lvl + 1]);
             } else if (tileMap[y][x] === '_') {
-              return display.draw(playerPos.x, playerPos.y, ['_', lvl]);
+              return display.draw(playerPos.x, playerPos.y, ['_', lvl + 1]);
             }
-
             return drawPlayer();
           }
           display.draw(x, y, tileMap[y][x]);
@@ -392,7 +469,6 @@ function Map() {
         while (true) {
           await movement();
           display.clear();
-          revealWholeMap();
           if (playerPos.y === 23 && playerPos.x === 75) {
             playerPos = {
               y: 30,
@@ -551,8 +627,8 @@ function Map() {
               setVisibility('visible');
               keyboardVar = 1;
               let keyboardItem = {
-                name: 'keyboard of Power',
-                power: 'opens doors by manipulating doors',
+                name: 'Keyboard of Power',
+                power: 'Allows manipulating the environment',
               };
               lvl = 1;
               levelUp();
@@ -601,7 +677,6 @@ function Map() {
                 bossOneVar++;
                 return false;
               }
-              setLines(value.lines);
               setCode(value.code);
               setMessage(value.text);
               bossOneVar++;
@@ -905,7 +980,6 @@ function Map() {
         aria-hidden='true'
       >
         <div id='scripting'></div>
-        <div style={{ visibility: 'hidden' }} id='mocha'></div>
         <div className='modal-dialog modal-dialog-centered' role='document'>
           <div className='modal-content'>
             <div className='modal-body'>
@@ -926,6 +1000,9 @@ function Map() {
                       keyMap: 'sublime',
                       theme: 'monokai',
                       autoRefresh: true,
+                      lineWrapping: true,
+                      gutters: ['CodeMirror-lint-markers'],
+                      lint: true,
                     }}
                   />
                   <button onClick={run}>Run Me</button>
@@ -955,65 +1032,69 @@ function Map() {
         <div className='modal-dialog modal-lg modal-dialog-centered' role='document'>
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
-              <div className="container-fluid">
-                <div className="row" style={{ margin: '25px auto 50px auto' }}>
-                  <img className="mx-auto" src='/preview/tigerbloodlogo.png' alt='logo' id='logo' style={{ height: "200px" }}/>
-                </div>
-                <div className="row" style={{margin: "50px", fontFamily: "fantasy"}}>
-                  <p className="mx-auto" style={{fontSize: "3rem", marginBottom: "50px"}}>Congratulations!</p>
-                  <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>You managed to escape the dungeon and gained Full Stack Web Development certification on the way!</p>
-                  <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Your performance has been scored. Submit your name and immortalize your performance in the Hall of Fame. </p>             
-                </div>
-                <div className="row" style={{margin: "20px 50px 100px 50px", fontFamily: "fantasy"}}>
-                  <form className="w-100"  onSubmit={handleScoreSave}>
-                    <div className="form-group">
-                      <label htmlFor="name">Player Name</label>
-                      <input type="text" className="form-control" id="name" placeholder="...limit 20 characters" maxlength="20" required/>
-                    </div>
-                    <div className='form-group'>
-                      <label htmlFor='steps'>Steps Taken</label>
-                      <input
-                        type='text'
-                        className='form-control-plaintext'
-                        readOnly
-                        id='steps'
-                        aria-describedby='stepsHelp'
-                        value={stepsTaken}
-                        style={{ color: 'white' }}
-                      />
-                    </div>
-                    <div className='form-group'>
-                      <label htmlFor='bitcoin'>BitCoins Collected</label>
-                      <input
-                        type='text'
-                        className='form-control-plaintext'
-                        readOnly
-                        id='bitcoin'
-                        aria-describedby='bitcoinHelp'
-                        value={bitcoins}
-                        style={{ color: 'white' }}
-                      />
-                    </div>
-                    <div className='form-group'>
-                      <label htmlFor='score'>Score</label>
-                      <input
-                        type='text'
-                        className='form-control-plaintext'
-                        readOnly
-                        id='score'
-                        aria-describedby='scoreHelp'
-                        value={score}
-                        style={{ color: 'white' }}
-                      />
-                    </div>
-                    <button type='submit' className='btn btn-danger btn-block'>
-                      Save Score
-                    </button>
-                  </form>
-                </div>
-                <div className='row' id='gameOverModalFooter'  style={{margin: "50px", fontFamily: "fantasy"}}>
-                  <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Thanks for playing! Best of luck to the Full Stack Cohort of May 2021!</p>
-                </div>
+              <h1>Congratulations!</h1>
+              <h2>
+                You managed to escape the dungeon and gained a diploma on the
+                way!
+              </h2>
+              <h3>
+                Your performance has been scored. Submit your name and
+                immortalize your performance in the hall of sh.., i mean fame.{' '}
+              </h3>
+              <div className="row" style={{margin: "50px", fontFamily: "fantasy"}}>
+                <p className="mx-auto" style={{fontSize: "3rem", marginBottom: "50px"}}>Congratulations!</p>
+                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>You managed to escape the dungeon and gained Full Stack Web Development certification on the way!</p>
+                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Your performance has been scored. Submit your name and immortalize your performance in the Hall of Fame. </p>             
+              </div>
+              <div className="row" style={{margin: "20px 50px 100px 50px", fontFamily: "fantasy"}}>
+                <form className="w-100"  onSubmit={handleScoreSave}>
+                  <div className="form-group">
+                    <label htmlFor="name">Player Name</label>
+                    <input type="text" className="form-control" id="name" placeholder="...limit 20 characters" maxlength="20" required/>
+                  </div>
+                  <div className='form-group'>
+                    <label htmlFor='steps'>Steps Taken</label>
+                    <input
+                      type='text'
+                      className='form-control-plaintext'
+                      readOnly
+                      id='steps'
+                      aria-describedby='stepsHelp'
+                      value={stepsTaken}
+                      style={{ color: 'white' }}
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label htmlFor='bitcoin'>BitCoins Collected</label>
+                    <input
+                      type='text'
+                      className='form-control-plaintext'
+                      readOnly
+                      id='bitcoin'
+                      aria-describedby='bitcoinHelp'
+                      value={bitcoins}
+                      style={{ color: 'white' }}
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label htmlFor='score'>Score</label>
+                    <input
+                      type='text'
+                      className='form-control-plaintext'
+                      readOnly
+                      id='score'
+                      aria-describedby='scoreHelp'
+                      value={score}
+                      style={{ color: 'white' }}
+                    />
+                  </div>
+                  <button type='submit' className='btn btn-danger btn-block'>
+                    Save Score
+                  </button>
+                </form>
+              </div>
+              <div className='row' id='gameOverModalFooter'  style={{margin: "50px", fontFamily: "fantasy"}}>
+                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Thanks for playing! Best of luck to the Full Stack Cohort of May 2021!</p>
               </div>
             </div>
           </div>
