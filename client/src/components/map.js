@@ -62,8 +62,8 @@ function Map() {
       '&': [992, 864], // Keypad
       I: [480, 672], // Torch 1
       i: [544, 672], // Torch 2
-      J: [832,384], // & Statue
-      E: [864,384], // @ Statue
+      J: [832, 384], // & Statue
+      E: [864, 384], // @ Statue
       j: [96, 0], // Water Fountain
       O: [512, 2272], // Eye Obelisk 1
       o: [672, 2272], // Eye Obelisk 2
@@ -138,8 +138,8 @@ function Map() {
       if (~lines.indexOf(change.from.line)) {
         change.cancel();
       }
-    })
-  }, [lines])
+    });
+  }, [lines]);
 
   let playerLevel = 1;
   let roomsCleared = 0;
@@ -161,7 +161,9 @@ function Map() {
 
   useEffect(() => {
     setInterval(() => {
-      console.log('30 sec check. Could be useful for animations. Otherwise delete.');
+      console.log(
+        '30 sec check. Could be useful for animations. Otherwise delete.'
+      );
     }, 30000);
   }, []);
 
@@ -174,7 +176,7 @@ function Map() {
   }
 
   /* Pulls data from State variables except Name */
-  function saveScore(pName){
+  function saveScore(pName) {
     API.saveHighScore({
       player: pName,
       steps: stepsTaken,
@@ -193,7 +195,6 @@ function Map() {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     let scriptTest = document.createElement('script');
     scriptTest.textContent = editor.getValue();
-    // script.setAttribute('type', 'module');
     document.getElementById('scripting').appendChild(scriptTest);
     mocha.setup({
       cleanReferencesAfterRun: false,
@@ -357,7 +358,6 @@ function Map() {
         while (true) {
           await movement();
           display.clear();
-          revealWholeMap();
           if (playerPos.y === 23 && playerPos.x === 75) {
             playerPos = {
               y: 30,
@@ -852,12 +852,24 @@ function Map() {
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
               <h1>Congratulations!</h1>
-              <h2>You managed to escape the dungeon and gained a diploma on the way!</h2>
-              <h3>Your performance has been scored. Submit your name and immortalize your performance in the hall of sh.., i mean fame. </h3>
-              <form className="w-100"  onSubmit={handleScoreSave}>
-                <div className="form-group">
-                  <label htmlFor="name">Player Name</label>
-                  <input type="text" className="form-control" id="name" placeholder="Name" required/>
+              <h2>
+                You managed to escape the dungeon and gained a diploma on the
+                way!
+              </h2>
+              <h3>
+                Your performance has been scored. Submit your name and
+                immortalize your performance in the hall of sh.., i mean fame.{' '}
+              </h3>
+              <form className='w-100' onSubmit={handleScoreSave}>
+                <div className='form-group'>
+                  <label htmlFor='name'>Player Name</label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='name'
+                    placeholder='Name'
+                    required
+                  />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='steps'>Steps Taken</label>
