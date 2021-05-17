@@ -74,6 +74,10 @@ function Map() {
   const [stepsTaken, setStepsTaken] = useState(0);
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState('');
+  const [gameOverState, setGameOverState] = useState({});
+  const [lines, setLines] = useState([1, 2, 3, 4]);
+
+  let tileSet = document.createElement('img');
   tileSet.src = tiles;
 
   let playerLevels = [
