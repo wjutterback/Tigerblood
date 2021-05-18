@@ -14,7 +14,7 @@ export const PreGame = () => {
               You open your eyes. There's a voice inside your head.
             </p>
             <p>
-              <b>"What?"</b> You try to focus. Darkness surrounds you.
+              <b>"What ? "</b> You try to focus. Darkness surrounds you.
             </p>
             <p style={{color: "red", fontFamily: "monospace"}}>
               TigerBlood has you...

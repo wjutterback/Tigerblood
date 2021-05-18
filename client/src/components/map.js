@@ -959,22 +959,22 @@ function Map() {
             padding: '30px',
           }}
         >
-          <h3 className='mr-auto'>
+          <h4 className='mr-auto'>
             <b>Player Level:</b> {level}
-          </h3>
-          <h3 className='mr-auto'>
+          </h4>
+          <h4 className='mr-auto'>
             <b>Rooms Cleared:</b> {clearedRooms}/4
-          </h3>
-          <h3 className='mr-auto'>
+          </h4>
+          <h4 className='mr-auto'>
             <b>Steps Taken:</b> {stepsTaken}
-          </h3>
-          <h3 className='mr-auto'>
+          </h4>
+          <h4 className='mr-auto'>
             {bitcoins ? (
               <b>You Found {bitcoins} BitCoin!</b>
             ) : (
               'No secrets here ...'
             )}
-          </h3>
+          </h4>
         </div>
         <div className='row'>
           <p id='message'>{message}</p>
@@ -996,9 +996,9 @@ function Map() {
           >
             Game Over!
           </button>
-          <h3>
-            <b>Items Unlocked: {inventory.length}</b>
-          </h3>
+          <h4>
+            <b>Items Found: {inventory.length}</b>
+          </h4>
           <ol>
             {inventory.map((item, i) => (
               <li key={i} style={{ fontSize: '1.5rem' }}>
@@ -1078,6 +1078,8 @@ function Map() {
         id='gameOverModal'
         tabIndex='-1'
         role='dialog'
+        data-keyboard="false" 
+        data-backdrop="static"
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >
