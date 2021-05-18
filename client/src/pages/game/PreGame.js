@@ -23,7 +23,7 @@ export const PreGame = () => {
               "What the heck?!" You think aloud, confused.
             </p>
             <p>
-              You eyes slowly adjust, as unfamiliar shapes start to form.
+              Your eyes slowly adjust, as unfamiliar shapes start to form.
             </p>
             <p style={{color: "red", fontFamily: "monospace"}}>
               Follow the red clues...
@@ -35,7 +35,7 @@ export const PreGame = () => {
               Your thoughts wander towards escaping whatever is going on.
             </p>
             <p>
-              The monument up ahead seems to have writing on it...
+              The monuments up ahead seems to have writing on it...
             </p>
             <p style={{color: "red", fontFamily: "monospace"}}>
               KNOCK KNOCK...
