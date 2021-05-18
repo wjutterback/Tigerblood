@@ -276,6 +276,8 @@ function Map() {
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
+    document.getElementById("gameOverModal").classList.remove("show");
+    document.querySelector(".modal-backdrop").classList.remove("show");
     navigate("/highscores", { state: gameOverState });
   }
 
@@ -994,12 +996,6 @@ function Map() {
           >
             Game Over!
           </button>
-          <Link
-            className="btn btn-primary"
-            to={{
-              pathname: "/gameover", 
-              state: gameOverState,
-            }}>Go to game over</Link>
           <h3>
             <b>Items Unlocked: {inventory.length}</b>
           </h3>
