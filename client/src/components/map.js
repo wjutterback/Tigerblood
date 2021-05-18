@@ -76,6 +76,7 @@ function Map() {
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState('');
   const [gameOverState, setGameOverState] = useState({});
+  const [gameIsOver, setGameIsOver] = useState(0);
   const [lines, setLines] = useState([1, 2, 3, 4]);
 
   let tileSet = document.createElement('img');
@@ -89,6 +90,9 @@ function Map() {
     'Mern Monster',
   ];
   let lvl = 0;
+  let gameOverVar = 0;
+  let roomsCleared = 0;
+  let bitCoinsFound = 0;
 
   useEffect(() => {
     setLevel(playerLevels[lvl]);
@@ -224,9 +228,6 @@ function Map() {
     );
   }, [lines, code]);
 
-  let roomsCleared = 0;
-  let bitCoinsFound = 0;
-
   const getTestResult = (pass, test) => {
     let failureMessage = `
     /* Failed! Nuh-uh-uh, these goodies staying in the jar */`;
@@ -278,7 +279,7 @@ function Map() {
     saveScore(pName);
     document.getElementById("gameOverModal").classList.remove("show");
     document.querySelector(".modal-backdrop").classList.remove("show");
-    navigate("/highscores", { state: gameOverState });
+    navigate("/highscores");
   }
 
   /* Pulls data from State variables except Name */
@@ -296,9 +297,10 @@ function Map() {
   /* End of Score Submission to DB */
 
   function gameOver (){
-    setTimeout(() => {
-
-    }, 3000)
+    gameOverVar = 1;
+    console.log("Game over!")
+    document.getElementById("gameOverModal").classList.add("show");
+    // document.querySelector(".modal-backdrop").classList.add("show");
   }
 
   useEffect(()=>{
@@ -404,7 +406,6 @@ function Map() {
     let treeVar = 0;
     let fountainVar = 0;
     let certificateVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
-    let gameOverVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
 
     tileSet.onload = function () {
       let lightRadius = 1;
@@ -530,8 +531,10 @@ function Map() {
       mapEngine();
 
       function updateScore() {
-        score =
-          Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
+        if (gameOverVar === 0){
+          score =
+            Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
+        }
       }
 
       async function movement() {
@@ -664,6 +667,7 @@ function Map() {
               value = gameFuncs.andStatue(andStatueVar);
               andStatueVar++;
               setMessage(value);
+              gameOver(); // This is temporary to confirm working of the gameOver chain of functions.
               return false;
             case 'E':
               value = gameFuncs.atStatue(atStatueVar);
@@ -862,7 +866,7 @@ function Map() {
         keyCode[40] = 4; // key-down
         keyCode[37] = 6; // key-left
         var code = e.keyCode;
-        if (!(code in keyCode)) {
+        if (!(code in keyCode) || gameOverVar === 1) {
           return false;
         }
         let diff = ROT.DIRS[8][keyCode[code]];
@@ -1095,7 +1099,7 @@ function Map() {
                 <form className="w-100"  onSubmit={handleScoreSave}>
                   <div className="form-group">
                     <label htmlFor="name">Player Name</label>
-                    <input type="text" className="form-control" id="name" placeholder="...limit 20 characters" maxlength="20" required/>
+                    <input type="text" className="form-control" id="name" placeholder="...limit 20 characters" maxLength="20" required/>
                   </div>
                   <div className='form-group'>
                     <label htmlFor='steps'>Steps Taken</label>
