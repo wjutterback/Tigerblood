@@ -58,9 +58,9 @@ const gameFuncs = {
           Also - I cleared this function after locking, so remember to
           loop through your memories.
           */
-         function thermalDoor(locks){
-           return
-         }`,
+          function thermalDoor(locks){
+            return
+          }`,
         };
       } else if (door.x === 16 && door.y === 37) {
         return {
@@ -102,9 +102,9 @@ const gameFuncs = {
           sLiPpInG aWaY fRoM mE... eVeRy DaY.
           */
 
-         function laughterKills()) {
+        function laughterKills()) {
 
-         } `,
+        } `,
         };
       }
     }
@@ -198,13 +198,13 @@ const gameFuncs = {
         Honestly, I think I've improved on the #$@%ZLKU*F state of the field - Newton was almost there. Almost.
         It was very simple... all I did was subtract...#$)#()Z()F)g)
         */
-       function heatRegulation(heat) {
-         return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
-       }`,
+        function heatRegulation(heat) {
+          return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
+        }`,
       };
     }
   },
-  bossTwo: (bossTwoCheckCounter) => {
+  bossTwo: (bossTwoCheckCounter, boss1, boss2) => {
     if (bossTwoCheckCounter === 0) {
       return `You warily approach one of the three figures huddled around the pentagram... The creature hisses, then grins evilly at you. The sound echoes in the dimly lit room.`;
     } else if (bossTwoCheckCounter === 1) {
@@ -212,12 +212,28 @@ const gameFuncs = {
     } else if (bossTwoCheckCounter === 2) {
       return `Every one says my name wrong. But I don't care. What's my name? Hah, hah, hah... Like I'd tell you. *smiles*`;
     } else if (bossTwoCheckCounter === 3) {
-      return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, did you finish the back-end?`;
+      return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, do we splice or slice?`;
+    } else if (bossTwoCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
+      return {
+        lines: [1, 6, 9, 10],
+        text: `All three creatures slowly look up from what they are doing and stare at you. It's almost as if they finally realized what you are, all at once. Their thoughts are transprent to you, you don't need a keyboard to see it - you're the missing piece. They all lunge at you, desperately grabbing at you, but you instinctively pull out your keyboard. Lines of code appear before you, but it seems unfinished.`,
+        code: `/*jshint esversion: 6, asi: true*/
+        /*
+        NoTeS? No-TES. NO. Time. Extended. Service. Wait, what am I writing? I need to get more sleep.
+        I feel less and less like myself these days. What am I writing right now? This code
+        is so gross! I don't even remember what it was for. All code is making me feel ill.
+        */
+        function bringJoy(Jy) {
+      Jy.slice()
+      Jy.splice()
+      return Jy
+        }`,
+      };
     } else if (bossTwoCheckCounter > 3) {
-      return `Focus you two, keep coding!`;
+      return `Focus you two, keep coding! Or I'll splice you two together and find my own joy`;
     }
   },
-  bossThree: (bossThreeCheckCounter) => {
+  bossThree: (bossThreeCheckCounter, boss1, boss2) => {
     if (bossThreeCheckCounter === 0) {
       return `You throw caution to the wind as you approach one of the three figures huddled around the pentagram... The creature spits at you. Disgusting.`;
     } else if (bossThreeCheckCounter === 1) {
@@ -226,19 +242,51 @@ const gameFuncs = {
       return `These other two sad creatures have lost themselves. Not me though! I know who I am! I forget what we're doing though...`;
     } else if (bossThreeCheckCounter === 3) {
       return `The other two creatures howl loudly at Cazasa the Great.`;
+    } else if (bossThreeCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
+      return {
+        lines: [1, 6, 9, 10],
+        text: `All three creatures slowly look up from what they are doing and stare at you. It's almost as if they finally realized what you are, all at once. Their thoughts are transprent to you, you don't need a keyboard to see it - you're the missing piece. They all lunge at you, desperately grabbing at you, but you instinctively pull out your keyboard. Lines of code appear before you, but it seems unfinished.`,
+        code: `/*jshint esversion: 6, asi: true*/
+  /*
+  NoTeS? No-TES. NO. Time. Extended. Service. Wait, what am I writing? I need to get more sleep.
+  I feel less and less like myself these days. What am I writing right now? This code
+  is so gross! I don't even remember what it was for. All code is making me feel ill.
+  */
+  function bringJoy(Jy) {
+Jy.slice()
+Jy.splice()
+return Jy
+  }`,
+      };
     } else if (bossThreeCheckCounter > 3) {
-      return `Go away, they reminded me we're trying to bring Joy back into our lives. We just keep missing this one thing... Wait, what are we doing again?`;
+      return `Go away, they reminded me we're trying to bring Joy back into our lives. We just keep missing this one thing. Do we splice or slice? ... Wait, what are we doing again?`;
     }
   },
-  bossFour: (bossFourCheckCounter) => {
+  bossFour: (bossFourCheckCounter, boss1, boss2) => {
     if (bossFourCheckCounter === 0) {
       return `You're pretty sure of yourself as you approach one of the three figures huddled around the pentagram... The creature cackles to itself. You barely hear it muttering between laughs.`;
     } else if (bossFourCheckCounter === 1) {
       return `I'm losing myself... I remember... we were working on a procrastination app... or was it a face analyzer app... We're lost without Joy.`;
     } else if (bossFourCheckCounter === 2) {
-      return `Students? Did you say students? Are you... She-Who-Knows? No, you look too lost.`;
+      return `Students? Did you say students? Are you... She-Who-Knows? No, you look too lost. If I see a student around here, I'm going to slice them.`;
     } else if (bossFourCheckCounter === 3) {
-      return `Quiet, we're almost finished bringing Joy back into our lives. I need to finish the back-end.`;
+      return `Quiet, we're almost finished bringing Joy back into our lives. I just... I just... can't remember... splice?`;
+    } else if (bossFourCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
+      return {
+        lines: [1, 6, 9, 10],
+        text: `All three creatures slowly look up from what they are doing and stare at you. It's almost as if they finally realized what you are, all at once. Their thoughts are transprent to you, you don't need a keyboard to see it - you're the missing piece they want to splice or slice. They all lunge at you, desperately grabbing at you, but you instinctively pull out your keyboard. Lines of code appear before you, but it seems unfinished.`,
+        code: `/*jshint esversion: 6, asi: true*/
+        /*
+        NoTeS? No-TES. NO. Time. Extended. Service. Wait, what am I writing? I need to get more sleep.
+        I feel less and less like myself these days. What am I writing right now? This code
+        is so gross! I don't even remember what it was for. All code is making me feel ill.
+        */
+        function bringJoy(Jy) {
+      Jy.slice()
+      Jy.splice()
+      return Jy
+        }`,
+      };
     } else if (bossFourCheckCounter > 3) {
       return `The being goes back to muttering quietly under its breath.`;
     }
@@ -383,8 +431,8 @@ const gameFuncs = {
     };
   },
   tree: (treeCheckCounter) => {
-    if (treeCheckCounter === 0){
-      return `Just a regular tree. Not everything needs a dialogue chain.`
+    if (treeCheckCounter === 0) {
+      return `Just a regular tree. Not everything needs a dialogue chain.`;
     } else {
       return `A tree, again...`
     };

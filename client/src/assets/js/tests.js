@@ -48,7 +48,7 @@ const testFuncs = {
   dragonBoss: () => {
     return describe('dragon', function () {
       it('should return 0', function () {
-        let heat = 9000;
+        let heat = 9001;
         let result = heatRegulation(heat);
         expect(result).to.eql(0);
       });
@@ -66,6 +66,19 @@ const testFuncs = {
       });
     });
   },
+  //Jy.splice(1, 0, 'o');
+  tripletBoss: () => {
+    return describe('triplet', function(){
+      it('should return joy', function() {
+        let joy = ['J', 'y'];
+        let result = bringJoy(joy);
+        expect(result).to.eql(['J','o', 'y'])
+      })
+    })
+  },
+  escapeDoor: () => {
+    
+  }
 };
 
 export default testFuncs;
