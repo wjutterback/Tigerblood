@@ -9,50 +9,27 @@
   height: 500px;
   border-radius: 10px;
   border-style: solid;
-  border-color: rgb(136, 136, 136);
+  border-color: silver;
   border-width: 24px 24px 80px;
   background-color: black;
 }
 
-/* The keyboard of the laptop */
-.laptop:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 220px;
-  height: 150px;
-  left: 50%;
-  bottom: -210px;
-  margin: 20px 0 0 -110px;
-  background: rgb(136, 136, 136);
-  border-radius: 10px;
-}
-
-/* The top of the keyboard */
+/* The laptop's keyboard */
 .laptop:before {
   content: "";
   display: block;
   position: absolute;
-  width: 200px;
-  height: 100px;
-  bottom: -180px;
+  width: 975px;
+  height: 40px;
+  bottom: -80px;
   left: 50%;
   -webkit-transform: translate(-50%);
   transform: translate(-50%);
-  background: rgb(136, 136, 136);
+  background: silver;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   z-index: 1;
 }
-
-/* The screen (or content) of the device */
-/* .laptop .content {
-  width: 960px;
-  height: 580px;
-  overflow: hidden;
-  border: none;
-  margin: auto;
-} */
 
 #webcam,
 #brand {
@@ -91,7 +68,7 @@
   margin: auto;
 }
 
-/* Matrix Monitor */
+/* Matrix Laptop */
 .laptop2 {
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
@@ -103,22 +80,22 @@
   height: 500px;
   border-radius: 10px;
   border-style: solid;
-  border-color: rgb(136, 136, 136);
+  border-color: silver;
   border-width: 24px 24px 80px;
-  background-color: darkgray;
+  background-color: silver;
 }
 
-/* Matrix Monitor Stand */
+/* Matrix Laptop Keyboard */
 .laptop2:after {
   content: "";
   display: block;
   position: absolute;
-  width: 220px;
-  height: 150px;
-  left: 50%;
-  bottom: -210px;
+  width: 975px;
+  height: 50px;
+  left: 0%;
+  bottom: -120px;
   margin: 20px 0 0 -110px;
-  background-color: rgb(136, 136, 136);
+  background-color: silver;
   border-radius: 10px;
 }
 
@@ -239,13 +216,4 @@
 
 #gameOverModalContent {
   background-color: black;
-}
-
-#gameOverContentBody {
-}
-
-#gameOverModalFooter {
-}
-
-#gameOverModalLauncher {
 }
