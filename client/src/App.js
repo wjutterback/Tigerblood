@@ -17,7 +17,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/pregame" element={<PreGame />}/>
               <Route path="/game" element={<Game />} />
-              <Route path="/recordscore" element={<RecordScore />}/>
+              <Route path="/gameover" element={<RecordScore />}/>
               <Route path="/highscores" element={<HighScores />} />
               <Route path="*" element={<NotFound />} />
           </Route>
