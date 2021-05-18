@@ -88,8 +88,13 @@
   animation-fill-mode: forwards;
 }
 
+.start-btn:hover {
+  color: red;
+}
+
 .start-btn:active {
   box-shadow: none;
+  color: red;
   position: relative;
   top: 0.2em;
 }
