@@ -834,7 +834,7 @@ function Map() {
               return false;
             case 'C':
             case 'c':
-              value = gameFuncs.bossEight(bossEightVar);
+              value = gameFuncs.bossEight(bossEightVar, bossSevenVar);
               bossEightVar++;
               setMessage(value);
               return false;

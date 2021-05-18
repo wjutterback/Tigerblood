@@ -295,13 +295,13 @@ return Jy
     if (bossFiveCheckCounter === 0) {
       return `One of the two figures before you looks wizened and powerful; he's obviously a powerful summoner. You cannot understand what he's saying... it sounds like Valheim.`;
     } else if (bossFiveCheckCounter === 1) {
-      return `The summoner notices you and speaks clearly, "You saw the creatures from the previous room? Hah, are they still trying to bring Joy to the hellish dimension? A fool's errand."`;
+      return `The summoner notices you and speaks clearly, "You saw the creatures from the previous room? Hah, are they still trying to bring Joy to this hellish dimension? A fool's errand; Joy is imprisoned soon after being released. It is a never ending cycle."`;
     } else if (bossFiveCheckCounter === 2) {
-      return `There is but one escape here, and I know I alone know the way..."`;
+      return `There is but one escape here, and I alone know the way..."`;
     } else if (bossFiveCheckCounter === 3) {
-      return `Desperate to know how to escape, you ask, but the summoner only laughs and turns his back to you. He materializes a terminal out of thin air. He is completely ignoring you now.`;
+      return `Desperate to know how to escape, you ask how, but the summoner only laughs and turns his back to you. He materializes a terminal out of thin air. He is completely ignoring you now.`;
     } else if (bossFiveCheckCounter > 3) {
-      return `... Must ... get ... the ... gold.`;
+      return `... Must ... get ... the ... gold. Flash! Into a wall.... again.`;
     }
   },
   bossSix: (bossSixCheckCounter) => {
@@ -319,28 +319,33 @@ return Jy
   },
   bossSeven: (bossSevenCheckCounter) => {
     if (bossSevenCheckCounter === 0) {
-      return `Iyana`;
+      return `...`;
     } else if (bossSevenCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `....`;
     } else if (bossSevenCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `.....`;
     } else if (bossSevenCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
+      return `I'm glad you spent the effort to talk to me! Here, take this gift. It fell off a UFO I saw. I've been hiding it very well, but I have a feeling you need it more now. Escape you ask? No, there's no escape. Maybe Yenso knows but the one time I asked the look on his face was so sad I couldn't bring myself to push the issue. I haven't brought it up since.
+      *** Eye Nana gives you a Worm - it burrows into your skin immediately, the pain is immense but you feel untold power coursing through your body ***`;
     } else if (bossSevenCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `.....`;
     }
   },
-  bossEight: (bossEightCheckCounter) => {
+  bossEight: (bossEightCheckCounter, Iyana) => {
     if (bossEightCheckCounter === 0) {
-      return `Senyo`;
+      return `This world... it's an illusion, convincing as it is insidious. We're just bits and voltage waiting for change. Oh? You're not surprised. You must know the truth.`;
     } else if (bossEightCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `Funny. You remind me of someone I knew long ago, but the name escapes me. This world slowly erodes your memory, turning you into a thrall for Tish, who herself is just as trapped and lost.`;
     } else if (bossEightCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `I've tried to resist in every way possible. Do you not see how far I've come? But my strength fades... I can only hope you surpass my own limits.`;
+    } else if (bossEightCheckCounter === 3 && Iyana > 3) {
+      return {
+        lines: [1, 9, 10, 15],
+        text: `My purpose? Ahh, well Tish made me her virus protection... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
+      code: `/*jshint esversion: 6, asi: true*/
+      /* Senyo boss code */`}
     } else if (bossEightCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
-    } else if (bossEightCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye Nana It pays to know her.`;
     }
   },
   bossFinal: (
@@ -424,25 +429,25 @@ return Jy
     return `The poor dog looks harassed and tired. "Poor Lexie! Were those two felines picking on you?", you ask as you pick her up. Her short legs dangle in the air, as she gives you the cutest smile as if to say, "Thank you hooman, for saving me from those two hell demons!". `;
   },
   keeper: (keeperCheckCounter) => {
-    if (keeperCheckCounter === 0){
-      return `Greetings! I am the Keeper of Secrets. Like the super secret mirror that the enchantress told me not to tell anyone about or the fact that it even exists. Umm, wait... aarrgh I did it again!`
+    if (keeperCheckCounter === 0) {
+      return `Greetings! I am the Keeper of Secrets. Like the super secret mirror that the enchantress told me not to tell anyone about or the fact that it even exists. Umm, wait... aarrgh I did it again!`;
     } else {
-      return `You will not trick me again traveller. Find those pets and take them to the enchantress.`
-    };
+      return `You will not trick me again traveller. Find those pets and take them to the enchantress.`;
+    }
   },
   tree: (treeCheckCounter) => {
     if (treeCheckCounter === 0) {
       return `Just a regular tree. Not everything needs a dialogue chain.`;
     } else {
-      return `A tree, again...`
-    };
+      return `A tree, again...`;
+    }
   },
   closedChest: (closedChestCheckCounter) => {
-    if (closedChestCheckCounter === 0){
-      return `You find a locked chest. You wonder about the treasures it might hold. There must be a way to open it. TIme to look around.`
+    if (closedChestCheckCounter === 0) {
+      return `You find a locked chest. You wonder about the treasures it might hold. There must be a way to open it. TIme to look around.`;
     } else {
-      return `Locked. Time to look around for a way to open it.`
-    };
+      return `Locked. Time to look around for a way to open it.`;
+    }
   },
   certificate: () => {
     return `You feel chills down your spine as you grab the certificate, as if you had been immersed in an icy cold bath. But all of a sudden, the feeling's gone. You jump up, finally awake in your own room in front of your computer. It's over...`;
