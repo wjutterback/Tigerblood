@@ -58,9 +58,9 @@ const gameFuncs = {
           Also - I cleared this function after locking, so remember to
           loop through your memories.
           */
-         function thermalDoor(locks){
-           return
-         }`,
+          function thermalDoor(locks){
+            return
+          }`,
         };
       } else if (door.x === 16 && door.y === 37) {
         return {
@@ -102,9 +102,9 @@ const gameFuncs = {
           sLiPpInG aWaY fRoM mE... eVeRy DaY.
           */
 
-         function laughterKills()) {
+        function laughterKills()) {
 
-         } `,
+        } `,
         };
       }
     }
@@ -198,9 +198,9 @@ const gameFuncs = {
         Honestly, I think I've improved on the #$@%ZLKU*F state of the field - Newton was almost there. Almost.
         It was very simple... all I did was subtract...#$)#()Z()F)g)
         */
-       function heatRegulation(heat) {
-         return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
-       }`,
+        function heatRegulation(heat) {
+          return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
+        }`,
       };
     }
   },
@@ -423,12 +423,26 @@ return Jy
   dog: () => {
     return `The poor dog looks harassed and tired. "Poor Lexie! Were those two felines picking on you?", you ask as you pick her up. Her short legs dangle in the air, as she gives you the cutest smile as if to say, "Thank you hooman, for saving me from those two hell demons!". `;
   },
+  keeper: (keeperCheckCounter) => {
+    if (keeperCheckCounter === 0){
+      return `Greetings! I am the Keeper of Secrets. Like the super secret mirror that the enchantress told me not to tell anyone about or the fact that it even exists. Umm, wait... aarrgh I did it again!`
+    } else {
+      return `You will not trick me again traveller. Find those pets and take them to the enchantress.`
+    };
+  },
   tree: (treeCheckCounter) => {
     if (treeCheckCounter === 0) {
       return `Just a regular tree. Not everything needs a dialogue chain.`;
     } else {
-      return `A tree, again..`;
-    }
+      return `A tree, again...`
+    };
+  },
+  closedChest: (closedChestCheckCounter) => {
+    if (closedChestCheckCounter === 0){
+      return `You find a locked chest. You wonder about the treasures it might hold. There must be a way to open it. TIme to look around.`
+    } else {
+      return `Locked. Time to look around for a way to open it.`
+    };
   },
   certificate: () => {
     return `You feel chills down your spine as you grab the certificate, as if you had been immersed in an icy cold bath. But all of a sudden, the feeling's gone. You jump up, finally awake in your own room in front of your computer. It's over...`;

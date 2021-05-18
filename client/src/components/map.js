@@ -115,9 +115,9 @@ function Map() {
       J: [832, 384], // & Statue
       E: [864, 384], // @ Statue
       j: [96, 0], // Water Fountain
-      O: [512, 2272], // Eye Obelisk 1
-      o: [672, 2272], // Eye Obelisk 2
-      // A: [32, 32], // Golem Level 1 Statue Solid - was the first golem, deleted it due to never being seen
+      O: [1376, 1888], // Side Boss
+      // o: [672, 2272], Side top bottom
+      A: [32, 32], // Golem Level 1 Statue Solid
       a: [64, 32], // Golem Level 2 Statue Solid
       V: [96, 32], // Golem Level 3 Statue Solid
       v: [128, 32], // Golem Level 4 Statue Solid
@@ -278,7 +278,9 @@ function Map() {
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
-    navigate('/highscores', { state: gameOverState });
+    document.getElementById("gameOverModal").classList.remove("show");
+    document.querySelector(".modal-backdrop").classList.remove("show");
+    navigate("/highscores", { state: gameOverState });
   }
 
   /* Pulls data from State variables except Name */
@@ -408,13 +410,15 @@ function Map() {
     let bossEightVar = 0;
     let bossFinalVar = 0;
     let score = 0;
-    let cat1Var = 0;
-    let cat2Var = 0;
-    let dogVar = 0;
+    let cat1Var = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let cat2Var = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let dogVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let keeperVar = 0;
+    let closedChestVar = 0;
     let treeVar = 0;
     let fountainVar = 0;
-    let certificateVar = 0;
-    let gameOverVar = 0;
+    let certificateVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let gameOverVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
 
     tileSet.onload = function () {
       let lightRadius = 1;
@@ -865,6 +869,16 @@ function Map() {
               dogVar++;
               setMessage(value);
               return false;
+            case 'O':
+              value = gameFuncs.keeper(keeperVar);
+              keeperVar++;
+              setMessage(value);
+              return false;
+            case 'B':
+              value = gameFuncs.closedChest(closedChestVar);
+              closedChestVar++;
+              setMessage(value);
+              return false;
             case '$':
               value = gameFuncs.certificate();
               setMessage(value);
@@ -876,8 +890,6 @@ function Map() {
               setInventory((inventory) => [...inventory, certificateItem]);
               display.draw(13, 2, '=');
               gameOver();
-              return false;
-            case 'B':
               return false;
             default:
           }
@@ -1019,22 +1031,22 @@ function Map() {
             padding: '30px',
           }}
         >
-          <h3 className='mr-auto'>
+          <h4 className='mr-auto'>
             <b>Player Level:</b> {level}
-          </h3>
-          <h3 className='mr-auto'>
+          </h4>
+          <h4 className='mr-auto'>
             <b>Rooms Cleared:</b> {clearedRooms}/4
-          </h3>
-          <h3 className='mr-auto'>
+          </h4>
+          <h4 className='mr-auto'>
             <b>Steps Taken:</b> {stepsTaken}
-          </h3>
-          <h3 className='mr-auto'>
+          </h4>
+          <h4 className='mr-auto'>
             {bitcoins ? (
               <b>You Found {bitcoins} BitCoin!</b>
             ) : (
               'No secrets here ...'
             )}
-          </h3>
+          </h4>
         </div>
         <div className='row'>
           <p id='message'>{message}</p>
@@ -1056,18 +1068,9 @@ function Map() {
           >
             Game Over!
           </button>
-          <Link
-            className='btn btn-primary'
-            to={{
-              pathname: '/gameover',
-              state: gameOverState,
-            }}
-          >
-            Go to game over
-          </Link>
-          <h3>
-            <b>Items Unlocked: {inventory.length}</b>
-          </h3>
+          <h4>
+            <b>Items Found: {inventory.length}</b>
+          </h4>
           <ol>
             {inventory.map((item, i) => (
               <li key={i} style={{ fontSize: '1.5rem' }}>
@@ -1147,6 +1150,8 @@ function Map() {
         id='gameOverModal'
         tabIndex='-1'
         role='dialog'
+        data-keyboard="false"
+        data-backdrop="static"
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >

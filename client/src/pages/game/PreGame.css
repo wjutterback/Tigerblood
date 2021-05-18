@@ -32,10 +32,10 @@
 
 .introText p:nth-child(3) {
   font-family: "Indie Flower", cursive;
-  width: 22em;
+  width: 22.5em;
   opacity: 0;
-  -webkit-animation: type2 5s steps(80, end);
-  animation: type2 5s steps(80, end);
+  -webkit-animation: type2 4s steps(80, end);
+  animation: type2 4s steps(80, end);
   -webkit-animation-delay: 9s;
   animation-delay: 9s;
   -webkit-animation-fill-mode: forwards;
@@ -67,7 +67,7 @@
 
 .introText p:nth-child(6) {
   font-family: "Indie Flower", cursive;
-  width: 25em;
+  width: 25.5em;
   opacity: 0;
   -webkit-animation: type2 5s steps(100, end);
   animation: type2 5s steps(100, end);
@@ -90,7 +90,7 @@
 
 .introText p:nth-child(8) {
   font-family: "Indie Flower", cursive;
-  width: 20em;
+  width: 20.5em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -102,7 +102,7 @@
 
 .introText p:nth-child(9) {
   font-family: "Indie Flower", cursive;
-  width: 27em;
+  width: 26em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -114,7 +114,7 @@
 
 .introText p:nth-child(10) {
   font-family: "Indie Flower", cursive;
-  width: 23em;
+  width: 24.5em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
@@ -146,7 +146,7 @@
   height: 3rem;
   width: 14rem;
   display: inline-block;
-  margin: 50px 5px 100px 5px;
+  margin: 25px 5px 100px 5px;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
@@ -179,7 +179,7 @@
   height: 3rem;
   width: 14rem;
   display: inline-block;
-  margin: 50px 5px 100px 5px;
+  margin: 25px 5px 100px 5px;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
