@@ -13,7 +13,7 @@
   font-size: 2rem;
   padding: 40px;
   display: block;
-  margin-top: 150px;
+  margin-top: 120px;
   display: inline-block;
   animation: fadeIn linear 4s;
   -webkit-animation: fadeIn linear 4s;
@@ -31,7 +31,7 @@
   font-family: "Finger Paint", "Roboto Mono";
   font-size: 1.5rem;
   padding: 40px;
-  margin-top: 150px;
+  margin-top: 120px;
   display: inline-block;
   animation: fadeIn linear 4s;
   -webkit-animation: fadeIn linear 4s;
@@ -64,7 +64,7 @@
   width: 150px;
   bottom: 50%;
   display: inline-block;
-  margin: 200px 5px 50px 5px;
+  margin: 150px 5px 50px 5px;
   font-weight: bold;
   padding: 10px 0 10px 10px;
   background-color: lightgray;

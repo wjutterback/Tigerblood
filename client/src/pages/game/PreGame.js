@@ -14,13 +14,13 @@ export const PreGame = () => {
               You open your eyes. There's a voice inside your head.
             </p>
             <p>
-              "What?" You try to focus. Darkness surrounds you.
+              <b>"What?"</b> You try to focus. Darkness surrounds you.
             </p>
             <p style={{color: "red", fontFamily: "monospace"}}>
               TigerBlood has you...
             </p>
             <p>
-              "What the heck?!" You think aloud, confused.
+              <b>"What the heck ? ! "</b> You think aloud, confused.
             </p>
             <p>
               Your eyes slowly adjust, as unfamiliar shapes start to form.
@@ -29,19 +29,19 @@ export const PreGame = () => {
               Follow the red clues...
             </p>
             <p>
-              "Follow the red clues?", you wonder to yourself.
+              <b>"Follow the red clues ? "</b>, you wonder to yourself.
             </p>
             <p>
               Your thoughts wander towards escaping whatever is going on.
             </p>
             <p>
-              The monuments up ahead seems to have writing on it...
+              The monuments up ahead seem to have writing on them...
             </p>
             <p style={{color: "red", fontFamily: "monospace"}}>
               KNOCK KNOCK...
             </p>
           </div>
-          <div className="row" style={{marginTop: "10rem"}}>
+          <div className="row" style={{marginTop: "5rem"}}>
             <Link to="/game" className="btn-lg mx-auto btn-danger" id="gameStartButton">WAKE UP</Link>
             <Link to="/" className="btn mx-auto" id="bluePillButton">KEEP SLEEPING</Link>
           </div>
