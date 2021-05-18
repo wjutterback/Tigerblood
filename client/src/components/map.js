@@ -121,8 +121,8 @@ function Map() {
       J: [832, 384], // & Statue
       E: [864, 384], // @ Statue
       j: [96, 0], // Water Fountain
-      O: [512, 2272], // Eye Obelisk 1
-      o: [672, 2272], // Eye Obelisk 2
+      O: [1376, 1888], // Side Boss
+      // o: [672, 2272], Side top bottom
       A: [32, 32], // Golem Level 1 Statue Solid
       a: [64, 32], // Golem Level 2 Statue Solid
       V: [96, 32], // Golem Level 3 Statue Solid
@@ -358,13 +358,15 @@ function Map() {
     let bossEightVar = 0;
     let bossFinalVar = 0;
     let score = 0;
-    let cat1Var = 0;
-    let cat2Var = 0;
-    let dogVar = 0;
+    let cat1Var = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let cat2Var = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let dogVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let keeperVar = 0;
+    let closedChestVar = 0;
     let treeVar = 0;
     let fountainVar = 0;
-    let certificateVar = 0;
-    let gameOverVar = 0;
+    let certificateVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let gameOverVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
 
     tileSet.onload = function () {
       let lightRadius = 1;
@@ -758,6 +760,16 @@ function Map() {
               dogVar++;
               setMessage(value);
               return false;
+            case 'O':
+              value = gameFuncs.keeper(keeperVar);
+              keeperVar++;
+              setMessage(value);
+              return false;
+            case 'B':
+              value = gameFuncs.closedChest(closedChestVar);
+              closedChestVar++;
+              setMessage(value);
+              return false;
             case '$':
               value = gameFuncs.certificate();
               setMessage(value);
@@ -771,7 +783,7 @@ function Map() {
               setInventory((inventory) => [...inventory, certificateItem]);
               display.draw(13, 2, '=');
               gameOver();
-              return false;
+              return true;
             default:
           }
         }

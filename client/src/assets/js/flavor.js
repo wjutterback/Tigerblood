@@ -377,11 +377,25 @@ const gameFuncs = {
   dog: () => {
     return `The poor dog looks harassed and tired. "Poor Lexie! Were those two felines picking on you?", you ask as you pick her up. Her short legs dangle in the air, as she gives you the cutest smile as if to say, "Thank you hooman, for saving me from those two hell demons!". `;
   },
+  keeper: (keeperCheckCounter) => {
+    if (keeperCheckCounter === 0){
+      return `Greetings! I am the Keeper of Secrets. Like the super secret mirror that the enchantress told me not to tell anyone about or the fact that it even exists. Umm, wait... aarrgh I did it again!`
+    } else {
+      return `You will not trick me again traveller. Find those pets and take them to the enchantress.`
+    };
+  },
   tree: (treeCheckCounter) => {
     if (treeCheckCounter === 0){
       return `Just a regular tree. Not everything needs a dialogue chain.`
     } else {
-      return `A tree, again..`
+      return `A tree, again...`
+    };
+  },
+  closedChest: (closedChestCheckCounter) => {
+    if (closedChestCheckCounter === 0){
+      return `You find a locked chest. You wonder about the treasures it might hold. There must be a way to open it. TIme to look around.`
+    } else {
+      return `Locked. Time to look around for a way to open it.`
     };
   },
   certificate: () => {

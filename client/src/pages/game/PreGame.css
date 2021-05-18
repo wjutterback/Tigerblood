@@ -67,7 +67,7 @@
 
 .introText p:nth-child(6) {
   font-family: "Indie Flower", cursive;
-  width: 25em;
+  width: 25.5em;
   opacity: 0;
   -webkit-animation: type2 5s steps(100, end);
   animation: type2 5s steps(100, end);
@@ -114,7 +114,7 @@
 
 .introText p:nth-child(10) {
   font-family: "Indie Flower", cursive;
-  width: 23em;
+  width: 23.5em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
   animation: type2 4s steps(80, end);
