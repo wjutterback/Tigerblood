@@ -19,6 +19,7 @@
 }
 
 .introText p:nth-child(2) {
+  font-family: "Indie Flower", cursive;
   width: 24em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
@@ -30,6 +31,7 @@
 }
 
 .introText p:nth-child(3) {
+  font-family: "Indie Flower", cursive;
   width: 23em;
   opacity: 0;
   -webkit-animation: type2 5s steps(80, end);
@@ -52,6 +54,7 @@
 }
 
 .introText p:nth-child(5) {
+  font-family: "Indie Flower", cursive;
   width: 20em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
@@ -63,6 +66,7 @@
 }
 
 .introText p:nth-child(6) {
+  font-family: "Indie Flower", cursive;
   width: 26em;
   opacity: 0;
   -webkit-animation: type2 5s steps(100, end);
@@ -85,6 +89,7 @@
 }
 
 .introText p:nth-child(8) {
+  font-family: "Indie Flower", cursive;
   width: 21em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
@@ -96,6 +101,7 @@
 }
 
 .introText p:nth-child(9) {
+  font-family: "Indie Flower", cursive;
   width: 28em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
@@ -107,6 +113,7 @@
 }
 
 .introText p:nth-child(10) {
+  font-family: "Indie Flower", cursive;
   width: 23em;
   opacity: 0;
   -webkit-animation: type2 4s steps(80, end);
@@ -131,7 +138,7 @@
 }
 
 #gameStartButton {
-  font-family: "Finger Paint", "Roboto Mono";
+  font-family: "Cutive Mono", monospace;
   background-color: rgb(247, 28, 57);
   border: none;
   color: white;
@@ -164,7 +171,7 @@
 }
 
 #bluePillButton {
-  font-family: "Finger Paint", "Roboto Mono";
+  font-family: "Cutive Mono", monospace;
   background-color: rgb(21, 34, 213);
   border: none;
   color: white;

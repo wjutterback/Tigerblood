@@ -257,7 +257,7 @@ function Map() {
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
-    navigate("/gameover", { state: gameOverState });
+    navigate("/highscores", { state: gameOverState });
   }
 
   /* Pulls data from State variables except Name */
@@ -899,7 +899,7 @@ function Map() {
         <div
           className='row'
           style={{
-            fontFamily: 'fantasy',
+            fontFamily: 'Finger Paint',
             backgroundColor: 'Black',
             padding: '30px',
           }}
@@ -927,7 +927,7 @@ function Map() {
         <div
           className='row'
           style={{
-            fontFamily: 'fantasy',
+            fontFamily: 'Finger Paint',
             backgroundColor: 'Black',
             padding: '3rem',
           }}
@@ -989,8 +989,7 @@ function Map() {
             <div className='modal-body'>
               <div className='laptop'>
                 <div className='content'>
-                  <p id='webcam'>o</p>
-                  <p id='buttons'>&#10006;</p>
+                  <p id='pro'>Door Code Editor</p>
                   <CodeMirror
                     value={code}
                     options={{
@@ -1036,21 +1035,12 @@ function Map() {
         <div className='modal-dialog modal-lg modal-dialog-centered' role='document'>
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
-              <h1>Congratulations!</h1>
-              <h2>
-                You managed to escape the dungeon and gained a diploma on the
-                way!
-              </h2>
-              <h3>
-                Your performance has been scored. Submit your name and
-                immortalize your performance in the hall of sh.., i mean fame.{' '}
-              </h3>
-              <div className="row" style={{margin: "50px", fontFamily: "fantasy"}}>
+              <div className="row" style={{margin: "50px", fontFamily: "Finger Paint"}}>
                 <p className="mx-auto" style={{fontSize: "3rem", marginBottom: "50px"}}>Congratulations!</p>
                 <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>You managed to escape the dungeon and gained Full Stack Web Development certification on the way!</p>
                 <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Your performance has been scored. Submit your name and immortalize your performance in the Hall of Fame. </p>             
               </div>
-              <div className="row" style={{margin: "20px 50px 100px 50px", fontFamily: "fantasy"}}>
+              <div className="row" style={{margin: "20px 50px 100px 50px", fontFamily: "Finger Paint"}}>
                 <form className="w-100"  onSubmit={handleScoreSave}>
                   <div className="form-group">
                     <label htmlFor="name">Player Name</label>
@@ -1097,7 +1087,7 @@ function Map() {
                   </button>
                 </form>
               </div>
-              <div className='row' id='gameOverModalFooter'  style={{margin: "50px", fontFamily: "fantasy"}}>
+              <div className='row' id='gameOverModalFooter'  style={{margin: "50px", fontFamily: "Finger Paint"}}>
                 <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Thanks for playing! Best of luck to the Full Stack Cohort of May 2021!</p>
               </div>
             </div>

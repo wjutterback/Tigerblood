@@ -26,11 +26,8 @@ export const HighScores = () => {
     <>
       <section className="container mx-auto">
         <GameHeader />
-        <div className="row mx-auto" style={{marginBottom: "20px"}}>
-          <h1 className="mx-auto" style={{color: "red", fontFamily: "fantasy"}}>HighScores</h1>
-        </div>
-        <div className="row" style={{marginBottom: "20px"}}>
-          <h1 className="mx-auto" style={{color: "red", fontFamily: "fantasy"}}>{sortedHighScores.length || "No "} HighScores Found.</h1>
+        <div className="row" style={{marginBottom: "75px"}}>
+          <h1 className="mx-auto" style={{color: "red", fontFamily: "Finger Paint"}}>{sortedHighScores.length || "No "} HighScores Found.</h1>
         </div>
         <div className="table-responsive" style={{margin: "50px"}}>
           <table className="table table-striped">

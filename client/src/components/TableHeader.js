@@ -1,6 +1,6 @@
 export const TableHeader = () => {
   return (
-    <thead className="thead-dark" style={{color: "red", fontFamily: "fantasy", fontSize: "1.5rem"}}>
+    <thead className="thead-dark" style={{color: "red", fontFamily: "Finger Paint", fontSize: "1.5rem"}}>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Player Name</th>

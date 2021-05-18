@@ -33,7 +33,7 @@ const testFuncs = {
   },
   thermalDoor: () => {
     return describe('Thermal Door', function () {
-      it('should return an array of indexs with value U', function () {
+      it('should return an array of indices with value U', function () {
         let door = ['L', 'L', 'L', 'L'];
         let result = thermalDoor(door);
         expect(result).to.eql(['U', 'U', 'U', 'U']);
