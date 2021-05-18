@@ -278,9 +278,9 @@ function Map() {
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
-    document.getElementById("gameOverModal").classList.remove("show");
-    document.querySelector(".modal-backdrop").classList.remove("show");
-    navigate("/highscores", { state: gameOverState });
+    document.getElementById('gameOverModal').classList.remove('show');
+    document.querySelector('.modal-backdrop').classList.remove('show');
+    navigate('/highscores', { state: gameOverState });
   }
 
   /* Pulls data from State variables except Name */
@@ -922,7 +922,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -1150,8 +1150,8 @@ function Map() {
         id='gameOverModal'
         tabIndex='-1'
         role='dialog'
-        data-keyboard="false"
-        data-backdrop="static"
+        data-keyboard='false'
+        data-backdrop='static'
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >
