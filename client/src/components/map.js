@@ -63,6 +63,7 @@ function updateHints() {
 }
 
 function Map() {
+  const [memory, setMemory] = useState({});
   const [message, setMessage] = useState('');
   const [door, setDoor] = useState({});
   const [visibility, setVisibility] = useState('hidden');
@@ -221,22 +222,40 @@ function Map() {
       { line: parseInt(lines[3]), ch: 0 },
       { readOnly: true, inclusiveLeft: false, clearWhenEmpty: true }
     );
-  }, [lines, door]);
+  }, [lines, code]);
 
   let roomsCleared = 0;
   let bitCoinsFound = 0;
 
-  const getTestResult = (pass) => {
+  const getTestResult = (pass, test) => {
+    let failureMessage = `
+    /* Failed! Nuh-uh-uh, these goodies staying in the jar */`;
     if (pass === true) {
-      tileMap[door.x][door.y] = ['.', 'U'];
+      if (test === 'dragon') {
+        console.log('getTestResults inside boss');
+        tileMap[5][22] = ['.', 'r'];
+        tileMap[4][22] = '.';
+      } else if (test === 'door') {
+        tileMap[door.x][door.y] = ['.', 'U'];
+      }
       //display draw doesn't work in here, not quite sure why that is
-      setCode('/* Success! */');
-      setTimeout(() => {
-        setCode('');
-      }, 2000);
       //display.draw needed to draw the open door on pass
       roomsCleared++;
+      setCode(`
+      /* Success! You are quite pleased with your coding skills.*/`);
+      setTimeout(() => {
+        if (document.getElementById('screenModal').style.display !== 'none') {
+          document.getElementById('screenModal').click();
+        }
+        setCode('');
+      }, 2000);
       setClearedRooms(roomsCleared);
+    } else if (pass === false) {
+      setCode(failureMessage);
+      setTimeout(() => {
+        setCode(memory.code);
+        setLines(memory.lines);
+      }, 3000);
     }
   };
 
@@ -298,37 +317,54 @@ function Map() {
     document.getElementById('scripting').appendChild(scriptTest);
     let mochaTest = document.createElement('div');
     mochaTest.setAttribute('id', 'mocha');
-    mochaTest.setAttribute('style', 'visibility: hidden');
+    mochaTest.setAttribute('style', 'display: none');
     document.getElementById('scripting').appendChild(mochaTest);
     mocha.setup({
-      cleanReferencesAfterRun: false,
+      cleanReferencesAfterRun: true,
       ui: 'bdd',
     });
-    if (roomsCleared === 0) {
-      testFuncs.doorTest();
-    } else if (roomsCleared === 1) {
-      testFuncs.thermalDoor();
-    } else if (roomsCleared === 2) {
-      testFuncs.dragonBoss();
-    } else if (roomsCleared === 3) {
-      testFuncs.happyDoor();
-    }
+
+    testFuncs.doorTest();
+    testFuncs.thermalDoor();
+    testFuncs.dragonBoss();
+    testFuncs.happyDoor();
 
     mocha.run();
-    let testResult = document.getElementsByClassName('passes');
+
     setTimeout(() => {
-      if (testResult[0].lastChild.textContent === '1') {
-        getTestResult(true);
-        document.getElementById('codeMirrorScript').remove();
-        document.getElementById('mocha').remove();
-      } else if (testResult[0].lastChild.textContent === '2') {
-        getTestResult(true);
-        document.getElementById('codeMirrorScript').remove();
-        document.getElementById('mocha').remove();
-      } else if (testResult[0].lastChild.textContent === '3') {
-        getTestResult(true);
-        document.getElementById('codeMirrorScript').remove();
-        document.getElementById('mocha').remove();
+      document.getElementById('codeMirrorScript').remove();
+      mocha.unloadFiles();
+      document.getElementById('mocha').remove();
+      console.log(mocha);
+      console.log(door);
+      if (
+        mocha.suite.suites[1].tests[0].state === 'passed' &&
+        door.y === 22 &&
+        door.x === 16
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('door 2 passed');
+      } else if (
+        mocha.suite.suites[0].tests[0].state === 'passed' &&
+        door.y === 7
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('door 1 passed');
+      } else if (
+        mocha.suite.suites[3].tests[0].state === 'passed' &&
+        door.y === 37
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('door 3 passed');
+      } else if (mocha.suite.suites[2].tests[0].state === 'passed') {
+        getTestResult(true, 'dragon');
+        mocha.suite.suites = [];
+      } else {
+        getTestResult(false);
+        mocha.suite.suites = [];
       }
     }, 500);
   }
@@ -419,10 +455,15 @@ function Map() {
       }
 
       function removeGolem() {
-        display.draw(playerPos.x + 32, playerPos.y, ['.', 'm']);
-        setTimeout(() => {
-          display.draw(playerPos.x + 32, playerPos.y, '.');
-        }, 500);
+        let removedGolems = 0;
+        if (removedGolems === 0) {
+          tileMap[23][30] = ['.', 'm'];
+          display.draw(30, 23, ['.', 'm']);
+          setTimeout(() => {
+            tileMap[23][30] = '.';
+            display.draw(30, 23, '.');
+          }, 500);
+        }
       }
 
       function drawPlayer() {
@@ -587,10 +628,10 @@ function Map() {
             case 'r':
               value = gameFuncs.ring();
               setMessage(value);
-              tileMap[2][13].pop();
               setVisibility('visible');
               lightRadius++;
               ringVar = 1;
+              tileMap[5][22].pop();
               let ringItem = {
                 name: 'Ring of Sight',
                 power: 'Increased field of view',
@@ -598,7 +639,7 @@ function Map() {
               lvl = 2;
               levelUp();
               setInventory((inventory) => [...inventory, ringItem]);
-              display.draw(13, 2, '.');
+              display.draw(22, 5, '.');
               return false;
             case 'H':
               value = gameFuncs.helpMessage(bloodMessageVar);
@@ -610,6 +651,7 @@ function Map() {
               if (keyboardVar === 1) {
                 setLines(value.lines);
                 setCode(value.code);
+                setMemory({ code: value.code, lines: value.lines });
                 setMessage(value.text);
                 setDoor({ x: x, y: y });
                 break;
@@ -641,17 +683,19 @@ function Map() {
               setInventory((inventory) => [...inventory, keyboardItem]);
               display.draw(13, 2, '.');
               return false;
-            case 'A':
-              value = gameFuncs.golem1(golem1Var, keyboardVar);
-              golem1Var++;
-              setMessage(value);
-              removeGolem();
-              return false;
+              case 'A':
+                value = gameFuncs.golem1(golem1Var, keyboardVar);
+                golem1Var++;
+                setMessage(value);
+                removeGolem();
+                return false;
             case 'a':
               value = gameFuncs.golem2(golem2Var, ringVar);
               golem2Var++;
               setMessage(value);
-              removeGolem();
+              if (ringVar === 1) {
+                removeGolem();
+              }
               return false;
             case 'V':
               value = gameFuncs.golem3(golem3Var, ringVar);
@@ -673,16 +717,13 @@ function Map() {
             case 'T':
             case 't': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
-              if (
-                bossOneVar === 0 ||
-                bossOneVar === 1 ||
-                bossOneVar === 2 ||
-                bossOneVar > 3
-              ) {
+              if (bossOneVar === 0 || bossOneVar === 1 || bossOneVar === 2) {
                 setMessage(value);
                 bossOneVar++;
                 return false;
               }
+              setDoor({ x: x, y: y });
+              setLines(value.lines);
               setCode(value.code);
               setMessage(value.text);
               bossOneVar++;

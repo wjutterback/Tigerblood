@@ -64,7 +64,7 @@ const gameFuncs = {
         };
       } else if (door.x === 16 && door.y === 37) {
         return {
-          lines: [1, 16, 17, 18],
+          lines: [1, 17, 18, 19],
           text: `Your keyboard summons a terminal and with your new ring you see the pixels even clearer! What is this? 1080p?`,
           code: ` /*jshint esversion: 6, asi: true*/
           /*
@@ -137,7 +137,7 @@ const gameFuncs = {
       return `Another creepy statue. It blocks your way to the next area yet again.`;
     } else if (golem2CheckCounter > 0 && ringCheckCounter === 0) {
       return `There must be another item that can remove this golem.`;
-    } else if (golem2CheckCounter > 0 && ringCheckCounter === 1) {
+    } else if (ringCheckCounter === 1) {
       return `The golem explodes, leaving behind nothing and clearing the way.`;
     }
   },
@@ -187,10 +187,10 @@ const gameFuncs = {
       return `What question did I ask, you ask? "Is jQuery the best option for selecting DOM elements?" - I expected her answer, as usual, to be, "It depends." but instead a dark and stormy cloud washed over her face as she slammed her fist into the keyboard. Electricity crackled from her fist on impact, executing a program that turned me into this hideous beast you see before you now.`;
     } else if (bossOneCheckCounter === 2) {
       return `All I do now is absorb heat day in and day out, or should I say computer cycle in and computer cycle out; my room is hotter than Midland! She completely replaced her old heatRegulation function with me!`;
-    } else if (bossOneCheckCounter === 3) {
+    } else if (bossOneCheckCounter > 2) {
       return {
-        lines: [1, 7, 8, 9],
-        text: `I grow weary on reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your keyboard sends a jolt of electricity through your body; you quickly open up the terminal.`,
+        lines: [1, 8, 9, 10],
+        text: `I grow weary of reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your keyboard sends a jolt of electricity through your body; you quickly open up the terminal.`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
         !!! Your mind sharpens in the presence of danger! Before you appears Tish's old heatRegulation function, now corrupted and defunct(literally) - quickly repair it to disperse the heat from the dragon !!!
@@ -202,8 +202,6 @@ const gameFuncs = {
          return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
        }`,
       };
-    } else if (bossOneCheckCounter > 3) {
-      return `...boss dialogue last...`;
     }
   },
   bossTwo: (bossTwoCheckCounter) => {
@@ -216,7 +214,7 @@ const gameFuncs = {
     } else if (bossTwoCheckCounter === 3) {
       return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, did you finish the back-end?`;
     } else if (bossTwoCheckCounter > 3) {
-      return `Focus, keep coding!`;
+      return `Focus you two, keep coding!`;
     }
   },
   bossThree: (bossThreeCheckCounter) => {
