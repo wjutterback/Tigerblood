@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import API from "../../utils/API";
 import { GameHeader } from "../../components/GameHeader";
-import { SavedHighScores } from "../../components/SavedHighScores";
+import { TableHeader } from "../../components/TableHeader";
+import { TableRow } from "../../components/TableRow";
+import API from "../../utils/API";
 
 export const HighScores = () => {
   const [savedHighScores, setSavedHighScores] = useState([]);
   const [sortedHighScores, setSortedHighScores] = useState([]);
 
-  async function getSavedHighScores (){
-    await API.getHighScores().then((response) => {
-      console.log(response)
+  function getSavedHighScores (){
+    API.getHighScores().then((response) => {
       setSavedHighScores(response.data)
-      console.log(savedHighScores)
     })
   }
 
@@ -19,27 +18,29 @@ export const HighScores = () => {
     getSavedHighScores();
   },[])
 
+  useEffect(() => {
+    setSortedHighScores(savedHighScores.sort((a, b) => b.score - a.score));
+  },[savedHighScores])
+
   return(
     <>
       <section className="container mx-auto">
         <GameHeader />
-        <div className="row mx-auto" style={{marginBottom: "20px"}}>
-          <h2 className="mx-auto">HighScores</h2>
+        <div className="row" style={{marginBottom: "75px"}}>
+          <h1 className="mx-auto" style={{color: "red", fontFamily: "Finger Paint"}}>{sortedHighScores.length || "No "} HighScores Found.</h1>
         </div>
-        <div className="row" style={{marginBottom: "20px"}}>
-          <h2 className="mx-auto">{savedHighScores.length || "No "} HighScores Found.</h2>
-        </div>
-        <div className="row">
-        {savedHighScores.length > 0 && savedHighScores.map((HighScore)=>(
-          <SavedHighScores 
-            key={HighScore._id}
-            player={HighScore.player}
-            score={HighScore.score}
-            steps={HighScore.steps}
-            bitcoin={HighScore.bitcoin}
-            date={HighScore.date}
-          />
-        ))}
+        <div className="table-responsive" style={{margin: "50px"}}>
+          <table className="table table-striped">
+            <TableHeader/>
+            <tbody>
+              {sortedHighScores.length > 0 && sortedHighScores.map((score, i) => (
+              <TableRow key={i+256} i={i} name={score.player} score={score.score} steps={score.steps} bitcoin={score.bitcoin} date={score.date}/>
+              ))} 
+              <tr>
+                <td colSpan="5">Total Scores: {sortedHighScores.length}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </>

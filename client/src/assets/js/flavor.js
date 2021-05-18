@@ -377,8 +377,15 @@ const gameFuncs = {
   dog: () => {
     return `The poor dog looks harassed and tired. "Poor Lexie! Were those two felines picking on you?", you ask as you pick her up. Her short legs dangle in the air, as she gives you the cutest smile as if to say, "Thank you hooman, for saving me from those two hell demons!". `;
   },
-  diploma: () => {
-    return `You feel chills down your spine as you grab the diploma, as if you had been immersed in an icy cold bath. But all of a sudden, the feeling's gone. You jump up, finally awake in your own room in front of your computer. It's over...`;
+  tree: (treeCheckCounter) => {
+    if (treeCheckCounter === 0){
+      return `Just a regular tree. Not everything needs a dialogue chain.`
+    } else {
+      return `A tree, again..`
+    };
+  },
+  certificate: () => {
+    return `You feel chills down your spine as you grab the certificate, as if you had been immersed in an icy cold bath. But all of a sudden, the feeling's gone. You jump up, finally awake in your own room in front of your computer. It's over...`;
   },
   fountain: (fountainCheckCounter) => {
     if (fountainCheckCounter === 0) {

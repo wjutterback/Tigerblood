@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
@@ -73,11 +74,11 @@ function Map() {
   const [stepsTaken, setStepsTaken] = useState(0);
   const [score, setScore] = useState(0);
   const [playerName, setPlayerName] = useState('');
+  const [gameOverState, setGameOverState] = useState({});
   const [lines, setLines] = useState([1, 2, 3, 4]);
 
   let tileSet = document.createElement('img');
   tileSet.src = tiles;
-  // document.body.appendChild(tileSet);
 
   let playerLevels = [
     'Coding Commoner',
@@ -168,7 +169,7 @@ function Map() {
       '%': [1312, 288], // Sand
       u: [480, 416], // Tree
       '@': [1984, 0], // Escape Portal
-      $: [1504, 1376], // Diploma
+      $: [1504, 1376], // Certificate
       '<': [], // Grass NW
       '>': [], // Grass NE
       '(': [], // Grass SW
@@ -247,12 +248,16 @@ function Map() {
   //   }, 30000);
   // }, []);
 
+
+  let navigate = useNavigate();
+
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
+    navigate("/highscores", { state: gameOverState });
   }
 
   /* Pulls data from State variables except Name */
@@ -262,13 +267,27 @@ function Map() {
       steps: stepsTaken,
       bitcoins: bitcoins || 0,
       score: score,
+      date: new Date().toLocaleDateString(),
     })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.response));
   }
   /* End of Score Submission to DB */
 
-  const animateable = ['I', 'i', 'J', 'j', 'M', 'm', 'O', 'o'];
+  function gameOver (){
+    setTimeout(() => {
+
+    }, 3000)
+  }
+
+  useEffect(()=>{
+    setGameOverState({
+      score: score,
+      bitcoin: bitcoins || 0,
+      steps: stepsTaken,
+    })
+    console.log(gameOverState)
+  },[stepsTaken])
 
   function run() {
     const expect = chai.expect;
@@ -342,8 +361,10 @@ function Map() {
     let cat1Var = 0;
     let cat2Var = 0;
     let dogVar = 0;
+    let treeVar = 0;
     let fountainVar = 0;
-    let diplomaVar = 0;
+    let certificateVar = 0;
+    let gameOverVar = 0;
 
     tileSet.onload = function () {
       let lightRadius = 1;
@@ -682,22 +703,16 @@ function Map() {
               bossFourVar++;
               setMessage(value);
               return false;
-            case 'F':
-            case 'f': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar);
-              bossFinalVar = 1;
-              setMessage(value);
-              return false;
+            case 'Z':
+              case 'z':
+                value = gameFuncs.bossFive(bossFiveVar);
+                bossFiveVar++;
+                setMessage(value);
+                return false;
             case 'D':
             case 'd':
               value = gameFuncs.bossSix(bossSixVar);
               bossSixVar++;
-              setMessage(value);
-              return false;
-            case 'Z':
-            case 'z':
-              value = gameFuncs.bossFive(bossFiveVar);
-              bossFiveVar++;
               setMessage(value);
               return false;
             case 'X':
@@ -712,7 +727,16 @@ function Map() {
               bossEightVar++;
               setMessage(value);
               return false;
+            case 'F':
+            case 'f': // Final Boss
+              value = gameFuncs.bossFinal(bossFinalVar);
+              bossFinalVar++;
+              setMessage(value);
+              return false;
             case 'u':
+              value = gameFuncs.tree(treeVar);
+              treeVar++;
+              setMessage(value);
               return false;
             case 'j':
               value = gameFuncs.fountain(fountainVar);
@@ -733,6 +757,20 @@ function Map() {
               value = gameFuncs.dog();
               dogVar++;
               setMessage(value);
+              return false;
+            case '$':
+              value = gameFuncs.certificate();
+              setMessage(value);
+              tileMap[2][13].pop();
+              setVisibility('visible');
+              certificateVar = 1;
+              let certificateItem = {
+                name: 'Certificate of Full Stack',
+                power: 'Makes dreams come true',
+              };
+              setInventory((inventory) => [...inventory, certificateItem]);
+              display.draw(13, 2, '=');
+              gameOver();
               return false;
             default:
           }
@@ -861,27 +899,27 @@ function Map() {
         <div
           className='row'
           style={{
-            fontFamily: 'fantasy',
+            fontFamily: 'Finger Paint',
             backgroundColor: 'Black',
-            padding: '50px',
+            padding: '30px',
           }}
         >
-          <h2 className='mr-auto'>
+          <h3 className='mr-auto'>
             <b>Player Level:</b> {level}
-          </h2>
-          <h2 className='mr-auto'>
-            <b>Rooms Cleared:</b> {clearedRooms}
-          </h2>
-          <h2 className='mr-auto'>
+          </h3>
+          <h3 className='mr-auto'>
+            <b>Rooms Cleared:</b> {clearedRooms}/4
+          </h3>
+          <h3 className='mr-auto'>
             <b>Steps Taken:</b> {stepsTaken}
-          </h2>
-          <h2 className='mr-auto'>
+          </h3>
+          <h3 className='mr-auto'>
             {bitcoins ? (
               <b>You Found {bitcoins} BitCoin!</b>
             ) : (
               'No secrets here ...'
             )}
-          </h2>
+          </h3>
         </div>
         <div className='row'>
           <p id='message'>{message}</p>
@@ -889,7 +927,7 @@ function Map() {
         <div
           className='row'
           style={{
-            fontFamily: 'fantasy',
+            fontFamily: 'Finger Paint',
             backgroundColor: 'Black',
             padding: '3rem',
           }}
@@ -903,9 +941,15 @@ function Map() {
           >
             Game Over!
           </button>
-          <h2>
+          <Link
+            className="btn btn-primary"
+            to={{
+              pathname: "/gameover", 
+              state: gameOverState,
+            }}>Go to game over</Link>
+          <h3>
             <b>Items Unlocked: {inventory.length}</b>
-          </h2>
+          </h3>
           <ol>
             {inventory.map((item, i) => (
               <li key={i} style={{ fontSize: '1.5rem' }}>
@@ -945,8 +989,7 @@ function Map() {
             <div className='modal-body'>
               <div className='laptop'>
                 <div className='content'>
-                  <p id='webcam'>o</p>
-                  <p id='buttons'>&#10006;</p>
+                  <p id='pro'>Door Code Editor</p>
                   <CodeMirror
                     value={code}
                     options={{
@@ -989,71 +1032,65 @@ function Map() {
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >
-        <div className='modal-dialog modal-dialog-centered' role='document'>
+        <div className='modal-dialog modal-lg modal-dialog-centered' role='document'>
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
-              <h1>Congratulations!</h1>
-              <h2>
-                You managed to escape the dungeon and gained a diploma on the
-                way!
-              </h2>
-              <h3>
-                Your performance has been scored. Submit your name and
-                immortalize your performance in the hall of sh.., i mean fame.{' '}
-              </h3>
-              <form className='w-100' onSubmit={handleScoreSave}>
-                <div className='form-group'>
-                  <label htmlFor='name'>Player Name</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='name'
-                    placeholder='Name'
-                    required
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='steps'>Steps Taken</label>
-                  <input
-                    type='text'
-                    className='form-control-plaintext'
-                    readOnly
-                    id='steps'
-                    aria-describedby='stepsHelp'
-                    value={stepsTaken}
-                    style={{ color: 'white' }}
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='bitcoin'>BitCoins Collected</label>
-                  <input
-                    type='text'
-                    className='form-control-plaintext'
-                    readOnly
-                    id='bitcoin'
-                    aria-describedby='bitcoinHelp'
-                    value={bitcoins}
-                    style={{ color: 'white' }}
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='score'>Score</label>
-                  <input
-                    type='text'
-                    className='form-control-plaintext'
-                    readOnly
-                    id='score'
-                    aria-describedby='scoreHelp'
-                    value={score}
-                    style={{ color: 'white' }}
-                  />
-                </div>
-                <button type='submit' className='btn btn-danger'>
-                  Save Score
-                </button>
-              </form>
+              <div className="row" style={{margin: "50px", fontFamily: "Finger Paint"}}>
+                <p className="mx-auto" style={{fontSize: "3rem", marginBottom: "50px"}}>Congratulations!</p>
+                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>You managed to escape the dungeon and gained Full Stack Web Development certification on the way!</p>
+                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Your performance has been scored. Submit your name and immortalize your performance in the Hall of Fame. </p>             
+              </div>
+              <div className="row" style={{margin: "20px 50px 100px 50px", fontFamily: "Finger Paint"}}>
+                <form className="w-100"  onSubmit={handleScoreSave}>
+                  <div className="form-group">
+                    <label htmlFor="name">Player Name</label>
+                    <input type="text" className="form-control" id="name" placeholder="...limit 20 characters" maxlength="20" required/>
+                  </div>
+                  <div className='form-group'>
+                    <label htmlFor='steps'>Steps Taken</label>
+                    <input
+                      type='text'
+                      className='form-control-plaintext'
+                      readOnly
+                      id='steps'
+                      aria-describedby='stepsHelp'
+                      value={stepsTaken}
+                      style={{ color: 'white' }}
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label htmlFor='bitcoin'>BitCoins Collected</label>
+                    <input
+                      type='text'
+                      className='form-control-plaintext'
+                      readOnly
+                      id='bitcoin'
+                      aria-describedby='bitcoinHelp'
+                      value={bitcoins}
+                      style={{ color: 'white' }}
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label htmlFor='score'>Score</label>
+                    <input
+                      type='text'
+                      className='form-control-plaintext'
+                      readOnly
+                      id='score'
+                      aria-describedby='scoreHelp'
+                      value={score}
+                      style={{ color: 'white' }}
+                    />
+                  </div>
+                  <button type='submit' className='btn btn-danger btn-block'>
+                    Save Score
+                  </button>
+                </form>
+              </div>
+              <div className='row' id='gameOverModalFooter'  style={{margin: "50px", fontFamily: "Finger Paint"}}>
+                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Thanks for playing! Best of luck to the Full Stack Cohort of May 2021!</p>
+              </div>
             </div>
-            <div className='modal-footer' id='gameOverModalFooter'></div>
           </div>
         </div>
       </div>

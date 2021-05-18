@@ -9,7 +9,7 @@
   height: 500px;
   border-radius: 10px;
   border-style: solid;
-  border-color: rgb(0, 0, 0);
+  border-color: rgb(136, 136, 136);
   border-width: 24px 24px 80px;
   background-color: black;
 }
@@ -24,7 +24,7 @@
   left: 50%;
   bottom: -210px;
   margin: 20px 0 0 -110px;
-  background: black;
+  background: rgb(136, 136, 136);
   border-radius: 10px;
 }
 
@@ -39,7 +39,7 @@
   left: 50%;
   -webkit-transform: translate(-50%);
   transform: translate(-50%);
-  background: black;
+  background: rgb(136, 136, 136);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   z-index: 1;
@@ -59,13 +59,11 @@
   text-align: center;
 }
 
-#buttons {
+#pro {
   margin: 0;
-  padding-right: 5px;
-  text-align: right;
   width: 100%;
-  color: red;
-  background-color: silver;
+  color: white;
+  background-color: red;
 }
 
 .modal-body {
@@ -105,9 +103,9 @@
   height: 500px;
   border-radius: 10px;
   border-style: solid;
-  border-color: black;
+  border-color: rgb(136, 136, 136);
   border-width: 24px 24px 80px;
-  background-color: black;
+  background-color: darkgray;
 }
 
 /* Matrix Monitor Stand */
@@ -120,7 +118,7 @@
   left: 50%;
   bottom: -210px;
   margin: 20px 0 0 -110px;
-  background: black;
+  background-color: rgb(136, 136, 136);
   border-radius: 10px;
 }
 
