@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import * as ROT from 'rot-js';
 import tiles from '../assets/tiles.png';
 import tileMap from '../assets/array/array';
@@ -31,16 +31,16 @@ var widgets = [];
 function updateHints() {
   let editor = document.querySelector('.CodeMirror').CodeMirror;
   editor.operation(function () {
-    for (var i = 0; i < widgets.length; ++i)
+    for (let i = 0; i < widgets.length; ++i)
       editor.removeLineWidget(widgets[i]);
     widgets.length = 0;
 
     JSHINT(editor.getValue());
-    for (var i = 0; i < JSHINT.errors.length; ++i) {
-      var err = JSHINT.errors[i];
+    for (let i = 0; i < JSHINT.errors.length; ++i) {
+      let err = JSHINT.errors[i];
       if (!err) continue;
-      var msg = document.createElement('div');
-      var icon = msg.appendChild(document.createElement('span'));
+      let msg = document.createElement('div');
+      let icon = msg.appendChild(document.createElement('span'));
       icon.innerHTML = '>> Linter: ';
       icon.className = 'lint-error-icon';
       msg.appendChild(document.createTextNode(err.reason));
@@ -53,13 +53,6 @@ function updateHints() {
       );
     }
   });
-  var info = editor.getScrollInfo();
-  var after = editor.charCoords(
-    { line: editor.getCursor().line + 1, ch: 0 },
-    'local'
-  ).top;
-  if (info.top + info.clientHeight < after)
-    editor.scrollTo(null, after - info.clientHeight + 3);
 }
 
 function Map() {
@@ -176,6 +169,7 @@ function Map() {
       '(': [], // Grass SW
       ')': [], // Grass SE
       '?': [800, 224], // see through tile, Looks very similar to real wall
+      ',': [32, 1952], // joy
     },
     width: 92,
     height: 33,
@@ -187,14 +181,11 @@ function Map() {
     createMap(display, tileSet);
     let dungeon = document.getElementById('map');
     dungeon.appendChild(display.getContainer());
-  }, []);
-
-  useEffect(() => {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     editor.on('change', function () {
       updateHints();
     });
-  });
+  }, []);
 
   useEffect(() => {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
@@ -232,9 +223,15 @@ function Map() {
     /* Failed! Nuh-uh-uh, these goodies staying in the jar */`;
     if (pass === true) {
       if (test === 'dragon') {
-        console.log('getTestResults inside boss');
-        tileMap[5][22] = ['.', 'r'];
-        tileMap[4][22] = '.';
+        setMessage(
+          `Ahhh, I feel the heat abating. You have lessened my misery, if only for a bit. For this, I'll share my hoard with you. The ring inside should bring you a little more heat and light in this infernal place.`
+        );
+        tileMap[2][22] = ['.', 'r'];
+      } else if (test === 'triplets') {
+        setMessage(
+          `All three creatures breathe a sigh of relief and contentment as a new creature materializes out of the circle... It is positively glowing with excitement and energy.`
+        );
+        tileMap[5][42] = ['.', '*', ','];
       } else if (test === 'door') {
         tileMap[door.x][door.y] = ['.', 'U'];
       }
@@ -242,7 +239,13 @@ function Map() {
       //display.draw needed to draw the open door on pass
       roomsCleared++;
       setCode(`
-      /* Success! You are quite pleased with your coding skills.*/`);
+      /*
+      .d8888b  888  888 .d8888b .d8888b  .d88b. .d8888b .d8888b
+      88K      888  888 d88P"   d88P"   d8P"     888K    88K
+      "Y8888b. 888  888 888     888     888888   "Y8888b "Y8888b
+          X88Y 88b 888Y 88b.    Y88b.   Y8b.         X88     X88
+       88888P' "Y88888  "Y8888P  "Y8888P "Y8888  88888P' 88888P'
+      */`);
       setTimeout(() => {
         if (document.getElementById('screenModal').style.display !== 'none') {
           document.getElementById('screenModal').click();
@@ -267,7 +270,6 @@ function Map() {
   //   }, 30000);
   // }, []);
 
-
   let navigate = useNavigate();
 
   /* Start of Score Submission to DB (Not Working on first submit)*/
@@ -276,7 +278,7 @@ function Map() {
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
-    navigate("/highscores", { state: gameOverState });
+    navigate('/highscores', { state: gameOverState });
   }
 
   /* Pulls data from State variables except Name */
@@ -293,20 +295,18 @@ function Map() {
   }
   /* End of Score Submission to DB */
 
-  function gameOver (){
-    setTimeout(() => {
-
-    }, 3000)
+  function gameOver() {
+    setTimeout(() => {}, 3000);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setGameOverState({
       score: score,
       bitcoin: bitcoins || 0,
       steps: stepsTaken,
-    })
-    console.log(gameOverState)
-  },[stepsTaken])
+    });
+    console.log(gameOverState);
+  }, [stepsTaken]);
 
   function run() {
     const expect = chai.expect;
@@ -328,6 +328,7 @@ function Map() {
     testFuncs.thermalDoor();
     testFuncs.dragonBoss();
     testFuncs.happyDoor();
+    testFuncs.tripletBoss();
 
     mocha.run();
 
@@ -359,9 +360,22 @@ function Map() {
         getTestResult(true, 'door');
         mocha.suite.suites = [];
         console.log('door 3 passed');
-      } else if (mocha.suite.suites[2].tests[0].state === 'passed') {
+      } else if (
+        mocha.suite.suites[2].tests[0].state === 'passed' &&
+        door.y > 20 &&
+        door.y < 24
+      ) {
+        console.log('dragon boss passed');
         getTestResult(true, 'dragon');
         mocha.suite.suites = [];
+      } else if (
+        mocha.suite.suites[4].tests[0].state === 'passed' &&
+        door.y > 41 &&
+        door.y < 44
+      ) {
+        getTestResult(true, 'triplets');
+        mocha.suite.suites = [];
+        console.log('triplets boss passed');
       } else {
         getTestResult(false);
         mocha.suite.suites = [];
@@ -452,20 +466,20 @@ function Map() {
         }, 300);
       }
 
-      function removeGolem() {
-        let removedGolems = 0;
-        if (removedGolems === 0) {
+      function removeGolem(golem) {
+        if (golem === 1) {
           tileMap[23][30] = ['.', 'm'];
           display.draw(30, 23, ['.', 'm']);
           setTimeout(() => {
             tileMap[23][30] = '.';
             display.draw(30, 23, '.');
           }, 500);
+        } else if (golem === 2) {
+          tileMap[23][45] = '.';
         }
       }
 
       function drawPlayer() {
-        console.log(lvl);
         console.log('drawPlayer called. Your playerLevel is ' + lvl);
         switch (lvl) {
           case 0:
@@ -492,6 +506,19 @@ function Map() {
       }
 
       function drawLight() {
+        fov.compute(22, 5, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(22, 4, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+
         fov.compute(playerPos.x, playerPos.y, lightRadius, function (x, y, r) {
           //fov.compute will not calculate starting position
           if (!r) {
@@ -626,10 +653,9 @@ function Map() {
             case 'r':
               value = gameFuncs.ring();
               setMessage(value);
-              setVisibility('visible');
               lightRadius++;
               ringVar = 1;
-              tileMap[5][22].pop();
+              tileMap[2][22].pop();
               let ringItem = {
                 name: 'Ring of Sight',
                 power: 'Increased field of view',
@@ -637,7 +663,7 @@ function Map() {
               lvl = 2;
               levelUp();
               setInventory((inventory) => [...inventory, ringItem]);
-              display.draw(22, 5, '.');
+              display.draw(22, 2, '.');
               return false;
             case 'H':
               value = gameFuncs.helpMessage(bloodMessageVar);
@@ -681,18 +707,18 @@ function Map() {
               setInventory((inventory) => [...inventory, keyboardItem]);
               display.draw(13, 2, '.');
               return false;
-              case 'A':
-                value = gameFuncs.golem1(golem1Var, keyboardVar);
-                golem1Var++;
-                setMessage(value);
-                removeGolem();
-                return false;
+            case 'A':
+              value = gameFuncs.golem1(golem1Var, keyboardVar);
+              golem1Var++;
+              setMessage(value);
+              removeGolem();
+              return false;
             case 'a':
               value = gameFuncs.golem2(golem2Var, ringVar);
               golem2Var++;
               setMessage(value);
               if (ringVar === 1) {
-                removeGolem();
+                removeGolem(1);
               }
               return false;
             case 'V':
@@ -728,28 +754,68 @@ function Map() {
               return false;
             case 'Y':
             case 'y': // Second Boss
-              value = gameFuncs.bossTwo(bossTwoVar);
+              if (bossTwoVar > 3 && bossThreeVar > 3 && bossFourVar > 3) {
+                value = gameFuncs.bossTwo(
+                  bossTwoVar,
+                  bossThreeVar,
+                  bossFourVar
+                );
+                setDoor({ x: x, y: y });
+                setLines(value.lines);
+                setCode(value.code);
+                setMessage(value.text);
+                return false;
+              }
+              value = gameFuncs.bossTwo(bossTwoVar, bossThreeVar, bossFourVar);
               bossTwoVar++;
               setMessage(value);
               return false;
             case 'P': // Third Boss
             case 'p': // Third Boss
-              value = gameFuncs.bossThree(bossThreeVar);
+              if (bossTwoVar > 3 && bossThreeVar > 3 && bossFourVar > 3) {
+                value = gameFuncs.bossThree(
+                  bossThreeVar,
+                  bossTwoVar,
+                  bossFourVar
+                );
+                setDoor({ x: x, y: y });
+                setLines(value.lines);
+                setCode(value.code);
+                setMessage(value.text);
+                return false;
+              }
+              value = gameFuncs.bossThree(
+                bossThreeVar,
+                bossTwoVar,
+                bossFourVar
+              );
               bossThreeVar++;
               setMessage(value);
               return false;
             case 'S':
             case 's': // Fourth Boss
-              value = gameFuncs.bossFour(bossFourVar);
+              if (bossTwoVar > 3 && bossThreeVar > 3 && bossFourVar > 3) {
+                value = gameFuncs.bossFour(
+                  bossFourVar,
+                  bossTwoVar,
+                  bossThreeVar
+                );
+                setDoor({ x: x, y: y });
+                setLines(value.lines);
+                setCode(value.code);
+                setMessage(value.text);
+                return false;
+              }
+              value = gameFuncs.bossFour(bossFourVar, bossTwoVar, bossThreeVar);
               bossFourVar++;
               setMessage(value);
               return false;
             case 'Z':
-              case 'z':
-                value = gameFuncs.bossFive(bossFiveVar);
-                bossFiveVar++;
-                setMessage(value);
-                return false;
+            case 'z':
+              value = gameFuncs.bossFive(bossFiveVar);
+              bossFiveVar++;
+              setMessage(value);
+              return false;
             case 'D':
             case 'd':
               value = gameFuncs.bossSix(bossSixVar);
@@ -802,8 +868,6 @@ function Map() {
             case '$':
               value = gameFuncs.certificate();
               setMessage(value);
-              tileMap[2][13].pop();
-              setVisibility('visible');
               certificateVar = 1;
               let certificateItem = {
                 name: 'Certificate of Full Stack',
@@ -813,14 +877,21 @@ function Map() {
               display.draw(13, 2, '=');
               gameOver();
               return false;
+            case 'B':
+              return false;
             default:
+          }
+          if (tileMap[x][y][2] === ',') {
+            setMessage(
+              `Hahahahahahaahahahahahahaahahahahahaahahahaahahaha. NICE TO MEET YOU!!!!!!!!! The insane laughter painfully reverberates through the area. It's so strong your digital ears start bleeding. It's all you can do to stand upright. Through the ringing, you hear something collapse in the distance.`
+            );
+            removeGolem(2);
+            return false;
           }
         }
         //movement logic
         const passable = ['.', 'n', 'U', '=', '-'];
         console.log(x, y);
-        console.log(tileMap[x][y].length);
-        console.log(tileMap[x][y]);
         if (passable.some((tile) => tileMap[x][y].includes(tile))) {
           return true;
         } else {
@@ -839,7 +910,7 @@ function Map() {
           );
         }
       }
-
+      let godmode = true;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -852,7 +923,10 @@ function Map() {
           return false;
         }
         let diff = ROT.DIRS[8][keyCode[code]];
-        if (passableCheck(playerPos.x + diff[0], playerPos.y + diff[1])) {
+        if (
+          passableCheck(playerPos.x + diff[0], playerPos.y + diff[1]) ||
+          godmode === true
+        ) {
           // setMessage('... time to explore ...'); this set message overwrites any message created if the checkPassable returns true (meaning you can walk/move onto tile to access image in it)
           if (helpStone === 1 && deadBodyVar === 1) {
             cryptoCheck();
@@ -983,11 +1057,14 @@ function Map() {
             Game Over!
           </button>
           <Link
-            className="btn btn-primary"
+            className='btn btn-primary'
             to={{
-              pathname: "/gameover", 
+              pathname: '/gameover',
               state: gameOverState,
-            }}>Go to game over</Link>
+            }}
+          >
+            Go to game over
+          </Link>
           <h3>
             <b>Items Unlocked: {inventory.length}</b>
           </h3>
@@ -1073,19 +1150,55 @@ function Map() {
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >
-        <div className='modal-dialog modal-lg modal-dialog-centered' role='document'>
+        <div
+          className='modal-dialog modal-lg modal-dialog-centered'
+          role='document'
+        >
           <div className='modal-content' id='gameOverModalContent'>
             <div className='modal-body' id='gameOverModalBody'>
-              <div className="row" style={{margin: "50px", fontFamily: "Finger Paint"}}>
-                <p className="mx-auto" style={{fontSize: "3rem", marginBottom: "50px"}}>Congratulations!</p>
-                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>You managed to escape the dungeon and gained Full Stack Web Development certification on the way!</p>
-                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Your performance has been scored. Submit your name and immortalize your performance in the Hall of Fame. </p>             
+              <div
+                className='row'
+                style={{ margin: '50px', fontFamily: 'Finger Paint' }}
+              >
+                <p
+                  className='mx-auto'
+                  style={{ fontSize: '3rem', marginBottom: '50px' }}
+                >
+                  Congratulations!
+                </p>
+                <p
+                  className='mx-auto'
+                  style={{ fontSize: '2rem', marginBottom: '50px' }}
+                >
+                  You managed to escape the dungeon and gained Full Stack Web
+                  Development certification on the way!
+                </p>
+                <p
+                  className='mx-auto'
+                  style={{ fontSize: '2rem', marginBottom: '50px' }}
+                >
+                  Your performance has been scored. Submit your name and
+                  immortalize your performance in the Hall of Fame.{' '}
+                </p>
               </div>
-              <div className="row" style={{margin: "20px 50px 100px 50px", fontFamily: "Finger Paint"}}>
-                <form className="w-100"  onSubmit={handleScoreSave}>
-                  <div className="form-group">
-                    <label htmlFor="name">Player Name</label>
-                    <input type="text" className="form-control" id="name" placeholder="...limit 20 characters" maxlength="20" required/>
+              <div
+                className='row'
+                style={{
+                  margin: '20px 50px 100px 50px',
+                  fontFamily: 'Finger Paint',
+                }}
+              >
+                <form className='w-100' onSubmit={handleScoreSave}>
+                  <div className='form-group'>
+                    <label htmlFor='name'>Player Name</label>
+                    <input
+                      type='text'
+                      className='form-control'
+                      id='name'
+                      placeholder='...limit 20 characters'
+                      maxLength='20'
+                      required
+                    />
                   </div>
                   <div className='form-group'>
                     <label htmlFor='steps'>Steps Taken</label>
@@ -1128,8 +1241,18 @@ function Map() {
                   </button>
                 </form>
               </div>
-              <div className='row' id='gameOverModalFooter'  style={{margin: "50px", fontFamily: "Finger Paint"}}>
-                <p className="mx-auto" style={{fontSize: "2rem", marginBottom: "50px"}}>Thanks for playing! Best of luck to the Full Stack Cohort of May 2021!</p>
+              <div
+                className='row'
+                id='gameOverModalFooter'
+                style={{ margin: '50px', fontFamily: 'Finger Paint' }}
+              >
+                <p
+                  className='mx-auto'
+                  style={{ fontSize: '2rem', marginBottom: '50px' }}
+                >
+                  Thanks for playing! Best of luck to the Full Stack Cohort of
+                  May 2021!
+                </p>
               </div>
             </div>
           </div>
