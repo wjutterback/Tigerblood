@@ -88,7 +88,7 @@ const gameFuncs = {
         };
       } else if (door.x === 16 && door.y === 52) {
         return {
-          lines:[1, 12, 12, 13],
+          lines:[1, 13, 15, 16],
           text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
           code: ` /*jshint esversion: 6, asi: true*/
           /*
@@ -101,12 +101,26 @@ const gameFuncs = {
           when I'm working on this app. I find myself thinking of it
             frequently - almost obsessively. I fEe7 mY sAnItY
           s7iPpInG aWaY fRoM mE... eVeRy DaY. I mUsT rEmEmBeR...
-            ReVeRsE
+            ReVeRsE...
           */
         function rEvErSe(L) {
-          return L =
+          L =
+          return L;
         } `,
         };
+      }else if (door.x === 16 && door.y === 67) {
+        return {
+          lines: [1, 4, 6, 7],
+          text: `You lean heavily against the door. What are you doing? Why do you keep moving forward? Isn't there another bitcoin to be found? Yes, that's why you're moving. Bitcoins. Keep moving.`,
+          code:` /*jshint esversion: 6, asi: true*/
+          /*
+          ...
+          */
+         function operator(spr, ead) {
+          spr.push(ead)
+          return spr;
+         }`
+        }
       }
     }
   },
