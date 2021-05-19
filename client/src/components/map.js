@@ -233,6 +233,10 @@ function Map() {
           `All three creatures breathe a sigh of relief and contentment as a new creature materializes out of the circle... It is positively glowing with excitement and energy.`
         );
         tileMap[5][42] = ['.', '*', ','];
+      } else if (test === 'antiVirus') {
+        setMessage(
+          `The antivirus creature dies! It had unknowingly become a virus itself! The worm within you wriggles with joy`
+        );
       } else if (test === 'door') {
         tileMap[door.x][door.y] = ['.', 'U'];
       }
@@ -273,16 +277,20 @@ function Map() {
 
   let navigate = useNavigate();
 
+  let mapContainer = document.getElementById('mapContainer');
+  let backdrop = document.createElement('div');
+  backdrop.classList.add('modal-backdrop', 'fade', 'in');
+
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
-    document.getElementById("gameOverModal").style.display = "none";
-    document.getElementById("gameOverModal").classList.remove("show");
+    document.getElementById('gameOverModal').style.display = 'none';
+    document.getElementById('gameOverModal').classList.remove('show');
     // document.getElementByID("backdrop").classList.add("fade in");
-    navigate("/highscores");
+    navigate('/highscores');
   }
 
   /* Pulls data from State variables except Name */
@@ -299,7 +307,7 @@ function Map() {
   }
   /* End of Score Submission to DB */
 
-  function gameOver (){
+  function gameOver() {
     gameOverVar = 1;
     console.log("Game over!")
 
@@ -309,16 +317,12 @@ function Map() {
     console.log(mapContainer)
     let backdrop = document.createElement("div");
     backdrop.classList.add("modal-backdrop", "fade", "in");
-    mapContainer.appendChild(backdrop);
+   // mapContainer.appendChild(backdrop);
   }
 
-  function showTerminal (){
+  function showTerminal() {}
 
-  }
-
-  function hideTerminal (){
-
-  }
+  function hideTerminal() {}
 
   useEffect(() => {
     setGameOverState({
@@ -326,7 +330,6 @@ function Map() {
       bitcoin: bitcoins || 0,
       steps: stepsTaken,
     });
-    console.log(gameOverState);
   }, [stepsTaken]);
 
   function run() {
@@ -350,15 +353,18 @@ function Map() {
     testFuncs.dragonBoss();
     testFuncs.happyDoor();
     testFuncs.tripletBoss();
+    testFuncs.escapeDoor();
+    /* testFuncs3rd Boss */
+    testFuncs.spreadDoor();
+    testFuncs.antivirusBoss();
 
     mocha.run();
 
+    //TODO: Write AntiVirusBoss getTestResult()
     setTimeout(() => {
       document.getElementById('codeMirrorScript').remove();
       mocha.unloadFiles();
       document.getElementById('mocha').remove();
-      console.log(mocha);
-      console.log(door);
       if (
         mocha.suite.suites[1].tests[0].state === 'passed' &&
         door.y === 22 &&
@@ -397,6 +403,22 @@ function Map() {
         getTestResult(true, 'triplets');
         mocha.suite.suites = [];
         console.log('triplets boss passed');
+      } else if (
+        mocha.suite.suites[5].tests[0].state === 'passed' &&
+        door.x === 16 &&
+        door.y === 52
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('escape door passed');
+      } else if (
+        mocha.suite.suites[7].tests[0].state === 'passed' &&
+        door.x === 16 &&
+        door.y === 67
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('spread door passed');
       } else {
         getTestResult(false);
         mocha.suite.suites = [];
@@ -502,7 +524,6 @@ function Map() {
       }
 
       function drawPlayer() {
-        console.log('drawPlayer called. Your playerLevel is ' + lvl);
         switch (lvl) {
           case 0:
             display.draw(playerPos.x, playerPos.y, ['.', 1]);
@@ -575,7 +596,7 @@ function Map() {
       mapEngine();
 
       function updateScore() {
-        if (gameOverVar === 0){
+        if (gameOverVar === 0) {
           score =
             Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
         }
@@ -584,7 +605,6 @@ function Map() {
       async function movement() {
         let action = false;
         while (!action) {
-          await new Promise((resolve) => setTimeout(resolve, 100));
           let e = await new Promise((resolve) => {
             window.addEventListener('keydown', resolve, { once: true });
           });
@@ -595,12 +615,12 @@ function Map() {
             e.keyCode === 37
           ) {
             e.preventDefault();
-            steps++;
-            setStepsTaken(steps);
-            updateScore();
-            setScore(score);
           }
           action = handleKey(e);
+
+          // setStepsTaken(steps);
+          // updateScore();
+          // setScore(score);
         }
       }
 
@@ -934,7 +954,6 @@ function Map() {
 
       function cryptoCheck() {
         let number = Math.floor(Math.random() * 100);
-        console.log(number);
         if (number === 77) {
           bitCoinsFound++;
           setBitcoins(bitCoinsFound);
@@ -943,7 +962,7 @@ function Map() {
           );
         }
       }
-      let godmode = false;
+      let godmode = true;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -966,6 +985,7 @@ function Map() {
           }
           playerPos.x += diff[0];
           playerPos.y += diff[1];
+          steps++;
           transitionCheck();
           return true;
         } else {
@@ -1009,7 +1029,7 @@ function Map() {
   };
   // End of Matrix Letters code
   return (
-    <div className='row' id="mapContainer">
+    <div className='row' id='mapContainer'>
       <div className='col-sm-6'>
         <div className='row'>
           <div

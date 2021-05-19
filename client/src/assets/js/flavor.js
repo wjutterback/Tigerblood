@@ -88,7 +88,7 @@ const gameFuncs = {
         };
       } else if (door.x === 16 && door.y === 52) {
         return {
-          lines:[1, 12, 12, 13],
+          lines:[1, 13, 15, 16],
           text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
           code: ` /*jshint esversion: 6, asi: true*/
           /*
@@ -99,13 +99,28 @@ const gameFuncs = {
           students. I see the furtive glances. They don't think I do,
             but I see all - I KNOW all. The only time I feel happy is
           when I'm working on this app. I find myself thinking of it
-            frequently - almost obsessively. I fEeL mY sAnItY
-          sLiPpInG aWaY fRoM mE... eVeRy DaY.
+            frequently - almost obsessively. I fEe7 mY sAnItY
+          s7iPpInG aWaY fRoM mE... eVeRy DaY. I mUsT rEmEmBeR...
+            ReVeRsE...
           */
-        function laughterKills()) {
-
+        function rEvErSe(L) {
+          L =
+          return L;
         } `,
         };
+      }else if (door.x === 16 && door.y === 67) {
+        return {
+          lines: [1, 4, 6, 7],
+          text: `You lean heavily against the door. What are you doing? Why do you keep moving forward? Isn't there another bitcoin to be found? Yes, that's why you're moving. Bitcoins. Keep moving.`,
+          code:` /*jshint esversion: 6, asi: true*/
+          /*
+          ...
+          */
+         function operator(spr, ead) {
+          spr.push(ead)
+          return spr;
+         }`
+        }
       }
     }
   },
@@ -341,9 +356,18 @@ return Jy
     } else if (bossEightCheckCounter === 3 && Iyana > 3) {
       return {
         lines: [1, 9, 10, 15],
-        text: `My purpose? Ahh, well Tish made me her virus protection... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
+        text: `My purpose? Ahh, well Tish made me her virus protection. I'm not even sure the old code works any more... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
       code: `/*jshint esversion: 6, asi: true*/
-      /* Senyo boss code */`}
+      /*
+      As you're attacked by the antivirus creature, a small portion of Tish's antivirus code is made available to you.
+      It's so complicated and dense, you're sure you will die. The worm senses its host's immediate danger and
+      immediately deploys its anti-antivirus protocal! You've bought yourself some time as the antivirus creature
+      bears down on you as if in slo-mo. Just enough time to find the pertinent snippet you need! It's so well-written,
+      all you need to do is run it!
+      function antivirusProgram(virus) {
+        return virus = 'veryDead';
+      }
+      */`}
     } else if (bossEightCheckCounter === 3) {
       return `I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye Nana It pays to know her.`;
     }
