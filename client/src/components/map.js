@@ -245,7 +245,7 @@ function Map() {
       88K      888  888 d88P"   d88P"   d8P"     888K    88K
       "Y8888b. 888  888 888     888     888888   "Y8888b "Y8888b
           X88Y 88b 888Y 88b.    Y88b.   Y8b.         X88     X88
-       88888P' "Y88888  "Y8888P  "Y8888P "Y8888  88888P' 88888P'
+      888888P' "Y88888  "Y8888P  "Y8888P "Y8888  88888P' 88888P'
       */`);
       setTimeout(() => {
         if (document.getElementById('screenModal').style.display !== 'none') {
@@ -273,15 +273,21 @@ function Map() {
 
   let navigate = useNavigate();
 
+  let mapContainer = document.getElementById("mapContainer");
+  console.log(mapContainer)
+  let backdrop = document.createElement("div");
+  backdrop.classList.add("modal-backdrop", "fade", "in");
+
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
-    document.getElementById('gameOverModal').classList.remove('show');
-    document.querySelector('.modal-backdrop').classList.remove('show');
-    navigate('/highscores', { state: gameOverState });
+    document.getElementById("gameOverModal").style.display = "none";
+    document.getElementById("gameOverModal").classList.remove("show");
+    // document.getElementByID("backdrop").classList.add("fade in");
+    navigate("/highscores");
   }
 
   /* Pulls data from State variables except Name */
@@ -300,9 +306,19 @@ function Map() {
 
   function gameOver() {
     gameOverVar = 1;
-    console.log('Game over!');
-    document.getElementById('gameOverModal').classList.add('show');
-    // document.querySelector(".modal-backdrop").classList.add("show");
+    console.log("Game over!")
+    console.log(mapContainer)
+    document.getElementById("gameOverModal").style.display = "block";
+    document.getElementById("gameOverModal").classList.add("show");
+    // mapContainer.appendChild(backdrop);
+  }
+
+  function showTerminal (){
+
+  }
+
+  function hideTerminal (){
+
   }
 
   useEffect(() => {
@@ -1003,7 +1019,7 @@ function Map() {
   };
   // End of Matrix Letters code
   return (
-    <div className='row'>
+    <div className='row' id="mapContainer">
       <div className='col-sm-6'>
         <div className='row'>
           <div
