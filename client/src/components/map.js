@@ -10,7 +10,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/addon/display/autorefresh';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/addon/edit/matchbrackets';
-import 'codemirror/keymap/sublime';
+// import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 // import 'codemirror/mode/jsx/jsx.js';
 import 'codemirror/mode/javascript/javascript';
@@ -279,9 +279,9 @@ function Map() {
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
-    document.getElementById("gameOverModal").classList.remove("show");
-    document.querySelector(".modal-backdrop").classList.remove("show");
-    navigate("/highscores");
+    document.getElementById('gameOverModal').classList.remove('show');
+    document.querySelector('.modal-backdrop').classList.remove('show');
+    navigate('/highscores', { state: gameOverState });
   }
 
   /* Pulls data from State variables except Name */
@@ -928,7 +928,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -1156,8 +1156,8 @@ function Map() {
         id='gameOverModal'
         tabIndex='-1'
         role='dialog'
-        data-keyboard="false"
-        data-backdrop="static"
+        data-keyboard='false'
+        data-backdrop='static'
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >
