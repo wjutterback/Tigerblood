@@ -89,10 +89,19 @@ const testFuncs = {
   spreadDoor: () => {
     return describe('spreadDoor', function () {
       it('should return [s, p, r, e, a, d]', function () {
-        let spread = ['s', 'p', 'r']
-        let operator = ['e', 'a', 'd']
+        let spread = ['s', 'p', 'r'];
+        let operator = ['e', 'a', 'd'];
         let result = operator(spread, operator);
         expect(result).to.eql(['s', 'p', 'r', 'e', 'a', 'd']);
+      });
+    });
+  },
+  antivirusBoss: () => {
+    return describe('AV Boss', function () {
+      it('should return veryDead', function () {
+        let virus = 'uh-oh';
+        let result = antivirusProgram(virus);
+        expect(result).to.eql('veryDead');
       });
     });
   },
