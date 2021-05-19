@@ -225,7 +225,7 @@ const gameFuncs = {
     } else if (bossTwoCheckCounter === 1) {
       return `"Get back to the work at hand. Cazasa, stay focused, you're responsible for writing all our functions. We're close to bringing Joy back into our lives!"`;
     } else if (bossTwoCheckCounter === 2) {
-      return `"What do you want traveller? According to my pie charts and role assignments we have no need for an amatuer. We need a STAR! And you clearly aren't one... *smiles*";
+      return `"What do you want traveller? According to my pie charts and role assignments we have no need for an amatuer. We need a STAR! And you clearly aren't one... *smiles*"`;
     } else if (bossTwoCheckCounter === 3) {
       return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, do we splice or slice?`;
     } else if (bossTwoCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
