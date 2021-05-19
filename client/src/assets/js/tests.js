@@ -67,18 +67,44 @@ const testFuncs = {
     });
   },
   //Jy.splice(1, 0, 'o');
+  //return Jy
   tripletBoss: () => {
-    return describe('triplet', function(){
-      it('should return joy', function() {
+    return describe('triplet', function () {
+      it('should return joy', function () {
         let joy = ['J', 'y'];
         let result = bringJoy(joy);
-        expect(result).to.eql(['J','o', 'y'])
-      })
-    })
+        expect(result).to.eql(['J', 'o', 'y']);
+      });
+    });
   },
   escapeDoor: () => {
-    
-  }
+    return describe('escapeDoor', function () {
+      it('should return 7', function () {
+        let L = 'L';
+        let result = rEvErSe(L);
+        expect(result).to.be.oneOf([7, '7']);
+      });
+    });
+  },
+  spreadDoor: () => {
+    return describe('spreadDoor', function () {
+      it('should return [s, p, r, e, a, d]', function () {
+        let spread = ['s', 'p', 'r'];
+        let operator = ['e', 'a', 'd'];
+        let result = operator(spread, operator);
+        expect(result).to.eql(['s', 'p', 'r', 'e', 'a', 'd']);
+      });
+    });
+  },
+  antivirusBoss: () => {
+    return describe('AV Boss', function () {
+      it('should return veryDead', function () {
+        let virus = 'uh-oh';
+        let result = antivirusProgram(virus);
+        expect(result).to.eql('veryDead');
+      });
+    });
+  },
 };
 
 export default testFuncs;

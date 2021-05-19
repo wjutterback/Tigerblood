@@ -88,6 +88,7 @@ const gameFuncs = {
         };
       } else if (door.x === 16 && door.y === 52) {
         return {
+          lines:[1, 13, 15, 16],
           text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
           code: ` /*jshint esversion: 6, asi: true*/
           /*
@@ -98,14 +99,28 @@ const gameFuncs = {
           students. I see the furtive glances. They don't think I do,
             but I see all - I KNOW all. The only time I feel happy is
           when I'm working on this app. I find myself thinking of it
-            frequently - almost obsessively. I fEeL mY sAnItY
-          sLiPpInG aWaY fRoM mE... eVeRy DaY.
+            frequently - almost obsessively. I fEe7 mY sAnItY
+          s7iPpInG aWaY fRoM mE... eVeRy DaY. I mUsT rEmEmBeR...
+            ReVeRsE...
           */
-
-        function laughterKills()) {
-
+        function rEvErSe(L) {
+          L =
+          return L;
         } `,
         };
+      }else if (door.x === 16 && door.y === 67) {
+        return {
+          lines: [1, 4, 6, 7],
+          text: `You lean heavily against the door. What are you doing? Why do you keep moving forward? Isn't there another bitcoin to be found? Yes, that's why you're moving. Bitcoins. Keep moving.`,
+          code:` /*jshint esversion: 6, asi: true*/
+          /*
+          ...
+          */
+         function operator(spr, ead) {
+          spr.push(ead)
+          return spr;
+         }`
+        }
       }
     }
   },
@@ -208,9 +223,9 @@ const gameFuncs = {
     if (bossTwoCheckCounter === 0) {
       return `You warily approach one of the three figures huddled around the pentagram... The creature hisses, then grins evilly at you. The sound echoes in the dimly lit room.`;
     } else if (bossTwoCheckCounter === 1) {
-      return `Get back to the work at hand. Cazasa, stay focused, you're responsible for writing all our functions. We're close to bringing Joy back into our lives!`;
+      return `"Get back to the work at hand. Cazasa, stay focused, you're responsible for writing all our functions. We're close to bringing Joy back into our lives!"`;
     } else if (bossTwoCheckCounter === 2) {
-      return `Every one says my name wrong. But I don't care. What's my name? Hah, hah, hah... Like I'd tell you. *smiles*`;
+      return `"What do you want traveller? According to my pie charts and role assignments we have no need for an amatuer. We need a STAR! And you clearly aren't one... *smiles*"`;
     } else if (bossTwoCheckCounter === 3) {
       return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, do we splice or slice?`;
     } else if (bossTwoCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
@@ -308,13 +323,13 @@ return Jy
     if (bossSixCheckCounter === 0) {
       return `One of the two figures before you looks like a mighty warrior. - Tony`;
     } else if (bossSixCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `His eyes carry the wisdom of someone who played chess in their youth. But they also carry a look of disdain when glancing at you. He might have the answers you seek...`;
     } else if (bossSixCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!.`;
     } else if (bossSixCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
+      return `I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables...`;
     } else if (bossSixCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `He looks at you with pity. I am tired now, go away and let me be. And with that he goes back to reminscing about his youthful days spent schooling other warriors in chess.`;
     }
   },
   bossSeven: (bossSevenCheckCounter) => {
@@ -341,9 +356,18 @@ return Jy
     } else if (bossEightCheckCounter === 3 && Iyana > 3) {
       return {
         lines: [1, 9, 10, 15],
-        text: `My purpose? Ahh, well Tish made me her virus protection... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
+        text: `My purpose? Ahh, well Tish made me her virus protection. I'm not even sure the old code works any more... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
       code: `/*jshint esversion: 6, asi: true*/
-      /* Senyo boss code */`}
+      /*
+      As you're attacked by the antivirus creature, a small portion of Tish's antivirus code is made available to you.
+      It's so complicated and dense, you're sure you will die. The worm senses its host's immediate danger and
+      immediately deploys its anti-antivirus protocal! You've bought yourself some time as the antivirus creature
+      bears down on you as if in slo-mo. Just enough time to find the pertinent snippet you need! It's so well-written,
+      all you need to do is run it!
+      function antivirusProgram(virus) {
+        return virus = 'veryDead';
+      }
+      */`}
     } else if (bossEightCheckCounter === 3) {
       return `I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye Nana It pays to know her.`;
     }

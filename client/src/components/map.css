@@ -214,6 +214,34 @@
   }
 }
 
+.modal {
+  z-index: 1050;
+}
+
 #gameOverModalContent {
   background-color: black;
+}
+
+.screenModalBackdrop {
+  background-color: black;
+  opacity: 0.7;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.gameOverBackdrop {
+  background-color: black;
+  opacity: 0.9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }

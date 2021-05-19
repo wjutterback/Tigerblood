@@ -27,8 +27,8 @@ import 'codemirror/addon/lint/lint.css';
 import { JSHINT } from 'jshint';
 window.JSHINT = JSHINT;
 
-var widgets = [];
 function updateHints() {
+  var widgets = [];
   let editor = document.querySelector('.CodeMirror').CodeMirror;
   editor.operation(function () {
     for (let i = 0; i < widgets.length; ++i)
@@ -72,9 +72,6 @@ function Map() {
   const [gameIsOver, setGameIsOver] = useState(0);
   const [lines, setLines] = useState([1, 2, 3, 4]);
 
-  let tileSet = document.createElement('img');
-  tileSet.src = tiles;
-
   let playerLevels = [
     'Coding Commoner',
     'JavaScript Juvenile',
@@ -91,97 +88,99 @@ function Map() {
     setLevel(playerLevels[lvl]);
   }, [lvl]);
 
-  let options = {
-    layout: 'tile',
-    tileWidth: 32,
-    tileHeight: 32,
-    tileSet: tileSet,
-    tileMap: {
-      1: [800, 1920], // Player - Level 1 (noob)
-      2: [672, 1920], // Player - Level 2 (rookie)
-      3: [1216, 1920], // Player - Level 3 (knight)
-      4: [960, 832], // Player - Level 4 (mage)
-      5: [96, 2112], // Player - Level 5 (elemental)
-      0: [320, 1088], // Level Up Animation
-      r: [128, 1376], // Ring
-      R: [992, 32], // README Stone
-      '#': [864, 224], // Wall tile
-      '[': [256, 544], // Shadow_west
-      ']': [1984, 512], // Shadow_east
-      '~': [32, 544], // Shadow_north
-      q: [160, 544], // Shadow_northwest
-      e: [96, 544], // Shadow_northeast
-      L: [1696, 32], // Door Locked
-      U: [1632, 32], // Door Unlocked
-      '&': [992, 864], // Keypad
-      I: [480, 672], // Torch 1
-      i: [544, 672], // Torch 2
-      J: [832, 384], // & Statue
-      E: [864, 384], // @ Statue
-      j: [96, 0], // Water Fountain
-      O: [1376, 1888], // Side Boss
-      // o: [672, 2272], Side top bottom
-      A: [32, 32], // Golem Level 1 Statue Solid
-      a: [64, 32], // Golem Level 2 Statue Solid
-      V: [96, 32], // Golem Level 3 Statue Solid
-      v: [128, 32], // Golem Level 4 Statue Solid
-      m: [256, 32], // Golem Statue Destroyed
-      N: [0, 192], // Lava
-      n: [1088, 704], // Water
-      t: [768, 2464], // Boss 1 Upper
-      T: [736, 2464], // Boss 1 Lower
-      Y: [640, 2432], // Boss 2 Upper
-      y: [608, 2432], // Boss 2 Lower
-      P: [384, 2432], // Boss 3 Upper
-      p: [320, 2432], // Boss 3 Lower
-      S: [2016, 832], // Boss 4 Upper
-      s: [1984, 832], // Boss 4 Lower
-      D: [1952, 832], // Boss 5 Upper
-      d: [1920, 832], // Boss 5 Lower
-      z: [128, 864], // Boss 6 Upper
-      Z: [160, 864], // Boss 6 Lower
-      X: [64, 864], // Boss 7 Upper
-      x: [96, 864], // Boss 7 Lower
-      c: [0, 864], // Boss 8 Upper
-      C: [32, 864], // Boss 8 Lower
-      F: [1888, 832], // Final Boss Upper
-      f: [1856, 832], // Final Boss Lower
-      '.': [1856, 192], // Floor (Passable)
-      K: [992, 864], // Keyboard
-      H: [1824, 1664], // Bloody Help
-      h: [32, 992], // shackled body
-      W: [576, 0], // darkness
-      w: [672, 672], // Acid
-      Q: [2016, 160], // Fire
-      k: [640, 928], // Dog
-      G: [1280, 2688], // Cat 1
-      g: [1344, 2688], // Cat 2
-      B: [224, 0], // Closed Treasure Chest
-      b: [256, 0], // Open Treasure Chest
-      '*': [96, 416], // Pentagram
-      '=': [1184, 288], // Grass
-      '^': [1696, 288], // Grass North
-      _: [1504, 288], // Grass South
-      '+': [1760, 288], // Grass East
-      '-': [672, 288], // Grass West
-      '%': [1312, 288], // Sand
-      u: [480, 416], // Tree
-      '@': [1984, 0], // Escape Portal
-      $: [1504, 1376], // Certificate
-      '<': [], // Grass NW
-      '>': [], // Grass NE
-      '(': [], // Grass SW
-      ')': [], // Grass SE
-      '?': [800, 224], // see through tile, Looks very similar to real wall
-      ',': [32, 1952], // joy
-    },
-    width: 92,
-    height: 33,
-  };
-
-  let display = new ROT.Display(options);
-
   useEffect(() => {
+    let tileSet = document.createElement('img');
+    tileSet.src = tiles;
+    let options = {
+      layout: 'tile',
+      tileWidth: 32,
+      tileHeight: 32,
+      tileSet: tileSet,
+      tileMap: {
+        1: [800, 1920], // Player - Level 1 (noob)
+        2: [672, 1920], // Player - Level 2 (rookie)
+        3: [1216, 1920], // Player - Level 3 (knight)
+        4: [960, 832], // Player - Level 4 (mage)
+        5: [96, 2112], // Player - Level 5 (elemental)
+        0: [320, 1088], // Level Up Animation
+        r: [128, 1376], // Ring
+        R: [992, 32], // README Stone
+        '#': [864, 224], // Wall tile
+        '[': [256, 544], // Shadow_west
+        ']': [1984, 512], // Shadow_east
+        '~': [32, 544], // Shadow_north
+        q: [160, 544], // Shadow_northwest
+        e: [96, 544], // Shadow_northeast
+        L: [1696, 32], // Door Locked
+        U: [1632, 32], // Door Unlocked
+        '&': [992, 864], // Keypad
+        I: [480, 672], // Torch 1
+        i: [544, 672], // Torch 2
+        J: [832, 384], // & Statue
+        E: [864, 384], // @ Statue
+        j: [96, 0], // Water Fountain
+        O: [1376, 1888], // Side Boss
+        // o: [672, 2272], Side top bottom
+        A: [32, 32], // Golem Level 1 Statue Solid
+        a: [64, 32], // Golem Level 2 Statue Solid
+        V: [96, 32], // Golem Level 3 Statue Solid
+        v: [128, 32], // Golem Level 4 Statue Solid
+        m: [256, 32], // Golem Statue Destroyed
+        N: [0, 192], // Lava
+        n: [1088, 704], // Water
+        t: [768, 2464], // Boss 1 Upper
+        T: [736, 2464], // Boss 1 Lower
+        Y: [640, 2432], // Boss 2 Upper
+        y: [608, 2432], // Boss 2 Lower
+        P: [384, 2432], // Boss 3 Upper
+        p: [320, 2432], // Boss 3 Lower
+        S: [2016, 832], // Boss 4 Upper
+        s: [1984, 832], // Boss 4 Lower
+        D: [1952, 832], // Boss 5 Upper
+        d: [1920, 832], // Boss 5 Lower
+        z: [128, 864], // Boss 6 Upper
+        Z: [160, 864], // Boss 6 Lower
+        X: [64, 864], // Boss 7 Upper
+        x: [96, 864], // Boss 7 Lower
+        c: [0, 864], // Boss 8 Upper
+        C: [32, 864], // Boss 8 Lower
+        F: [1888, 832], // Final Boss Upper
+        f: [1856, 832], // Final Boss Lower
+        '.': [1856, 192], // Floor (Passable)
+        K: [992, 864], // Keyboard
+        H: [1824, 1664], // Bloody Help
+        h: [32, 992], // shackled body
+        W: [576, 0], // darkness
+        w: [672, 672], // Acid
+        Q: [2016, 160], // Fire
+        k: [640, 928], // Dog
+        G: [1280, 2688], // Cat 1
+        g: [1344, 2688], // Cat 2
+        B: [224, 0], // Closed Treasure Chest
+        b: [256, 0], // Open Treasure Chest
+        '*': [96, 416], // Pentagram
+        '=': [1184, 288], // Grass
+        '^': [1696, 288], // Grass North
+        _: [1504, 288], // Grass South
+        '+': [1760, 288], // Grass East
+        '-': [672, 288], // Grass West
+        '%': [1312, 288], // Sand
+        u: [480, 416], // Tree
+        '@': [1984, 0], // Escape Portal
+        $: [1504, 1376], // Certificate
+        '<': [], // Grass NW
+        '>': [], // Grass NE
+        '(': [], // Grass SW
+        ')': [], // Grass SE
+        '?': [800, 224], // see through tile, Looks very similar to real wall
+        ',': [32, 1952], // joy
+      },
+      width: 92,
+      height: 33,
+    };
+
+    let display = new ROT.Display(options);
+
     createMap(display, tileSet);
     let dungeon = document.getElementById('map');
     dungeon.appendChild(display.getContainer());
@@ -233,6 +232,10 @@ function Map() {
           `All three creatures breathe a sigh of relief and contentment as a new creature materializes out of the circle... It is positively glowing with excitement and energy.`
         );
         tileMap[5][42] = ['.', '*', ','];
+      } else if (test === 'antiVirus') {
+        setMessage(
+          `The antivirus creature dies! It had unknowingly become a virus itself! The worm within you wriggles with joy`
+        );
       } else if (test === 'door') {
         tileMap[door.x][door.y] = ['.', 'U'];
       }
@@ -245,7 +248,7 @@ function Map() {
       88K      888  888 d88P"   d88P"   d8P"     888K    88K
       "Y8888b. 888  888 888     888     888888   "Y8888b "Y8888b
           X88Y 88b 888Y 88b.    Y88b.   Y8b.         X88     X88
-       88888P' "Y88888  "Y8888P  "Y8888P "Y8888  88888P' 88888P'
+      888888P' "Y88888  "Y8888P  "Y8888P "Y8888  88888P' 88888P'
       */`);
       setTimeout(() => {
         if (document.getElementById('screenModal').style.display !== 'none') {
@@ -273,15 +276,35 @@ function Map() {
 
   let navigate = useNavigate();
 
+  function launchScreenModal() {
+    document.getElementById('screenModal').style.display = 'block';
+    document.getElementById('screenModal').classList.add('show');
+    let mapContainer = document.getElementById('mapContainer');
+    console.log(mapContainer);
+    let screenBackdrop = document.createElement('div');
+    screenBackdrop.classList.add('screenModalBackdrop');
+    mapContainer.appendChild(screenBackdrop);
+  }
+
+  function closeScreenModal() {
+    let mapContainer = document.getElementById('mapContainer');
+    console.log(mapContainer);
+    let screenBackdrop = document.querySelector('.screenModalBackdrop');
+    mapContainer.removeChild(screenBackdrop);
+    document.getElementById('screenModal').style.display = 'none';
+    document.getElementById('screenModal').classList.remove('show');
+  }
+
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
     event.preventDefault();
     const pName = event.target.name.value;
     setPlayerName(pName);
     saveScore(pName);
+    document.getElementById('gameOverModal').style.display = 'none';
     document.getElementById('gameOverModal').classList.remove('show');
-    document.querySelector('.modal-backdrop').classList.remove('show');
-    navigate('/highscores', { state: gameOverState });
+    // document.getElementByID("backdrop").classList.add("fade in");
+    navigate('/highscores');
   }
 
   /* Pulls data from State variables except Name */
@@ -298,12 +321,22 @@ function Map() {
   }
   /* End of Score Submission to DB */
 
-  function gameOver (){
+  function gameOver() {
     gameOverVar = 1;
-    console.log("Game over!")
-    document.getElementById("gameOverModal").classList.add("show");
-    // document.querySelector(".modal-backdrop").classList.add("show");
+    console.log('Game over!');
+
+    document.getElementById('gameOverModal').style.display = 'block';
+    document.getElementById('gameOverModal').classList.add('show');
+    let mapContainer = document.getElementById('mapContainer');
+    console.log(mapContainer);
+    let backdrop = document.createElement('div');
+    backdrop.classList.add('gameOverBackdrop');
+    mapContainer.appendChild(backdrop);
   }
+
+  function showTerminal() {}
+
+  function hideTerminal() {}
 
   useEffect(() => {
     setGameOverState({
@@ -311,7 +344,6 @@ function Map() {
       bitcoin: bitcoins || 0,
       steps: stepsTaken,
     });
-    console.log(gameOverState);
   }, [stepsTaken]);
 
   function run() {
@@ -335,15 +367,18 @@ function Map() {
     testFuncs.dragonBoss();
     testFuncs.happyDoor();
     testFuncs.tripletBoss();
+    testFuncs.escapeDoor();
+    /* testFuncs3rd Boss */
+    testFuncs.spreadDoor();
+    testFuncs.antivirusBoss();
 
     mocha.run();
 
+    //TODO: Write AntiVirusBoss getTestResult()
     setTimeout(() => {
       document.getElementById('codeMirrorScript').remove();
       mocha.unloadFiles();
       document.getElementById('mocha').remove();
-      console.log(mocha);
-      console.log(door);
       if (
         mocha.suite.suites[1].tests[0].state === 'passed' &&
         door.y === 22 &&
@@ -382,6 +417,22 @@ function Map() {
         getTestResult(true, 'triplets');
         mocha.suite.suites = [];
         console.log('triplets boss passed');
+      } else if (
+        mocha.suite.suites[5].tests[0].state === 'passed' &&
+        door.x === 16 &&
+        door.y === 52
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('escape door passed');
+      } else if (
+        mocha.suite.suites[7].tests[0].state === 'passed' &&
+        door.x === 16 &&
+        door.y === 67
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('spread door passed');
       } else {
         getTestResult(false);
         mocha.suite.suites = [];
@@ -487,7 +538,6 @@ function Map() {
       }
 
       function drawPlayer() {
-        console.log('drawPlayer called. Your playerLevel is ' + lvl);
         switch (lvl) {
           case 0:
             display.draw(playerPos.x, playerPos.y, ['.', 1]);
@@ -560,7 +610,7 @@ function Map() {
       mapEngine();
 
       function updateScore() {
-        if (gameOverVar === 0){
+        if (gameOverVar === 0) {
           score =
             Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
         }
@@ -569,7 +619,6 @@ function Map() {
       async function movement() {
         let action = false;
         while (!action) {
-          await new Promise((resolve) => setTimeout(resolve, 100));
           let e = await new Promise((resolve) => {
             window.addEventListener('keydown', resolve, { once: true });
           });
@@ -580,10 +629,6 @@ function Map() {
             e.keyCode === 37
           ) {
             e.preventDefault();
-            steps++;
-            setStepsTaken(steps);
-            updateScore();
-            setScore(score);
           }
           action = handleKey(e);
         }
@@ -919,7 +964,6 @@ function Map() {
 
       function cryptoCheck() {
         let number = Math.floor(Math.random() * 100);
-        console.log(number);
         if (number === 77) {
           bitCoinsFound++;
           setBitcoins(bitCoinsFound);
@@ -951,6 +995,10 @@ function Map() {
           }
           playerPos.x += diff[0];
           playerPos.y += diff[1];
+          steps++;
+          setStepsTaken(steps);
+          updateScore();
+          setScore(score);
           transitionCheck();
           return true;
         } else {
@@ -994,7 +1042,7 @@ function Map() {
   };
   // End of Matrix Letters code
   return (
-    <div className='row'>
+    <div className='row' id='mapContainer'>
       <div className='col-sm-6'>
         <div className='row'>
           <div
@@ -1069,8 +1117,7 @@ function Map() {
             type='button'
             className='btn btn-success'
             id='gameOverModalLauncher'
-            data-toggle='modal'
-            data-target='#gameOverModal'
+            onClick={gameOver}
           >
             Game Over!
           </button>
@@ -1094,8 +1141,7 @@ function Map() {
               type='button'
               className='btn btn-danger btn-block'
               id='screenModalLauncher'
-              data-toggle='modal'
-              data-target='#screenModal'
+              onClick={launchScreenModal}
             >
               Open Terminal
             </button>
@@ -1107,6 +1153,8 @@ function Map() {
         id='screenModal'
         tabIndex='-1'
         role='dialog'
+        data-keyboard='true'
+        data-backdrop='true'
         aria-labelledby='screenModalLabel'
         aria-hidden='true'
       >
@@ -1116,7 +1164,22 @@ function Map() {
             <div className='modal-body'>
               <div className='laptop'>
                 <div className='content'>
-                  <p id='pro'>Door Code Editor</p>
+                  <p id='pro'>
+                    Door Code Editor
+                    <span
+                      style={{
+                        float: 'right',
+                        color: 'white',
+                        padding: '0',
+                        fontWeight: 'bolder',
+                        marginRight: '10px',
+                      }}
+                      className='btn'
+                      onClick={closeScreenModal}
+                    >
+                      X
+                    </span>
+                  </p>
                   <CodeMirror
                     value={code}
                     options={{
