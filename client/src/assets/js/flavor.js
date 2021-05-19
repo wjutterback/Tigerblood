@@ -88,6 +88,7 @@ const gameFuncs = {
         };
       } else if (door.x === 16 && door.y === 52) {
         return {
+          lines:[1, 12, 12, 13],
           text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
           code: ` /*jshint esversion: 6, asi: true*/
           /*
@@ -101,7 +102,6 @@ const gameFuncs = {
             frequently - almost obsessively. I fEeL mY sAnItY
           sLiPpInG aWaY fRoM mE... eVeRy DaY.
           */
-
         function laughterKills()) {
 
         } `,

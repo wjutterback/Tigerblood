@@ -944,7 +944,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -1172,8 +1172,8 @@ function Map() {
         id='gameOverModal'
         tabIndex='-1'
         role='dialog'
-        data-keyboard="false"
-        data-backdrop="static"
+        data-keyboard='false'
+        data-backdrop='static'
         aria-labelledby='gameOverModalLabel'
         aria-hidden='true'
       >
