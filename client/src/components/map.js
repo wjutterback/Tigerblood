@@ -277,9 +277,25 @@ function Map() {
 
   let navigate = useNavigate();
 
-  let mapContainer = document.getElementById('mapContainer');
-  let backdrop = document.createElement('div');
-  backdrop.classList.add('modal-backdrop', 'fade', 'in');
+  function launchScreenModal(){
+    document.getElementById("screenModal").style.display = "block";
+    document.getElementById("screenModal").classList.add("show");
+    let mapContainer = document.getElementById("mapContainer");
+    console.log(mapContainer)
+    let screenBackdrop = document.createElement("div");
+    screenBackdrop.classList.add("screenModalBackdrop");
+    mapContainer.appendChild(screenBackdrop);
+  }
+
+  function closeScreenModal(){
+    let mapContainer = document.getElementById("mapContainer");
+    console.log(mapContainer)
+    let screenBackdrop = document.querySelector(".screenModalBackdrop");
+    mapContainer.removeChild(screenBackdrop);
+    document.getElementById("screenModal").style.display = "none";
+    document.getElementById("screenModal").classList.remove("show");
+
+  }  
 
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
@@ -316,8 +332,8 @@ function Map() {
     let mapContainer = document.getElementById("mapContainer");
     console.log(mapContainer)
     let backdrop = document.createElement("div");
-    backdrop.classList.add("modal-backdrop", "fade", "in");
-   // mapContainer.appendChild(backdrop);
+    backdrop.classList.add("gameOverBackdrop");
+    mapContainer.appendChild(backdrop);
   }
 
   function showTerminal() {}
@@ -1104,8 +1120,7 @@ function Map() {
             type='button'
             className='btn btn-success'
             id='gameOverModalLauncher'
-            data-toggle='modal'
-            data-target='#gameOverModal'
+            onClick={gameOver}
           >
             Game Over!
           </button>
@@ -1129,8 +1144,7 @@ function Map() {
               type='button'
               className='btn btn-danger btn-block'
               id='screenModalLauncher'
-              data-toggle='modal'
-              data-target='#screenModal'
+              onClick={launchScreenModal}
             >
               Open Terminal
             </button>
@@ -1142,6 +1156,8 @@ function Map() {
         id='screenModal'
         tabIndex='-1'
         role='dialog'
+        data-keyboard='true'
+        data-backdrop='true'
         aria-labelledby='screenModalLabel'
         aria-hidden='true'
       >
@@ -1151,7 +1167,18 @@ function Map() {
             <div className='modal-body'>
               <div className='laptop'>
                 <div className='content'>
-                  <p id='pro'>Door Code Editor</p>
+                  <p id='pro'>Door Code Editor<span 
+                    style={{
+                      float: "right", 
+                      color: "white",
+                      padding: "0",
+                      fontWeight: "bolder",
+                      marginRight: "10px"
+                    }}
+                    className="btn"
+                    onClick={closeScreenModal}
+                    >X</span>
+                  </p>
                   <CodeMirror
                     value={code}
                     options={{
