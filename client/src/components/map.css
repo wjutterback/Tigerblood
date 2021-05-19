@@ -217,3 +217,11 @@
 #gameOverModalContent {
   background-color: black;
 }
+
+.modal-backdrop {
+  opacity: 0.7;
+}
+
+.modal-backdrop.fadeIn {
+
+}

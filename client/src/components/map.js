@@ -309,11 +309,15 @@ function Map() {
 
   function gameOver() {
     gameOverVar = 1;
-    console.log('Game over!');
-    console.log(mapContainer);
-    document.getElementById('gameOverModal').style.display = 'block';
-    document.getElementById('gameOverModal').classList.add('show');
-    // mapContainer.appendChild(backdrop);
+    console.log("Game over!")
+
+    document.getElementById("gameOverModal").style.display = "block";
+    document.getElementById("gameOverModal").classList.add("show");
+    let mapContainer = document.getElementById("mapContainer");
+    console.log(mapContainer)
+    let backdrop = document.createElement("div");
+    backdrop.classList.add("modal-backdrop", "fade", "in");
+   // mapContainer.appendChild(backdrop);
   }
 
   function showTerminal() {}
