@@ -10,7 +10,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/addon/display/autorefresh';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/addon/edit/matchbrackets';
-// import 'codemirror/keymap/sublime';
+import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 // import 'codemirror/mode/jsx/jsx.js';
 import 'codemirror/mode/javascript/javascript';
