@@ -352,6 +352,9 @@ function Map() {
     testFuncs.happyDoor();
     testFuncs.tripletBoss();
     testFuncs.escapeDoor();
+    /* testFuncs3rd Boss */
+    testFuncs.spreadDoor();
+    /* testFuncs4th Boss */
 
     mocha.run();
 
@@ -407,7 +410,12 @@ function Map() {
         getTestResult(true, 'door');
         mocha.suite.suites = [];
         console.log('escape door passed');
-      } else {
+      } else if (mocha.suite.suites[7].tests[0].state === 'passed' && door.x === 16 && door.y === 67){
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('spread door passed');
+      }
+      else {
         getTestResult(false);
         mocha.suite.suites = [];
       }
