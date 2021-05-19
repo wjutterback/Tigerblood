@@ -77,7 +77,15 @@ const testFuncs = {
       });
     });
   },
-  escapeDoor: () => {},
+  escapeDoor: () => {
+    return describe('escapeDoor', function () {
+      it('should return 7', function () {
+        let L = 'L';
+        let result = rEvErSe(L);
+        expect(result).to.be.oneOf([7, '7']);
+      });
+    });
+  },
 };
 
 export default testFuncs;

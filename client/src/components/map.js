@@ -298,10 +298,10 @@ function Map() {
   }
   /* End of Score Submission to DB */
 
-  function gameOver (){
+  function gameOver() {
     gameOverVar = 1;
-    console.log("Game over!")
-    document.getElementById("gameOverModal").classList.add("show");
+    console.log('Game over!');
+    document.getElementById('gameOverModal').classList.add('show');
     // document.querySelector(".modal-backdrop").classList.add("show");
   }
 
@@ -335,6 +335,7 @@ function Map() {
     testFuncs.dragonBoss();
     testFuncs.happyDoor();
     testFuncs.tripletBoss();
+    testFuncs.escapeDoor();
 
     mocha.run();
 
@@ -382,6 +383,14 @@ function Map() {
         getTestResult(true, 'triplets');
         mocha.suite.suites = [];
         console.log('triplets boss passed');
+      } else if (
+        mocha.suite.suites[5].tests[0].state === 'passed' &&
+        door.x === 16 &&
+        door.y === 52
+      ) {
+        getTestResult(true, 'door');
+        mocha.suite.suites = [];
+        console.log('escape door passed');
       } else {
         getTestResult(false);
         mocha.suite.suites = [];
@@ -560,7 +569,7 @@ function Map() {
       mapEngine();
 
       function updateScore() {
-        if (gameOverVar === 0){
+        if (gameOverVar === 0) {
           score =
             Math.floor((1 / Math.log(steps)) * 100000) * (bitCoinsFound + 1);
         }
@@ -928,7 +937,7 @@ function Map() {
           );
         }
       }
-      let godmode = false;
+      let godmode = true;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
