@@ -273,11 +273,6 @@ function Map() {
 
   let navigate = useNavigate();
 
-  let mapContainer = document.getElementById("mapContainer");
-  console.log(mapContainer)
-  let backdrop = document.createElement("div");
-  backdrop.classList.add("modal-backdrop", "fade", "in");
-
   /* Start of Score Submission to DB (Not Working on first submit)*/
   function handleScoreSave(event) {
     event.preventDefault();
@@ -307,10 +302,14 @@ function Map() {
   function gameOver (){
     gameOverVar = 1;
     console.log("Game over!")
-    console.log(mapContainer)
+
     document.getElementById("gameOverModal").style.display = "block";
     document.getElementById("gameOverModal").classList.add("show");
-    // mapContainer.appendChild(backdrop);
+    let mapContainer = document.getElementById("mapContainer");
+    console.log(mapContainer)
+    let backdrop = document.createElement("div");
+    backdrop.classList.add("modal-backdrop", "fade", "in");
+    mapContainer.appendChild(backdrop);
   }
 
   function showTerminal (){

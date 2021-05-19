@@ -208,9 +208,9 @@ const gameFuncs = {
     if (bossTwoCheckCounter === 0) {
       return `You warily approach one of the three figures huddled around the pentagram... The creature hisses, then grins evilly at you. The sound echoes in the dimly lit room.`;
     } else if (bossTwoCheckCounter === 1) {
-      return `Get back to the work at hand. Cazasa, stay focused, you're responsible for writing all our functions. We're close to bringing Joy back into our lives!`;
+      return `"Get back to the work at hand. Cazasa, stay focused, you're responsible for writing all our functions. We're close to bringing Joy back into our lives!"`;
     } else if (bossTwoCheckCounter === 2) {
-      return `Every one says my name wrong. But I don't care. What's my name? Hah, hah, hah... Like I'd tell you. *smiles*`;
+      return `"What do you want traveller? According to my pie charts and role assignments we have no need for an amatuer. We need a STAR! And you clearly aren't one... *smiles*";
     } else if (bossTwoCheckCounter === 3) {
       return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, do we splice or slice?`;
     } else if (bossTwoCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
@@ -308,13 +308,13 @@ return Jy
     if (bossSixCheckCounter === 0) {
       return `One of the two figures before you looks like a mighty warrior. - Tony`;
     } else if (bossSixCheckCounter === 1) {
-      return `...boss dialogue 2/4...`;
+      return `His eyes carry the wisdom of someone who played chess in their youth. But they also carry a look of disdain when glancing at you. He might have the answers you seek...`;
     } else if (bossSixCheckCounter === 2) {
-      return `...boss dialogue 3/4...`;
+      return `You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!.`;
     } else if (bossSixCheckCounter === 3) {
-      return `...boss dialogue 4/4...`;
+      return `I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables...`;
     } else if (bossSixCheckCounter > 3) {
-      return `...boss dialogue last...`;
+      return `He looks at you with pity. I am tired now, go away and let me be. And with that he goes back to reminscing about his youthful days spent schooling other warriors in chess.`;
     }
   },
   bossSeven: (bossSevenCheckCounter) => {
