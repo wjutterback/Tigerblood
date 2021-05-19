@@ -356,9 +356,18 @@ return Jy
     } else if (bossEightCheckCounter === 3 && Iyana > 3) {
       return {
         lines: [1, 9, 10, 15],
-        text: `My purpose? Ahh, well Tish made me her virus protection... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
+        text: `My purpose? Ahh, well Tish made me her virus protection. I'm not even sure the old code works any more... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
       code: `/*jshint esversion: 6, asi: true*/
-      /* Senyo boss code */`}
+      /*
+      As you're attacked by the antivirus creature, a small portion of Tish's antivirus code is made available to you.
+      It's so complicated and dense, you're sure you will die. The worm senses its host's immediate danger and
+      immediately deploys its anti-antivirus protocal! You've bought yourself some time as the antivirus creature
+      bears down on you as if in slo-mo. Just enough time to find the pertinent snippet you need! It's so well-written,
+      all you need to do is run it!
+      function antivirusProgram(virus) {
+        return virus = 'veryDead';
+      }
+      */`}
     } else if (bossEightCheckCounter === 3) {
       return `I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye Nana It pays to know her.`;
     }
