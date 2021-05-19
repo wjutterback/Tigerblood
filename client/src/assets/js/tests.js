@@ -67,18 +67,17 @@ const testFuncs = {
     });
   },
   //Jy.splice(1, 0, 'o');
+  //return Jy
   tripletBoss: () => {
-    return describe('triplet', function(){
-      it('should return joy', function() {
+    return describe('triplet', function () {
+      it('should return joy', function () {
         let joy = ['J', 'y'];
         let result = bringJoy(joy);
-        expect(result).to.eql(['J','o', 'y'])
-      })
-    })
+        expect(result).to.eql(['J', 'o', 'y']);
+      });
+    });
   },
-  escapeDoor: () => {
-    
-  }
+  escapeDoor: () => {},
 };
 
 export default testFuncs;
