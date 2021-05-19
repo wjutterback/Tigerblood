@@ -99,11 +99,12 @@ const gameFuncs = {
           students. I see the furtive glances. They don't think I do,
             but I see all - I KNOW all. The only time I feel happy is
           when I'm working on this app. I find myself thinking of it
-            frequently - almost obsessively. I fEeL mY sAnItY
-          sLiPpInG aWaY fRoM mE... eVeRy DaY.
+            frequently - almost obsessively. I fEe7 mY sAnItY
+          s7iPpInG aWaY fRoM mE... eVeRy DaY. I mUsT rEmEmBeR...
+            ReVeRsE
           */
-        function laughterKills()) {
-
+        function rEvErSe(L) {
+          return L =
         } `,
         };
       }
