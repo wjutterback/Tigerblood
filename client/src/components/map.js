@@ -940,7 +940,7 @@ function Map() {
               return false;
             case 'F':
             case 'f': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar, cat1Var. cat2Var, dogVar);
+              value = gameFuncs.bossFinal(bossFinalVar, cat1Var, cat2Var, dogVar);
               bossFinalVar++;
               setMessage(value);
               return false;
@@ -1021,7 +1021,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -1159,10 +1159,10 @@ function Map() {
             padding: '2rem',
           }}
         >
-          <h4 style={{display: 'block'}}>
+          <h4 style={{ display: 'block' }}>
             <b>Items Found:</b> {!inventory.length ? 'none' : null}
           </h4>
-          <br/>
+          <br />
           <ol>
             {inventory.map((item, i) => (
               <li key={i} style={{ fontSize: '1.5rem' }}>
@@ -1205,7 +1205,7 @@ function Map() {
           <div className='modal-content'>
             <div className='modal-body'>
               <div className='laptop'>
-                <div className='content' style={{height: "370px"}}>
+                <div className='content' style={{ height: '370px' }}>
                   <p id='pro'>
                     &#8595;&#8595; Click to Reveal Your Test &#8595;&#8595;
                     <span
@@ -1223,7 +1223,7 @@ function Map() {
                     </span>
                   </p>
                   <CodeMirror
-                    style={{height: 'auto', fontSize: "24px"}}
+                    style={{ height: 'auto', fontSize: '24px' }}
                     value={code}
                     options={{
                       tabSize: 2,
