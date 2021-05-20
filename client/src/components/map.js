@@ -940,7 +940,7 @@ function Map() {
               return false;
             case 'F':
             case 'f': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar);
+              value = gameFuncs.bossFinal(bossFinalVar, cat1Var. cat2Var, dogVar);
               bossFinalVar++;
               setMessage(value);
               return false;
