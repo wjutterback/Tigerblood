@@ -237,10 +237,16 @@ function Map() {
           `All three creatures breathe a sigh of relief and contentment as a new creature materializes out of the circle... It is positively glowing with excitement and energy.`
         );
         tileMap[5][42] = ['.', '*', ','];
+      } else if (test === 'wizard') {
+        setMessage(
+          `The wizard beams with pride as the warrior sighs in frustration. Your light has increased by 1!`
+        );
+        //TODO: Wizard gives you item that increases light and breaks golem
       } else if (test === 'antiVirus') {
         setMessage(
-          `The antivirus creature dies! It had unknowingly become a virus itself! The worm within you wriggles with joy`
+          `The antivirus creature had become a virus itself. Tish's antivirus program gravely wounded it... As the light slowly goes out of the creatures eyes, you see a faint smile pass across its face. With the last of its strength, it feebly waves its hand through the air - a terminal appears and the creature executes some code. "Go, a portal awaits." The antivirus creature dies! The worm within you wriggles with joy.`
         );
+        tileMap[23][75] = ['.', '@'];
       } else if (test === 'door') {
         tileMap[door.x][door.y] = ['.', 'U'];
       }
@@ -373,7 +379,7 @@ function Map() {
     testFuncs.happyDoor();
     testFuncs.tripletBoss();
     testFuncs.escapeDoor();
-    /* testFuncs3rd Boss */
+    testFuncs.wizardBoss();
     testFuncs.spreadDoor();
     testFuncs.antivirusBoss();
 
@@ -383,7 +389,7 @@ function Map() {
     setTimeout(() => {
       document.getElementById('codeMirrorScript').remove();
       mocha.unloadFiles();
-      document.getElementById('mocha').remove();
+      // document.getElementById('mocha').remove();
       if (
         mocha.suite.suites[1].tests[0].state === 'passed' &&
         door.y === 22 &&
@@ -431,6 +437,14 @@ function Map() {
         mocha.suite.suites = [];
         console.log('escape door passed');
       } else if (
+        mocha.suite.suites[6].tests[0].state === 'passed' &&
+        door.y > 50 &&
+        door.y < 55
+      ) {
+        getTestResult(true, 'wizard');
+        mocha.suite.suites = [];
+        console.log('wizard passed');
+      } else if (
         mocha.suite.suites[7].tests[0].state === 'passed' &&
         door.x === 16 &&
         door.y === 67
@@ -438,6 +452,13 @@ function Map() {
         getTestResult(true, 'door');
         mocha.suite.suites = [];
         console.log('spread door passed');
+      } else if (
+        mocha.suite.suites[8].tests[0].state === 'passed' &&
+        door.y > 58
+      ) {
+        getTestResult(true, 'antiVirus');
+        mocha.suite.suites = [];
+        console.log('antivirus boss beaten');
       } else {
         getTestResult(false);
         mocha.suite.suites = [];
@@ -480,7 +501,7 @@ function Map() {
     let certificateVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
 
     tileSet.onload = function () {
-      let lightRadius = 1;
+      let lightRadius = 2;
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
         const blockLight = ['#', 'L', '&', 'M', 'm', 'K'];
@@ -871,12 +892,28 @@ function Map() {
               return false;
             case 'Z':
             case 'z':
+              if (bossFiveVar > 3 && bossSixVar > 3) {
+                value = gameFuncs.bossFive(bossFiveVar, bossSixVar);
+                setDoor({ x: x, y: y });
+                setLines(value.lines);
+                setCode(value.code);
+                setMessage(value.text);
+                return false;
+              }
               value = gameFuncs.bossFive(bossFiveVar);
               bossFiveVar++;
               setMessage(value);
               return false;
             case 'D':
             case 'd':
+              if (bossFiveVar > 3 && bossSixVar > 3) {
+                value = gameFuncs.bossSix(bossFiveVar, bossSixVar);
+                setDoor({ x: x, y: y });
+                setLines(value.lines);
+                setCode(value.code);
+                setMessage(value.text);
+                return false;
+              }
               value = gameFuncs.bossSix(bossSixVar, bossFiveVar);
               bossSixVar++;
               setMessage(value);
@@ -889,6 +926,14 @@ function Map() {
               return false;
             case 'C':
             case 'c':
+              if (bossEightVar > 2 && bossSevenVar > 2) {
+                value = gameFuncs.bossEight(bossEightVar, bossSevenVar);
+                setDoor({ x: x, y: y });
+                setLines(value.lines);
+                setCode(value.code);
+                setMessage(value.text);
+                return false;
+              }
               value = gameFuncs.bossEight(bossEightVar, bossSevenVar);
               bossEightVar++;
               setMessage(value);
@@ -976,7 +1021,7 @@ function Map() {
           );
         }
       }
-      let godmode = false;
+      let godmode = true;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -1162,7 +1207,7 @@ function Map() {
               <div className='laptop'>
                 <div className='content' style={{height: "370px"}}>
                   <p id='pro'>
-                  &#8595;&#8595; Click to Reveal Your Test &#8595;&#8595;
+                    &#8595;&#8595; Click to Reveal Your Test &#8595;&#8595;
                     <span
                       style={{
                         float: 'right',
