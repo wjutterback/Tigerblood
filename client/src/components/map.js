@@ -12,7 +12,6 @@ import 'codemirror/addon/comment/comment';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
-// import 'codemirror/mode/jsx/jsx.js';
 import 'codemirror/mode/javascript/javascript';
 import chai from 'chai';
 import 'chai/register-expect';

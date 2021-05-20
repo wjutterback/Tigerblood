@@ -99,69 +99,77 @@
   border-radius: 10px;
 }
 
-#map {
-  /* transition: transform 2s; */
-}
-
 .start {
   transition: transform 2s;
   transform: translate(0%, -0.9%);
 }
 
 .down1 {
-  /* transition: transform 2s; */
-  transition-property: transform;
-  transition-duration: 2s;
+  transition: transform 2s;
   transform: translate(0%, -48%);
 }
 
 .down2 {
+  transition: transform 2s;
   transform: translate(-16.4%, -48%);
 }
 .down3 {
+  transition: transform 2s;
   transform: translate(-32.8%, -48%);
 }
 .down4 {
+  transition: transform 2s;
   transform: translate(-49%, -48%);
 }
 .down5 {
+  transition: transform 2s;
   transform: translate(-65.25%, -48%);
 }
 
 .up1 {
+  transition: transform 2s;
   transform: translate(0%, -0.9%);
 }
 
 .up2 {
+  transition: transform 2s;
   transform: translate(-16.4%, -0.9%);
 }
 .up3 {
+  transition: transform 2s;
   transform: translate(-32.8%, -0.9%);
 }
 .up4 {
+  transition: transform 2s;
   transform: translate(-49%, -0.9%);
 }
 .up5 {
+  transition: transform 2s;
   transform: translate(-65.25%, -0.9%);
 }
 
 .west1 {
+  transition: transform 2s;
   transform: translate(0%, -48%);
 }
 
 .west2 {
+  transition: transform 2s;
   transform: translate(-16.4%, -48%);
 }
 
 .west3 {
+  transition: transform 2s;
   transform: translate(-32.8%, -48%);
 }
 
 .west4 {
+  transition: transform 2s;
   transform: translate(-49%, -48%);
 }
 
 .west5 {
+  transition: transform 2s;
   transform: translate(-65.25%, -48%);
 }
 
@@ -171,22 +179,27 @@
 }
 
 .east2 {
+  transition: transform 2s;
   transform: translate(-32.8%, -48%);
 }
 
 .east3 {
+  transition: transform 2s;
   transform: translate(-49%, -48%);
 }
 
 .east4 {
+  transition: transform 2s;
   transform: translate(-65.25%, -48%);
 }
 
 .east5 {
+  transition: transform 2s;
   transform: translate(-82.69%, -44%);
 }
 
 .bossUpper {
+  transition: transform 2s;
   transform: translate(-82.69%, -3.3%);
 }
 
