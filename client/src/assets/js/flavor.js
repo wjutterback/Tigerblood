@@ -88,7 +88,7 @@ const gameFuncs = {
         };
       } else if (door.x === 16 && door.y === 52) {
         return {
-          lines:[1, 13, 15, 16],
+          lines: [1, 13, 15, 16],
           text: `The dungeon's darkness closes in around you with every step. You feel the need to get through this next door. Maybe the escape is behind it.`,
           code: ` /*jshint esversion: 6, asi: true*/
           /*
@@ -108,19 +108,19 @@ const gameFuncs = {
           return L;
         } `,
         };
-      }else if (door.x === 16 && door.y === 67) {
+      } else if (door.x === 16 && door.y === 67) {
         return {
           lines: [1, 4, 6, 7],
           text: `You lean heavily against the door. What are you doing? Why do you keep moving forward? Isn't there another bitcoin to be found? Yes, that's why you're moving. Bitcoins. Keep moving.`,
-          code:` /*jshint esversion: 6, asi: true*/
+          code: ` /*jshint esversion: 6, asi: true*/
           /*
           ...
           */
          function operator(spr, ead) {
           spr.push(ead)
           return spr;
-         }`
-        }
+         }`,
+        };
       }
     }
   },
@@ -316,12 +316,31 @@ return Jy
     } else if (bossFiveCheckCounter === 3) {
       return `Desperate to know how to escape, you ask how, but the summoner only laughs and turns his back to you. He materializes a terminal out of thin air. He is completely ignoring you now.`;
     } else if (bossFiveCheckCounter > 3) {
-      return `... Must ... get ... the ... gold. Flash! Into a wall.... again.`;
+      return {
+        line: [1, 2, 3, 4],
+        text: `... Must ... get ... the ... gold. Flash! Into a wall.... again. Urgh! You interrupted me and now I'm dead! It's time I repay the favor. The wizard calls for help from the warrior, but the warrior ignores him. It's 1v1 time.`,
+        code: `/*jshint esversion: 6, asi: true*/
+        /*
+
+        function resolveAnswer() {
+
+          let wizardsGuess;
+
+          function wizardsGuess() {
+
+            return wizardsGuess
+
+          }
+
+          return wizardsGuess
+        }
+        */`,
+      };
     }
   },
   bossSix: (bossSixCheckCounter) => {
     if (bossSixCheckCounter === 0) {
-      return `One of the two figures before you looks like a mighty warrior. - Tony`;
+      return `One of the two figures before you looks like a mighty warrior.`;
     } else if (bossSixCheckCounter === 1) {
       return `His eyes carry the wisdom of someone who played chess in their youth. But they also carry a look of disdain when glancing at you. He might have the answers you seek...`;
     } else if (bossSixCheckCounter === 2) {
@@ -329,7 +348,26 @@ return Jy
     } else if (bossSixCheckCounter === 3) {
       return `I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables...`;
     } else if (bossSixCheckCounter > 3) {
-      return `He looks at you with pity. I am tired now, go away and let me be. And with that he goes back to reminscing about his youthful days spent schooling other warriors in chess.`;
+      return {
+        line: [1, 2, 3, 4],
+        text: `He looks at you with pity. I am tired now, go away and let me be. And with that he goes back to reminscing about his youthful days spent schooling other warriors in chess.`,
+        code: `/*jshint esversion: 6, asi: true*/
+        /*
+
+        function resolveAnswer() {
+
+          let warriorsGuess;
+
+          function warriorsGuess() {
+
+            return warriorsGuess
+
+          }
+
+          return warriorsGuess
+        }
+        */`,
+      };
     }
   },
   bossSeven: (bossSevenCheckCounter) => {
@@ -357,7 +395,7 @@ return Jy
       return {
         lines: [1, 9, 10, 15],
         text: `My purpose? Ahh, well Tish made me her virus protection. I'm not even sure the old code works any more... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
-      code: `/*jshint esversion: 6, asi: true*/
+        code: `/*jshint esversion: 6, asi: true*/
       /*
       As you're attacked by the antivirus creature, a small portion of Tish's antivirus code is made available to you.
       It's so complicated and dense, you're sure you will die. The worm senses its host's immediate danger and
@@ -367,7 +405,8 @@ return Jy
       function antivirusProgram(virus) {
         return virus = 'veryDead';
       }
-      */`}
+      */`,
+      };
     } else if (bossEightCheckCounter === 3) {
       return `I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye Nana It pays to know her.`;
     }
