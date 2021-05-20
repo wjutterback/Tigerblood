@@ -86,12 +86,20 @@ const testFuncs = {
       });
     });
   },
+  wizardBoss: () => {
+    return describe('wizardBoss', function () {
+      it('should return vision bonus', function () {
+        let result = chooseAnswer();
+        expect(result).to.eql('vision bonus');
+      });
+    });
+  },
   spreadDoor: () => {
     return describe('spreadDoor', function () {
       it('should return [s, p, r, e, a, d]', function () {
-        let spread = ['s', 'p', 'r'];
-        let operator = ['e', 'a', 'd'];
-        let result = operator(spread, operator);
+        let spr = ['s', 'p', 'r'];
+        let ead = ['e', 'a', 'd'];
+        let result = operator(spr, ead);
         expect(result).to.eql(['s', 'p', 'r', 'e', 'a', 'd']);
       });
     });
