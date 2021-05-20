@@ -277,14 +277,6 @@ function Map() {
     }
   };
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     console.log(
-  //       '30 sec check. Could be useful for animations. Otherwise delete.'
-  //     );
-  //   }, 30000);
-  // }, []);
-
   let navigate = useNavigate();
 
   function launchScreenModal() {
@@ -345,9 +337,14 @@ function Map() {
     mapContainer.appendChild(backdrop);
   }
 
-  function showTerminal() {}
-
-  function hideTerminal() {}
+  function showInventory() {
+    let content = document.querySelector(".inventoryDiv");
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  };
 
   useEffect(() => {
     setGameOverState({
@@ -1098,25 +1095,36 @@ function Map() {
           style={{
             fontFamily: 'Finger Paint',
             backgroundColor: 'Black',
-            padding: '30px',
+            padding: '30px 30px 5px 100px',
+            fontSize: '1.5rem',
           }}
         >
-          <h4 className='mr-auto'>
+          <p className='mr-auto'>
             <b>Player Level:</b> {level}
-          </h4>
-          <h4 className='mr-auto'>
+          </p>
+          <p className='mr-auto'>
             <b>Rooms Cleared:</b> {clearedRooms}/4
-          </h4>
-          <h4 className='mr-auto'>
+          </p>
+        </div>
+        <div
+          className='row'
+          style={{
+            fontFamily: 'Finger Paint',
+            backgroundColor: 'Black',
+            padding: '5px 30px 30px 100px',
+            fontSize: '1.5rem',
+          }}
+        >
+          <p className='mr-auto'>
             <b>Steps Taken:</b> {stepsTaken}
-          </h4>
-          <h4 className='mr-auto'>
+          </p>
+          <p className='mr-auto'>
             {bitcoins ? (
               <b>You Found {bitcoins} BitCoin!</b>
             ) : (
               'No secrets here ...'
             )}
-          </h4>
+          </p>
         </div>
         <div className='row'>
           <div
@@ -1151,25 +1159,24 @@ function Map() {
         </div>
       </div>
       <div className='col-sm-12 col-md-6'>
-        <div
-          className='row'
-          style={{
-            fontFamily: 'Finger Paint',
-            backgroundColor: 'Black',
-            padding: '2rem',
-          }}
-        >
-          <h4 style={{ display: 'block' }}>
-            <b>Items Found:</b> {!inventory.length ? 'none' : null}
-          </h4>
-          <br />
-          <ol>
-            {inventory.map((item, i) => (
-              <li key={i} style={{ fontSize: '1.5rem' }}>
-                <b>{item.name}</b>: {item.power}
-              </li>
-            ))}
-          </ol>
+        <div className='row'>
+          <button 
+            type="button" 
+            className="collapsible mx-auto"
+            onClick={showInventory}
+          >
+            <b>Inventory</b>
+          </button>
+            <div className="inventoryDiv">
+              {!inventory.length ? "You haven't found any items yet. Keep exploring!" : null}
+              <ol>
+                {inventory.map((item, i) => (
+                  <li key={i}>
+                    <h4><b>{item.name}</b>: {item.power}</h4>
+                  </li>
+                ))}
+              </ol>
+            </div>
         </div>
         <div className='row'>
           <p id='message'>{message}</p>
