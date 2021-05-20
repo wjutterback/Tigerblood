@@ -338,7 +338,7 @@ return Jy
       };
     }
   },
-  bossSix: (bossSixCheckCounter) => {
+  bossSix: (bossSixCheckCounter, bossFiveCheckCounter) => {
     if (bossSixCheckCounter === 0) {
       return `One of the two figures before you looks like a mighty warrior.`;
     } else if (bossSixCheckCounter === 1) {

@@ -872,7 +872,7 @@ function Map() {
               return false;
             case 'D':
             case 'd':
-              value = gameFuncs.bossSix(bossSixVar);
+              value = gameFuncs.bossSix(bossSixVar, bossFiveVar);
               bossSixVar++;
               setMessage(value);
               return false;
@@ -1042,7 +1042,32 @@ function Map() {
   // End of Matrix Letters code
   return (
     <div className='row' id='mapContainer'>
-      <div className='col-sm-6'>
+      <div className='col-sm-12 col-md-6'>
+        <div
+          className='row'
+          style={{
+            fontFamily: 'Finger Paint',
+            backgroundColor: 'Black',
+            padding: '30px',
+          }}
+        >
+          <h4 className='mr-auto'>
+            <b>Player Level:</b> {level}
+          </h4>
+          <h4 className='mr-auto'>
+            <b>Rooms Cleared:</b> {clearedRooms}/4
+          </h4>
+          <h4 className='mr-auto'>
+            <b>Steps Taken:</b> {stepsTaken}
+          </h4>
+          <h4 className='mr-auto'>
+            {bitcoins ? (
+              <b>You Found {bitcoins} BitCoin!</b>
+            ) : (
+              'No secrets here ...'
+            )}
+          </h4>
+        </div>
         <div className='row'>
           <div
             className=''
@@ -1075,51 +1100,15 @@ function Map() {
           </div>
         </div>
       </div>
-      <div className='col-sm-6'>
+      <div className='col-sm-12 col-md-6'>
         <div
           className='row'
           style={{
             fontFamily: 'Finger Paint',
             backgroundColor: 'Black',
-            padding: '30px',
+            padding: '2rem',
           }}
         >
-          <h4 className='mr-auto'>
-            <b>Player Level:</b> {level}
-          </h4>
-          <h4 className='mr-auto'>
-            <b>Rooms Cleared:</b> {clearedRooms}/4
-          </h4>
-          <h4 className='mr-auto'>
-            <b>Steps Taken:</b> {stepsTaken}
-          </h4>
-          <h4 className='mr-auto'>
-            {bitcoins ? (
-              <b>You Found {bitcoins} BitCoin!</b>
-            ) : (
-              'No secrets here ...'
-            )}
-          </h4>
-        </div>
-        <div className='row'>
-          <p id='message'>{message}</p>
-        </div>
-        <div
-          className='row'
-          style={{
-            fontFamily: 'Finger Paint',
-            backgroundColor: 'Black',
-            padding: '3rem',
-          }}
-        >
-          <button
-            type='button'
-            className='btn btn-success'
-            id='gameOverModalLauncher'
-            onClick={gameOver}
-          >
-            Game Over!
-          </button>
           <h4>
             <b>Items Found: {inventory.length}</b>
           </h4>
@@ -1130,6 +1119,9 @@ function Map() {
               </li>
             ))}
           </ol>
+        </div>
+        <div className='row'>
+          <p id='message'>{message}</p>
         </div>
         <div className='row' style={{ visibility: visibility }}>
           <div className='laptop2'>
@@ -1164,7 +1156,7 @@ function Map() {
               <div className='laptop'>
                 <div className='content'>
                   <p id='pro'>
-                    Door Code Editor
+                  &#8595;&#8595; Click to Reveal Your Test &#8595;&#8595;
                     <span
                       style={{
                         float: 'right',
