@@ -26,8 +26,8 @@ import 'codemirror/addon/lint/lint.css';
 import { JSHINT } from 'jshint';
 window.JSHINT = JSHINT;
 
+let widgets = [];
 function updateHints() {
-  var widgets = [];
   let editor = document.querySelector('.CodeMirror').CodeMirror;
   editor.operation(function () {
     for (let i = 0; i < widgets.length; ++i)
