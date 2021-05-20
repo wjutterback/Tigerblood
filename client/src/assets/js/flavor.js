@@ -315,7 +315,7 @@ return Jy
       return `There is but one escape here, and I alone know the way..."`;
     } else if (bossFiveCheckCounter === 3) {
       return `Desperate to know how to escape, you ask how, but the summoner only laughs and turns his back to you. He materializes a terminal out of thin air. He is completely ignoring you now.`;
-    } else if (bossFiveCheckCounter > 3 && bossSixCheckCounter < 3) {
+    } else if (bossFiveCheckCounter > 3 && bossSixCheckCounter <= 3) {
       return `"Now what is that warrior yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
     } else if (bossFiveCheckCounter > 3 && bossSixCheckCounter > 3) {
       return {
@@ -342,17 +342,10 @@ return Jy
     } else if (bossSixCheckCounter === 1) {
       return `His eyes carry the wisdom of someone who played chess in their youth. But they also carry a look of disdain when glancing at you. He might have the answers you seek...`;
     } else if (bossSixCheckCounter === 2) {
-<<<<<<< HEAD
       return ` The warriors smirks at you and speaks: "You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;    
     } else if (bossSixCheckCounter === 3) {
       return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <=3) {
-=======
-      return ` The warriors smirks at you and speaks: "You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;
-    } else if (bossSixCheckCounter === 3) {
-      return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
-    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter < 3) {
->>>>>>> 8180a1ec8efd91f58986e7f1a516231f241f64f6
       return `"Now what is that wizard yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter > 3) {
       return {
