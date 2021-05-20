@@ -209,6 +209,7 @@
   color: red;
   background: black;
   padding: 3rem;
+  margin: 3rem;
 }
 
 .modal {
@@ -241,4 +242,33 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+.collapsible {
+  background: transparent;
+  font-family: "finger paint";
+  color: white;
+  cursor: pointer;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: left;
+  outline: none;
+  font-size: 24px;
+}
+
+.active,
+.collapsible:hover {
+  background-color: red;
+}
+
+.inventoryDiv {
+  font-family: "finger paint";
+  width: 100%;
+  font-size: 20px;
+  padding: 40px;
+  border: 1px dashed red;
+  display: none;
+  color: white;
+  background: transparent;
 }
