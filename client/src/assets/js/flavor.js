@@ -419,71 +419,78 @@ return Jy
     ) {
       return `You reach an enchantress shouting what sounds like an ancient spell. "FREYA! PTAHMOSE! LEXIE", she shouts. You try to get her attention.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
+      bossFinalCheckCounter > 0 &&
       cat1CheckCounter === 0 &&
       cat2CheckCounter === 0 &&
       dogCheckCounter === 0
     ) {
       return `"Don't talk to me right now. My fur babies are loose!", she yells at you. You realize that spell was actually her pets' names. Begrudgingly, you decide to look for them.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
-      cat1CheckCounter === 1 &&
+      bossFinalCheckCounter > 0 &&
+      cat1CheckCounter > 0 &&
       cat2CheckCounter === 0 &&
       dogCheckCounter === 0
     ) {
       return `"You found Freya! Where did you go, you naughty girl?!", the enchantress exclaims as you hand over the cat. "Please help me find Ptahmose and Lexie too", the enchantress pleads. You have no choice.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
+      bossFinalCheckCounter > 0 &&
       cat1CheckCounter === 0 &&
-      cat2CheckCounter === 1 &&
+      cat2CheckCounter > 0 &&
       dogCheckCounter === 0
     ) {
       return `"That's Ptahmose! Well done! Was he digging up dead animals again?", the enchantress says, looking overjoyed. You realize that finding her cats as well would gain you her favor, so you decide to continue your search.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
+      bossFinalCheckCounter > 0 &&
       cat1CheckCounter === 0 &&
       cat2CheckCounter === 0 &&
-      dogCheckCounter === 1
+      dogCheckCounter > 0
     ) {
       return `"Lexie!", the enchantress says happily as you hand over the dog. "Thank you! Did you see my cats anywhere? Please help me find them too.". The dog looks at you, its expressive eyes begging you not to comply. "Sorry Lexie, I need to get out of here.", as you turn around and start searching.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
-      cat1CheckCounter === 1 &&
-      cat2CheckCounter === 1 &&
+      bossFinalCheckCounter > 0 &&
+      cat1CheckCounter > 0 &&
+      cat2CheckCounter > 0 &&
       dogCheckCounter === 0
     ) {
       return `"Amazing. You must be really good with cats, to have found both. Freya and Ptahmose thank you!", claims the enchantress. The cats' faces definitely disagree. You silently empathize with the dog, before starting to look for him.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
-      cat1CheckCounter === 1 &&
+      bossFinalCheckCounter > 0 &&
+      cat1CheckCounter > 0 &&
       cat2CheckCounter === 0 &&
-      dogCheckCounter === 1
+      dogCheckCounter > 0
     ) {
       return `"Great job! Please help me find that pompous Ptahmose while I keep Freya from tormenting Lexie.", says the enchantress. You feel sorry for the dog, but decide that no amount of pupster smiles is worth staying stuck in this nightmare.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
+      bossFinalCheckCounter > 0 &&
       cat1CheckCounter === 0 &&
-      cat2CheckCounter === 1 &&
-      dogCheckCounter === 1
+      cat2CheckCounter > 0 &&
+      dogCheckCounter > 0
     ) {
       return `"Well done! Only Freya is left now. Please find her while I keep Ptahmose from harassing Lexie." The dog looks at you, its eyes pleading you to let that cat stay lost forever. "I'm sorry Lexie. Not my fight. I hope you'll forgive me.", you mumble as you start the search for the final feline.`;
     } else if (
-      bossFinalCheckCounter === 1 &&
-      cat1CheckCounter === 1 &&
-      cat2CheckCounter === 1 &&
-      dogCheckCounter === 1
+      bossFinalCheckCounter === 0 &&
+      cat1CheckCounter > 0 &&
+      cat2CheckCounter > 0 &&
+      dogCheckCounter > 0
+    ) {
+      return `You spot a distraught looking enchantress. She seems to be looking for something... or things. She looks at the animals you are carrying and grows very excited. It seems like you have done her a huge favor without even knowing it. Maybe there is a reward in it for you... `;
+    } else if (
+      bossFinalCheckCounter > 0 &&
+      cat1CheckCounter > 0 &&
+      cat2CheckCounter > 0 &&
+      dogCheckCounter > 0
     ) {
       return `"You did it! You found them all! I can't thank you enough. I hope this diploma makes up for all the torture you've been through! Now wake up and be somebody!!", the enchantress says as she vanishes with her pets. "It's finally over!", you sigh as you grab the diploma.`;
     }
   },
   cat1: () => {
-    return `Judging by her goddess-like confidence, you guess this must be Freya. She gives you a sarcastic look as you pick her up, as if expecting you to thank her to letting you touch her.`;
+    return `You find a cat sitting lazily, basking in the sun. She ignores you. You read the name tag. "Freya? So you must be a goddess, huh?!". She gives you a sarcastic look as you pick her up, as if expecting you to thank her to letting you touch her.`;
   },
   cat2: () => {
-    return `"You must be Ptahmose!", you exclaim. The cat looks at you like you're a lowly commoner in the presence of a Vizier. It allows you to pick it up, expecting major worship and groveling.`;
+    return `You spot a cat clawing at a tree, as if to sharpen them for a mission. You reach for a name tag. "So you are Ptahmose!", you exclaim. The cat looks at you like you're a lowly commoner in the presence of a Vizier. It allows you to pick it up, expecting major worship and groveling.`;
   },
   dog: () => {
-    return `The poor dog looks harassed and tired. "Poor Lexie! Were those two felines picking on you?", you ask as you pick her up. Her short legs dangle in the air, as she gives you the cutest smile as if to say, "Thank you hooman, for saving me from those two hell demons!". `;
+    return `The poor dog looks harassed and tired. Her collar reads "Lexie". "Poor girl! Are you lost? You look like you have trying to escape one or maybe two tormentors.", you ask as you pick her up. Her short legs dangle in the air, as she gives you the cutest smile as if to say, "Thank you hooman, for saving me from the hell demons!". `;
   },
   keeper: (keeperCheckCounter) => {
     if (keeperCheckCounter === 0) {

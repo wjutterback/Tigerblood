@@ -124,7 +124,7 @@ function Map() {
         a: [64, 32], // Golem Level 2 Statue Solid
         V: [96, 32], // Golem Level 3 Statue Solid
         v: [128, 32], // Golem Level 4 Statue Solid
-        m: [256, 32], // Golem Statue Destroyed
+        m: [288, 32], // Golem Statue Destroyed
         N: [0, 192], // Lava
         n: [1088, 704], // Water
         t: [768, 2464], // Boss 1 Upper
@@ -160,7 +160,7 @@ function Map() {
         '*': [96, 416], // Pentagram
         '=': [1184, 288], // Grass
         '^': [1696, 288], // Grass North
-        _: [1504, 288], // Grass South
+        '_': [1504, 288], // Grass South
         '+': [1760, 288], // Grass East
         '-': [672, 288], // Grass West
         '%': [1312, 288], // Sand
@@ -750,6 +750,7 @@ function Map() {
             case 'L':
               value = gameFuncs.door(keyboardVar, { x: x, y: y });
               if (keyboardVar === 1) {
+                setVisibility("visible")
                 setLines(value.lines);
                 setCode(value.code);
                 setMemory({ code: value.code, lines: value.lines });
@@ -773,7 +774,7 @@ function Map() {
               value = gameFuncs.keyboard();
               setMessage(value);
               tileMap[2][13].pop();
-              setVisibility('visible');
+              // setVisibility('visible');
               keyboardVar = 1;
               let keyboardItem = {
                 name: 'Keyboard of Power',
@@ -938,9 +939,29 @@ function Map() {
             case 'F':
             case 'f': // Final Boss
               value = gameFuncs.bossFinal(bossFinalVar, cat1Var, cat2Var, dogVar);
-              bossFinalVar++;
-              setMessage(value);
-              return false;
+              if (bossFinalVar >0 && cat1Var >0 && cat2Var >0 && dogVar >0){
+                setMessage(value);
+                setTimeout(()=>{
+                  tileMap[22][84].pop();
+                  tileMap[23][84].pop();
+                  display.draw(84, 22, '=');
+                  display.draw(84, 23, '=');
+                }, 1000)
+                setTimeout(()=>{
+                  tileMap[22][87].pop();
+                  display.draw(87, 22, ['=','b']);
+                }, 2000)
+                setTimeout(()=>{
+                  tileMap[22][87].pop();
+                  display.draw(87, 22, ['=','$']);
+                }, 3000)
+                return true;
+              } else {
+                bossFinalVar++;
+                console.log(bossFinalVar, cat1Var, cat2Var, dogVar);
+                setMessage(value);
+                return false;
+              }
             case 'u':
               value = gameFuncs.tree(treeVar);
               treeVar++;
@@ -955,17 +976,38 @@ function Map() {
               value = gameFuncs.cat1();
               cat1Var++;
               setMessage(value);
-              return false;
+              tileMap[14][87].pop();
+              let cat1Item = {
+                name: 'Freya the Cat',
+                power: 'Makes humans pamper her with a simple look.',
+              };
+              setInventory((inventory) => [...inventory, cat1Item]);
+              display.draw(86, 14, '=');
+              return true;
             case 'g':
               value = gameFuncs.cat2();
               cat2Var++;
               setMessage(value);
-              return false;
+              tileMap[5][78].pop();
+              let cat2Item = {
+                name: 'Ptahmose the Cat',
+                power: 'Schemes in private about how to harass dogs.',
+              };
+              setInventory((inventory) => [...inventory, cat2Item]);
+              display.draw(78, 5, '=');
+              return true;
             case 'k':
               value = gameFuncs.dog();
               dogVar++;
               setMessage(value);
-              return false;
+              tileMap[10][79].pop();
+              let dogItem = {
+                name: 'Lexie the Dog',
+                power: 'Rings bells and squeaks "WATER" in a funny voice.',
+              };
+              setInventory((inventory) => [...inventory, dogItem]);
+              display.draw(79, 10, '=');
+              return true;
             case 'O':
               value = gameFuncs.keeper(keeperVar);
               keeperVar++;
@@ -985,9 +1027,12 @@ function Map() {
                 power: 'Makes dreams come true',
               };
               setInventory((inventory) => [...inventory, certificateItem]);
-              display.draw(13, 2, '=');
-              gameOver();
-              return false;
+              tileMap[22][87].pop();
+              display.draw(87, 22, '=');
+              setTimeout(() => {
+                gameOver();
+              }, 1000)
+              return true;
             default:
           }
           if (tileMap[x][y][2] === ',') {
@@ -1018,7 +1063,7 @@ function Map() {
           );
         }
       }
-      let godmode = false;
+      let godmode = true;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
