@@ -347,7 +347,7 @@ return Jy
       return ` The warriors smirks at you and speaks: "You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;    
     } else if (bossSixCheckCounter === 3) {
       return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
-    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <3) {
+    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <=3) {
       return `"Now what is that wizard yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter >3) {
       return {

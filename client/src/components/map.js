@@ -745,7 +745,6 @@ function Map() {
               value = gameFuncs.andStatue(andStatueVar);
               andStatueVar++;
               setMessage(value);
-              gameOver(); // This is temporary to confirm working of the gameOver chain of functions.
               return false;
             case 'E':
               value = gameFuncs.atStatue(atStatueVar);
@@ -1115,9 +1114,10 @@ function Map() {
             padding: '2rem',
           }}
         >
-          <h4>
-            <b>Items Found: {inventory.length}</b>
+          <h4 style={{display: 'block'}}>
+            <b>Items Found:</b> {!inventory.length ? 'none' : null}
           </h4>
+          <br/>
           <ol>
             {inventory.map((item, i) => (
               <li key={i} style={{ fontSize: '1.5rem' }}>
@@ -1160,7 +1160,7 @@ function Map() {
           <div className='modal-content'>
             <div className='modal-body'>
               <div className='laptop'>
-                <div className='content'>
+                <div className='content' style={{height: "370px"}}>
                   <p id='pro'>
                   &#8595;&#8595; Click to Reveal Your Test &#8595;&#8595;
                     <span
@@ -1178,6 +1178,7 @@ function Map() {
                     </span>
                   </p>
                   <CodeMirror
+                    style={{height: 'auto', fontSize: "24px"}}
                     value={code}
                     options={{
                       tabSize: 2,
