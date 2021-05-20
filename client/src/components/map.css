@@ -16,7 +16,7 @@
 
 /* The laptop's keyboard */
 .laptop:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 975px;
@@ -87,7 +87,7 @@
 
 /* Matrix Laptop Keyboard */
 .laptop2:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 975px;
@@ -100,14 +100,18 @@
 }
 
 #map {
-  transition: transform, 2s;
+  /* transition: transform 2s; */
 }
 
 .start {
+  transition: transform 2s;
   transform: translate(0%, -0.9%);
 }
 
 .down1 {
+  /* transition: transform 2s; */
+  transition-property: transform;
+  transition-duration: 2s;
   transform: translate(0%, -48%);
 }
 
@@ -162,6 +166,7 @@
 }
 
 .east1 {
+  transition: transform 2s;
   transform: translate(-16.4%, -48%);
 }
 
@@ -187,7 +192,7 @@
 
 #message {
   font-size: 2rem;
-  font-family: "Finger Paint";
+  font-family: 'Finger Paint';
   color: red;
   background: black;
   padding: 3rem;
