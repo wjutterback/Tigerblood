@@ -306,7 +306,7 @@ return Jy
       return `The being goes back to muttering quietly under its breath.`;
     }
   },
-  bossFive: (bossFiveCheckCounter) => {
+  bossFive: (bossFiveCheckCounter, bossSixCheckCounter) => {
     if (bossFiveCheckCounter === 0) {
       return `One of the two figures before you looks wizened and powerful; he's obviously a powerful summoner. You cannot understand what he's saying... it sounds like Valheim.`;
     } else if (bossFiveCheckCounter === 1) {
@@ -315,26 +315,24 @@ return Jy
       return `There is but one escape here, and I alone know the way..."`;
     } else if (bossFiveCheckCounter === 3) {
       return `Desperate to know how to escape, you ask how, but the summoner only laughs and turns his back to you. He materializes a terminal out of thin air. He is completely ignoring you now.`;
-    } else if (bossFiveCheckCounter > 3) {
+    } else if (bossFiveCheckCounter > 3 && bossSixCheckCounter <= 3) {
+      return `"Now what is that warrior yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
+    } else if (bossFiveCheckCounter > 3 && bossSixCheckCounter > 3) {
       return {
-        line: [1, 2, 3, 4],
+        lines: [1, 9, 1, 9],
         text: `... Must ... get ... the ... gold. Flash! Into a wall.... again. Urgh! You interrupted me and now I'm dead! I should not have listened to you, I was right the first time! It's time I repay the favor.". The wizard yells out towards the warrior. It's 1v1 time.`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
-
-        function resolveAnswer() {
-
-          let wizardsGuess = 'vision bonus';
-
-          function wizardsGuess() {
-
-            return wizardsGuess
-
+        You deliberate on which answer is the correct one.
+        */
+        function chooseAnswer() {
+          let guess;
+          function wizardsGuess(guess) {
+            guess = 'vision bonus'
+            return guess;
           }
-
-          return wizardsGuess
-        }
-        */`,
+          return wizardsGuess(guess)
+        }`,
       };
     }
   },
@@ -349,26 +347,20 @@ return Jy
       return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <=3) {
       return `"Now what is that wizard yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
-    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter >3) {
+    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter > 3) {
       return {
-        line: [1, 2, 3, 4],
+        lines: [1, 9, 1, 9],
         text: `The warrior hears the wizard's lamentations. He has never backed out of a fight. He also whips open a terminal and starts typing furiously...`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
-
-        function resolveAnswer() {
-
-          let warriorsGuess = 'more tables';
-
-          function warriorsGuess() {
-
-            return warriorsGuess
-
+        You deliberate on which answer is the correct one.
+        */
+        function yourAnswer() {
+          return function warriorsGuess() {
+            let warriorsGuess = 'more tables';
+            return warriorsGuess;
           }
-
-          return warriorsGuess
-        }
-        */`,
+        }`,
       };
     }
   },
@@ -393,7 +385,7 @@ return Jy
       return `Funny. You remind me of someone I knew long ago, but the name escapes me. This world slowly erodes your memory, turning you into a thrall for Tish, who herself is just as trapped and lost.`;
     } else if (bossEightCheckCounter === 2) {
       return `I've tried to resist in every way possible. Do you not see how far I've come? But my strength fades... I can only hope you surpass my own limits.`;
-    } else if (bossEightCheckCounter === 3 && Iyana > 3) {
+    } else if (bossEightCheckCounter > 2 && Iyana > 2) {
       return {
         lines: [1, 9, 10, 15],
         text: `My purpose? Ahh, well Tish made me her virus protection. I'm not even sure the old code works any more... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
@@ -404,12 +396,12 @@ return Jy
       immediately deploys its anti-antivirus protocal! You've bought yourself some time as the antivirus creature
       bears down on you as if in slo-mo. Just enough time to find the pertinent snippet you need! It's so well-written,
       all you need to do is run it!
+      */
       function antivirusProgram(virus) {
         return virus = 'veryDead';
-      }
-      */`,
+      }`,
       };
-    } else if (bossEightCheckCounter === 3) {
+    } else if (bossEightCheckCounter > 2) {
       return `I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye Nana It pays to know her.`;
     }
   },
