@@ -318,13 +318,13 @@ return Jy
     } else if (bossFiveCheckCounter > 3) {
       return {
         line: [1, 2, 3, 4],
-        text: `... Must ... get ... the ... gold. Flash! Into a wall.... again. Urgh! You interrupted me and now I'm dead! It's time I repay the favor. The wizard calls for help from the warrior, but the warrior ignores him. It's 1v1 time.`,
+        text: `... Must ... get ... the ... gold. Flash! Into a wall.... again. Urgh! You interrupted me and now I'm dead! I should not have listened to you, I was right the first time! It's time I repay the favor.". The wizard yells out towards the warrior. It's 1v1 time.`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
 
         function resolveAnswer() {
 
-          let wizardsGuess;
+          let wizardsGuess = 'vision bonus';
 
           function wizardsGuess() {
 
@@ -338,25 +338,28 @@ return Jy
       };
     }
   },
-  bossSix: (bossSixCheckCounter) => {
+  bossSix: (bossSixCheckCounter, bossFiveCheckCounter) => {
     if (bossSixCheckCounter === 0) {
       return `One of the two figures before you looks like a mighty warrior.`;
     } else if (bossSixCheckCounter === 1) {
       return `His eyes carry the wisdom of someone who played chess in their youth. But they also carry a look of disdain when glancing at you. He might have the answers you seek...`;
     } else if (bossSixCheckCounter === 2) {
-      return `You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!.`;
+      return ` The warriors smirks at you and speaks: "You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;
+    
     } else if (bossSixCheckCounter === 3) {
-      return `I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables...`;
-    } else if (bossSixCheckCounter > 3) {
+      return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
+    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <3) {
+      return `"Now what is that wizard yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
+    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter >3) {
       return {
         line: [1, 2, 3, 4],
-        text: `He looks at you with pity. I am tired now, go away and let me be. And with that he goes back to reminscing about his youthful days spent schooling other warriors in chess.`,
+        text: `The warrior hears the wizard's lamentations. He has never backed out of a fight. He also whips open a terminal and starts typing furiously...`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
 
         function resolveAnswer() {
 
-          let warriorsGuess;
+          let warriorsGuess = 'more tables';
 
           function warriorsGuess() {
 

@@ -7,7 +7,7 @@
     A coding induced nightmare
     <br />
     <br />
-    <a href="www.tigerbloodthegame.com" target="_blank">View Demo</a>
+    <a href="http://www.tigerbloodthegame.com" target="_blank">View Demo</a>
     </p>
 </div>
 
@@ -38,6 +38,7 @@ Following languages, frameworks and libraries were used in the development of th
 - HTML5, CSS3, JavaScript ES6
 - Bootstrap4, NodeJS, Express, REACT, MongoDB/ Mongoose
 - Rot.js, CodeMirror, Mocha, Chai.
+- Test-Driven Progress
 
 ### Future Development
 
