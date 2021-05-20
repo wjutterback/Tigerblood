@@ -940,7 +940,7 @@ function Map() {
               return false;
             case 'F':
             case 'f': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar, cat1Var. cat2Var, dogVar);
+              value = gameFuncs.bossFinal(bossFinalVar, cat1Var, cat2Var, dogVar);
               bossFinalVar++;
               setMessage(value);
               return false;
@@ -1021,7 +1021,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
