@@ -1,8 +1,8 @@
 .laptop {
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  -webkit-transform: scale(1) translate(-50%); /* Can be scaled to 1.5 to make Computer screen bigger but cursor inside screen goes haywire */
-  transform: scale(1) translate(-50%); /* Can be scaled to 1.5 to make Computer screen bigger but cursor inside screen goes haywire */
+  -webkit-transform: scale(1.5) translate(-50%, -50%); /* Can be scaled to 1.5 to make Computer screen bigger but cursor inside screen goes haywire */
+  transform: scale(1.5) translate(-50%, -50%); /* Can be scaled to 1.5 to make Computer screen bigger but cursor inside screen goes haywire */
   left: 50%;
   position: absolute;
   width: 800px;
@@ -194,17 +194,17 @@
 }
 
 /* The typing effect */
-@keyframes typing {
+/* @keyframes typing {
   from {
     width: 0;
   }
   to {
     width: 100%;
   }
-}
+} */
 
 /* The typewriter cursor effect */
-@keyframes blink-caret {
+/* @keyframes blink-caret {
   from,
   to {
     border-color: transparent;
@@ -212,7 +212,7 @@
   50% {
     border-color: orange;
   }
-}
+} */
 
 .modal {
   z-index: 1050;

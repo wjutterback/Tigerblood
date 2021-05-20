@@ -319,7 +319,7 @@ return Jy
       return `... Must ... get ... the ... gold. Flash! Into a wall.... again.`;
     }
   },
-  bossSix: (bossSixCheckCounter) => {
+  bossSix: (bossSixCheckCounter, bossFiveCheckCounter) => {
     if (bossSixCheckCounter === 0) {
       return `One of the two figures before you looks like a mighty warrior. - Tony`;
     } else if (bossSixCheckCounter === 1) {
