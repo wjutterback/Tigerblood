@@ -99,7 +99,7 @@ function Map() {
         1: [800, 1920], // Player - Level 1 (noob)
         2: [672, 1920], // Player - Level 2 (rookie)
         3: [1216, 1920], // Player - Level 3 (knight)
-        4: [960, 832], // Player - Level 4 (mage)
+        4: [416, 1920], // Player - Level 4 (mage)
         5: [96, 2112], // Player - Level 5 (elemental)
         0: [320, 1088], // Level Up Animation
         r: [128, 1376], // Ring
@@ -172,7 +172,8 @@ function Map() {
         '(': [], // Grass SW
         ')': [], // Grass SE
         '?': [800, 224], // see through tile, Looks very similar to real wall
-        ',': [32, 1952], // joy
+        ',': [32, 1952], // joy,
+        6: [0, 1120], // necklace
       },
       width: 92,
       height: 33,
@@ -239,8 +240,9 @@ function Map() {
         tileMap[5][42] = ['.', '*', ','];
       } else if (test === 'wizard') {
         setMessage(
-          `The wizard beams with pride as the warrior sighs in frustration. Your light has increased by 1!`
+          `The wizard beams with pride as the warrior sighs in frustration. "I finally beat him! I'm gold now, buddy. I've unlocked the chest over there, take what's inside - I don't need it anymore.`
         );
+        tileMap[11][55] = ['.', 6];
         //TODO: Wizard gives you item that increases light and breaks golem
       } else if (test === 'antiVirus') {
         setMessage(
@@ -250,8 +252,6 @@ function Map() {
       } else if (test === 'door') {
         tileMap[door.x][door.y] = ['.', 'U'];
       }
-      //display draw doesn't work in here, not quite sure why that is
-      //display.draw needed to draw the open door on pass
       roomsCleared++;
       // setCode(`
       // /*
@@ -263,11 +263,19 @@ function Map() {
       // */`);
       setCode(`
       /*
+<<<<<<< HEAD
       888         888 888888 888   8 888   8 888888 888   8 d88808b.
       '8P       '88P    88   88 8' 8 88 8' 8   88   88 8' 8 d.
        '88  88  d88'    88   88 '8 8 88 '8 8   88   88 '8 8 8888888
         '88 88b 88      88   88  '88 88  '88   88   88  '88 88   88
          88Y "88Y     888888 88  "88 88  "88 888888 88  "88 8888888
+=======
+      888         888 888888  888   8 888   8 888888 888   8 .d8888b
+      '8P       '88P    88    88 8' 8 88 8' 8   88   88 8' 8 d.
+       '88  88  d88'    88    88 '8 8 88 '8 8   88   88 '8 8 8808888
+        '88 88b 88      88    88  '88 88  '88   88   88  '88 88   88
+         88Y "88Y     888888  88  "88 88  "88 888888 88  "88 8888888
+>>>>>>> 51d95befc2383f139434062d35fd7d276bf3b982
       */`);
       setTimeout(() => {
         if (document.getElementById('screenModal').style.display !== 'none') {
@@ -281,7 +289,7 @@ function Map() {
       setTimeout(() => {
         setCode(memory.code);
         setLines(memory.lines);
-      }, 3000);
+      }, 2500);
     }
   };
 
@@ -295,6 +303,8 @@ function Map() {
     let screenBackdrop = document.createElement('div');
     screenBackdrop.classList.add('screenModalBackdrop');
     mapContainer.appendChild(screenBackdrop);
+    let editor = document.querySelector('.CodeMirror').CodeMirror;
+    editor.refresh();
   }
 
   function closeScreenModal() {
@@ -377,7 +387,6 @@ function Map() {
       cleanReferencesAfterRun: true,
       ui: 'bdd',
     });
-
     testFuncs.doorTest();
     testFuncs.thermalDoor();
     testFuncs.dragonBoss();
@@ -483,8 +492,8 @@ function Map() {
     let golem2Var = 0;
     let golem3Var = 0;
     let golem4Var = 0;
-    let portalVar = 0;
     let ringVar = 0;
+    let necklaceVar = 0;
     let bossOneVar = 0;
     let bossTwoVar = 0;
     let bossThreeVar = 0;
@@ -508,15 +517,19 @@ function Map() {
       let lightRadius = 2;
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
-        const blockLight = ['#', 'L', '&', 'M', 'm', 'K', 'o'];
-        if (Array.isArray(tileMap[x][y]) === true) {
-          if (blockLight.some((tile) => tileMap[x][y].includes(tile))) {
+        try {
+          if (tileMap[x][y] === undefined || tileMap[x][y] === null) {
+          }
+          const blockLight = ['#', 'L', '&', 'M', 'm', 'o', '@'];
+          if (Array.isArray(tileMap[x][y]) === true) {
+            if (blockLight.some((tile) => tileMap[x][y].includes(tile))) {
+              return false;
+            }
+          } else if (tileMap[x][y] === '#') {
             return false;
           }
-        } else if (tileMap[x][y] === '#') {
-          return false;
-        }
-        return true;
+          return true;
+        } catch (err) {}
       }
 
       let fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 8 });
@@ -556,11 +569,11 @@ function Map() {
 
       function removeGolem({ x, y }, golem) {
         if (golem === 1) {
-          tileMap[23][30] = ['.', 'm'];
-          display.draw(30, 23, ['.', 'm']);
+          tileMap[23][45] = ['.', 'm'];
+          display.draw(45, 23, ['.', 'm']);
           setTimeout(() => {
-            tileMap[23][30] = '.';
-            display.draw(30, 23, '.');
+            tileMap[23][45] = '.';
+            display.draw(45, 23, '.');
           }, 500);
         } else {
           tileMap[x][y] = ['.', 'm'];
@@ -596,7 +609,6 @@ function Map() {
           default:
         }
       }
-
       function drawLight() {
         fov.compute(22, 5, 2, function (x, y, r) {
           if (playerPos.x === x && playerPos.y === y) {
@@ -605,6 +617,30 @@ function Map() {
           display.draw(x, y, tileMap[y][x]);
         });
         fov.compute(22, 4, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(42, 5, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(42, 6, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(53, 8, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(73, 3, 2, function (x, y, r) {
           if (playerPos.x === x && playerPos.y === y) {
             return drawPlayer();
           }
@@ -656,6 +692,8 @@ function Map() {
       async function movement() {
         let action = false;
         while (!action) {
+          //artifically limits player movement by waiting for timeout to be resolved before allowing for new keydown event to be registered
+          await new Promise((resolve) => setTimeout(resolve, 100));
           let e = await new Promise((resolve) => {
             window.addEventListener('keydown', resolve, { once: true });
           });
@@ -819,16 +857,17 @@ function Map() {
               return false;
             case 'v':
               //TODO: Wizard Item Implementaion to destroy golem
-              value = gameFuncs.golem4(golem4Var);
+              value = gameFuncs.golem4(golem4Var, necklaceVar);
               golem4Var++;
               setMessage(value);
-              removeGolem({ x: x, y: y });
+              if (necklaceVar === 1) {
+                removeGolem({ x: x, y: y });
+              }
               return false;
             case '@':
-              value = gameFuncs.portal(portalVar);
-              portalVar++;
+              value = gameFuncs.portal();
               setMessage(value);
-              return false;
+              return true;
             case 'T':
             case 't': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
@@ -841,6 +880,7 @@ function Map() {
               setLines(value.lines);
               setCode(value.code);
               setMessage(value.text);
+              setMemory({ code: value.code, lines: value.lines });
               bossOneVar++;
               return false;
             case 'Y':
@@ -855,6 +895,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossTwo(bossTwoVar, bossThreeVar, bossFourVar);
@@ -873,6 +914,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossThree(
@@ -895,6 +937,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossFour(bossFourVar, bossTwoVar, bossThreeVar);
@@ -909,6 +952,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossFive(bossFiveVar);
@@ -923,6 +967,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossSix(bossSixVar, bossFiveVar);
@@ -932,6 +977,9 @@ function Map() {
             case 'X':
             case 'x':
               value = gameFuncs.bossSeven(bossSevenVar);
+              if (bossSevenVar === 3) {
+                lvl++;
+              }
               bossSevenVar++;
               setMessage(value);
               return false;
@@ -943,6 +991,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossEight(bossEightVar, bossSevenVar);
@@ -1055,6 +1104,21 @@ function Map() {
               setTimeout(() => {
                 gameOver();
               }, 1000);
+              return false;
+            case 6:
+              setMessage(
+                'You pick up the necklace and immediately your vision expands.'
+              );
+              let necklaceItem = {
+                name: 'Necklace of Legends',
+                power: 'Grants sight beyond sight',
+              };
+              setInventory((inventory) => [...inventory, necklaceItem]);
+              necklaceVar++;
+              lightRadius++;
+              lvl++;
+              tileMap[11][55] = '.';
+              display.draw(55, 11, '.');
               return false;
             default:
           }
