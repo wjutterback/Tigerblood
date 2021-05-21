@@ -160,7 +160,7 @@ function Map() {
         '*': [96, 416], // Pentagram
         '=': [1184, 288], // Grass
         '^': [1696, 288], // Grass North
-        '_': [1504, 288], // Grass South
+        _: [1504, 288], // Grass South
         '+': [1760, 288], // Grass East
         '-': [672, 288], // Grass West
         '%': [1312, 288], // Sand
@@ -338,13 +338,13 @@ function Map() {
   }
 
   function showInventory() {
-    let content = document.querySelector(".inventoryDiv");
-    if (content.style.display === "block") {
-      content.style.display = "none";
+    let content = document.querySelector('.inventoryDiv');
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
     } else {
-      content.style.display = "block";
+      content.style.display = 'block';
     }
-  };
+  }
 
   useEffect(() => {
     setGameOverState({
@@ -750,7 +750,7 @@ function Map() {
             case 'L':
               value = gameFuncs.door(keyboardVar, { x: x, y: y });
               if (keyboardVar === 1) {
-                setVisibility("visible")
+                setVisibility('visible');
                 setLines(value.lines);
                 setCode(value.code);
                 setMemory({ code: value.code, lines: value.lines });
@@ -938,23 +938,33 @@ function Map() {
               return false;
             case 'F':
             case 'f': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar, cat1Var, cat2Var, dogVar);
-              if (bossFinalVar >0 && cat1Var >0 && cat2Var >0 && dogVar >0){
+              value = gameFuncs.bossFinal(
+                bossFinalVar,
+                cat1Var,
+                cat2Var,
+                dogVar
+              );
+              if (
+                bossFinalVar > 0 &&
+                cat1Var > 0 &&
+                cat2Var > 0 &&
+                dogVar > 0
+              ) {
                 setMessage(value);
-                setTimeout(()=>{
+                setTimeout(() => {
                   tileMap[22][84].pop();
                   tileMap[23][84].pop();
                   display.draw(84, 22, '=');
                   display.draw(84, 23, '=');
-                }, 1000)
-                setTimeout(()=>{
+                }, 1000);
+                setTimeout(() => {
                   tileMap[22][87].pop();
-                  display.draw(87, 22, ['=','b']);
-                }, 2000)
-                setTimeout(()=>{
+                  display.draw(87, 22, ['=', 'b']);
+                }, 2000);
+                setTimeout(() => {
                   tileMap[22][87].pop();
-                  display.draw(87, 22, ['=','$']);
-                }, 3000)
+                  display.draw(87, 22, ['=', '$']);
+                }, 3000);
                 return true;
               } else {
                 bossFinalVar++;
@@ -1031,7 +1041,7 @@ function Map() {
               display.draw(87, 22, '=');
               setTimeout(() => {
                 gameOver();
-              }, 1000)
+              }, 1000);
               return true;
             default:
           }
@@ -1063,7 +1073,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
@@ -1205,23 +1215,27 @@ function Map() {
       </div>
       <div className='col-sm-12 col-md-6'>
         <div className='row'>
-          <button 
-            type="button" 
-            className="collapsible mx-auto"
+          <button
+            type='button'
+            className='collapsible mx-auto'
             onClick={showInventory}
           >
             <b>Inventory</b>
           </button>
-            <div className="inventoryDiv">
-              {!inventory.length ? "You haven't found any items yet. Keep exploring!" : null}
-              <ol>
-                {inventory.map((item, i) => (
-                  <li key={i}>
-                    <h4><b>{item.name}</b>: {item.power}</h4>
-                  </li>
-                ))}
-              </ol>
-            </div>
+          <div className='inventoryDiv'>
+            {!inventory.length
+              ? "You haven't found any items yet. Keep exploring!"
+              : null}
+            <ol>
+              {inventory.map((item, i) => (
+                <li key={i}>
+                  <h4>
+                    <b>{item.name}</b>: {item.power}
+                  </h4>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
         <div className='row'>
           <p id='message'>{message}</p>
