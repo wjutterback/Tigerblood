@@ -764,6 +764,11 @@ function Map() {
         if (Array.isArray(tileMap[x][y])) {
           let value;
           switch (tileMap[x][y][1]) {
+            case '.':
+            case '=':
+              value=gameFuncs.passableTerrain();
+              setMessage(value);
+              return true;
             case 'R':
               value = gameFuncs.helpStone(deadBodyVar);
               helpStone = 1;
@@ -1035,6 +1040,7 @@ function Map() {
                 return false;
               }
             case 'u':
+            case 'o':
               value = gameFuncs.tree(treeVar);
               treeVar++;
               setMessage(value);
@@ -1350,7 +1356,7 @@ function Map() {
               <div className='laptop'>
                 <div className='content' style={{ height: '370px' }}>
                   <p id='pro'>
-                    &#8595;&#8595; Click to Reveal Your Test &#8595;&#8595;
+                    VSX Code
                     <span
                       style={{
                         float: 'right',

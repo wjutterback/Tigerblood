@@ -10,13 +10,13 @@ const gameFuncs = {
   },
   helpMessage: (messageCheckCounter) => {
     if (messageCheckCounter === 0) {
-      const a = `I don't know who you are. Please believe. There is no way I can convince you that this is not one of her tricks. But I don't care.`;
-      const b = `I spent the last of my power to give you help, and my blood in the hopes you escape this place. This keyboard will allow you to connect to the elemental composition of this world, changing it to your will, but it will test the limits of your Joyous Spirit. Fizz Buzz. - B.E.`;
+      const a = `"I don't know who you are. Please believe. There is no way I can convince you that this is not one of her tricks. But I don't care."`;
+      const b = `"I spent the last of my power to give you help, and my blood in the hopes you escape this place. This keyboard will allow you to connect to the elemental composition of this world, changing it to your will, but it will test the limits of your Joyous Spirit. Fizz Buzz. - B.E."`;
       return `${a} ${b}`;
     } else if (messageCheckCounter === 1) {
-      return `Fizz Buzz? Joyous Spirit? They must have been delirious from loss of blood.`;
+      return `"Fizz Buzz? Joyous Spirit? They must have been delirious from loss of blood."`;
     } else if (messageCheckCounter > 1) {
-      return `Very macabre. You shove the thought of their desperation out of your mind.`;
+      return `"Very macabre. You shove the thought of their desperation out of your mind."`;
     }
   },
   door: (keyboardVar, door) => {
@@ -139,7 +139,7 @@ const gameFuncs = {
     }
   },
   golem1: () => {
-    return `Your keyboard USB cord flies out and connects to the golem as soon as you enter its proximity. The golem explodes, leaving behind nothing and clearing the way.`;
+    return `Your keyboard starts vibrating and blinking as soon as you enter the Golem's proximity. The golem explodes, leaving behind nothing and clearing the way.`;
   },
   golem2: (golem2CheckCounter, ringCheckCounter) => {
     if (golem2CheckCounter === 0 && ringCheckCounter === 0) {
@@ -183,21 +183,21 @@ const gameFuncs = {
   },
   bossOne: (bossOneCheckCounter) => {
     if (bossOneCheckCounter === 0) {
-      return `Who disturbs my slumber? Oh, it's another human! I once was a human, like yourself, but I asked Tish one too many questions and she rewarded me by making me her CPU heat sink.`;
+      return `"Who disturbs my slumber? Oh, it's another human! I once was a human, like yourself, but I asked Tish one too many questions and she rewarded me by making me her CPU heat sink."`;
     } else if (bossOneCheckCounter === 1) {
-      return `What question did I ask, you ask? "Is jQuery the best option for selecting DOM elements?" - I expected her answer, as usual, to be, "It depends." but instead a dark and stormy cloud washed over her face as she slammed her fist into the keyboard. Electricity crackled from her fist on impact, executing a program that turned me into this hideous beast you see before you now.`;
+      return `"What question did I ask, you ask? "Is jQuery the best option for selecting DOM elements?" - I expected her answer, as usual, to be, "It depends." but instead a dark and stormy cloud washed over her face as she slammed her fist into the keyboard. Electricity crackled from her fist on impact, executing a program that turned me into this hideous beast you see before you now."`;
     } else if (bossOneCheckCounter === 2) {
-      return `All I do now is absorb heat day in and day out, or should I say computer cycle in and computer cycle out; my room is hotter than Midland! She completely replaced her old heatRegulation function with me!`;
+      return `"All I do now is absorb heat day in and day out, or should I say computer cycle in and computer cycle out; my room is hotter than Midland! She completely replaced her old heatRegulation function with me!"`;
     } else if (bossOneCheckCounter > 2) {
       return {
         lines: [1, 8, 9, 10],
-        text: `I grow weary of reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your keyboard sends a jolt of electricity through your body; you quickly open up the terminal.`,
+        text: `"I grow weary of reminiscing; my heart aches for my family. You too shall know my pain. - the dragon begins to inhale, flames from about the room begin to coalesce in front of its mouth - your keyboard sends a jolt of electricity through your body; you quickly open up the terminal."`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
         !!! Your mind sharpens in the presence of danger! Before you appears Tish's old heatRegulation function, now corrupted and defunct(literally) - quickly repair it to disperse the heat from the dragon !!!
         My notes: I learned all about #$@LK#$J 2nd Law of Thermodynamics to #$KLJ@#LK$J thermal regulation function for my CPU.
         Honestly, I think I've improved on the #$@%ZLKU*F state of the field - Newton was almost there. Almost.
-        It was very simple... all I did was subtract...#$)#()Z()F)g)
+        It was very simple... all I did was subtract the heat...#$)#()Z()F)g)
         */
         function heatRegulation(heat) {
           return heat - @#$(v!..,er..!y co/,.rru/.,pt da!.,/ta)#@
@@ -211,9 +211,9 @@ const gameFuncs = {
     } else if (bossTwoCheckCounter === 1) {
       return `"Get back to the work at hand. Cazasa, stay focused, you're responsible for writing all our functions. We're close to bringing Joy back into our lives!"`;
     } else if (bossTwoCheckCounter === 2) {
-      return `"What do you want traveller? According to my pie charts and role assignments we have no need for an amatuer. We need a STAR! And you clearly aren't one... *smiles*"`;
+      return `"What do you want traveller? According to my pie charts and role assignments we have no need for an amatuer. We need a STaR! And you clearly aren't one... *smiles*"`;
     } else if (bossTwoCheckCounter === 3) {
-      return `I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, do we splice or slice?`;
+      return `"I wrote this code to bring our Joy back, it broke, but we're fixing it.. Almost. It's missing something... Mejas, do we splice or slice?"`;
     } else if (bossTwoCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
       return {
         lines: [1, 6, 9, 10],
@@ -225,28 +225,28 @@ const gameFuncs = {
         is so gross! I don't even remember what it was for. All code is making me feel ill.
         */
         function bringJoy(Jy) {
-      Jy.slice()
-      Jy.splice()
-      return Jy
+          Jy.slice()
+          Jy.splice()
+          return Jy
         }`,
       };
     } else if (bossTwoCheckCounter > 3) {
-      return `Focus you two, keep coding! Or I'll splice you two together and find my own joy`;
+      return `"Focus you two, keep coding! Or I'll splice you two together and find my own joy."`;
     }
   },
   bossThree: (bossThreeCheckCounter, boss1, boss2) => {
     if (bossThreeCheckCounter === 0) {
       return `You throw caution to the wind as you approach one of the three figures huddled around the pentagram... The creature spits at you. Disgusting.`;
     } else if (bossThreeCheckCounter === 1) {
-      return `They call me... the Menace.. Or was it Sinned? I know. It's Cazasa. Cazasa the Great, nice to meet you. *attempts to spit on you again*`;
+      return `"They call me... the Menace.. Or was it Sinned? I know. It's Cazasa. Cazasa the Great, nice to meet you." *attempts to spit on you again*`;
     } else if (bossThreeCheckCounter === 2) {
-      return `These other two sad creatures have lost themselves. Not me though! I know who I am! I forget what we're doing though...`;
+      return `"These other two sad creatures have lost themselves. Not me though! I know who I am! I forget what we're doing though. The storm blew up all my apparatus!"`;
     } else if (bossThreeCheckCounter === 3) {
       return `The other two creatures howl loudly at Cazasa the Great.`;
     } else if (bossThreeCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
       return {
         lines: [1, 6, 9, 10],
-        text: `All three creatures slowly look up from what they are doing and stare at you. It's almost as if they finally realized what you are, all at once. Their thoughts are transprent to you, you don't need a keyboard to see it - you're the missing piece. They all lunge at you, desperately grabbing at you, but you instinctively pull out your keyboard. Lines of code appear before you, but it seems unfinished.`,
+        text: `All three creatures slowly look up from what they are doing and stare at you. It's almost as if they finally realized what you are, all at once. Their thoughts are transparent to you, you don't need a keyboard to see it - you're the missing piece. They all lunge at you, desperately grabbing at you, but you instinctively pull out your keyboard. Lines of code appear before you, but it seems unfinished.`,
         code: `/*jshint esversion: 6, asi: true*/
   /*
   NoTeS? No-TES. NO. Time. Extended. Service. Wait, what am I writing? I need to get more sleep.
@@ -260,18 +260,18 @@ return Jy
   }`,
       };
     } else if (bossThreeCheckCounter > 3) {
-      return `Go away, they reminded me we're trying to bring Joy back into our lives. We just keep missing this one thing. Do we splice or slice? ... Wait, what are we doing again?`;
+      return `"Go away, they reminded me we're trying to bring Joy back into our lives. We just keep missing this one thing. Do we splice or slice? ... Wait, what are we doing again?"`;
     }
   },
   bossFour: (bossFourCheckCounter, boss1, boss2) => {
     if (bossFourCheckCounter === 0) {
       return `You're pretty sure of yourself as you approach one of the three figures huddled around the pentagram... The creature cackles to itself. You barely hear it muttering between laughs.`;
     } else if (bossFourCheckCounter === 1) {
-      return `I'm losing myself... I remember... we were working on a procrastination app... or was it a face analyzer app... We're lost without Joy.`;
+      return `"I'm losing myself... I remember... we were working on a procrastination app... or was it a face analyzer app... We're lost without Joy."`;
     } else if (bossFourCheckCounter === 2) {
-      return `Students? Did you say students? Are you... She-Who-Knows? No, you look too lost. If I see a student around here, I'm going to slice them.`;
+      return `"Students? Did you say students? Are you... She-Who-Knows? No, you look too lost. If I see a student around here, I'm going to slice them."`;
     } else if (bossFourCheckCounter === 3) {
-      return `Quiet, we're almost finished bringing Joy back into our lives. I just... I just... can't remember... splice?`;
+      return `"Quiet, we're almost finished bringing Joy back into our lives. I just... I just... can't remember... splice?"`;
     } else if (bossFourCheckCounter > 3 && boss1 > 3 && boss2 > 3) {
       return {
         lines: [1, 6, 9, 10],
@@ -280,7 +280,7 @@ return Jy
         /*
         NoTeS? No-TES. NO. Time. Extended. Service. Wait, what am I writing? I need to get more sleep.
         I feel less and less like myself these days. What am I writing right now? This code
-        is so gross! I don't even remember what it was for. All code is making me feel ill.
+        is so gross! What is Jy missing to return Joy? All code is making me feel ill.
         */
         function bringJoy(Jy) {
       Jy.slice()
@@ -328,11 +328,11 @@ return Jy
     } else if (bossSixCheckCounter === 1) {
       return `His eyes carry the wisdom of someone who played chess in their youth. But they also carry a look of disdain when glancing at you. He might have the answers you seek...`;
     } else if (bossSixCheckCounter === 2) {
-      return ` The warriors smirks at you and speaks: "You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;
+      return ` The warriors smirks at you and speaks: "You wish to escape this place, but you do not see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;
     } else if (bossSixCheckCounter === 3) {
       return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <= 3) {
-      return `The wizard and I are playing a coding game against each other. We started playing as a means to pass time in this wretched place; it's how we've reached so far in this dungeon. We're stuck on some nonsense though. We both came up with different answers, but we have no way to test them. I won't show you mine until you've seen his."`;
+      return `"The wizard and I are playing a coding game against each other. We started playing as a means to pass time in this wretched place; it's how we've reached so far in this dungeon. We're stuck on some nonsense though. We both came up with different answers, but we have no way to test them. I won't show you mine until you've seen his."`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter > 3) {
       return {
         lines: [1, 9, 1, 9],
@@ -352,43 +352,44 @@ return Jy
   },
   bossSeven: (bossSevenCheckCounter) => {
     if (bossSevenCheckCounter === 0) {
-      return `...`;
+      return `"..."`;
     } else if (bossSevenCheckCounter === 1) {
-      return `....`;
+      return `"....."`;
     } else if (bossSevenCheckCounter === 2) {
-      return `.....`;
+      return `"......."`;
     } else if (bossSevenCheckCounter === 3) {
-      return `I'm glad you spent the effort to talk to me! Here, take this gift. It fell off a UFO I saw. I've been hiding it very well, but I have a feeling you need it more now. Escape you ask? No, there's no escape. Maybe Yenso knows but the one time I asked the look on his face was so sad I couldn't bring myself to push the issue. I haven't brought it up since.
-      *** Eye Nana gives you a Worm - it burrows into your skin immediately, the pain is immense but you feel untold power coursing through your body ***`;
+      return `"Oh, Hi! I didn't see you there! I'm glad you spent the effort to talk to me! Here, take this gift. It fell off a UFO I saw. I've been hiding it very well, but I have a feeling you need it more now. Escape, you ask? No, there's no escape. Maybe Yenso knows but the one time I asked the look on his face was so sad I couldn't bring myself to push the issue. I haven't brought it up since.".
+      *** Eye-Nana gives you a Worm - it burrows into your skin immediately, the pain is immense but you feel untold power coursing through your body ***`;
     } else if (bossSevenCheckCounter > 3) {
-      return `.....`;
+      return `"You have the worm. Enough said."`;
     }
   },
   bossEight: (bossEightCheckCounter, Iyana) => {
     if (bossEightCheckCounter === 0) {
-      return `This world... it's an illusion, convincing as it is insidious. We're just bits and voltage waiting for change. Oh? You're not surprised. You must know the truth.`;
+      return `"This world... it's an illusion, convincing as it is insidious. We're just bits and voltage waiting for change. Oh? You're not surprised. You must know the truth."`;
     } else if (bossEightCheckCounter === 1) {
-      return `Funny. You remind me of someone I knew long ago, but the name escapes me. This world slowly erodes your memory, turning you into a thrall for Tish, who herself is just as trapped and lost.`;
+      return `"Funny. You remind me of someone I knew long ago, but the name escapes me. This world slowly erodes your memory, turning you into a thrall for Tish, who herself is just as trapped and lost."`;
     } else if (bossEightCheckCounter === 2) {
-      return `I've tried to resist in every way possible. Do you not see how far I've come? But my strength fades... I can only hope you surpass my own limits.`;
+      return `"I've tried to resist in every way possible. Do you not see how far I've come? But my strength fades... I can only hope you surpass my own limits."`;
     } else if (bossEightCheckCounter > 2 && Iyana > 2) {
       return {
         lines: [1, 9, 10, 15],
-        text: `My purpose? Ahh, well Tish made me her virus protection. I'm not even sure the old code works any more... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!`,
+        text: `"My purpose? Ahh, well Tish made me her virus protection. I'm not even sure the old code works any more... Wait... Why do I feel the need to scan you suddenly??? I see that disgusting worm wriggling in your body! YOU TRICKED ME. How did you evade detection?!? Time to die!"`,
         code: `/*jshint esversion: 6, asi: true*/
       /*
       As you're attacked by the antivirus creature, a small portion of Tish's antivirus code is made available to you.
       It's so complicated and dense, you're sure you will die. The worm senses its host's immediate danger and
-      immediately deploys its anti-antivirus protocal! You've bought yourself some time as the antivirus creature
+      immediately deploys its anti-antivirus protocol! You've bought yourself some time as the antivirus creature
       bears down on you as if in slo-mo. Just enough time to find the pertinent snippet you need! It's so well-written,
       all you need to do is run it!
       */
       function antivirusProgram(virus) {
-        return virus = 'veryDead';
+        virus = 'veryDead';
+        return virus;
       }`,
       };
     } else if (bossEightCheckCounter > 2) {
-      return `I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye Nana It pays to know her.`;
+      return `"I mean, really, what is the purpose beyond this digital cage? It's not so different, so why the struggle? At least here there seems to be a definitive purpose here. I have a function to perform. Have you talked to Eye-Nana? It pays to know her."`;
     }
   },
   bossFinal: (
@@ -403,7 +404,7 @@ return Jy
       cat2CheckCounter === 0 &&
       dogCheckCounter === 0
     ) {
-      return `You reach an enchantress shouting what sounds like an ancient spell. "FREYA! PTAHMOSE! LEXIE", she shouts. You try to get her attention.`;
+      return `You reach an enchantress shouting what sounds like an ancient spell. "FREYA! PTAHMOSE! LEXIE!", she shouts. You try to get her attention but she seems very distracted.`;
     } else if (
       bossFinalCheckCounter > 0 &&
       cat1CheckCounter === 0 &&
@@ -480,9 +481,9 @@ return Jy
   },
   keeper: (keeperCheckCounter) => {
     if (keeperCheckCounter === 0) {
-      return `Greetings! I am the Keeper of Secrets. Like the super secret mirror that the enchantress told me not to tell anyone about or the fact that it even exists. Umm, wait... aarrgh I did it again!`;
+      return `"Greetings! I am the Keeper of Secrets. Like the super secret mirror that the enchantress told me not to tell anyone about or the fact that it even exists. Umm, wait... aarrgh I did it again!"`;
     } else {
-      return `You will not trick me again traveller. Find those pets and take them to the enchantress.`;
+      return `"You will not trick me again traveller. Go talk to the enchantress, she has what you seek, along with a super secret ite..., oh no no, I mean nothing. Just go!"`;
     }
   },
   tree: (treeCheckCounter) => {
@@ -506,8 +507,11 @@ return Jy
     if (fountainCheckCounter === 0) {
       return `A water fountain. A welcome sight after what you've been through. Go ahead, take a drink."`;
     } else {
-      return `"This water has a mild but strange taste.", you think as you take another drink. "I'm sure it's fine.", you think ... and hope. `;
+      return `"This water has a mild but strange taste.", you think as you take another drink. "I'm sure it's fine.", you think ... and hope.`;
     }
+  },
+  passableTerrain: () => {
+    return ` ... `;
   },
 };
 export default gameFuncs;
