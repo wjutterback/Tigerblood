@@ -138,39 +138,31 @@ const gameFuncs = {
       return `"Whoever owns this place should really switch their interior decorator.", you smile nervously as you look around for any eavesdroppers.`;
     }
   },
-  golem1: (golem1CheckCounter, keyboardCheckCounter) => {
-    if (golem1CheckCounter === 0 && keyboardCheckCounter === 0) {
-      return `That's one creepy statue. Its eyes seem to follow you across the room. It blocks your way to the next area.`;
-    } else if (golem1CheckCounter > 0 && keyboardCheckCounter === 0) {
-      return `The statue keeps getting creepier somehow. Its expression makes you very uneasy. There must be a way to remove it.`;
-    } else if (golem1CheckCounter > 0 && keyboardCheckCounter === 1) {
-      return `The golem explodes, leaving behind nothing and clearing the way.`;
-    }
+  golem1: () => {
+    return `Your keyboard USB cord flies out and connects to the golem as soon as you enter its proximity. The golem explodes, leaving behind nothing and clearing the way.`;
   },
   golem2: (golem2CheckCounter, ringCheckCounter) => {
     if (golem2CheckCounter === 0 && ringCheckCounter === 0) {
-      return `Another creepy statue. It blocks your way to the next area yet again.`;
+      return `Another creepy statue. It blocks your way to the next area.`;
     } else if (golem2CheckCounter > 0 && ringCheckCounter === 0) {
-      return `There must be another item that can remove this golem.`;
+      return `Your keyboard fails to connect to this golem for some reason. You continue to explore.`;
     } else if (ringCheckCounter === 1) {
       return `The golem explodes, leaving behind nothing and clearing the way.`;
     }
   },
-  golem3: (golem3CheckCounter, ringCheckCounter) => {
-    if (golem3CheckCounter === 0 && ringCheckCounter === 0) {
+  golem3: (golem3CheckCounter) => {
+    if (golem3CheckCounter === 0) {
       return `"Yet another golem? Always in the way. Where did the designer get all these?"`;
-    } else if (golem3CheckCounter > 0 && ringCheckCounter === 0) {
-      return `You know the drill by now. Find the item that destroys this one.`;
-    } else if (golem3CheckCounter > 0 && ringCheckCounter === 1) {
-      return `The golem explodes, leaving behind nothing and clearing the way.`;
+    } else if (golem3CheckCounter > 0) {
+      return `You know the drill by now. There's something around here that's needed to destroy it.`;
     }
   },
-  golem4: (golem4CheckCounter, ringCheckCounter) => {
-    if (golem4CheckCounter === 0 && ringCheckCounter === 0) {
+  golem4: (golem4CheckCounter) => {
+    if (golem4CheckCounter === 0) {
       return `"Come ON! This better be the last one."`;
-    } else if (golem4CheckCounter > 0 && ringCheckCounter === 0) {
+    } else if (golem4CheckCounter > 0 ) {
       return `"Yeah yeah, I know. Find the item, ditch the golem."`;
-    } else if (golem4CheckCounter > 0 && ringCheckCounter === 1) {
+    } else if (golem4CheckCounter > 0) {
       return `The golem explodes, leaving behind nothing and clearing the way.`;
     }
   },
@@ -342,10 +334,10 @@ return Jy
     } else if (bossSixCheckCounter === 1) {
       return `His eyes carry the wisdom of someone who played chess in their youth. But they also carry a look of disdain when glancing at you. He might have the answers you seek...`;
     } else if (bossSixCheckCounter === 2) {
-      return ` The warriors smirks at you and speaks: "You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;    
+      return ` The warriors smirks at you and speaks: "You wish to escape this place, but you dont see the big picture. There is no problem that cant be solved with more tables! Use more tables to avoid sequels to your problems!."`;
     } else if (bossSixCheckCounter === 3) {
       return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
-    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <=3) {
+    } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <= 3) {
       return `"Now what is that wizard yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter > 3) {
       return {

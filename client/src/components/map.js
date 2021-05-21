@@ -547,7 +547,7 @@ function Map() {
         }, 300);
       }
 
-      function removeGolem(golem) {
+      function removeGolem({ x, y }, golem) {
         if (golem === 1) {
           tileMap[23][30] = ['.', 'm'];
           display.draw(30, 23, ['.', 'm']);
@@ -555,8 +555,13 @@ function Map() {
             tileMap[23][30] = '.';
             display.draw(30, 23, '.');
           }, 500);
-        } else if (golem === 2) {
-          tileMap[23][45] = '.';
+        } else {
+          tileMap[x][y] = ['.', 'm'];
+          display.draw(y, x, ['.', 'm']);
+          setTimeout(() => {
+            tileMap[x][y] = '.';
+            display.draw(y, x, '.');
+          }, 500);
         }
       }
 
@@ -787,29 +792,28 @@ function Map() {
               return false;
             case 'A':
               value = gameFuncs.golem1(golem1Var, keyboardVar);
-              golem1Var++;
               setMessage(value);
-              removeGolem();
+              removeGolem({ x: x, y: y });
               return false;
             case 'a':
               value = gameFuncs.golem2(golem2Var, ringVar);
               golem2Var++;
               setMessage(value);
               if (ringVar === 1) {
-                removeGolem(1);
+                removeGolem({ x: x, y: y });
               }
               return false;
             case 'V':
-              value = gameFuncs.golem3(golem3Var, ringVar);
+              value = gameFuncs.golem3(golem3Var);
               golem3Var++;
               setMessage(value);
-              removeGolem();
               return false;
             case 'v':
-              value = gameFuncs.golem4(golem4Var, ringVar);
+              //TODO: Wizard Item Implementaion to destroy golem
+              value = gameFuncs.golem4(golem4Var);
               golem4Var++;
               setMessage(value);
-              removeGolem();
+              removeGolem({ x: x, y: y });
               return false;
             case '@':
               value = gameFuncs.portal(portalVar);
@@ -952,17 +956,17 @@ function Map() {
               ) {
                 setMessage(value);
                 setTimeout(() => {
-                  tileMap[22][84].pop();
-                  tileMap[23][84].pop();
-                  display.draw(84, 22, '=');
-                  display.draw(84, 23, '=');
+                  tileMap[22][84] = '='
+                  tileMap[23][84] = '='
+                  display.draw(84, 22, '=')
+                  display.draw(84, 23, '=')
                 }, 1000);
                 setTimeout(() => {
-                  tileMap[22][87].pop();
+                  tileMap[22][87] = ['=', 'b']
                   display.draw(87, 22, ['=', 'b']);
                 }, 2000);
                 setTimeout(() => {
-                  tileMap[22][87].pop();
+                   tileMap[22][87] = ['=', '$'];
                   display.draw(87, 22, ['=', '$']);
                 }, 3000);
                 return true;
@@ -1049,7 +1053,7 @@ function Map() {
             setMessage(
               `Hahahahahahaahahahahahahaahahahahahaahahahaahahaha. NICE TO MEET YOU!!!!!!!!! The insane laughter painfully reverberates through the area. It's so strong your digital ears start bleeding. It's all you can do to stand upright. Through the ringing, you hear something collapse in the distance.`
             );
-            removeGolem(2);
+            removeGolem({ x: x, y: y }, 1);
             return false;
           }
         }
@@ -1073,7 +1077,7 @@ function Map() {
           );
         }
       }
-      let godmode = false;
+      let godmode = true;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
