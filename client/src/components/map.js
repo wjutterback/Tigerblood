@@ -119,7 +119,6 @@ function Map() {
         E: [864, 384], // @ Statue
         j: [96, 0], // Water Fountain
         O: [1376, 1888], // Side Boss
-        // o: [672, 2272], Side top bottom
         A: [32, 32], // Golem Level 1 Statue Solid
         a: [64, 32], // Golem Level 2 Statue Solid
         V: [96, 32], // Golem Level 3 Statue Solid
@@ -164,7 +163,8 @@ function Map() {
         '+': [1760, 288], // Grass East
         '-': [672, 288], // Grass West
         '%': [1312, 288], // Sand
-        u: [480, 416], // Tree
+        u: [480, 416], // Tree (light permeable)
+        o: [416, 416], // Tree (light impermeable)
         '@': [1984, 0], // Escape Portal
         $: [1504, 1376], // Certificate
         '<': [], // Grass NW
@@ -501,7 +501,7 @@ function Map() {
       let lightRadius = 2;
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
-        const blockLight = ['#', 'L', '&', 'M', 'm', 'K'];
+        const blockLight = ['#', 'L', '&', 'M', 'm', 'K', 'o'];
         if (Array.isArray(tileMap[x][y]) === true) {
           if (blockLight.some((tile) => tileMap[x][y].includes(tile))) {
             return false;
@@ -950,11 +950,11 @@ function Map() {
                 setTimeout(()=>{
                   tileMap[22][87].pop();
                   display.draw(87, 22, ['=','b']);
-                }, 2000)
+                }, 2000);
                 setTimeout(()=>{
                   tileMap[22][87].pop();
                   display.draw(87, 22, ['=','$']);
-                }, 3000)
+                }, 3000);
                 return true;
               } else {
                 bossFinalVar++;
