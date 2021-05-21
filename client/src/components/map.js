@@ -159,7 +159,7 @@ function Map() {
         '*': [96, 416], // Pentagram
         '=': [1184, 288], // Grass
         '^': [1696, 288], // Grass North
-        '_': [1504, 288], // Grass South
+        _: [1504, 288], // Grass South
         '+': [1760, 288], // Grass East
         '-': [672, 288], // Grass West
         '%': [1312, 288], // Sand
@@ -338,13 +338,13 @@ function Map() {
   }
 
   function showInventory() {
-    let content = document.querySelector(".inventoryDiv");
-    if (content.style.display === "block") {
-      content.style.display = "none";
+    let content = document.querySelector('.inventoryDiv');
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
     } else {
-      content.style.display = "block";
+      content.style.display = 'block';
     }
-  };
+  }
 
   useEffect(() => {
     setGameOverState({
@@ -547,7 +547,7 @@ function Map() {
         }, 300);
       }
 
-      function removeGolem(golem) {
+      function removeGolem({ x, y }, golem) {
         if (golem === 1) {
           tileMap[23][30] = ['.', 'm'];
           display.draw(30, 23, ['.', 'm']);
@@ -555,8 +555,13 @@ function Map() {
             tileMap[23][30] = '.';
             display.draw(30, 23, '.');
           }, 500);
-        } else if (golem === 2) {
-          tileMap[23][45] = '.';
+        } else {
+          tileMap[x][y] = ['.', 'm'];
+          display.draw(y, x, ['.', 'm']);
+          setTimeout(() => {
+            tileMap[x][y] = '.';
+            display.draw(y, x, '.');
+          }, 500);
         }
       }
 
@@ -750,7 +755,7 @@ function Map() {
             case 'L':
               value = gameFuncs.door(keyboardVar, { x: x, y: y });
               if (keyboardVar === 1) {
-                setVisibility("visible")
+                setVisibility('visible');
                 setLines(value.lines);
                 setCode(value.code);
                 setMemory({ code: value.code, lines: value.lines });
@@ -787,29 +792,28 @@ function Map() {
               return false;
             case 'A':
               value = gameFuncs.golem1(golem1Var, keyboardVar);
-              golem1Var++;
               setMessage(value);
-              removeGolem();
+              removeGolem({ x: x, y: y });
               return false;
             case 'a':
               value = gameFuncs.golem2(golem2Var, ringVar);
               golem2Var++;
               setMessage(value);
               if (ringVar === 1) {
-                removeGolem(1);
+                removeGolem({ x: x, y: y });
               }
               return false;
             case 'V':
-              value = gameFuncs.golem3(golem3Var, ringVar);
+              value = gameFuncs.golem3(golem3Var);
               golem3Var++;
               setMessage(value);
-              removeGolem();
               return false;
             case 'v':
-              value = gameFuncs.golem4(golem4Var, ringVar);
+              //TODO: Wizard Item Implementaion to destroy golem
+              value = gameFuncs.golem4(golem4Var);
               golem4Var++;
               setMessage(value);
-              removeGolem();
+              removeGolem({ x: x, y: y });
               return false;
             case '@':
               value = gameFuncs.portal(portalVar);
@@ -938,22 +942,32 @@ function Map() {
               return false;
             case 'F':
             case 'f': // Final Boss
-              value = gameFuncs.bossFinal(bossFinalVar, cat1Var, cat2Var, dogVar);
-              if (bossFinalVar >0 && cat1Var >0 && cat2Var >0 && dogVar >0){
+              value = gameFuncs.bossFinal(
+                bossFinalVar,
+                cat1Var,
+                cat2Var,
+                dogVar
+              );
+              if (
+                bossFinalVar > 0 &&
+                cat1Var > 0 &&
+                cat2Var > 0 &&
+                dogVar > 0
+              ) {
                 setMessage(value);
-                setTimeout(()=>{
-                  tileMap[22][84].pop();
-                  tileMap[23][84].pop();
-                  display.draw(84, 22, '=');
-                  display.draw(84, 23, '=');
-                }, 1000)
-                setTimeout(()=>{
-                  tileMap[22][87].pop();
-                  display.draw(87, 22, ['=','b']);
+                setTimeout(() => {
+                  tileMap[22][84] = '='
+                  tileMap[23][84] = '='
+                  display.draw(84, 22, '=')
+                  display.draw(84, 23, '=')
+                }, 1000);
+                setTimeout(() => {
+                  tileMap[22][87] = ['=', 'b']
+                  display.draw(87, 22, ['=', 'b']);
                 }, 2000);
-                setTimeout(()=>{
-                  tileMap[22][87].pop();
-                  display.draw(87, 22, ['=','$']);
+                setTimeout(() => {
+                   tileMap[22][87] = ['=', '$'];
+                  display.draw(87, 22, ['=', '$']);
                 }, 3000);
                 return true;
               } else {
@@ -1031,7 +1045,7 @@ function Map() {
               display.draw(87, 22, '=');
               setTimeout(() => {
                 gameOver();
-              }, 1000)
+              }, 1000);
               return true;
             default:
           }
@@ -1039,7 +1053,7 @@ function Map() {
             setMessage(
               `Hahahahahahaahahahahahahaahahahahahaahahahaahahaha. NICE TO MEET YOU!!!!!!!!! The insane laughter painfully reverberates through the area. It's so strong your digital ears start bleeding. It's all you can do to stand upright. Through the ringing, you hear something collapse in the distance.`
             );
-            removeGolem(2);
+            removeGolem({ x: x, y: y }, 1);
             return false;
           }
         }
@@ -1205,23 +1219,27 @@ function Map() {
       </div>
       <div className='col-sm-12 col-md-6'>
         <div className='row'>
-          <button 
-            type="button" 
-            className="collapsible mx-auto"
+          <button
+            type='button'
+            className='collapsible mx-auto'
             onClick={showInventory}
           >
             <b>Inventory</b>
           </button>
-            <div className="inventoryDiv">
-              {!inventory.length ? "You haven't found any items yet. Keep exploring!" : null}
-              <ol>
-                {inventory.map((item, i) => (
-                  <li key={i}>
-                    <h4><b>{item.name}</b>: {item.power}</h4>
-                  </li>
-                ))}
-              </ol>
-            </div>
+          <div className='inventoryDiv'>
+            {!inventory.length
+              ? "You haven't found any items yet. Keep exploring!"
+              : null}
+            <ol>
+              {inventory.map((item, i) => (
+                <li key={i}>
+                  <h4>
+                    <b>{item.name}</b>: {item.power}
+                  </h4>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
         <div className='row'>
           <p id='message'>{message}</p>
