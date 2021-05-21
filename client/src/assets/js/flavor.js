@@ -27,7 +27,7 @@ const gameFuncs = {
       if (door.x === 16 && door.y === 7) {
         return {
           lines: [1, 9, 10, 12],
-          text: `Your keyboard beeps and its blinking light becomes solid. It's connected to the door somehow. Images flash before your eyes, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. All the rest of the code is readOnly`,
+          text: `Your keyboard beeps and its blinking light becomes solid. It's connected to the door somehow. Images flash before your eyes, converting the laws of this world into a familiar form - JAVASCRIPT! You understand now; the way forward is changing this door from locked to unlocked. You open your terminal. Portions of the code are read-only.`,
           code: ` /*jshint esversion: 6, asi: true*/
   /*
   My notes: Experimented with making a door today!
@@ -166,20 +166,14 @@ const gameFuncs = {
       return `The golem explodes, leaving behind nothing and clearing the way. Hopefully for the last time.`;
     }
   },
-  portal: (portalCheckCounter, ringCheckCounter) => {
-    if (portalCheckCounter === 0 && ringCheckCounter === 0) {
-      return `You see a portal. "This must be it! An Exit!" But an invisible wall blocks you from entering. You realize what you have to do.`;
-    } else if (portalCheckCounter > 0 && ringCheckCounter === 0) {
-      return `"At least it's not a golem this time.", you mutter to yourself as you look around for the final item.`;
-    } else if (portalCheckCounter > 0 && ringCheckCounter === 1) {
-      return `No more invisible wall. The portal glows as you enter.`;
-    }
+  portal: () => {
+    return `The portal glows as you enter. You brace yourself as you're ripped through space.`;
   },
   helpStone: (bodyCheckCounter) => {
     if (bodyCheckCounter === 0) {
       return `Your memories start coming back. The last thing you remember is you were coding Project 3... Tish invited you to a Zoom call, you accepted... and now you're in a dungeon. What is going on?`;
     } else
-      return `As you touch the strange stone, the ring fills you with warmth. You understand everything now. Tish has trapped your whole class inside a bitcoin app! It makes sense why she kept bragging the GPU shortage didn't affect her! You are the code and every movement performs some pointless hash in search of cryptocurrency.`;
+      return `As you touch the strange stone, the keyboard connects to it and flashes of memories pass in your mind... You understand everything now. Tish has trapped your whole class inside an app! You now know your function is to find cryptocurrency. Every movement performs some pointless hash in search of cryptocurrency. It makes sense why she kept bragging the GPU shortage wouldn't affect her soon enough!`;
   },
   keyboard: () => {
     return `A janky looking wireless keyboard. You turn it on, and a light starts blinking. It must be searching for a connection.`;

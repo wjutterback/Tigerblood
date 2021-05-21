@@ -99,7 +99,7 @@ function Map() {
         1: [800, 1920], // Player - Level 1 (noob)
         2: [672, 1920], // Player - Level 2 (rookie)
         3: [1216, 1920], // Player - Level 3 (knight)
-        4: [960, 832], // Player - Level 4 (mage)
+        4: [416, 1920], // Player - Level 4 (mage)
         5: [96, 2112], // Player - Level 5 (elemental)
         0: [320, 1088], // Level Up Animation
         r: [128, 1376], // Ring
@@ -173,7 +173,7 @@ function Map() {
         ')': [], // Grass SE
         '?': [800, 224], // see through tile, Looks very similar to real wall
         ',': [32, 1952], // joy,
-        6: [0, 1120],
+        6: [0, 1120], // necklace
       },
       width: 92,
       height: 33,
@@ -365,9 +365,6 @@ function Map() {
   }, [stepsTaken]);
 
   function run() {
-    window.onerror = function (error) {
-      error.preventDefault();
-    };
     const expect = chai.expect;
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     let scriptTest = document.createElement('script');
@@ -492,7 +489,6 @@ function Map() {
     let golem2Var = 0;
     let golem3Var = 0;
     let golem4Var = 0;
-    let portalVar = 0;
     let ringVar = 0;
     let necklaceVar = 0;
     let bossOneVar = 0;
@@ -521,7 +517,7 @@ function Map() {
         try {
           if (tileMap[x][y] === undefined || tileMap[x][y] === null) {
           }
-          const blockLight = ['#', 'L', '&', 'M', 'm', 'K', 'o'];
+          const blockLight = ['#', 'L', '&', 'M', 'm', 'o', '@'];
           if (Array.isArray(tileMap[x][y]) === true) {
             if (blockLight.some((tile) => tileMap[x][y].includes(tile))) {
               return false;
@@ -570,11 +566,11 @@ function Map() {
 
       function removeGolem({ x, y }, golem) {
         if (golem === 1) {
-          tileMap[23][30] = ['.', 'm'];
-          display.draw(30, 23, ['.', 'm']);
+          tileMap[23][45] = ['.', 'm'];
+          display.draw(45, 23, ['.', 'm']);
           setTimeout(() => {
-            tileMap[23][30] = '.';
-            display.draw(30, 23, '.');
+            tileMap[23][45] = '.';
+            display.draw(45, 23, '.');
           }, 500);
         } else {
           tileMap[x][y] = ['.', 'm'];
@@ -843,10 +839,9 @@ function Map() {
               }
               return false;
             case '@':
-              value = gameFuncs.portal(portalVar);
-              portalVar++;
+              value = gameFuncs.portal();
               setMessage(value);
-              return false;
+              return true;
             case 'T':
             case 't': // First Boss
               value = gameFuncs.bossOne(bossOneVar);
@@ -950,6 +945,9 @@ function Map() {
             case 'X':
             case 'x':
               value = gameFuncs.bossSeven(bossSevenVar);
+              if (bossSevenVar === 3) {
+                lvl++;
+              }
               bossSevenVar++;
               setMessage(value);
               return false;
@@ -1078,6 +1076,11 @@ function Map() {
               setMessage(
                 'You pick up the necklace and immediately your vision expands.'
               );
+              let necklaceItem = {
+                name: 'Necklace of Legends',
+                power: 'Grants sight beyond sight',
+              };
+              setInventory((inventory) => [...inventory, necklaceItem]);
               necklaceVar++;
               lightRadius++;
               lvl++;
@@ -1114,7 +1117,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
