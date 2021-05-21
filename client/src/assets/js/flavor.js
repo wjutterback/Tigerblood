@@ -495,7 +495,7 @@ return Jy
   },
   closedChest: (closedChestCheckCounter) => {
     if (closedChestCheckCounter === 0) {
-      return `You find a locked chest. You wonder about the treasures it might hold. There must be a way to open it. TIme to look around.`;
+      return `A locked chest? You wonder about the treasures it might hold. There must be a way to open it. TIme to look around.`;
     } else {
       return `Locked. Time to look around for a way to open it.`;
     }
@@ -509,9 +509,6 @@ return Jy
     } else {
       return `"This water has a mild but strange taste.", you think as you take another drink. "I'm sure it's fine.", you think ... and hope.`;
     }
-  },
-  passableTerrain: () => {
-    return ` ... `;
   },
 };
 export default gameFuncs;
