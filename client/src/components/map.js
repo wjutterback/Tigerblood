@@ -255,13 +255,21 @@ function Map() {
       //display draw doesn't work in here, not quite sure why that is
       //display.draw needed to draw the open door on pass
       roomsCleared++;
+      // setCode(`
+      // /*
+      // .d8888b  888  888 .d8888b .d8888b  .d88b. .d8888b .d8888b
+      // 88K      888  888 d88P"   d88P"   d8P"     888K    88K
+      // "Y8888b. 888  888 888     888     888888   "Y8888b "Y8888b
+      //     X88Y 88b 888Y 88b.    Y88b.   Y8b.         X88     X88
+      // 888888P' "Y88888  "Y8888P  "Y8888P "Y8888  88888P' 88888P'
+      // */`);
       setCode(`
       /*
-      888         888 888888 888   8 888   8 888888 888   8 d88808b.
-      '8P       '88P    88   88 8' 8 88 8' 8   88   88 8' 8 d.
-       '88  88  d88'    88   88 '8 8 88 '8 8   88   88 '8 8 8888888
-        '88 88b 88      88   88  '88 88  '88   88   88  '88 88   88
-         88Y "88Y     888888 88  "88 88  "88 888888 88  "88 8888888
+      888         888 888888  888   8 888   8 888888 888   8 .d8888b.
+      '8P       '88P    88    88 8' 8 88 8' 8   88   88 8' 8 d.
+       '88  88  d88'    88    88 '8 8 88 '8 8   88   88 '8 8 8808888
+        '88 88b 88      88    88  '88 88  '88   88   88  '88 88   88
+         88Y "88Y     888888  88  "88 88  "88 888888 88  "88 8888888
       */`);
       setTimeout(() => {
         if (document.getElementById('screenModal').style.display !== 'none') {
@@ -1065,13 +1073,14 @@ function Map() {
               setTimeout(() => {
                 gameOver();
               }, 1000);
-              return true;
+              return false;
             case 6:
               setMessage(
                 'You pick up the necklace and immediately your vision expands.'
               );
               necklaceVar++;
               lightRadius++;
+              lvl++;
               tileMap[11][55] = '.';
               display.draw(55, 11, '.');
               return false;
