@@ -14,6 +14,7 @@ function App() {
       <Routes>
           <Route element={<PageContainer />}>
               <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/pregame" element={<PreGame />}/>
               <Route path="/game" element={<Game />} />
               <Route path="/highscores" element={<HighScores />} />
