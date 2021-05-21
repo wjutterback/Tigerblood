@@ -225,7 +225,7 @@ function Map() {
     d8P  *8 b88P"   888P"  d88""88b 888P"
     8888888 888     888    888  888 888
     Y8b.    888     888    Y88..88P 888
-     "Y8888 888     888     "Y88P"  888
+    '"Y8888 888     888     "Y88P"  888
     */`;
     if (pass === true) {
       if (test === 'dragon') {
@@ -253,29 +253,13 @@ function Map() {
         tileMap[door.x][door.y] = ['.', 'U'];
       }
       roomsCleared++;
-      // setCode(`
-      // /*
-      // .d8888b  888  888 .d8888b .d8888b  .d88b. .d8888b .d8888b
-      // 88K      888  888 d88P"   d88P"   d8P"     888K    88K
-      // "Y8888b. 888  888 888     888     888888   "Y8888b "Y8888b
-      //     X88Y 88b 888Y 88b.    Y88b.   Y8b.         X88     X88
-      // 888888P' "Y88888  "Y8888P  "Y8888P "Y8888  88888P' 88888P'
-      // */`);
       setCode(`
       /*
-<<<<<<< HEAD
-      888         888 888888 888   8 888   8 888888 888   8 d88808b.
-      '8P       '88P    88   88 8' 8 88 8' 8   88   88 8' 8 d.
-       '88  88  d88'    88   88 '8 8 88 '8 8   88   88 '8 8 8888888
-        '88 88b 88      88   88  '88 88  '88   88   88  '88 88   88
-         88Y "88Y     888888 88  "88 88  "88 888888 88  "88 8888888
-=======
-      888         888 888888  888   8 888   8 888888 888   8 .d8888b
-      '8P       '88P    88    88 8' 8 88 8' 8   88   88 8' 8 d.
-       '88  88  d88'    88    88 '8 8 88 '8 8   88   88 '8 8 8808888
-        '88 88b 88      88    88  '88 88  '88   88   88  '88 88   88
-         88Y "88Y     888888  88  "88 88  "88 888888 88  "88 8888888
->>>>>>> 51d95befc2383f139434062d35fd7d276bf3b982
+      888         888 888888 888   88 888   88 888888 888   88 .d8888b
+      '8P       '88P    88   888'  88 888'  88   88   888'  88 d.
+       '88  88  d88'    88   88 88 88 88 88 88   88   88 88 88 880888,
+        '88 88b 88      88   88  '888 88  '888   88   88  '888 88   88
+         88Y "88Y     888888 88   888 88   888 888888 88   888 '88888'
       */`);
       setTimeout(() => {
         if (document.getElementById('screenModal').style.display !== 'none') {
@@ -294,6 +278,27 @@ function Map() {
   };
 
   let navigate = useNavigate();
+
+  function toggleInventory() {
+    console.log("toggleInventory detected")
+    let inventory = document.querySelector('#inventoryDiv');
+    if (inventory.style.display === 'block') {
+      inventory.style.display = 'none';
+
+    } else {
+      inventory.style.display = 'block';
+    }
+  }
+
+
+  function showInventory() {
+    let content = document.querySelector('.inventoryDiv');
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+    } else {
+      content.style.display = 'block';
+    }
+  }
 
   function launchScreenModal() {
     document.getElementById('screenModal').style.display = 'block';
@@ -353,15 +358,6 @@ function Map() {
     let backdrop = document.createElement('div');
     backdrop.classList.add('gameOverBackdrop');
     mapContainer.appendChild(backdrop);
-  }
-
-  function showInventory() {
-    let content = document.querySelector('.inventoryDiv');
-    if (content.style.display === 'block') {
-      content.style.display = 'none';
-    } else {
-      content.style.display = 'block';
-    }
   }
 
   useEffect(() => {
@@ -764,11 +760,6 @@ function Map() {
         if (Array.isArray(tileMap[x][y])) {
           let value;
           switch (tileMap[x][y][1]) {
-            case '.':
-            case '=':
-              value=gameFuncs.passableTerrain();
-              setMessage(value);
-              return true;
             case 'R':
               value = gameFuncs.helpStone(deadBodyVar);
               helpStone = 1;
@@ -835,7 +826,7 @@ function Map() {
               keyboardVar = 1;
               let keyboardItem = {
                 name: 'Keyboard of Power',
-                power: 'Allows manipulating the environment',
+                power: 'Lets you see and solve obstacles in code',
               };
               lvl = 1;
               levelUp();
@@ -1235,33 +1226,24 @@ function Map() {
             backgroundColor: 'Black',
             padding: '30px 30px 5px 100px',
             fontSize: '1.5rem',
+            marginBottom: '3rem',
           }}
         >
           <p className='mr-auto'>
-            <b>Player Level:</b> {level}
+            <b>Level:</b> {level}
           </p>
           <p className='mr-auto'>
             <b>Rooms Cleared:</b> {clearedRooms}/4
           </p>
-        </div>
-        <div
-          className='row'
-          style={{
-            fontFamily: 'Finger Paint',
-            backgroundColor: 'Black',
-            padding: '5px 30px 30px 100px',
-            fontSize: '1.5rem',
-          }}
-        >
           <p className='mr-auto'>
-            <b>Steps Taken:</b> {stepsTaken}
+            <b>Steps:</b> {stepsTaken}
           </p>
-          <p className='mr-auto'>
-            {bitcoins ? (
-              <b>You Found {bitcoins} BitCoin!</b>
-            ) : (
-              'No secrets here ...'
-            )}
+          <p 
+            className='mr-auto btn btn-lg'
+            id="inventoryBtn"
+            onClick={toggleInventory}
+          >
+            <b>Check Inventory</b>
           </p>
         </div>
         <div className='row'>
@@ -1273,6 +1255,7 @@ function Map() {
               height: '544px',
               width: '512px',
               overflow: 'hidden',
+              border: '1px solid rgb(40,40,40)',
               margin: 'auto',
               transform: 'scale(2) translate(0%, 25%)',
             }}
@@ -1297,27 +1280,52 @@ function Map() {
         </div>
       </div>
       <div className='col-sm-12 col-md-6'>
-        <div className='row'>
-          <button
-            type='button'
-            className='collapsible mx-auto'
-            onClick={showInventory}
-          >
-            <b>Inventory</b>
-          </button>
-          <div className='inventoryDiv'>
-            {!inventory.length
-              ? "You haven't found any items yet. Keep exploring!"
-              : null}
-            <ol>
-              {inventory.map((item, i) => (
-                <li key={i}>
-                  <h4>
-                    <b>{item.name}</b>: {item.power}
-                  </h4>
-                </li>
-              ))}
-            </ol>
+        <div className='row' id="inventoryRow">
+          <div id="inventoryDiv">
+            <div className="row" style={{marginBottom: '2rem'}}>
+              <h2 
+                className="mx-auto"
+                style={{color: "red"}}
+              ><u>Inventory</u></h2>
+              <button
+                className="close" 
+                type="btn" 
+                style={{float: "right", color: "red"}}
+                onClick={toggleInventory}
+              >X</button>
+            </div>
+            <div className="row" style={{marginBottom: '2rem'}}>
+              {bitcoins ? (
+                <h4 className='mr-auto'><b>BitCoins:</b> The Gods of Crypton have granted you {bitcoins} BitCoin!</h4>
+              ) : (
+                <h4 className='mr-auto'><b>BitCoins:</b> The Gods of Crypton have not deemed you worthy... yet.</h4>
+              )}
+            </div>
+            <div className="row">
+              {!inventory.length
+                ? <h4 style={{margin: "1rem 1rem 1rem 0"}}><b>Items</b>: You haven't found any items yet. Keep exploring!</h4>
+                : <div className="col-sm-12">
+                    <div className="row">
+                      <h4
+                        style={{margin: "1rem 1rem 1rem 0"}}
+                      ><b>Items</b>: </h4>
+                    </div>
+                    <div className="row">
+                      <ol>
+                        {inventory.map((item, i) => (
+                          <div className="row">
+                            <li key={i} style={{marginLeft: "1rem"}}>
+                              <h4>
+                                <b>{item.name}</b>: {item.power}
+                              </h4>
+                            </li>
+                          </div>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+              }
+            </div>
           </div>
         </div>
         <div className='row'>
@@ -1325,7 +1333,7 @@ function Map() {
         </div>
         <div className='row' style={{ visibility: visibility }}>
           <div className='laptop2'>
-            <section id='matrixCanvasContainer'>
+            <section id='matrixCanvasContainer' style={{overflow: 'scroll'}}>
               <canvas id='matrixCanvas'></canvas>
             </section>
             <button
