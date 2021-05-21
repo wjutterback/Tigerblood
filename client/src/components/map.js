@@ -263,19 +263,11 @@ function Map() {
       // */`);
       setCode(`
       /*
-<<<<<<< HEAD
-      888         888 888888  888   8 888   8 888888 888   8 d88808b.
-      '8P       '88P    88    88 8' 8 88 8' 8   88   88 8' 8 d.
-       '88  88  d88'    88    88 '8 8 88 '8 8   88   88 '8 8 8808888
-        '88 88b 88      88    88  '88 88  '88   88   88  '88 88   88
-         88Y "88Y     888888  88  "88 88  "88 888888 88  "88 8888888
-=======
       888         888 888888 888   8 888   8 888888 888   8 d88808b.
       '8P       '88P    88   88 8' 8 88 8' 8   88   88 8' 8 d.
        '88  88  d88'    88   88 '8 8 88 '8 8   88   88 '8 8 8888888
         '88 88b 88      88   88  '88 88  '88   88   88  '88 88   88
          88Y "88Y     888888 88  "88 88  "88 888888 88  "88 8888888
->>>>>>> 9a34399398141b06ba57687d4c99e6f14109e763
       */`);
       setTimeout(() => {
         if (document.getElementById('screenModal').style.display !== 'none') {
@@ -629,11 +621,7 @@ function Map() {
             } else if (tileMap[y][x] === '_') {
               return display.draw(playerPos.x, playerPos.y, ['_', lvl + 1]);
             } else if (tileMap[y][x] === ['=', '$']) {
-<<<<<<< HEAD
-              return display.draw(playerPos.x, playerPos.y, ['=', lvl +1])
-=======
               return display.draw(playerPos.x, playerPos.y, ['=', lvl + 1]);
->>>>>>> 9a34399398141b06ba57687d4c99e6f14109e763
             }
             return drawPlayer();
           }
