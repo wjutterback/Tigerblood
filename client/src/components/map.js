@@ -382,7 +382,6 @@ function Map() {
 
     mocha.run();
 
-    //TODO: Write AntiVirusBoss getTestResult()
     setTimeout(() => {
       document.getElementById('codeMirrorScript').remove();
       mocha.unloadFiles();
@@ -1205,8 +1204,8 @@ function Map() {
       </div>
       <div className='col-sm-12 col-md-6'>
         <div className='row'>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="collapsible mx-auto"
             onClick={showInventory}
           >
