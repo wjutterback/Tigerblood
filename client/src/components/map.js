@@ -172,7 +172,8 @@ function Map() {
         '(': [], // Grass SW
         ')': [], // Grass SE
         '?': [800, 224], // see through tile, Looks very similar to real wall
-        ',': [32, 1952], // joy
+        ',': [32, 1952], // joy,
+        6: [0, 1120],
       },
       width: 92,
       height: 33,
@@ -239,8 +240,9 @@ function Map() {
         tileMap[5][42] = ['.', '*', ','];
       } else if (test === 'wizard') {
         setMessage(
-          `The wizard beams with pride as the warrior sighs in frustration. Your light has increased by 1!`
+          `The wizard beams with pride as the warrior sighs in frustration. "I finally beat him! I'm gold now, buddy. I've unlocked the chest over there, take what's inside - I don't need it anymore.`
         );
+        tileMap[11][55] = ['.', 6];
         //TODO: Wizard gives you item that increases light and breaks golem
       } else if (test === 'antiVirus') {
         setMessage(
@@ -355,10 +357,14 @@ function Map() {
   }, [stepsTaken]);
 
   function run() {
+    window.onerror = function (error) {
+      error.preventDefault();
+    };
     const expect = chai.expect;
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     let scriptTest = document.createElement('script');
     scriptTest.setAttribute('id', 'codeMirrorScript');
+    console.log(eval(new String(editor.getValue())));
     scriptTest.textContent = editor.getValue();
     document.getElementById('scripting').appendChild(scriptTest);
     let mochaTest = document.createElement('div');
@@ -369,16 +375,19 @@ function Map() {
       cleanReferencesAfterRun: true,
       ui: 'bdd',
     });
-
-    testFuncs.doorTest();
-    testFuncs.thermalDoor();
-    testFuncs.dragonBoss();
-    testFuncs.happyDoor();
-    testFuncs.tripletBoss();
-    testFuncs.escapeDoor();
-    testFuncs.wizardBoss();
-    testFuncs.spreadDoor();
-    testFuncs.antivirusBoss();
+    try {
+      testFuncs.doorTest();
+      testFuncs.thermalDoor();
+      testFuncs.dragonBoss();
+      testFuncs.happyDoor();
+      testFuncs.tripletBoss();
+      testFuncs.escapeDoor();
+      testFuncs.wizardBoss();
+      testFuncs.spreadDoor();
+      testFuncs.antivirusBoss();
+    } catch (err) {
+      console.log(err);
+    }
 
     mocha.run();
 
@@ -477,6 +486,7 @@ function Map() {
     let golem4Var = 0;
     let portalVar = 0;
     let ringVar = 0;
+    let necklaceVar = 0;
     let bossOneVar = 0;
     let bossTwoVar = 0;
     let bossThreeVar = 0;
@@ -500,15 +510,19 @@ function Map() {
       let lightRadius = 2;
       //returns true or false on whether light should pass an object
       function lightPasses(y, x) {
-        const blockLight = ['#', 'L', '&', 'M', 'm', 'K', 'o'];
-        if (Array.isArray(tileMap[x][y]) === true) {
-          if (blockLight.some((tile) => tileMap[x][y].includes(tile))) {
+        try {
+          if (tileMap[x][y] === undefined || tileMap[x][y] === null) {
+          }
+          const blockLight = ['#', 'L', '&', 'M', 'm', 'K', 'o'];
+          if (Array.isArray(tileMap[x][y]) === true) {
+            if (blockLight.some((tile) => tileMap[x][y].includes(tile))) {
+              return false;
+            }
+          } else if (tileMap[x][y] === '#') {
             return false;
           }
-        } else if (tileMap[x][y] === '#') {
-          return false;
-        }
-        return true;
+          return true;
+        } catch (err) {}
       }
 
       let fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 8 });
@@ -648,6 +662,8 @@ function Map() {
       async function movement() {
         let action = false;
         while (!action) {
+          //artifically limits player movement by waiting for timeout to be resolved before allowing for new keydown event to be registered
+          await new Promise((resolve) => setTimeout(resolve, 100));
           let e = await new Promise((resolve) => {
             window.addEventListener('keydown', resolve, { once: true });
           });
@@ -811,10 +827,12 @@ function Map() {
               return false;
             case 'v':
               //TODO: Wizard Item Implementaion to destroy golem
-              value = gameFuncs.golem4(golem4Var);
+              value = gameFuncs.golem4(golem4Var, necklaceVar);
               golem4Var++;
               setMessage(value);
-              removeGolem({ x: x, y: y });
+              if (necklaceVar === 1) {
+                removeGolem({ x: x, y: y });
+              }
               return false;
             case '@':
               value = gameFuncs.portal(portalVar);
@@ -1048,6 +1066,15 @@ function Map() {
                 gameOver();
               }, 1000);
               return true;
+            case 6:
+              setMessage(
+                'You pick up the necklace and immediately your vision expands.'
+              );
+              necklaceVar++;
+              lightRadius++;
+              tileMap[11][55] = '.';
+              display.draw(55, 11, '.');
+              return false;
             default:
           }
           if (tileMap[x][y][2] === ',') {

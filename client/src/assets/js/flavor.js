@@ -157,13 +157,13 @@ const gameFuncs = {
       return `You know the drill by now. There's something around here that's needed to destroy it.`;
     }
   },
-  golem4: (golem4CheckCounter) => {
+  golem4: (golem4CheckCounter, necklace) => {
     if (golem4CheckCounter === 0) {
       return `"Come ON! This better be the last one."`;
-    } else if (golem4CheckCounter > 0 ) {
-      return `"Yeah yeah, I know. Find the item, ditch the golem."`;
     } else if (golem4CheckCounter > 0) {
-      return `The golem explodes, leaving behind nothing and clearing the way.`;
+      return `"Yeah yeah, I know. I need something to ditch the golem."`;
+    } else if (necklace === 1) {
+      return `The golem explodes, leaving behind nothing and clearing the way. Hopefully for the last time.`;
     }
   },
   portal: (portalCheckCounter, ringCheckCounter) => {
@@ -304,18 +304,18 @@ return Jy
     } else if (bossFiveCheckCounter === 1) {
       return `The summoner notices you and speaks clearly, "You saw the creatures from the previous room? Hah, are they still trying to bring Joy to this hellish dimension? A fool's errand; Joy is imprisoned soon after being released. It is a never ending cycle."`;
     } else if (bossFiveCheckCounter === 2) {
-      return `There is but one escape here, and I alone know the way..."`;
+      return `There is but one escape here, and I alone know the way... Desperate to know how to escape, you ask how, but the summoner only laughs and turns his back to you."`;
     } else if (bossFiveCheckCounter === 3) {
-      return `Desperate to know how to escape, you ask how, but the summoner only laughs and turns his back to you. He materializes a terminal out of thin air. He is completely ignoring you now.`;
+      return `He materializes a terminal out of thin air. He seems to be playing some kind of game. ... Must ... get ... the ... gold. Flash! Into a wall.... again. Urgh! You interrupted me and now I'm dead!`;
     } else if (bossFiveCheckCounter > 3 && bossSixCheckCounter <= 3) {
-      return `"Now what is that warrior yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
+      return `"The warrior and I are playing a coding game against each other. We started playing as a means to pass time in this wretched place; it's how we've reached so far in this dungeon. We're stuck on some nonsense though. We both came up with different answers, but we have no way to test them. I won't show you mine until you've seen his."`;
     } else if (bossFiveCheckCounter > 3 && bossSixCheckCounter > 3) {
       return {
         lines: [1, 9, 1, 9],
-        text: `... Must ... get ... the ... gold. Flash! Into a wall.... again. Urgh! You interrupted me and now I'm dead! I should not have listened to you, I was right the first time! It's time I repay the favor.". The wizard yells out towards the warrior. It's 1v1 time.`,
+        text: `The puzzle is: what attribute will help you escape this dungeon?`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
-        You deliberate on which answer is the correct one.
+        As soon as you see the wizard's code, your own terminal lights up filling in the missing piece that will resolve their impasse. You deliberate on which answer is the correct one.
         */
         function chooseAnswer() {
           let guess;
@@ -338,16 +338,16 @@ return Jy
     } else if (bossSixCheckCounter === 3) {
       return `"I once wished to travel all over the world and have the natives let me stay in their abodes as tribute. Yet now I am swarmed by their problems. No one listens to me. No one uses more tables..."`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter <= 3) {
-      return `"Now what is that wizard yelling about? Have you talked to him? He asked my help to get him treasure and escape, so I gave him my answer. Now I hear him cursing loudly. Find out what he wants!"`;
+      return `The wizard and I are playing a coding game against each other. We started playing as a means to pass time in this wretched place; it's how we've reached so far in this dungeon. We're stuck on some nonsense though. We both came up with different answers, but we have no way to test them. I won't show you mine until you've seen his."`;
     } else if (bossSixCheckCounter > 3 && bossFiveCheckCounter > 3) {
       return {
         lines: [1, 9, 1, 9],
-        text: `The warrior hears the wizard's lamentations. He has never backed out of a fight. He also whips open a terminal and starts typing furiously...`,
+        text: `The puzzle is: what attribute will help you escape this dungeon?`,
         code: `/*jshint esversion: 6, asi: true*/
         /*
-        You deliberate on which answer is the correct one.
+        As soon as you see the warrior's code, your own terminal lights up filling in the missing piece that will resolve their impasse. You deliberate on which answer is the correct one.
         */
-        function yourAnswer() {
+        function chooseAnswer() {
           return function warriorsGuess() {
             let warriorsGuess = 'more tables';
             return warriorsGuess;
