@@ -252,8 +252,6 @@ function Map() {
       } else if (test === 'door') {
         tileMap[door.x][door.y] = ['.', 'U'];
       }
-      //display draw doesn't work in here, not quite sure why that is
-      //display.draw needed to draw the open door on pass
       roomsCleared++;
       // setCode(`
       // /*
@@ -283,7 +281,7 @@ function Map() {
       setTimeout(() => {
         setCode(memory.code);
         setLines(memory.lines);
-      }, 3000);
+      }, 2500);
     }
   };
 
@@ -297,6 +295,8 @@ function Map() {
     let screenBackdrop = document.createElement('div');
     screenBackdrop.classList.add('screenModalBackdrop');
     mapContainer.appendChild(screenBackdrop);
+    let editor = document.querySelector('.CodeMirror').CodeMirror;
+    editor.refresh();
   }
 
   function closeScreenModal() {
@@ -369,7 +369,6 @@ function Map() {
     let editor = document.querySelector('.CodeMirror').CodeMirror;
     let scriptTest = document.createElement('script');
     scriptTest.setAttribute('id', 'codeMirrorScript');
-    console.log(eval(new String(editor.getValue())));
     scriptTest.textContent = editor.getValue();
     document.getElementById('scripting').appendChild(scriptTest);
     let mochaTest = document.createElement('div');
@@ -380,19 +379,15 @@ function Map() {
       cleanReferencesAfterRun: true,
       ui: 'bdd',
     });
-    try {
-      testFuncs.doorTest();
-      testFuncs.thermalDoor();
-      testFuncs.dragonBoss();
-      testFuncs.happyDoor();
-      testFuncs.tripletBoss();
-      testFuncs.escapeDoor();
-      testFuncs.wizardBoss();
-      testFuncs.spreadDoor();
-      testFuncs.antivirusBoss();
-    } catch (err) {
-      console.log(err);
-    }
+    testFuncs.doorTest();
+    testFuncs.thermalDoor();
+    testFuncs.dragonBoss();
+    testFuncs.happyDoor();
+    testFuncs.tripletBoss();
+    testFuncs.escapeDoor();
+    testFuncs.wizardBoss();
+    testFuncs.spreadDoor();
+    testFuncs.antivirusBoss();
 
     mocha.run();
 
@@ -606,7 +601,6 @@ function Map() {
           default:
         }
       }
-
       function drawLight() {
         fov.compute(22, 5, 2, function (x, y, r) {
           if (playerPos.x === x && playerPos.y === y) {
@@ -615,6 +609,30 @@ function Map() {
           display.draw(x, y, tileMap[y][x]);
         });
         fov.compute(22, 4, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(42, 5, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(42, 6, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(53, 8, 2, function (x, y, r) {
+          if (playerPos.x === x && playerPos.y === y) {
+            return drawPlayer();
+          }
+          display.draw(x, y, tileMap[y][x]);
+        });
+        fov.compute(73, 3, 2, function (x, y, r) {
           if (playerPos.x === x && playerPos.y === y) {
             return drawPlayer();
           }
@@ -854,6 +872,7 @@ function Map() {
               setLines(value.lines);
               setCode(value.code);
               setMessage(value.text);
+              setMemory({ code: value.code, lines: value.lines });
               bossOneVar++;
               return false;
             case 'Y':
@@ -868,6 +887,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossTwo(bossTwoVar, bossThreeVar, bossFourVar);
@@ -886,6 +906,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossThree(
@@ -908,6 +929,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossFour(bossFourVar, bossTwoVar, bossThreeVar);
@@ -922,6 +944,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossFive(bossFiveVar);
@@ -936,6 +959,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossSix(bossSixVar, bossFiveVar);
@@ -959,6 +983,7 @@ function Map() {
                 setLines(value.lines);
                 setCode(value.code);
                 setMessage(value.text);
+                setMemory({ code: value.code, lines: value.lines });
                 return false;
               }
               value = gameFuncs.bossEight(bossEightVar, bossSevenVar);
@@ -1117,7 +1142,7 @@ function Map() {
           );
         }
       }
-      let godmode = false;
+      let godmode = true;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
