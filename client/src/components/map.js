@@ -1307,7 +1307,7 @@ function Map() {
         </div>
         <div className='row' style={{ visibility: visibility }}>
           <div className='laptop2'>
-            <section id='matrixCanvasContainer' style={{overflow: 'scroll'}}>
+            <section id='matrixCanvasContainer'>
               <canvas id='matrixCanvas'></canvas>
             </section>
             <button

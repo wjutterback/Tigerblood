@@ -132,6 +132,7 @@
   height: 400px;
   width: 750px;
   margin: auto;
+  overflow: hidden;
 }
 
 #matrixCanvas {
