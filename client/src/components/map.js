@@ -1221,13 +1221,7 @@ function Map() {
       <div className='col-sm-12 col-md-6'>
         <div
           className='row'
-          style={{
-            fontFamily: 'Finger Paint',
-            backgroundColor: 'Black',
-            padding: '30px 30px 5px 100px',
-            fontSize: '1.5rem',
-            marginBottom: '3rem',
-          }}
+          id='statsRow'
         >
           <p className='mr-auto'>
             <b>Level:</b> {level}
@@ -1246,32 +1240,13 @@ function Map() {
             <b>Check Inventory</b>
           </p>
         </div>
-        <div className='row'>
+        <div className='row' id="mapRow">
           <div
             className=''
             id='drawingBoard'
-            style={{
-              position: 'relative',
-              height: '544px',
-              width: '512px',
-              overflow: 'hidden',
-              border: '1px solid rgb(40,40,40)',
-              margin: 'auto',
-              transform: 'scale(2) translate(0%, 25%)',
-            }}
           >
             <div
               id='map'
-              style={{
-                background: 'transparent',
-                position: 'absolute',
-                left: '0px',
-                top: '0px',
-                height: '1070px', // This matches container height to map height
-                textAlign: 'center',
-                overflow: 'auto',
-                backgroundColor: 'black',
-              }}
               className='start'
             >
               {/* MAP goes here */}
@@ -1282,11 +1257,10 @@ function Map() {
       <div className='col-sm-12 col-md-6'>
         <div className='row' id="inventoryRow">
           <div id="inventoryDiv">
-            <div className="row" style={{marginBottom: '2rem'}}>
-              <h2 
+            <div className="row" id="inventoryTitle">
+              <p 
                 className="mx-auto"
-                style={{color: "red"}}
-              ><u>Inventory</u></h2>
+              ><u>Inventory</u></p>
               <button
                 className="close" 
                 type="btn" 
@@ -1294,30 +1268,30 @@ function Map() {
                 onClick={toggleInventory}
               >X</button>
             </div>
-            <div className="row" style={{marginBottom: '2rem'}}>
+            <div className="row" id="inventoryBitcoin">
               {bitcoins ? (
-                <h4 className='mr-auto'><b>BitCoins:</b> The Gods of Crypton have granted you {bitcoins} BitCoin!</h4>
+                <p className='mr-auto'><b>BitCoins:</b> The Gods of Crypton have granted you {bitcoins} BitCoin!</p>
               ) : (
-                <h4 className='mr-auto'><b>BitCoins:</b> The Gods of Crypton have not deemed you worthy... yet.</h4>
+                <p className='mr-auto'><b>BitCoins:</b> The Gods of Crypton have not deemed you worthy... yet.</p>
               )}
             </div>
-            <div className="row">
+            <div className="row" id="inventoryItems">
               {!inventory.length
-                ? <h4 style={{margin: "1rem 1rem 1rem 0"}}><b>Items</b>: You haven't found any items yet. Keep exploring!</h4>
+                ? <p style={{margin: "1rem 1rem 1rem 0"}}><b>Items</b>: You haven't found any items yet. Keep exploring!</p>
                 : <div className="col-sm-12">
                     <div className="row">
-                      <h4
+                      <p
                         style={{margin: "1rem 1rem 1rem 0"}}
-                      ><b>Items</b>: </h4>
+                      ><b>Items</b>: </p>
                     </div>
                     <div className="row">
                       <ol>
                         {inventory.map((item, i) => (
                           <div className="row">
                             <li key={i} style={{marginLeft: "1rem"}}>
-                              <h4>
+                              <p>
                                 <b>{item.name}</b>: {item.power}
-                              </h4>
+                              </p>
                             </li>
                           </div>
                         ))}
@@ -1362,7 +1336,7 @@ function Map() {
           <div className='modal-content'>
             <div className='modal-body'>
               <div className='laptop'>
-                <div className='content' style={{ height: '370px' }}>
+                <div className='content'>
                   <p id='pro'>
                     VSX Code
                     <span
@@ -1380,8 +1354,8 @@ function Map() {
                     </span>
                   </p>
                   <CodeMirror
-                    style={{ height: 'auto', fontSize: '24px' }}
                     value={code}
+                    id="codeMirror"
                     options={{
                       tabSize: 2,
                       autoCloseBrackets: true,
