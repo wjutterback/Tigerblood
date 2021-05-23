@@ -507,7 +507,7 @@ function Map() {
     let closedChestVar = 0;
     let treeVar = 0;
     let fountainVar = 0;
-    let certificateVar = 0; // Needs to be here even though it it's not affecting flavor dialogue
+    let certificateVar = 0; // It will trigger gameOver()
 
     tileSet.onload = function () {
       let lightRadius = 2;
@@ -1147,7 +1147,7 @@ function Map() {
           );
         }
       }
-      let godmode = true;
+      let godmode = false;
       function handleKey(e) {
         var keyCode = [];
         //Arrows keys
